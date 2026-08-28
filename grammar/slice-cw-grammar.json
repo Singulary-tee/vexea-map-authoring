@@ -1,0 +1,56 @@
+{
+  "format": "vexea-grammar/0.1",
+  "map": "map_1_facility",
+  "slice": "courtyard-warehouse",
+  "fixture": "spec/calibration.md",
+  "constraints": {
+    "barredWords": ["neon", "scifi", "tactical", "futuristic", "cyberpunk", "mecha"],
+    "proceduralFirst": true,
+    "sourced": "vehicles + complex machinery only (provenance/scale/LOD); never procedural tire internals",
+    "noVisiblePrimitiveAtPromotion": true
+  },
+  "families": {
+    "road": {
+      "profile": { "laneWidth": 3.5, "lanes": 2, "shoulder": 0.75, "curb": { "height": 0.15, "width": 0.25 },
+        "sidewalk": { "width": 2.2, "thickness": 0.15 }, "crownSlope": 0.02 },
+      "construction": { "subbase": "asphalt on compacted", "jointInterval": 8, "catchBasinEvery": 24 },
+      "material": { "base": "asphalt", "roughness": 0.9, "weathering": "edge-stain, joint-darkening",
+        "variation": [0, 0.08] },
+      "variation": { "seed": 1, "patchFreq": 0.12 },
+      "distanceTiers": { "LOD0": "full curb+joint+patch detail", "LOD1": "simplified but recognizable", "LOD2": "merge/cull" }
+    },
+    "warehouse": {
+      "profile": { "footprintSnap": 10, "wallRib": { "spacing": 1.2, "depth": 0.06, "width": 0.12 },
+        "parapetHeight": 1.2, "roof": { "slope": 0.04, "overhang": 1.0 } },
+      "construction": { "order": ["mass", "openings", "frame", "service-access", "roof-parapet", "materials", "wear"] },
+      "material": { "cladding": "pressed-metal panel", "roughness": 0.75, "wear": "base/edge scuff",
+        "colorFamily": ["battleship gray", "faded olive", "aged tan"] },
+      "variation": { "bayRhythm": [8, 10, 12], "offset": "seeded", "partChoice": ["panel", "louver", "wall"] },
+      "distanceTiers": { "LOD0": "ribs+panels+openings", "LOD1": "solid mass+openings", "LOD2": "box+parapet" }
+    },
+    "adminBlock": {
+      "profile": { "floorHeight": 3.6, "baseBand": 1.2, "cornice": 0.4, "windowGrid": { "w": 1.8, "h": 1.6 } },
+      "construction": { "order": ["mass", "frame", "windows", "entrance", "roof", "materials"] },
+      "material": { "base": "concrete + glazing frame", "roughness": 0.7, "glazing": "safety-orange frame accents" },
+      "variation": { "bayRhythm": [6, 8], "windowPattern": "seeded" },
+      "distanceTiers": { "LOD0": "windows+frames+reveals", "LOD1": "mass+window holes", "LOD2": "mass" }
+    },
+    "pipeRack": {
+      "profile": { "supportEvery": 6, "deckWidth": 1.2, "pipeDiamRange": [0.15, 0.5], "elevation": 3 },
+      "construction": { "hostSockets": "support columns", "endpoints": ["structure", "equipment", "ground"],
+        "terminationClass": ["structural support", "equipment connection", "facade penetration", "ground support"] },
+      "material": { "base": "steel", "roughness": 0.6, "pipePaint": "safety yellow/orange restrained" },
+      "distanceTiers": { "LOD0": "supports+bends+tie", "LOD1": "runs+supports", "LOD2": "cull at range" }
+    },
+    "coverFamily": {
+      "admission": "creates a decision: break sightline / firing position / retreat / flank / tradeoff",
+      "capsule": { "mustBeUsable": true, "mustNotSealRoute": true },
+      "bands": { "low": [0.3, 0.6], "mid": [0.9, 1.4], "full": 1.7 },
+      "threatElevation": ["ground", "air", "both"],
+      "directionality": ["directional", "shallow", "freestanding"],
+      "examples": [ { "id": "cover-drone-gate-east", "band": "full", "threat": "air", "dir": "directional", "flank": "west" },
+        { "id": "cover-ground-dumpster", "band": "mid", "threat": "ground", "dir": "shallow", "flank": "west" } ]
+    }
+  },
+  "primitivesAllowed": ["temporary blockout", "hidden collision/support proxy", "intentional simple subcomponent in a finished assembly", "explicitly-named low-frequency background"]
+}
