@@ -1,0 +1,68 @@
+{
+  "format": "vexea-blockout/0.1",
+  "map": "map_1_facility",
+  "slice": "courtyard-warehouse",
+  "fixture": "spec/calibration.md",
+  "snapGrid": { "major": 10, "minor": 1 },
+  "zones": ["zone_courtyard", "zone_warehouse"],
+  "segments": [
+    { "id": "seg-ground-courtyard", "category": "ground-surface-type", "name": "courtyard concrete pad",
+      "surface": "concrete", "bounds": { "min": [0, 352], "max": [288, 640] }, "connectivity": ["seg-road-cw"] },
+    { "id": "seg-ground-warehouse", "category": "ground-surface-type", "name": "warehouse floor slab",
+      "surface": "concrete", "bounds": { "min": [0, 128], "max": [288, 352] }, "connectivity": ["seg-road-cw"] },
+    { "id": "seg-road-cw", "category": "ground-surface-type", "name": "courtyard-warehouse service road",
+      "surface": "asphalt", "bounds": { "min": [96, 344], "max": [192, 360] },
+      "connectivity": ["seg-ground-courtyard", "seg-ground-warehouse"] },
+
+    { "id": "seg-bay-gate", "category": "entrance-player", "name": "warehouse loading-bay gate (east)",
+      "bounds": { "min": [192, 344], "max": [256, 352] }, "width": 20, "height": 4.5,
+      "connects": ["seg-road-cw", "warehouse-interior-north"], "dimNote": "admit 1.8m capsule + drone lane" },
+
+    { "id": "bld-warehouse-w", "category": "warehouse-enterable", "name": "west warehouse, 2 floors",
+      "bounds": { "min": [0, 128], "max": [96, 352] }, "height": 12, "floors": 2, "zone": "zone_warehouse",
+      "connectivity": ["bld-courtyard-w", "seg-ground-warehouse"], "note": "pressure/service space" },
+    { "id": "bld-warehouse-service", "category": "service-pressure", "name": "warehouse service utility block",
+      "bounds": { "min": [0, 352], "max": [96, 640] }, "height": 8, "floors": 1, "zone": "zone_warehouse",
+      "connectivity": ["bld-warehouse-w", "bld-courtyard-w"] },
+
+    { "id": "bld-courtyard-w", "category": "building-enterable", "name": "west courtyard office/admin, 2 floors",
+      "bounds": { "min": [0, 352], "max": [96, 576] }, "height": 12, "floors": 2, "zone": "zone_courtyard",
+      "connectivity": ["bld-warehouse-service", "seg-ground-courtyard"] },
+    { "id": "bld-courtyard-center", "category": "building-enterable", "name": "courtyard admin block, 2 floors",
+      "bounds": { "min": [96, 448], "max": [192, 576] }, "height": 12, "floors": 2, "zone": "zone_courtyard",
+      "connectivity": ["seg-ground-courtyard"] },
+    { "id": "bld-courtyard-e", "category": "building-enterable", "name": "east courtyard block",
+      "bounds": { "min": [192, 352], "max": [288, 576] }, "height": 15, "floors": 2, "zone": "zone_courtyard",
+      "connectivity": ["seg-ground-courtyard"] },
+
+    { "id": "wall-bound-courtyard-n", "category": "wall-blocking", "name": "courtyard north perimeter wall",
+      "bounds": { "min": [0, 640], "max": [288, 648] }, "height": 4, "zone": "zone_courtyard" },
+    { "id": "wall-bound-courtyard-w", "category": "wall-blocking", "name": "map west boundary wall",
+      "bounds": { "min": [-8, 128], "max": [0, 640] }, "height": 6 },
+
+    { "id": "cover-drone-gate-east", "category": "cover", "name": "freestanding block cover, east gate flank",
+      "bounds": { "min": [216, 336], "max": [226, 344] }, "height": 1.6,
+      "cover": { "threatElevation": "air", "directionality": "directional", "flank": "west", "interrupts": "rotary approach on road mid" } },
+    { "id": "cover-drone-gate-west", "category": "cover", "name": "freestanding block cover, west gate flank",
+      "bounds": { "min": [178, 336], "max": [188, 344] }, "height": 1.6,
+      "cover": { "threatElevation": "air", "directionality": "directional", "flank": "east", "interrupts": "rotary lane mid-courtyard" } },
+    { "id": "cover-ground-dumpster", "category": "cover", "name": "dumpster (ground cover, SE)",
+      "bounds": { "min": [240, 500], "max": [248, 508] }, "height": 1.4,
+      "cover": { "threatElevation": "ground", "directionality": "shallow", "flank": "west", "interrupts": "wheeled/ground lane across courtyard SE" } },
+    { "id": "cover-ground-crate", "category": "cover", "name": "crate stack (ground cover, NE)",
+      "bounds": { "min": [200, 590], "max": [210, 600] }, "height": 1.1,
+      "cover": { "threatElevation": "ground", "directionality": "shallow", "flank": "south", "interrupts": "ground sightline from gate toward north wall" } },
+
+    { "id": "killzone-gate", "category": "kill-zone", "name": "gate approach kill-zone closure",
+      "bounds": { "min": [144, 344], "max": [176, 356] }, "threatened": "bld-warehouse-w roof",
+      "deploymentClosure": "closes rotary direct-over battle at gate" },
+
+    { "id": "spawn-player-slice", "category": "spawn", "name": "slice player entry (courtyard SE)",
+      "bounds": { "min": [256, 600], "max": [288, 640] }, "teamAlloc": "mixed" }
+  ],
+  "openQuestions": [
+    "warehouse interior traversable height vs 12m mass + 2 floors — verify stair junctions",
+    "courtyard north wall gap for aerial/wall running vs capped 4m wall",
+    "tunnels/plant/bridge/core zones not in this slice — expansion later"
+  ]
+}

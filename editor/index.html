@@ -1,0 +1,130 @@
+<!doctype html>
+<!-- VEXEA Map Editor — STANDALONE, LLM-optimized. Not part of the game render path.
+     Authors vexea-map/0.1 JSON (see ../spec/map-schema.md). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VEXEA Map Editor (standalone)</title>
+<style>
+  html,body{margin:0;height:100%;background:#111;color:#ddd;font:13px/1.4 monospace}
+  #app{display:flex;height:100%}
+  #side{width:260px;overflow-y:auto;background:#1a1a1a;padding:10px;border-right:1px solid #333}
+  #view{flex:1;position:relative}
+  .lyr{display:flex;align-items:center;gap:6px;margin:4px 0}
+  .sw{width:14px;height:14px;border:1px solid #555}
+  button{background:#2a2a2a;color:#ddd;border:1px solid #444;padding:4px 8px;margin:2px 0;cursor:pointer;font:inherit}
+  pre{white-space:pre-wrap;color:#8f8}
+</style>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js",
+"three/webgpu":"https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.webgpu.js",
+"three/tsl":"https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.tsl.js",
+"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/"}}
+</script>
+</head>
+<body>
+<div id="app">
+  <div id="side">
+    <b>VEXEA Map Editor</b> <span id="status">loading…</span>
+    <div><input type="file" id="file" accept=".json"></div>
+    <div id="layers"></div>
+    <button id="sim">toggle sim overlay</button>
+    <button id="export">export JSON</button>
+    <pre id="log"></pre>
+  </div>
+  <div id="view"></div>
+</div>
+<script type="module">
+import * as THREE from 'three/webgpu';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const LAYER_COLORS = { terrain:0x9a5f3f, structures:0x777777, cover:0x3f7f3f,
+  routes:0x3f6fbf, spawns:0xbf3f3f, props:0xbf9f3f, zones:0xbf3fbf };
+let spec=null, scene, renderer, camera, controls;
+const layerGroups={};
+function log(m){ document.getElementById('log').textContent += m+'\n'; }
+function status(s){ document.getElementById('status').textContent=s; }
+async function init(){
+  renderer = new THREE.WebGPURenderer({ antialias:true });
+  await renderer.init();
+  renderer.setSize(innerWidth-260, innerHeight);
+  document.getElementById('view').appendChild(renderer.domElement);
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0e1013);
+  scene.fog = new THREE.Fog(0x0e1013, 120, 600);
+  camera = new THREE.PerspectiveCamera(55, (innerWidth-260)/innerHeight, 0.1, 2000);
+  camera.position.set(60,45,60);
+  controls = new OrbitControls(camera, renderer.domElement);
+  addEventListener('resize', ()=>{ renderer.setSize(innerWidth-260,innerHeight);
+    camera.aspect=(innerWidth-260)/innerHeight; camera.updateProjectionMatrix(); });
+  renderer.setAnimationLoop(()=>{ controls.update(); renderer.render(scene,camera); });
+  status('ready');
+}
+function clearGroups(){ for(const k in layerGroups){ scene.remove(layerGroups[k]); delete layerGroups[k]; } }
+function buildLayer(name, data){
+  const g = new THREE.Group(); g.name='layer:'+name;
+  if(name==='terrain' && data?.heights){
+    const {size,cell,heights} = data;
+    const geo = new THREE.PlaneGeometry(size*cell, size*cell, size-1, size-1);
+    geo.rotateX(-Math.PI/2);
+    const pos = geo.attributes.position;
+    for(let i=0;i<pos.count;i++){
+      const ix=Math.round(i%size), iz=Math.floor(i/size);
+      pos.setY(i, (heights[iz]?.[ix] ?? 0));
+    }
+    geo.computeVertexNormals();
+    g.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color:LAYER_COLORS[name], roughness:.95 })));
+  }
+  for(const s of (Array.isArray(data)?data:(data?.items ?? []))){
+    if(name==='structures' && s.pos){
+      const m = new THREE.Mesh(new THREE.BoxGeometry(...s.size),
+        new THREE.MeshStandardMaterial({ color:LAYER_COLORS[name], roughness:.8 }));
+      m.position.set(...s.pos); m.rotation.y = s.rotY||0; g.add(m);
+    } else if(name==='routes' && s.points){
+      const pts = s.points.map(p=>new THREE.Vector3(p[0],1,p[1]));
+      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+        new THREE.LineBasicMaterial({color:LAYER_COLORS[name]})));
+    } else if((name==='spawns'||name==='zones') && s.pos){
+      const m = new THREE.Mesh(new THREE.SphereGeometry(name==='zones'?(s.radius||5):1.2, 12, 8),
+        new THREE.MeshBasicMaterial({color:LAYER_COLORS[name], wireframe:true}));
+      m.position.set(...s.pos); g.add(m);
+    } else if(name==='cover' && s.pos){
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(s.radius||1,s.radius||1,s.height||1.5,8),
+        new THREE.MeshStandardMaterial({color:LAYER_COLORS[name], roughness:1}));
+      m.position.set(s.pos[0],(s.height||1.5)/2,s.pos[2]); g.add(m);
+    }
+  }
+  scene.add(g); layerGroups[name]=g;
+}
+function buildUI(){
+  const box = document.getElementById('layers'); box.innerHTML='';
+  for(const name of ['terrain','structures','cover','routes','spawns','props','zones']){
+    const row = document.createElement('div'); row.className='lyr';
+    const sw = document.createElement('span'); sw.className='sw';
+    sw.style.background = '#'+LAYER_COLORS[name].toString(16).padStart(6,'0');
+    const cb = document.createElement('input'); cb.type='checkbox'; cb.checked=true;
+    cb.onchange = ()=>{ layerGroups[name] && (layerGroups[name].visible=cb.checked); };
+    row.append(cb, sw, document.createTextNode(name)); box.appendChild(row);
+  }
+}
+function load(specObj){
+  spec = specObj; clearGroups(); buildUI();
+  for(const [name,data] of Object.entries(spec.layers ?? {})) buildLayer(name,data);
+  status('loaded '+(spec.id||'?'));
+}
+document.getElementById('file').onchange = async e=>{
+  const f = e.target.files[0]; if(!f) return;
+  try{ load(JSON.parse(await f.text())); }catch(err){ log('ERR '+err.message); }
+};
+document.getElementById('export').onclick = ()=>{
+  const blob = new Blob([JSON.stringify(spec,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=(spec?.id||'map')+'.json'; a.click();
+};
+document.getElementById('sim').onclick = ()=>log('sim overlay: not yet wired');
+init();
+if(location.protocol.startsWith('http')){
+  fetch('./map-v1.json').then(r=>r.ok?r.json():null).then(s=>{ if(s) load(s); }).catch(()=>{});
+}
+</script>
+</body>
+</html>
