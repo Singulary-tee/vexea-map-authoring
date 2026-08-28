@@ -37,8 +37,14 @@
 <script type="module">
 import * as THREE from 'three/webgpu';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-const LAYER_COLORS = { terrain:0x9a5f3f, structures:0x777777, cover:0x3f7f3f,
-  routes:0x3f6fbf, spawns:0xbf3f3f, props:0xbf9f3f, zones:0xbf3fbf };
+// Blockout renderer: category -> color. Ground drawn as thin pads; volumes as wire+solid.
+const CAT_COLOR = { 'ground-surface-type':0x5a5a5a,'warehouse-enterable':0x8a5a2a,
+  'building-enterable':0x6a7a8a,'service-pressure':0x9a8a3a,'wall-blocking':0x3a4a5a,
+  'entrance-player':0x2a8a2a,'cover':0x2a6a2a,'kill-zone':0xaa2a2a,'spawn':0x6a2a8a,
+  'overhead-cover':0x2a9a9a,'bridge':0x8a8a8a,'tunnel-passage':0x3a3a4a,
+  'hole-drone-entry':0xaa6a2a,'mountain-boundary':0x6a5a4a,'waterbody-boundary':0x2a4a9a,
+  'stair':0x9a5a5a,'incline':0x9a7a5a,'tower':0x5a5a9a,'facade-non-enterable':0x4a4a4a };
+const FALLBACK=0x55aaff;
 let spec=null, scene, renderer, camera, controls;
 const layerGroups={};
 function log(m){ document.getElementById('log').textContent += m+'\n'; }
@@ -50,80 +56,80 @@ async function init(){
   document.getElementById('view').appendChild(renderer.domElement);
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x0e1013);
-  scene.fog = new THREE.Fog(0x0e1013, 120, 600);
-  camera = new THREE.PerspectiveCamera(55, (innerWidth-260)/innerHeight, 0.1, 2000);
-  camera.position.set(60,45,60);
+  scene.fog = new THREE.Fog(0x0e1013, 400, 1200);
+  const hemi=new THREE.HemisphereLight(0x8899bb,0x332211,0.7); scene.add(hemi);
+  const key=new THREE.DirectionalLight(0xffffff,1.2); key.position.set(150,300,-150); scene.add(key);
+  camera = new THREE.PerspectiveCamera(55, (innerWidth-260)/innerHeight, 0.1, 4000);
+  camera.position.set(144,140,400);
   controls = new OrbitControls(camera, renderer.domElement);
+  controls.target.set(144,0,360);
   addEventListener('resize', ()=>{ renderer.setSize(innerWidth-260,innerHeight);
     camera.aspect=(innerWidth-260)/innerHeight; camera.updateProjectionMatrix(); });
   renderer.setAnimationLoop(()=>{ controls.update(); renderer.render(scene,camera); });
   status('ready');
 }
 function clearGroups(){ for(const k in layerGroups){ scene.remove(layerGroups[k]); delete layerGroups[k]; } }
-function buildLayer(name, data){
-  const g = new THREE.Group(); g.name='layer:'+name;
-  if(name==='terrain' && data?.heights){
-    const {size,cell,heights} = data;
-    const geo = new THREE.PlaneGeometry(size*cell, size*cell, size-1, size-1);
-    geo.rotateX(-Math.PI/2);
-    const pos = geo.attributes.position;
-    for(let i=0;i<pos.count;i++){
-      const ix=Math.round(i%size), iz=Math.floor(i/size);
-      pos.setY(i, (heights[iz]?.[ix] ?? 0));
-    }
-    geo.computeVertexNormals();
-    g.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color:LAYER_COLORS[name], roughness:.95 })));
-  }
-  for(const s of (Array.isArray(data)?data:(data?.items ?? []))){
-    if(name==='structures' && s.pos){
-      const m = new THREE.Mesh(new THREE.BoxGeometry(...s.size),
-        new THREE.MeshStandardMaterial({ color:LAYER_COLORS[name], roughness:.8 }));
-      m.position.set(...s.pos); m.rotation.y = s.rotY||0; g.add(m);
-    } else if(name==='routes' && s.points){
-      const pts = s.points.map(p=>new THREE.Vector3(p[0],1,p[1]));
-      g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
-        new THREE.LineBasicMaterial({color:LAYER_COLORS[name]})));
-    } else if((name==='spawns'||name==='zones') && s.pos){
-      const m = new THREE.Mesh(new THREE.SphereGeometry(name==='zones'?(s.radius||5):1.2, 12, 8),
-        new THREE.MeshBasicMaterial({color:LAYER_COLORS[name], wireframe:true}));
-      m.position.set(...s.pos); g.add(m);
-    } else if(name==='cover' && s.pos){
-      const m = new THREE.Mesh(new THREE.CylinderGeometry(s.radius||1,s.radius||1,s.height||1.5,8),
-        new THREE.MeshStandardMaterial({color:LAYER_COLORS[name], roughness:1}));
-      m.position.set(s.pos[0],(s.height||1.5)/2,s.pos[2]); g.add(m);
-    }
-  }
-  scene.add(g); layerGroups[name]=g;
+function segCategory(s){ return s.category || 'unknown'; }
+function boxFromBounds(s){
+  const [minX,minZ]=s.bounds.min,[maxX,maxZ]=s.bounds.max;
+  const w=maxX-minX, d=maxZ-minZ, h=s.height||(s.bounds.h?.max??4);
+  const y = (s.bounds.y ? s.bounds.y.min : (s.category==='ground-surface-type'?0:0));
+  const geo=new THREE.BoxGeometry(w,h,d);
+  const mat=new THREE.MeshStandardMaterial({ color:CAT_COLOR[segCategory(s)]||FALLBACK,
+    transparent:true, opacity:s.category==='ground-surface-type'?0.55:(s.category==='cover'?0.7:0.85),
+    roughness:0.9 });
+  const mesh=new THREE.Mesh(geo,mat);
+  mesh.position.set((minX+maxX)/2, y+h/2, (minZ+maxZ)/2);
+  const edges=new THREE.LineSegments(new THREE.EdgesGeometry(geo),
+    new THREE.LineBasicMaterial({ color:0x111111, transparent:true, opacity:0.6 }));
+  mesh.add(edges);
+  mesh.name=s.id;
+  return mesh;
+}
+function buildBlocks(){
+  const g=new THREE.Group(); g.name='segments';
+  for(const s of (spec?.segments??[])){ if(s.bounds) g.add(boxFromBounds(s)); }
+  scene.add(g); layerGroups['segments']=g;
 }
 function buildUI(){
-  const box = document.getElementById('layers'); box.innerHTML='';
-  for(const name of ['terrain','structures','cover','routes','spawns','props','zones']){
-    const row = document.createElement('div'); row.className='lyr';
-    const sw = document.createElement('span'); sw.className='sw';
-    sw.style.background = '#'+LAYER_COLORS[name].toString(16).padStart(6,'0');
-    const cb = document.createElement('input'); cb.type='checkbox'; cb.checked=true;
-    cb.onchange = ()=>{ layerGroups[name] && (layerGroups[name].visible=cb.checked); };
-    row.append(cb, sw, document.createTextNode(name)); box.appendChild(row);
+  const box=document.getElementById('layers'); box.innerHTML='';
+  const names=Object.keys(CAT_COLOR);
+  for(const name of names){
+    const row=document.createElement('div'); row.className='lyr';
+    const sw=document.createElement('span'); sw.className='sw';
+    sw.style.background='#'+CAT_COLOR[name].toString(16).padStart(6,'0');
+    const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=true;
+    cb.onchange=()=>{ // filter visible by category (store on group children)
+      for(const m of (layerGroups['segments']?.children??[])){
+        const cat=m.userData?.cat;
+        if(cat===name) m.visible=cb.checked;
+      } };
+    row.append(cb,sw,document.createTextNode(name)); box.appendChild(row);
+  }
+  // attach category to each mesh for filtering
+  for(const s of (spec?.segments??[])){
+    if(!s.bounds) continue;
+    const m=layerGroups['segments']?.children.find(c=>c.name===s.id);
+    if(m) m.userData={cat:segCategory(s)};
   }
 }
 function load(specObj){
-  spec = specObj; clearGroups(); buildUI();
-  for(const [name,data] of Object.entries(spec.layers ?? {})) buildLayer(name,data);
-  status('loaded '+(spec.id||'?'));
+  spec=specObj; clearGroups(); if(spec?.segments) buildBlocks(); buildUI();
+  status('loaded '+(spec?.slice||spec?.id||'?')+' ('+(spec?.segments?.length||0)+' segments)');
 }
 document.getElementById('file').onchange = async e=>{
-  const f = e.target.files[0]; if(!f) return;
+  const f=e.target.files[0]; if(!f) return;
   try{ load(JSON.parse(await f.text())); }catch(err){ log('ERR '+err.message); }
 };
 document.getElementById('export').onclick = ()=>{
-  const blob = new Blob([JSON.stringify(spec,null,2)],{type:'application/json'});
-  const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download=(spec?.id||'map')+'.json'; a.click();
+  const blob=new Blob([JSON.stringify(spec,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=(spec?.slice||spec?.id||'blockout')+'.json'; a.click();
 };
-document.getElementById('sim').onclick = ()=>log('sim overlay: not yet wired');
+document.getElementById('sim').onclick = ()=>log('sim: run node tools/blockout-validate.mjs on this file');
 init();
 if(location.protocol.startsWith('http')){
-  fetch('./map-v1.json').then(r=>r.ok?r.json():null).then(s=>{ if(s) load(s); }).catch(()=>{});
+  fetch('./../blockout/blockout-slice-cw.json').then(r=>r.ok?r.json():null).then(s=>{ if(s) load(s); }).catch(()=>{});
 }
 </script>
 </body>
