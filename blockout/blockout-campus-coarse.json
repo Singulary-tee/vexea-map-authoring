@@ -38,7 +38,7 @@
 
     { "id": "tun-entrance-w", "category": "tunnel-passage", "name": "tunnel entrance west (warehouse access)",
       "bounds": { "min": [96, 120], "max": [144, 136] }, "height": 3, "y": { "min": -20, "max": 0 }, "zone": "zone_tunnels",
-      "connects": ["bld-warehouse-w", "seg-tunnel-floor"], "xray": true },
+      "connects": ["zone_warehouse", "seg-tunnel-floor"], "xray": true },
     { "id": "tun-entrance-s", "category": "tunnel-passage", "name": "tunnel entrance south (plant access)",
       "bounds": { "min": [520, 100], "max": [576, 136] }, "height": 3, "y": { "min": -20, "max": 0 }, "zone": "zone_tunnels",
       "connects": ["seg-ground-plant", "seg-tunnel-floor"], "xray": true },

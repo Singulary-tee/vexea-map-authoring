@@ -16,7 +16,7 @@
 
     { "id": "seg-bay-gate", "category": "entrance-player", "name": "warehouse loading-bay gate (east)",
       "bounds": { "min": [192, 344], "max": [256, 352] }, "width": 20, "height": 4.5,
-      "connects": ["seg-road-cw", "warehouse-interior-north"], "dimNote": "admit 1.8m capsule + drone lane" },
+      "connects": ["seg-road-cw", "seg-ground-warehouse"], "dimNote": "admit 1.8m capsule + drone lane" },
 
     { "id": "bld-warehouse-w", "category": "warehouse-enterable", "name": "west warehouse, 2 floors",
       "bounds": { "min": [0, 128], "max": [96, 352] }, "height": 12, "floors": 2, "zone": "zone_warehouse",

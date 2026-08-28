@@ -97,7 +97,7 @@
       "height": 4.5,
       "connects": [
         "seg-road-cw",
-        "warehouse-interior-north"
+        "seg-ground-warehouse"
       ],
       "dimNote": "admit 1.8m capsule + drone lane"
     },
@@ -612,7 +612,7 @@
       },
       "zone": "zone_tunnels",
       "connects": [
-        "bld-warehouse-w",
+        "zone_warehouse",
         "seg-tunnel-floor"
       ],
       "xray": true

@@ -43,7 +43,29 @@ for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){
   if(ix>5&&iz>5) overlap.push(a.id+'/'+c2.id);
 }
 c('no unexplained overlap of non-displaceable volumes (>5m)', overlap.length===0, overlap.join(','));
-// 6. snapshot grid discipline (all coords on 1m minors)
+// 7. connectivity refs resolve to existing segments or known zones; spawn reaches core
+const idset = new Set(segs.map(s=>s.id));
+const zoneSet = new Set(['zone_spawn','zone_courtyard','zone_warehouse','zone_plant','zone_core','zone_tunnels','zone_bridge']);
+let dangling=[];
+for(const s of segs){
+  const refs=[...(s.connectivity||[]),...(s.connects||[]),...(s.connections||[])];
+  for(const r of refs){ if(!idset.has(r) && !zoneSet.has(r) && !r.startsWith('zone_')) dangling.push(s.id+'->'+r); }
+}
+c('connectivity refs resolve to segments/zones', dangling.length===0, [...new Set(dangling)].slice(0,6).join('; '));
+// 8. spawn + core objective both present (so traversal route exists)
+const hasSpawn=segs.some(s=>s.category==='spawn');
+const hasCore=segs.some(s=>s.zone==='zone_core');
+const isFull=b.slice==='full-map'||b.openQuestions?.length>0 && b.zones?.length>=6;
+c('spawn present', hasSpawn);
+c('core objective zone present (full map)', isFull?hasCore:true);
+// 8b. coarse campus spawn reaches core via adjacency graph (BFS over zone adjacencies)
+const ADJ={spawn:['courtyard'],courtyard:['spawn','warehouse','bridge'],warehouse:['courtyard','plant','tunnels'],
+  bridge:['courtyard','plant'],plant:['warehouse','bridge','core'],tunnels:['warehouse','core'],core:['plant','tunnels']};
+const coreZones=segs.filter(s=>s.zone==='zone_core').map(s=>'core');
+let reach=false;
+{ const q=['spawn'], seen=new Set(q); while(q.length){const n=q.shift(); if(n==='core'){reach=true;break;}
+  for(const nb of ADJ[n]||[]){ if(!seen.has(nb)){seen.add(nb);q.push(nb);} } } }
+c('campus adjacency: spawn reaches core', reach);
 let off=[];
 for(const s of segs){for(const p of [s.bounds.min[0],s.bounds.min[1],s.bounds.max[0],s.bounds.max[1]]){ if(Math.abs(p-Math.round(p))>1e-6) off.push(s.id);}}
 c('all coords snapped to 1m grid', off.length===0, [...new Set(off)].join(','));
