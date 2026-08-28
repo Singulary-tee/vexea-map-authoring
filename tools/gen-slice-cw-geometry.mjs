@@ -12,7 +12,7 @@ const blockout = read('blockout/blockout-slice-cw.json');
 
 let THREE, GLTFExporter;
 try {
-  THREE = (await import('three')).default;
+  THREE = await import('three'); // r184: named exports on the namespace (import * as THREE)
   GLTFExporter = (await import('three/examples/jsm/exporters/GLTFExporter.js')).GLTFExporter;
 } catch (e) {
   console.error('three import failed (run on codespace in the game repo, or set NODE_PATH):', e.message);
