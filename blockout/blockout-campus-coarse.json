@@ -1,0 +1,59 @@
+{
+  "format": "vexea-blockout/0.1",
+  "map": "map_1_facility",
+  "slice": "campus-coarse",
+  "fixture": "spec/calibration.md",
+  "snapGrid": { "major": 10, "minor": 1 },
+  "zones": ["zone_spawn", "zone_plant", "zone_core", "zone_tunnels", "zone_bridge"],
+  "note": "COARSE blockout for the zones outside the detailed Courtyard<->Warehouse slice. Lower confidence than that slice; primitives stand in for building/road/utility categories.",
+  "segments": [
+    { "id": "seg-ground-spawn", "category": "ground-surface-type", "name": "spawn zone concrete apron",
+      "surface": "concrete", "bounds": { "min": [0, 640], "max": [128, 768] }, "zone": "zone_spawn" },
+    { "id": "seg-ground-plant", "category": "ground-surface-type", "name": "plant zone concrete slab",
+      "surface": "concrete", "bounds": { "min": [288, 128], "max": [768, 768] }, "zone": "zone_plant" },
+    { "id": "seg-ground-core-int", "category": "ground-surface-type", "name": "core interior floor",
+      "surface": "epoxy-concrete", "bounds": { "min": [320, 320], "max": [448, 448] }, "zone": "zone_core" },
+    { "id": "seg-tunnel-floor", "category": "ground-surface-type", "name": "tunnel floor (elev -20)",
+      "surface": "concrete", "bounds": { "min": [128, 0], "max": [768, 128] }, "y": { "min": -20, "max": -16 }, "zone": "zone_tunnels" },
+
+    { "id": "bld-plant-hall-n", "category": "building-enterable", "name": "plant hall north, 2 floors",
+      "bounds": { "min": [300, 180], "max": [500, 300] }, "height": 14, "floors": 2, "zone": "zone_plant" },
+    { "id": "bld-plant-hall-e", "category": "building-enterable", "name": "plant hall east, large",
+      "bounds": { "min": [560, 300], "max": [740, 560] }, "height": 16, "floors": 1, "zone": "zone_plant" },
+    { "id": "bld-plant-service", "category": "service-pressure", "name": "plant service/utility yard strip",
+      "bounds": { "min": [300, 600], "max": [460, 760] }, "height": 8, "floors": 1, "zone": "zone_plant" },
+    { "id": "bld-core", "category": "building-enterable", "name": "LLM Core (airAccess false, interior)",
+      "bounds": { "min": [320, 320], "max": [448, 448] }, "height": 10, "floors": 1, "zone": "zone_core",
+      "connectivity": ["bld-plant-hall-e", "seg-road-plant-core"], "note": "win-condition objective volume" },
+    { "id": "bld-spawn-shelter", "category": "building-enterable", "name": "spawn admin/shelter block",
+      "bounds": { "min": [40, 652], "max": [108, 732] }, "height": 8, "floors": 1, "zone": "zone_spawn" },
+    { "id": "bld-spawn-wall", "category": "wall-blocking", "name": "spawn north perimeter wall",
+      "bounds": { "min": [0, 748], "max": [128, 760] }, "height": 4, "zone": "zone_spawn" },
+
+    { "id": "seg-road-plant-core", "category": "ground-surface-type", "name": "plant-core service road",
+      "surface": "asphalt", "bounds": { "min": [480, 340], "max": [520, 448] }, "zone": "zone_plant" },
+    { "id": "seg-bridge-cw", "category": "bridge", "name": "courtyard/plant overpass bridge",
+      "bounds": { "min": [248, 456], "max": [328, 536] }, "height": 2, "y": { "min": 4, "max": 6 }, "zone": "zone_bridge",
+      "connectivity": ["zone_courtyard", "zone_plant"], "note": "elevated connector; air lane under" },
+
+    { "id": "tun-entrance-w", "category": "tunnel-passage", "name": "tunnel entrance west (warehouse access)",
+      "bounds": { "min": [96, 120], "max": [144, 136] }, "height": 3, "y": { "min": -20, "max": 0 }, "zone": "zone_tunnels",
+      "connects": ["bld-warehouse-w", "seg-tunnel-floor"], "xray": true },
+    { "id": "tun-entrance-s", "category": "tunnel-passage", "name": "tunnel entrance south (plant access)",
+      "bounds": { "min": [520, 100], "max": [576, 136] }, "height": 3, "y": { "min": -20, "max": 0 }, "zone": "zone_tunnels",
+      "connects": ["seg-ground-plant", "seg-tunnel-floor"], "xray": true },
+    { "id": "tun-wall-n", "category": "wall-blocking", "name": "tunnel north wall",
+      "bounds": { "min": [128, 120], "max": [768, 128] }, "height": 4, "y": { "min": -20, "max": 0 }, "zone": "zone_tunnels" },
+
+    { "id": "spawn-player-campus", "category": "spawn", "name": "campus player spawn (zone_spawn)",
+      "bounds": { "min": [0, 640], "max": [128, 740] }, "teamAlloc": "mixed", "zone": "zone_spawn" },
+    { "id": "killzone-core-n", "category": "kill-zone", "name": "core north approach closure",
+      "bounds": { "min": [320, 452], "max": [448, 500] }, "threatened": "bld-core", "zone": "zone_plant" }
+  ],
+  "openQuestions": [
+    "bridge elevation vs plant/courtyard ground + drone air lane clearance",
+    "core interior layout + camera/surveillance mapping (airAccess false)",
+    "tunnels under-warehouse/plant junctions + X-ray visibility semantics",
+    "these zones are coarse ONLY; detailed grammar comes slice-by-slice after c-w slice acceptance"
+  ]
+}
