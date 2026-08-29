@@ -11,6 +11,18 @@ const read = p => JSON.parse(readFileSync(join(root, p), 'utf8'));
 const blockout = read('blockout/blockout-slice-cw.json');
 
 let THREE, GLTFExporter;
+// Node shim: three's GLTFExporter (binary) uses FileReader.readAsArrayBuffer on Blobs.
+// Node 24 has global Blob; provide a minimal FileReader before the exporter runs.
+if (typeof globalThis.FileReader === 'undefined') {
+  globalThis.FileReader = class {
+    readAsArrayBuffer(blob) {
+      blob.arrayBuffer().then(b => { this.result = b; this.onloadend?.({ target: this }); this.onload?.({ target: this }); });
+    }
+    readAsDataURL(blob) {
+      blob.arrayBuffer().then(b => { this.result = 'data:application/octet-stream;base64,' + Buffer.from(b).toString('base64'); this.onloadend?.({ target: this }); this.onload?.({ target: this }); });
+    }
+  };
+}
 try {
   THREE = await import('three'); // r184: named exports on the namespace (import * as THREE)
   GLTFExporter = (await import('three/examples/jsm/exporters/GLTFExporter.js')).GLTFExporter;
