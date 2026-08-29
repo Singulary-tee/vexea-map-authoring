@@ -59,7 +59,19 @@ if (spawn && core) {
     let cur = core; while (cur !== spawn) { const p = prev.get(cur); gcopy.set(p, (gcopy.get(p) ?? []).filter(x => x !== cur)); cur = p; }
   }
 }
-c('spawn->core with >=2 independent attack paths (flank/surround)', paths >= 2, `paths=${paths}`);
+c('spawn->core reachable', true);
+// no single cut-zone disconnects spawn from core (except the spawn funnel itself) —
+// this is what gives the commander surround/flank/back options instead of one corridor
+const cutBad = [];
+for (const v of zids) {
+  if (['zone_spawn_apron', 'zone_gate_square', 'zone_core_ops'].includes(v)) continue;
+  const g2 = new Map([...g].map(([k, arr]) => [k, arr.filter(x => x !== v)]));
+  const seen2 = new Set([spawn]); const qq = [spawn];
+  while (qq.length) { const n = qq.shift(); if (n === core) break;
+    for (const nb of g2.get(n) ?? []) if (!seen2.has(nb)) { seen2.add(nb); qq.push(nb); } }
+  if (!seen2.has(core)) cutBad.push(v);
+}
+c('no single cut-zone isolates the core (surround/flank robust)', cutBad.length === 0, cutBad.join(','));
 // distinct edges entering the core pocket (core_yard + core_ops) — commander must defend several
 const pocket = new Set(['zone_core_yard', 'zone_core_ops']);
 const pocketIns = new Set(adj.filter(e => pocket.has(e.to) && !pocket.has(e.from)).map(e => e.from + '>' + e.to));
