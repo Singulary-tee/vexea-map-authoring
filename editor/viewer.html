@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- facility-v3 GLB viewer for automated screenshot verification (img2threejs review gate) -->
+<html><head><meta charset="utf-8"><style>html,body{margin:0;height:100%;background:#87a5c4}canvas{display:block}</style></head>
+<body><script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x87a5c4);
+scene.fog = new THREE.Fog(0x87a5c4, 600, 1600);
+const cam = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 1, 4000);
+cam.position.set(-500, 380, 500);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+const sun = new THREE.DirectionalLight(0xfff2dd, 2.6);
+sun.position.set(-400, 600, 300);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.left = -600; sun.shadow.camera.right = 600;
+sun.shadow.camera.top = 600; sun.shadow.camera.bottom = -600;
+scene.add(sun, new THREE.HemisphereLight(0xbdd3e8, 0x54524c, 1.1));
+// ground
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(2200, 1800), new THREE.MeshStandardMaterial({ color: 0x6b6d66, roughness: 1 }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true;
+scene.add(ground);
+const controls = new OrbitControls(cam, renderer.domElement);
+new GLTFLoader().load('./facility-v3.glb', (g) => {
+  g.scene.traverse(o => { if (o.isMesh) { o.castShadow = o.receiveShadow = true; } });
+  scene.add(g.scene);
+});
+window.__ready = true;
+(function loop(){ requestAnimationFrame(loop); renderer.render(scene, cam); })();
+</script></body></html>
