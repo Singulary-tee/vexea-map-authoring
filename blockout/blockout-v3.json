@@ -1,0 +1,556 @@
+{
+  "$schema": "blockout-v3",
+  "meta": {
+    "name": "facility-v3",
+    "source": "user blockout target (b4fa5260 webp, ingested 2026-08-30)",
+    "world": {
+      "minX": -460,
+      "maxX": 460,
+      "minZ": -320,
+      "maxZ": 320
+    },
+    "note": "Authored from the user's annotated target map. Coordinates are the target's own labels; sizes estimated from its scale bar. Modifications permitted per user: not 1:1."
+  },
+  "structures": [
+    {
+      "id": "gatehouse",
+      "name": "Gatehouse",
+      "x": -292,
+      "z": 142,
+      "w": 42,
+      "d": 40,
+      "h": 10,
+      "floors": 2,
+      "role": "entry control",
+      "enterable": true
+    },
+    {
+      "id": "northServiceShed",
+      "name": "North Service Shed",
+      "x": -176,
+      "z": 80,
+      "w": 66,
+      "d": 42,
+      "h": 9,
+      "floors": 1,
+      "role": "service",
+      "enterable": true
+    },
+    {
+      "id": "pressureStore",
+      "name": "Pressure Store",
+      "x": 26,
+      "z": 138,
+      "w": 52,
+      "d": 36,
+      "h": 9,
+      "floors": 1,
+      "role": "storage",
+      "enterable": true
+    },
+    {
+      "id": "yardUtilityStack",
+      "name": "Yard Utility Stack",
+      "x": 126,
+      "z": 78,
+      "w": 26,
+      "d": 26,
+      "h": 18,
+      "floors": 2,
+      "role": "utility",
+      "enterable": false
+    },
+    {
+      "id": "serviceTower",
+      "name": "Service Tower",
+      "x": 258,
+      "z": 48,
+      "w": 30,
+      "d": 30,
+      "h": 30,
+      "floors": 5,
+      "role": "overwatch",
+      "enterable": true
+    },
+    {
+      "id": "loadingHall",
+      "name": "Loading Hall",
+      "x": -66,
+      "z": 62,
+      "w": 72,
+      "d": 56,
+      "h": 12,
+      "floors": 1,
+      "role": "logistics",
+      "enterable": true
+    },
+    {
+      "id": "processingHall",
+      "name": "Processing Hall",
+      "x": 214,
+      "z": -26,
+      "w": 104,
+      "d": 74,
+      "h": 26,
+      "floors": 5,
+      "role": "primary industry",
+      "enterable": true,
+      "raisedBase": 6
+    },
+    {
+      "id": "substation",
+      "name": "Substation",
+      "x": 330,
+      "z": 40,
+      "w": 40,
+      "d": 30,
+      "h": 8,
+      "floors": 1,
+      "role": "power",
+      "enterable": false
+    },
+    {
+      "id": "plantAnnex",
+      "name": "Plant Annex",
+      "x": 304,
+      "z": -92,
+      "w": 70,
+      "d": 60,
+      "h": 16,
+      "floors": 2,
+      "role": "industry",
+      "enterable": true
+    },
+    {
+      "id": "maintenanceBlock",
+      "name": "Maintenance Block",
+      "x": -184,
+      "z": -20,
+      "w": 82,
+      "d": 62,
+      "h": 12,
+      "floors": 2,
+      "role": "workshops",
+      "enterable": true
+    },
+    {
+      "id": "deploymentBays",
+      "name": "Deployment Bays",
+      "x": -100,
+      "z": -70,
+      "w": 44,
+      "d": 26,
+      "h": 8,
+      "floors": 1,
+      "role": "spawn bays",
+      "enterable": true
+    },
+    {
+      "id": "securityHall",
+      "name": "Security Hall",
+      "x": 38,
+      "z": -144,
+      "w": 72,
+      "d": 46,
+      "h": 14,
+      "floors": 2,
+      "role": "security",
+      "enterable": true,
+      "raisedThreshold": 1.5
+    },
+    {
+      "id": "coreYardShelter",
+      "name": "Core Yard Shelter",
+      "x": -66,
+      "z": -230,
+      "w": 46,
+      "d": 36,
+      "h": 7,
+      "floors": 1,
+      "role": "cover",
+      "enterable": false
+    },
+    {
+      "id": "coreOpsHall",
+      "name": "Core Operations Hall",
+      "x": 48,
+      "z": -258,
+      "w": 92,
+      "d": 52,
+      "h": 34,
+      "floors": 6,
+      "role": "objective",
+      "enterable": true
+    },
+    {
+      "id": "coreServiceWing",
+      "name": "Core Service Wing",
+      "x": 148,
+      "z": -240,
+      "w": 52,
+      "d": 30,
+      "h": 9,
+      "floors": 1,
+      "role": "flank door",
+      "enterable": true
+    },
+    {
+      "id": "mixCourts",
+      "name": "Concrete / Mix Courts",
+      "x": -60,
+      "z": 0,
+      "w": 54,
+      "d": 42,
+      "h": 0,
+      "floors": 0,
+      "role": "open yard",
+      "enterable": false
+    }
+  ],
+  "terrain": {
+    "waterEdge": [
+      [
+        420,
+        300
+      ],
+      [
+        440,
+        180
+      ],
+      [
+        430,
+        60
+      ],
+      [
+        420,
+        -60
+      ],
+      [
+        400,
+        -160
+      ],
+      [
+        360,
+        -240
+      ],
+      [
+        300,
+        -300
+      ],
+      [
+        200,
+        -310
+      ],
+      [
+        80,
+        -310
+      ]
+    ],
+    "reservoir": {
+      "center": [
+        420,
+        40
+      ],
+      "label": "East Runoff Reservoir"
+    },
+    "perimeter": "rocky, mine-warning-taped; north exit to ridgeline road at (-240,290)"
+  },
+  "vertical": [
+    {
+      "id": "plantIncline",
+      "type": "ramp",
+      "note": "plant incline up to Processing Hall raised base (~6m), grounded, 1:12"
+    },
+    {
+      "id": "roofOpening",
+      "type": "airReentry",
+      "x": -150,
+      "z": -100,
+      "note": "roof opening for air re-entry"
+    },
+    {
+      "id": "tunnel",
+      "type": "belowGrade",
+      "waypoints": [
+        [
+          48,
+          -196
+        ],
+        [
+          120,
+          -200
+        ],
+        [
+          220,
+          -206
+        ],
+        [
+          300,
+          -210
+        ]
+      ],
+      "note": "X-ray tunnel below grade, east-west; far from core, no core service"
+    }
+  ],
+  "routes": [
+    {
+      "id": "mainSurface",
+      "kind": "ground",
+      "waypoints": [
+        [
+          -292,
+          170
+        ],
+        [
+          -240,
+          160
+        ],
+        [
+          -160,
+          150
+        ],
+        [
+          -60,
+          120
+        ],
+        [
+          0,
+          100
+        ],
+        [
+          60,
+          60
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          140,
+          -60
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          100,
+          -160
+        ],
+        [
+          100,
+          -210
+        ],
+        [
+          40,
+          -214
+        ],
+        [
+          20,
+          -222
+        ],
+        [
+          20,
+          -228
+        ]
+      ]
+    },
+    {
+      "id": "coveredRoute",
+      "kind": "covered",
+      "waypoints": [
+        [
+          -120,
+          80
+        ],
+        [
+          -80,
+          60
+        ],
+        [
+          -40,
+          40
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          40,
+          -40
+        ],
+        [
+          60,
+          -100
+        ],
+        [
+          50,
+          -150
+        ],
+        [
+          48,
+          -190
+        ]
+      ],
+      "note": "under roof: loading hall + security hall interiors"
+    },
+    {
+      "id": "rearAlley",
+      "kind": "ground",
+      "waypoints": [
+        [
+          -200,
+          140
+        ],
+        [
+          -140,
+          116
+        ],
+        [
+          -60,
+          110
+        ],
+        [
+          -4,
+          110
+        ]
+      ]
+    },
+    {
+      "id": "northRing",
+      "kind": "ground",
+      "waypoints": [
+        [
+          60,
+          120
+        ],
+        [
+          120,
+          110
+        ],
+        [
+          170,
+          70
+        ],
+        [
+          150,
+          10
+        ],
+        [
+          140,
+          -60
+        ],
+        [
+          150,
+          -120
+        ]
+      ]
+    },
+    {
+      "id": "southRetreat",
+      "kind": "ground",
+      "waypoints": [
+        [
+          -40,
+          -60
+        ],
+        [
+          40,
+          -80
+        ],
+        [
+          120,
+          -100
+        ],
+        [
+          180,
+          -120
+        ]
+      ]
+    },
+    {
+      "id": "flankBackdoor",
+      "kind": "covered",
+      "waypoints": [
+        [
+          148,
+          -210
+        ],
+        [
+          148,
+          -236
+        ]
+      ],
+      "note": "come-from-behind door via Core Service Wing"
+    }
+  ],
+  "kills": [
+    {
+      "id": "killCore",
+      "x": 48,
+      "z": -282,
+      "r": 30,
+      "note": "core objective closure"
+    },
+    {
+      "id": "killPlant",
+      "x": 214,
+      "z": -60,
+      "r": 26,
+      "note": "processing hall south face"
+    },
+    {
+      "id": "killCourt",
+      "x": 48,
+      "z": -170,
+      "r": 22,
+      "note": "checkpoint court"
+    }
+  ],
+  "destructibles": [
+    {
+      "id": "camGatehouse",
+      "type": "camera",
+      "x": -270,
+      "z": 150
+    },
+    {
+      "id": "camServiceTower",
+      "type": "camera",
+      "x": 262,
+      "z": 40
+    },
+    {
+      "id": "camSurveillanceW",
+      "type": "camera",
+      "x": -100,
+      "z": -124
+    },
+    {
+      "id": "camSurveillanceE",
+      "type": "camera",
+      "x": 190,
+      "z": -130
+    },
+    {
+      "id": "camSecurity",
+      "type": "camera",
+      "x": 66,
+      "z": -150
+    }
+  ],
+  "spawn": {
+    "x": -290,
+    "z": 190,
+    "safeApron": 40,
+    "northExit": [
+      -240,
+      290
+    ]
+  },
+  "openSky": {
+    "x": 78,
+    "z": 102,
+    "label": "Pressure Yard \u2014 open sky / fixed-wing yard"
+  }
+}
