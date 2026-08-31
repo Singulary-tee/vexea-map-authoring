@@ -100,6 +100,25 @@ if (tunnel) {
   }
 }
 
+// grounded route ribbons (roads) — validator guarantees they avoid buildings
+const matRoad = new MeshStandardMaterial({ color: 0x494c50, roughness: 0.98 });
+for (const r of blockout.routes) {
+  if (r.kind === 'tunnel') continue;
+  const wp = r.waypoints;
+  for (let i = 0; i < wp.length - 1; i++) {
+    const [x1, z1] = wp[i], [x2, z2] = wp[i + 1];
+    const len = Math.hypot(x2 - x1, z2 - z1) + 4;
+    const seg = new Mesh(new BoxGeometry(len, 0.15, r.kind === 'covered' ? 5 : 9), matRoad);
+    seg.position.set((x1 + x2) / 2, 0.08, (z1 + z2) / 2);
+    seg.rotation.y = -Math.atan2(z2 - z1, x2 - x1);
+    group.add(seg);
+  }
+}
+// water edge: big plane east/south of the water polyline (visual stand-in)
+const water = new Mesh(new BoxGeometry(500, 0.1, 900), new MeshStandardMaterial({ color: 0x2e5d7a, roughness: 0.25, metalness: 0.1 }));
+water.position.set(560, 0.05, -40);
+group.add(water);
+
 const exporter = new GLTFExporter();
 exporter.parse(group, (glb) => {
   fs.writeFileSync(outName, Buffer.from(glb));
