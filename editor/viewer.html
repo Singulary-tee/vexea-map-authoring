@@ -9,7 +9,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87a5c4);
 scene.fog = new THREE.Fog(0x87a5c4, 900, 2600);
 const cam = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 1, 4000);
-cam.position.set(-340, 170, 380); controls.target.set(0, 0, -40);
+cam.position.set(-340, 170, 380);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(innerWidth, innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -27,6 +27,7 @@ const ground = new THREE.Mesh(new THREE.PlaneGeometry(2200, 1800), new THREE.Mes
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true;
 scene.add(ground);
 const controls = new OrbitControls(cam, renderer.domElement);
+controls.target.set(0, 0, -40); controls.update();
 window.addEventListener('error', e => window.__err = String(e.message));
 new GLTFLoader().load('./facility-v3.glb', (g) => {
   g.scene.traverse(o => { if (o.isMesh) { o.castShadow = o.receiveShadow = true; } });
