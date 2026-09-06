@@ -18,10 +18,15 @@ const outName = process.argv[3] || 'editor/facility-v3.glb';
 function rng(seed) { return function () { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 
 const group = new Group();
-const matConcrete = new MeshStandardMaterial({ color: 0x8d9199, roughness: 0.92, metalness: 0.02 });
 const matConcreteDark = new MeshStandardMaterial({ color: 0x6f757d, roughness: 0.95 });
 const matRoof = new MeshStandardMaterial({ color: 0x565b63, roughness: 0.9 });
-const matMetal = new MeshStandardMaterial({ color: 0x5a6570, roughness: 0.55, metalness: 0.55 });
+// art pass: concrete weathering variants (KB: no uniform plastic color; shared per tint to limit draw groups)
+const matConcrete = [
+  new MeshStandardMaterial({ color: 0x878b93, roughness: 0.92, metalness: 0.02 }),
+  new MeshStandardMaterial({ color: 0x8d9199, roughness: 0.9,  metalness: 0.02 }),
+  new MeshStandardMaterial({ color: 0x94989e, roughness: 0.94, metalness: 0.02 }),
+];
+const matMetal = new MeshStandardMaterial({ color: 0x5a6570, roughness: 0.35, metalness: 0.85 });
 
 function chamferFootprint(w, d, r) {
   // octagonal-ish footprint: rectangle with cut corners (Shape in XZ, extruded as Y)
@@ -48,7 +53,7 @@ function building(s, rand) {
   const shape = chamferFootprint(s.w, s.d, chamfer);
   const geo = new ExtrudeGeometry(shape, { depth: s.h, bevelEnabled: false });
   geo.rotateX(-Math.PI / 2);
-  const m = new Mesh(geo, matConcrete);
+  const m = new Mesh(geo, matConcrete[Math.floor(randB() * matConcrete.length)]);
   m.position.set(s.x, baseY, s.z);
   g.add(m);
   if (baseY > 0) { // raised plinth slightly wider
@@ -101,7 +106,7 @@ if (tunnel) {
 }
 
 // grounded route ribbons (roads) — validator guarantees they avoid buildings
-const matRoad = new MeshStandardMaterial({ color: 0x494c50, roughness: 0.98 });
+const matRoad = new MeshStandardMaterial({ color: 0x494c50, roughness: 0.95 });
 for (const r of blockout.routes) {
   if (r.kind === 'tunnel') continue;
   const wp = r.waypoints;
@@ -115,12 +120,12 @@ for (const r of blockout.routes) {
   }
 }
 // water edge: big plane east/south of the water polyline (visual stand-in)
-const water = new Mesh(new BoxGeometry(500, 0.1, 900), new MeshStandardMaterial({ color: 0x2e5d7a, roughness: 0.25, metalness: 0.1 }));
+const water = new Mesh(new BoxGeometry(500, 0.1, 900), new MeshStandardMaterial({ color: 0x2e5d7a, roughness: 0.12, metalness: 0.0 }));
 water.position.set(560, 0.05, -40);
 // ---- DETAIL PASS (grammar families) ----
-const matRib = new MeshStandardMaterial({ color: 0x77808a, roughness: 0.75, metalness: 0.3 });
-const matGlass = new MeshStandardMaterial({ color: 0x2c3844, roughness: 0.2, metalness: 0.6 });
-const matPipe = new MeshStandardMaterial({ color: 0xb08a2e, roughness: 0.55, metalness: 0.5 });
+const matRib = new MeshStandardMaterial({ color: 0x77808a, roughness: 0.6, metalness: 0.6 });
+const matGlass = new MeshStandardMaterial({ color: 0x2c3844, roughness: 0.15, metalness: 0.75 });
+const matPipe = new MeshStandardMaterial({ color: 0xb08a2e, roughness: 0.45, metalness: 0.8 });
 const matCover = new MeshStandardMaterial({ color: 0x707a66, roughness: 0.9 });
 
 // facade ribs (warehouse family): seeded rhythm, not on enterable face near ground

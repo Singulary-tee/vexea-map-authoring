@@ -1,38 +1,47 @@
 <!doctype html>
 <!-- facility-v3 GLB viewer for automated screenshot verification (img2threejs review gate) -->
-<html><head><meta charset="utf-8"><style>html,body{margin:0;height:100%;background:#87a5c4}canvas{display:block}</style></head>
+<!-- art pass: PMREM IBL (RoomEnvironment), ACES tonemap, tight shadow frustum, sky-matched FogExp2 -->
+<html><head><meta charset="utf-8"><style>html,body{margin:0;height:100%;background:#a8bdd2}canvas{display:block}</style></head>
 <body><script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script><script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+const SKY = new THREE.Color(0xa8bdd2);
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x87a5c4);
-scene.fog = new THREE.Fog(0x87a5c4, 900, 2600);
+scene.background = SKY;
+scene.fog = new THREE.FogExp2(SKY.getHex(), 0.0011);
 const cam = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 1, 4000);
 cam.position.set(-340, 170, 380);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(innerWidth, innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.95;
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
+// IBL: pre-filtered environment for PBR specular/diffuse (KB G3 — without it metals read flat)
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 const sun = new THREE.DirectionalLight(0xfff2dd, 2.6);
 sun.position.set(-400, 600, 300);
 sun.castShadow = true;
 sun.shadow.mapSize.set(2048, 2048);
-sun.shadow.camera.left = -600; sun.shadow.camera.right = 600;
-sun.shadow.camera.top = 600; sun.shadow.camera.bottom = -600; sun.shadow.camera.far = 2500;
-scene.add(sun, new THREE.HemisphereLight(0xbdd3e8, 0x4a4842, 0.55));
-// ground
-const ground = new THREE.Mesh(new THREE.PlaneGeometry(2200, 1800), new THREE.MeshStandardMaterial({ color: 0x67645a, roughness: 1 }));
+// tight frustum around the 840x600 facility (KB G2: default frustum wastes texels)
+sun.shadow.camera.left = -700; sun.shadow.camera.right = 700;
+sun.shadow.camera.top = 700; sun.shadow.camera.bottom = -700;
+sun.shadow.camera.near = 100; sun.shadow.camera.far = 1800;
+sun.shadow.bias = -0.0005;
+scene.add(sun, new THREE.HemisphereLight(SKY, 0x4a4842, 0.55));
+// ground: warm gray asphalt/dirt tint, fully rough (KB O: rough stone/concrete 0.85-0.98)
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(2200, 1800), new THREE.MeshStandardMaterial({ color: 0x6d6a5e, roughness: 0.96, metalness: 0.0 }));
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true;
 scene.add(ground);
-const controls = new OrbitControls(cam, renderer.domElement);
-controls.target.set(0, 0, -40); controls.update();
-window.addEventListener('error', e => window.__err = String(e.message));
+// deterministic review camera; capture waits on __ready set AFTER GLB load
 new GLTFLoader().load('./facility-v3.glb', (g) => {
   g.scene.traverse(o => { if (o.isMesh) { o.castShadow = o.receiveShadow = true; } });
   scene.add(g.scene);
-});
-window.__ready = true;
+  window.__ready = true;
+}, undefined, (e) => { window.__err = String(e); });
+window.addEventListener('error', e => window.__err = String(e.message));
 (function loop(){ requestAnimationFrame(loop); renderer.render(scene, cam); })();
 </script></body></html>
