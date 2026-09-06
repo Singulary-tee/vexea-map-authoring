@@ -210,6 +210,9 @@ for (const r of b.routes) {
   }
 }
 
+// water joins the scene before merge so it is included in the merged output
+group.add(water);
+
 // ---- PERF PASS (KB C2/C2b): merge static same-material geometry -> one draw call per material.
 // All detail props (ribs, windows, pipes, cover, parapets, roof gear) are static; per-material
 // merge collapses hundreds of nodes into ~12 meshes (smaller GLB, fewer runtime draw calls).
@@ -228,6 +231,10 @@ group.traverse(o => {
   group.clear();
   group.add(merged);
 }
+// ---- EXPORT (restored: detail-pass commit 17609ee accidentally dropped the parse/write tail) ----
 const exporter = new GLTFExporter();
-group.add(water);
+exporter.parse(group, (glb) => {
+  fs.writeFileSync(outName, Buffer.from(new Uint8Array(glb)));
+  console.log('wrote', outName, glb.byteLength, 'bytes');
+}, (err) => { console.error('export failed', err); process.exit(1); }, { binary: true });
 
