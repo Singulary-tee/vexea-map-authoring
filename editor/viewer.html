@@ -9,7 +9,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 const SKY = new THREE.Color(0xa8bdd2);
 const scene = new THREE.Scene();
 scene.background = SKY;
-scene.fog = new THREE.FogExp2(SKY.getHex(), 0.0011);
+scene.fog = new THREE.FogExp2(SKY.getHex(), 0.0007);
 const cam = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 1, 4000);
 cam.position.set(-340, 170, 380);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -17,12 +17,14 @@ renderer.setSize(innerWidth, innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 0.95;
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.PCFShadowMap; // PCFSoft deprecated in r184
 document.body.appendChild(renderer.domElement);
-// IBL: pre-filtered environment for PBR specular/diffuse (KB G3 — without it metals read flat)
+// IBL: pre-filtered environment for PBR specular/diffuse (KB G3 — without it metals read flat).
+// Kept at 0.45: full-strength RoomEnvironment fills shadows -> washed out (gate FAIL v1).
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-const sun = new THREE.DirectionalLight(0xfff2dd, 2.6);
+scene.environmentIntensity = 0.45;
+const sun = new THREE.DirectionalLight(0xfff2dd, 3.4);
 sun.position.set(-400, 600, 300);
 sun.castShadow = true;
 sun.shadow.mapSize.set(2048, 2048);
