@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- TSL capability probe (not a scene): does WebGPURenderer(WebGL2 fallback) render
+     MeshStandardNodeMaterial + mx_noise_float headless? Noise amp 0.04 (2x KB max) so the
+     capability verdict is unambiguous from pixel stddev. Console prints backend name. -->
+<html><head><meta charset="utf-8"><style>html,body{margin:0;height:100%;background:#a8bdd2}canvas{display:block}</style></head>
+<body><script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/webgpu":"/node_modules/three/build/three.webgpu.js","three/tsl":"/node_modules/three/build/three.tsl.js"}}</script><script type="module">
+import * as THREE from 'three/webgpu';
+import { MeshStandardNodeMaterial, color, float, positionWorld, mx_noise_float } from 'three/tsl';
+const SKY = new THREE.Color(0xa8bdd2);
+const scene = new THREE.Scene();
+scene.background = SKY;
+const cam = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 1, 4000);
+cam.position.set(-60, 45, 70); cam.lookAt(0, 0, 0);
+const renderer = new THREE.WebGPURenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
+document.body.appendChild(renderer.domElement);
+const sun = new THREE.DirectionalLight(0xfff2dd, 3.4);
+sun.position.set(-90, 80, 60); sun.castShadow = true;
+scene.add(sun, new THREE.HemisphereLight(SKY, 0x4a4842, 0.08));
+const gmat = new MeshStandardNodeMaterial();
+gmat.colorNode = color(0x5c594d).mul(mx_noise_float(positionWorld.mul(0.25)).remapClamp(0.96, 1.04));
+gmat.roughnessNode = float(0.96).add(mx_noise_float(positionWorld.mul(0.4)).mul(0.04));
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(400, 300), gmat);
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true;
+scene.add(ground);
+const box = new THREE.Mesh(new THREE.BoxGeometry(20, 14, 20), new THREE.MeshStandardMaterial({ color: 0x8f8a7c, roughness: 0.85 }));
+box.position.y = 7; box.castShadow = true;
+scene.add(box);
+try {
+  await renderer.init();
+  console.log('[probe] backend', renderer.backend && (renderer.backend.isWebGPUBackend ? 'webgpu' : 'webgl2-fallback'));
+  renderer.setAnimationLoop(() => renderer.render(scene, cam));
+  window.__ready = true;
+} catch (e) { window.__err = String(e); }
+window.addEventListener('error', e => window.__err = String(e.message));
+</script></body></html>
