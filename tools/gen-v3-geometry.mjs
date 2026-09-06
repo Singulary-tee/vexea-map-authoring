@@ -10,6 +10,7 @@ globalThis.FileReader = class {
 };
 const { Scene, Mesh, BoxGeometry, MeshStandardMaterial, Group, CylinderGeometry, Shape, ExtrudeGeometry, Vector2, BufferAttribute } = await import('three');
 const { GLTFExporter } = await import('three/addons/exporters/GLTFExporter.js');
+const { mergeGeometries } = await import('three/addons/utils/BufferGeometryUtils.js');
 
 const blockout = JSON.parse(fs.readFileSync(process.argv[2] || 'blockout/blockout-v3.json', 'utf8'));
 const outName = process.argv[3] || 'editor/facility-v3.glb';
@@ -209,6 +210,24 @@ for (const r of b.routes) {
   }
 }
 
+// ---- PERF PASS (KB C2/C2b): merge static same-material geometry -> one draw call per material.
+// All detail props (ribs, windows, pipes, cover, parapets, roof gear) are static; per-material
+// merge collapses hundreds of nodes into ~12 meshes (smaller GLB, fewer runtime draw calls).
+group.updateMatrixWorld(true);
+const byMat = new Map();
+group.traverse(o => {
+  if (!o.isMesh) return;
+  const g = o.geometry.clone().applyMatrix4(o.matrixWorld);
+  const k = o.material.uuid;
+  if (!byMat.has(k)) byMat.set(k, { mat: o.material, geos: [] });
+  byMat.get(k).geos.push(g);
+});
+{
+  const merged = new Group();
+  for (const { mat, geos } of byMat.values()) merged.add(new Mesh(mergeGeometries(geos, false), mat));
+  group.clear();
+  group.add(merged);
+}
 const exporter = new GLTFExporter();
 group.add(water);
 
