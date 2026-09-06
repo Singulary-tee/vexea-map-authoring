@@ -5,7 +5,8 @@
 <html><head><meta charset="utf-8"><style>html,body{margin:0;height:100%;background:#a8bdd2}canvas{display:block}</style></head>
 <body><script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/webgpu":"/node_modules/three/build/three.webgpu.js","three/tsl":"/node_modules/three/build/three.tsl.js"}}</script><script type="module">
 import * as THREE from 'three/webgpu';
-import { MeshStandardNodeMaterial, color, float, positionWorld, mx_noise_float } from 'three/tsl';
+import { color, float, positionWorld, mx_noise_float } from 'three/tsl';
+const { MeshStandardNodeMaterial } = THREE;
 const SKY = new THREE.Color(0xa8bdd2);
 const scene = new THREE.Scene();
 scene.background = SKY;
