@@ -34,8 +34,46 @@ sun.shadow.camera.top = 700; sun.shadow.camera.bottom = -700;
 sun.shadow.camera.near = 100; sun.shadow.camera.far = 1800;
 sun.shadow.bias = -0.0005;
 scene.add(sun, new THREE.HemisphereLight(SKY, 0x4a4842, 0.08));
+// ground micro-variation (KB O: amp <=0.02 concrete/asphalt + noise on roughness channel; G11
+// "no variation reads as plastic"). Baked seeded value-noise canvas textures instead of TSL
+// node material: editor/tsl-probe.html proved TSL compiles headless under WebGPURenderer
+// (WebGL2 fallback) but node lighting/shadows diverge from this tuned WebGLRenderer rig
+// (probe ground rendered ~luma 5 unlit). Textures are procedural (no image asset), LCG-seeded
+// (deterministic, gate-stable), seamless-tiled, and mean-preserving (center 1.0 -> tuned
+// albedo/lighting average unchanged, micro-variation only).
+function noiseTexture(amp, seed) {
+  const S = 256, G = 16, c = document.createElement('canvas');
+  c.width = c.height = S;
+  const ctx = c.getContext('2d'), img = ctx.createImageData(S, S);
+  let s = seed >>> 0;
+  const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296;
+  const lat = new Float32Array(G * G);
+  for (let i = 0; i < lat.length; i++) lat[i] = rnd();
+  const sm = t => t * t * (3 - 2 * t);
+  const oct = (u, v, g) => { // seamless value noise; lattice wraps so tiles are invisible
+    const x = u * g, y = v * g, xi = Math.floor(x), yi = Math.floor(y);
+    const fx = sm(x - xi), fy = sm(y - yi);
+    const x0 = xi % G, y0 = yi % G, x1 = (x0 + 1) % G, y1 = (y0 + 1) % G;
+    const a = lat[y0 * G + x0], b = lat[y0 * G + x1], d = lat[y1 * G + x0], e = lat[y1 * G + x1];
+    return (a + (b - a) * fx) * (1 - fy) + (d + (e - d) * fx) * fy;
+  };
+  for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+    const n = oct(x / S, y / S, 4) * 0.5 + oct(x / S, y / S, 8) * 0.3 + oct(x / S, y / S, 16) * 0.2;
+    const m = 1 + (n - 0.5) * 2 * amp; // mean exactly 1.0, span +/-amp
+    const i = (y * S + x) * 4, g = Math.max(0, Math.min(255, Math.round(m * 255)));
+    img.data[i] = img.data[i + 1] = img.data[i + 2] = g; img.data[i + 3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(60, 49); // ~37m tiles on the 2200x1800 ground -> 2.3-9m noise patches
+  t.anisotropy = 8;
+  return t;
+}
+const gTex = noiseTexture(0.02, 0x9e3779b9); gTex.colorSpace = THREE.SRGBColorSpace;
+const gRough = noiseTexture(0.021, 0x85ebca6b); // roughnessMap multiplies roughness (green ch)
 // ground: darker warm asphalt tint (shadow pools must read <70 luma for gate)
-const ground = new THREE.Mesh(new THREE.PlaneGeometry(2200, 1800), new THREE.MeshStandardMaterial({ color: 0x5c594d, roughness: 0.96, metalness: 0.0 }));
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(2200, 1800), new THREE.MeshStandardMaterial({ color: 0x5c594d, roughness: 0.96, metalness: 0.0, map: gTex, roughnessMap: gRough }));
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true;
 scene.add(ground);
 // deterministic review camera; capture waits on __ready set AFTER GLB load

@@ -86,4 +86,5 @@ def main():
     print('PASS: render gate green' if not fails else f'FAIL: {len(fails)} issue(s)')
     sys.exit(1 if fails else 0)
 
-main()
+if __name__ == '__main__':
+    main()
