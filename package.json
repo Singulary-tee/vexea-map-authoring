@@ -1,0 +1,11 @@
+{
+  "name": "vexea-map-authoring",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "three": "0.184.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

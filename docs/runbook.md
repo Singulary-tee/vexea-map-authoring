@@ -1,5 +1,22 @@
 # MAP-AUTHORING RUNBOOK (things that were slow to discover — do not rediscover)
 
+## THIS sandbox (Hoplite/Modal, 2026-09-07) — full-map blockout session
+- **WebGL here:** agent-browser chrome CANNOT create a WebGL context (GL_VENDOR Disabled, BindToCurrentSequence
+  failed). Playwright chromium-headless-shell DOES render with flags:
+  `['--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader','--in-process-gpu','--no-sandbox']`
+  (probed 6 combos; older codespace combo `--use-gl=angle --enable-unsafe-swiftshader` is NOT enough on r153).
+- **Capture tool:** `tools/capture_viewer.mjs` now resolves playwright from the REPO node_modules (was hardcoded
+  to the codespace path). Install once: `npm i` (three r184 pinned in package.json; playwright devDep) then
+  `npx playwright install chromium` (~115MB headless shell).
+- **Managed preview:** run script = `python3 -m http.server 3000` (project override; .hoplite/settings.json in
+  repo mirrors it). URL path for the deliverable: `/editor/blockout-viewer.html`. Serve from repo ROOT
+  (importmap needs `/node_modules/...`). Do NOT hand-launch servers with `&` before preview_start — port
+  collisions crash the managed run; pkill your strays.
+- **Full-map blockout loop:** `node tools/blockout-validate-full.mjs` -> `node tools/blockout-traverse-full.mjs`
+  -> `node tools/gen-blockout-svg-full.mjs` -> `node tools/gen-full-geometry.mjs` -> serve ->
+  `node tools/capture_viewer.mjs http://127.0.0.1:3000/editor/blockout-viewer.html out/shot.png` ->
+  `python3 tools/analyze_shot.py out/shot.png`. Deterministic GLB (same bytes each regen).
+
 ## GitHub push from VM (auth)
 - gh auth token exists but plain extraheader fails. USE:
   git push "https://x-access-token:$(gh auth token)@github.com/Singulary-tee/vexea-map-authoring.git" main

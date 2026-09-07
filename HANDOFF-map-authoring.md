@@ -3,6 +3,39 @@
 Authoritative memory: `.memory/tasks/map-authoring-STATE.md` + `.memory/notes/map-authoring-runbook.md`.
 Repo: `Singulary-tee/vexea-map-authoring`, main is the source of truth. Codespace: `supreme-space-train-7vr496j4wwxxfx5p7`.
 
+## CURRENT CHECKPOINT (full-map blockout stage — 2026-09-07)
+- **Full-map segmented blockout realized: `blockout/blockout-full-v1.json`** (84 segments, 13 routes, 8 zones,
+  14 deliberate covers, 3 kill-zone closures). Geometry frame = blockout-v3 annotated target (b4fa5260);
+  zone semantics = 7-zone contract; vertical gauges from blockout-v2; fixture = spec/calibration.md.
+- Everything is 1m-snapped; every cover carries threatElevation + directionality + interrupts + heightClass;
+  every tunnel carries X-ray + belowGradeY -14; every entrance checked vs the 1.8m capsule.
+- Gates: `node tools/blockout-validate-full.mjs` (ALL PASS) + `node tools/blockout-traverse-full.mjs`
+  (4 spawn->core paths PASS: surface, covered/logistics through loading+security halls, east flank via service
+  wing/walkway, tunnel alternate via portal->ridge->walkway; 0 cover-placement warnings).
+- Visual: `tools/gen-blockout-svg-full.mjs` -> `out/blockout-full-v1.svg` (color-coded, labeled, legend).
+  3D: `tools/gen-full-geometry.mjs` -> `editor/blockout-full.glb` (regenerable, deterministic, gitignored) +
+  `editor/blockout-viewer.html` (TOP ORTHO / ORBIT PERSP / X-RAY toggles). Serve repo ROOT, port 3000
+  (`preview_start` in Hoplite runs `python3 -m http.server 3000`; runbook has manual recipe).
+- Evidence: `artifacts/blockout-full-top.png`, `-xray.png`, `-orbit.png` (render gate green:
+  mass 0.155/0.136/0.058, contrast 204, luma 16-220). Captured via playwright + software GL —
+  see runbook for the exact flag set (agent-browser chrome has no WebGL here).
+- Composition completed this pass (all traceable to sources; inferences flagged in openQuestions):
+  perimeter (mountain N with ridgeline exit gap, reservoir water envelope E, fence W/S), 14 ground/yard
+  segments covering every route waypoint, plant south service spur (closes killPlant — was decoratively
+  floating), core service walkway (links annotated wing to core hall), maintenance/deployment service loop
+  route (was unreachable), 3 canopies over covered-route legs, catwalk + descent stair, tunnel mouths at
+  checkpoint court + east ridge, air lanes (pressure-yard strafe box, courtyard bomber line, spawn recon,
+  roof re-entry).
+- Open questions recorded IN the data (7 items): bridge connector semantics, tunnel west arm, roofOpening
+  host discrepancy, fence line inference, dock lip, tunnel depth, old-vs-new world frame.
+- NEXT: slice grammar on the full map (loading hall <-> checkpoint court), then GLB placement/dressing
+  per SKILL stage order. The old `blockout-map-full` family and facility-v3 art path remain as-is;
+  the ground-v2 render gate item (dark 0.009 < 0.01) is still open on the art path, untouched here.
+
+---
+
+## PRIOR CHECKPOINT (art-pass session, superseded as spatial target but still valid context)
+
 ## CURRENT CHECKPOINT (this handoff)
 - Repo main @ **f6d7c03** (pushed, codespace synced `git reset --hard origin/main`). Working tree clean except
   untracked `editor/facility-v3.glb` and `out/cw-slice.glb` (GLB intentionally untracked but present/regenerable).
