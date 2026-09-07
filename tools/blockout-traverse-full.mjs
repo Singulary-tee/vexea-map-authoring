@@ -116,6 +116,19 @@ for (const p of paths) {
 }
 if (found.length === 0) warn('no spawn->core path fully verified');
 
+// --- interiors along paths: door -> floor -> objective continuity ---
+for (const p of report.paths) {
+  const stepIds = new Set(p.steps.flatMap(s => [s.from, s.to]));
+  const interiorHops = [];
+  for (const iid of stepIds) {
+    const plan = (b.interiors || []).find(i => i.building === iid);
+    if (plan) interiorHops.push({ building: iid, layout: plan.layout, floors: plan.floors || byId.get(iid).floors || 1, objectiveLevel: plan.objectiveLevel || null });
+  }
+  p.interiors = interiorHops;
+  const goalHasObjective = p.id === 'path-surface-main' && interiorHops.some(i => i.objectiveLevel);
+  if (p.id === 'path-surface-main' && !goalHasObjective) warn('main path does not reach the objective interior');
+}
+
 // --- cover placement vs named route/segment ---
 for (const s of segs) {
   if (s.category !== 'cover') continue;
@@ -176,8 +189,9 @@ const md = [`# Full-Map Blockout — Traversal Report`, ``,
   `## Spawn -> Objective paths`, ``,
   ...report.paths.flatMap(p => [`**${p.id}** — ${p.label} — ${p.ok ? 'PASS' : 'FAIL'}`, ...p.steps.map(s => `- \`${s.from}\` -> \`${s.to}\` (${s.kind})${s.note ? ' — ' + s.note : ''}`), ``]),
   `Pacing: core-approach surface roads ~${report.paths[0]?.pacing.coreApproachM}m (sum main surface + covered route).`, ``,
-  `## Cover placement (vs named interrupts)`, ``,
-  ...report.coverCheck.map(c => `- ${c.id}: ${c.distToInterruptM === null ? 'no named route/segment' : c.distToInterruptM + 'm'} ${c.threat}/${c.heightClass} ${c.ok ? 'OK' : 'TOO FAR'}`), ``,
+  `## Path interiors (door -> floor -> objective continuity)`, ``,
+  ...report.paths.flatMap(p => [`**${p.id}**:`, ...(p.interiors || []).map(i => `- ${i.building} (${i.layout}, ${i.floors}F${i.objectiveLevel ? ', objective on floor ' + i.objectiveLevel : ''})`), ``]),
+  `## Cover placement (vs named interrupts)`, ``,  ...report.coverCheck.map(c => `- ${c.id}: ${c.distToInterruptM === null ? 'no named route/segment' : c.distToInterruptM + 'm'} ${c.threat}/${c.heightClass} ${c.ok ? 'OK' : 'TOO FAR'}`), ``,
   `## Kill-zone closures`, ``,
   ...report.killClosure.map(k => `- ${k.id}: covers=[${k.closures.covers.join(',')}] buildings=[${k.closures.buildings.join(',')}] tunnel=[${k.closures.tunnelMouths.join(',')}] ${k.ok ? 'CLOSED' : 'OPEN'}`), ``,
   `## Vertical transitions`, ``,

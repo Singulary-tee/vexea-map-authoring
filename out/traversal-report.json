@@ -42,7 +42,15 @@
       "pacing": {
         "coreApproachM": 1126,
         "note": "sum of main-surface + covered-route lengths (design pacing reference; run speed is playtest)"
-      }
+      },
+      "interiors": [
+        {
+          "building": "bld-core-ops-hall",
+          "layout": "objective",
+          "floors": 6,
+          "objectiveLevel": 2
+        }
+      ]
     },
     {
       "id": "path-covered-logistics",
@@ -137,7 +145,27 @@
       "pacing": {
         "coreApproachM": 1126,
         "note": "sum of main-surface + covered-route lengths (design pacing reference; run speed is playtest)"
-      }
+      },
+      "interiors": [
+        {
+          "building": "bld-loading-hall",
+          "layout": "drive-through",
+          "floors": 1,
+          "objectiveLevel": null
+        },
+        {
+          "building": "bld-security-hall",
+          "layout": "corridor",
+          "floors": 2,
+          "objectiveLevel": null
+        },
+        {
+          "building": "bld-core-ops-hall",
+          "layout": "objective",
+          "floors": 6,
+          "objectiveLevel": 2
+        }
+      ]
     },
     {
       "id": "path-east-flank",
@@ -202,7 +230,27 @@
       "pacing": {
         "coreApproachM": 1126,
         "note": "sum of main-surface + covered-route lengths (design pacing reference; run speed is playtest)"
-      }
+      },
+      "interiors": [
+        {
+          "building": "bld-core-service-wing",
+          "layout": "open",
+          "floors": 1,
+          "objectiveLevel": null
+        },
+        {
+          "building": "bld-core-walkway",
+          "layout": "corridor",
+          "floors": 1,
+          "objectiveLevel": null
+        },
+        {
+          "building": "bld-core-ops-hall",
+          "layout": "objective",
+          "floors": 6,
+          "objectiveLevel": 2
+        }
+      ]
     },
     {
       "id": "path-tunnel-alternate",
@@ -297,7 +345,21 @@
       "pacing": {
         "coreApproachM": 1126,
         "note": "sum of main-surface + covered-route lengths (design pacing reference; run speed is playtest)"
-      }
+      },
+      "interiors": [
+        {
+          "building": "bld-core-walkway",
+          "layout": "corridor",
+          "floors": 1,
+          "objectiveLevel": null
+        },
+        {
+          "building": "bld-core-ops-hall",
+          "layout": "objective",
+          "floors": 6,
+          "objectiveLevel": 2
+        }
+      ]
     }
   ],
   "drTraversal": {

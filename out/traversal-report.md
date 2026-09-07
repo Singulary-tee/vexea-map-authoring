@@ -56,6 +56,25 @@ File: blockout/blockout-full-v1.json  |  Fixture: spec/calibration.md (1.8m caps
 
 Pacing: core-approach surface roads ~1126m (sum main surface + covered route).
 
+## Path interiors (door -> floor -> objective continuity)
+
+**path-surface-main**:
+- bld-core-ops-hall (objective, 6F, objective on floor 2)
+
+**path-covered-logistics**:
+- bld-loading-hall (drive-through, 1F)
+- bld-security-hall (corridor, 2F)
+- bld-core-ops-hall (objective, 6F, objective on floor 2)
+
+**path-east-flank**:
+- bld-core-service-wing (open, 1F)
+- bld-core-walkway (corridor, 1F)
+- bld-core-ops-hall (objective, 6F, objective on floor 2)
+
+**path-tunnel-alternate**:
+- bld-core-walkway (corridor, 1F)
+- bld-core-ops-hall (objective, 6F, objective on floor 2)
+
 ## Cover placement (vs named interrupts)
 
 - cv-gate-w: 15m both/full OK
