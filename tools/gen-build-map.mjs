@@ -48,6 +48,9 @@ const M = {
   tunnelLight: mat(0x4a4060, { roughness: 0.85 }),
   spawn: mat(0x40c0c0, { transparent: true, opacity: 0.3, depthWrite: false }),
   kill: mat(0xd04040, { transparent: true, opacity: 0.25, depthWrite: false }),
+  term: mat(0x22cc88, { roughness: 0.35, metalness: 0.3, emissive: 0x116633, emissiveIntensity: 0.6 }),
+  light: mat(0xd8e8f0, { roughness: 0.3, emissive: 0x88aabb, emissiveIntensity: 0.8 }),
+  killObj: mat(0xd04040, { transparent: true, opacity: 0.5, depthWrite: false }),
 };
 const box = (w, h, d, x, y, z, m, ry = 0) => { const g = new Mesh(new BoxGeometry(w, h, d), m); g.position.set(x, y, z); g.rotation.y = ry; return g; };
 
@@ -373,6 +376,136 @@ for (const r of b.routes) {
   }
 }
 
+// -------- interiors: enterable buildings get floor construction, partitions, stairs, objective room --------
+const interiorByBld = new Map((b.interiors || []).map(i => [i.building, i]));
+const FLOOR_T = 0.3;
+function interiors(s) {
+  const plan = interiorByBld.get(s.id);
+  if (!plan) return;
+  const [x1, z1, x2, z2] = s.bounds;
+  const w = x2 - x1, d = z2 - z1, h = s.height, base = s.raisedBase || s.raisedThreshold || 0;
+  const cx2 = (x1 + x2) / 2, cz2 = (z1 + z2) / 2;
+  const nF = plan.floors || s.floors || 1;
+  const fh = h / nF;
+  // floor slabs per level
+  for (let f = 0; f < nF; f++) {
+    group.add(box(w - 1, FLOOR_T, d - 1, cx2, base + fh * f + FLOOR_T / 2, cz2, M.concreteDark));
+    if (f < nF - 1) group.add(box(w - 1, 0.5, d - 1, cx2, base + fh * (f + 1) - 0.25, cz2, M.roof)); // ceiling/next floor underside
+  }
+  const rand = rng(idSeed('int-' + s.id));
+  // industrial lighting: emissive ceiling strips along the long axis (construction, not dressing)
+  if (plan.layout !== 'staircore') {
+    const horiz = w >= d;
+    const nStrips = plan.layout === 'objective' || plan.layout === 'corridor' ? 1 : 2;
+    for (let i = 0; i < nStrips; i++) {
+      const t = (i - (nStrips - 1) / 2) * 0.45;
+      const off = horiz ? t * d : t * w;
+      const strip = new Mesh(new BoxGeometry(horiz ? w - 2 : 0.7, 0.12, horiz ? 0.7 : d - 2), M.light);
+      strip.position.set(horiz ? cx2 : cx2 + off, base + h - 0.32, horiz ? cz2 + off : cz2);
+      group.add(strip);
+    }
+  }
+  // layout construction
+  switch (plan.layout) {
+    case 'drive-through': {
+      // clear central aisle N-S; low crates flank (interior cover — PvE decision point in the slice)
+      const aisle = Math.min(8, d - 6);
+      group.add(box(w - 1, h - 1.2, 0.35, cx2 - 4, base + (h - 1.2) / 2 + 0.6, cz2, M.rib));
+      group.add(box(w - 1, h - 1.2, 0.35, cx2 + 4, base + (h - 1.2) / 2 + 0.6, cz2, M.rib));
+      for (let i = 0; i < 3; i++) {
+        const px = cx2 + (rand() - 0.5) * (w - 12), pz = cz2 + (i - 1) * (d - 4) / 4;
+        group.add(box(2.6, 1.2, 1.6, px, base + 0.6, pz, M.cover[0]));
+        group.add(box(2.2, 1.0, 1.4, px + 0.0, base + 1.7, pz, M.cover[1]));
+      }
+      break;
+    }
+    case 'bays':
+    case 'stalls': {
+      const stalls = plan.stalls || 2;
+      const len = Math.max(w, d);
+      const horiz = w >= d;
+      const stallW = len / stalls;
+      for (let i = 1; i < stalls; i++) {
+        const t = stallW * i;
+        group.add(box(horiz ? 0.35 : w - 1, h * 0.7, horiz ? d - 1 : 0.35, horiz ? x1 + t : cx2, base + h * 0.35, horiz ? cz2 : z1 + t, M.rib));
+      }
+      break;
+    }
+    case 'corridor': {
+      // central corridor along the deeper axis
+      group.add(box(w - 1, h - 1.4, 0.35, cx2 - 2.5, base + (h - 1.4) / 2 + 0.7, cz2, M.rib));
+      group.add(box(w - 1, h - 1.4, 0.35, cx2 + 2.5, base + (h - 1.4) / 2 + 0.7, cz2, M.rib));
+      break;
+    }
+    case 'objective': {
+      // objective floor: barrier ring + terminal block with emissive core
+      const lvlY = base + fh * (plan.objectiveLevel - 1);
+      const ow = Math.min(14, w - 8), od = Math.min(12, d - 8);
+      const tx = cx2, tz = cz2;
+      group.add(box(ow, 0.4, od, tx, lvlY + FLOOR_T + 0.2, tz, M.concreteDark));
+      // barrier ring (three walls, north doorway - capsule-wide)
+      const B = 0.5;
+      group.add(box(ow + 2 * B, 1.3, B, tx, lvlY + 1.4, tz - od / 2, M.metal));
+      group.add(box(ow + 2 * B, 1.3, B, tx, lvlY + 1.4, tz + od / 2, M.metal));
+      group.add(box(B, 1.3, od, tx - ow / 2, lvlY + 1.4, tz, M.metal));
+      group.add(box(B, 1.3, od, tx + ow / 2, lvlY + 1.4, tz, M.metal));
+      // doorway gap in north wall
+      const gapW = 3;
+      group.add(box(ow + 2 * B, 1.3, B + 0.2, tx - gapW / 2 - 1, lvlY + 1.4, tz + od / 2 + 0.1, M.cover[0]));
+      group.add(box(ow + 2 * B, 1.3, B + 0.2, tx + gapW / 2 + 1, lvlY + 1.4, tz + od / 2 + 0.1, M.cover[0]));
+      // terminal block
+      const term = new Mesh(new BoxGeometry(2.4, 1.8, 1.2), M.term);
+      term.position.set(tx, lvlY + FLOOR_T + 1.0, tz);
+      group.add(term);
+      // objective marker strip on the floor
+      group.add(box(6, 0.06, 4, tx, lvlY + FLOOR_T + 0.08, tz, M.killObj));
+      break;
+    }
+    case 'staircore': {
+      // central stair shaft + landing per floor
+      const sw = 4.5, sd = 5.5;
+      group.add(box(sw, h, sd, cx2, base + h / 2, cz2, M.rib));
+      for (let f = 0; f < nF; f++) group.add(box(sw - 1, 0.4, sd - 1, cx2, base + fh * f + FLOOR_T + 0.2, cz2, M.concreteDark));
+      break;
+    }
+    case 'open':
+    default:
+      break;
+  }
+  // interior stairwell for multi-floor layouts (corner, away from the main door side)
+  if (nF > 1 && plan.layout !== 'staircore') {
+    const sw2 = 3.2, sd2 = 4.5;
+    const sx = x1 + sw2 / 2 + 1, sz = z1 + sd2 / 2 + 1;
+    group.add(box(sw2, h, sd2, sx, base + h / 2, sz, M.rib));
+    group.add(box(sw2 - 1, h - 0.4, sd2 - 1, sx, base + h / 2 + 0.2, sz, M.concreteDark));
+    const totalSteps = Math.ceil(h / 0.18);
+    const runLen = totalSteps * 0.3;
+    for (let i = 0; i < totalSteps; i++)
+      group.add(box(sw2 - 1.2, 0.18 * (i + 1), 0.3, sx, 0.18 * (i + 1) / 2, sz + sd2 / 2 - 1.2, M.concrete[1]));
+    for (let f = 1; f < nF; f++) group.add(box(sw2 - 1, 0.4, sd2 - 1, sx, base + fh * f, sz, M.concreteDark));
+  }
+}
+for (const s of segs) if (bldCats.includes(s.category)) interiors(s);
+
+// -------- tunnel interior: walking surface + conduit/light strips --------
+{
+  const ti = b.tunnelInterior;
+  if (ti) {
+    const tunSegs2 = segs.filter(s => s.category === 'tunnel-passage' && s.id !== 'tp-west' && s.id !== 'tp-east');
+    for (const s of tunSegs2) {
+      const [x1, z1, x2, z2] = s.bounds;
+      group.add(box(x2 - x1, 0.4, ti.width - 1, (x1 + x2) / 2, ti.floorY + 0.2, (z1 + z2) / 2, M.concreteDark));
+      // continuous ceiling light strip (X-ray visibility anchor) + conduit
+      const strip = new Mesh(new BoxGeometry(x2 - x1 - 2, 0.14, 0.5), M.light);
+      strip.position.set((x1 + x2) / 2, -8.0, (z1 + z2) / 2);
+      group.add(strip);
+      const conduit = new Mesh(new BoxGeometry(x2 - x1 - 2, 0.3, 0.3), M.metal);
+      conduit.position.set((x1 + x2) / 2, -8.6, z1 + 0.6);
+      group.add(conduit);
+    }
+  }
+}
+
 // -------- merge per material (KB C2b) --------
 group.updateMatrixWorld(true);
 const byMat = new Map();
@@ -422,6 +555,16 @@ for (const d of segs) {
   if (!host) { openBad.push(d.id); continue; }
 }
 c('architecture depth: every entrance binds to a constructed building', openBad.length === 0, openBad.join(','));
+// interiors: every enterable building has an interior plan; multi-floor has stairwell; objective present
+const entBlds = segs.filter(s => ['building-enterable', 'warehouse-enterable', 'tower'].includes(s.category));
+const noInt = entBlds.filter(s => !(b.interiors || []).some(i => i.building === s.id)).map(s => s.id);
+c('interiors: every enterable building has a construction plan', noInt.length === 0, noInt.join(','));
+const noStair = entBlds.filter(s => (s.floors || 1) > 1 && !(b.interiors || []).some(i => i.building === s.id)).map(s => s.id);
+c('interiors: multi-floor buildings have stairwells', noStair.length === 0, noStair.join(','));
+const coreInt = (b.interiors || []).find(i => i.building === 'bld-core-ops-hall');
+const coreHall2 = byId.get('bld-core-ops-hall');
+c('interiors: core objective room defined on a level >= 2', !!(coreInt && coreInt.floors >= 2 && coreInt.objectiveLevel >= 2));
+c('interiors: tunnel walking surface defined', !!(b.tunnelInterior && b.tunnelInterior.floorY !== undefined));
 // overlap: AABB pair of non-displaceable volumes, 2m tolerance (construction seams)
 let overlaps = [];
 for (let i = 0; i < segBoxes.length; i++) for (let j = i + 1; j < segBoxes.length; j++) {

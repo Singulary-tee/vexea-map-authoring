@@ -88,6 +88,24 @@ window.__playerCamAt = (t) => {
   controls.enabled = false;
   renderer.render(scene, cam);
 };
+// interior viewpoints: [x, y, z, targetX, targetY, targetZ] at 1.6m eye
+const INT = {
+  'core-objective': [48, 7.3, -254, 48, 6.9, -258],
+  'loading-hall': [-50, 1.7, 62, -50, 1.4, 40],
+  'tunnel': [80, -12.2, -190, 200, -12.2, -200],
+  'security-hall': [38, 3.1, -140, 38, 2.6, -160],
+  'maintenance': [-184, 1.7, -20, -160, 1.5, -20],
+};
+window.__interiorCam = (name) => {
+  const p = INT[name];
+  if (!p) return false;
+  cam = camP; setCam(false);
+  cam.position.set(p[0], p[1], p[2]);
+  cam.lookAt(p[3], p[4], p[5]);
+  controls.enabled = false;
+  renderer.render(scene, cam);
+  return true;
+};
 // legend mirrors tools/gen-full-geometry palette
 const LEG = [['#6e6a5a','ground'],['#3a5a7c','enterable bldg'],['#46688c','warehouse'],['#4a5560','non-enterable'],['#5b4a8c','tower'],['#2e8c8c','bridge'],['#7a6a4a','wall/fence'],['#c07a2e','stair'],['#d08a3a','incline'],['#b06030','roll-down door'],['#8a5ab8','tunnel (X-ray)'],['#d84a8c','drone hole'],['#e0c040','entrance'],['#3f7a45','cover'],['#5a9a5a','canopy'],['#5a4a3a','mountain'],['#2e5d7a','water'],['#40c0c0','spawn'],['#d04040','kill-zone']];
 document.getElementById('legend').innerHTML = LEG.map(([c, n]) => `<span class="chip" style="background:${c}"></span>${n}`).join('<br>');

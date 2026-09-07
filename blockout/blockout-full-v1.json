@@ -184,6 +184,18 @@
     "reservoir": { "center": [420, 40], "label": "East Runoff Reservoir" },
     "perimeter": "rocky, mine-warning-taped; north exit to ridgeline road at (-240,290)"
   },
+  "interiors": [
+    { "building": "bld-loading-hall", "layout": "drive-through", "note": "central 8m clear aisle N-S; low staging crates flank the aisle" },
+    { "building": "bld-maintenance", "layout": "bays", "stalls": 3, "note": "workshop bays with half-height partition walls; roof opening above east bay" },
+    { "building": "bld-deployment-bays", "layout": "stalls", "stalls": 3, "note": "three wheeled-drone stalls; egress through sealed bay doors" },
+    { "building": "bld-processing-hall", "layout": "bays", "stalls": 2, "floors": 5, "note": "process bays per floor on 6m raised base; incline door on floor 1" },
+    { "building": "bld-security-hall", "layout": "corridor", "note": "desk line + corridor behind raised threshold; covered route passes south" },
+    { "building": "bld-core-ops-hall", "layout": "objective", "floors": 6, "objectiveLevel": 2, "note": "objective hold on floor 2: terminal block + barrier ring; killCore closure" },
+    { "building": "bld-core-service-wing", "layout": "open", "note": "flank door corridor; connects to walkway" },
+    { "building": "bld-core-walkway", "layout": "corridor", "note": "short covered link between wing and ops hall" },
+    { "building": "bld-service-tower", "layout": "staircore", "floors": 5, "note": "central stair core + catwalk exit at top" }
+  ],
+  "tunnelInterior": { "floorY": -13.7, "width": 8, "lightsEvery": 20, "note": "below-grade walking surface + conduit/light strips" },
   "openQuestions": [
     "zone_bridge: the 7-zone semantic contract includes a bridge connector; the annotated v3 target has no dedicated bridge mass. Realized as the service-tower catwalk (br-catwalk) over the east yard. Not asserted as the original bridge.",
     "Tunnel west arm: blockout-v2.json describes a below-grade west arm under maintenance with a west portal; the annotated v3 tunnel spine starts at the checkpoint court mouth (48,-196). v3 vertical data treated as authoritative.",
