@@ -1,0 +1,723 @@
+{
+  "file": "blockout/blockout-full-v1.json",
+  "fixture": "spec/calibration.md",
+  "generated": "2026-09-07",
+  "paths": [
+    {
+      "id": "path-surface-main",
+      "label": "main surface: spawn -> gate/rear yards -> pressure yard -> core yard -> core hall main door",
+      "ok": true,
+      "steps": [
+        {
+          "from": "g-spawn-apron",
+          "to": "g-yrd-rear",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-rear",
+          "to": "g-yrd-pressure",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-pressure",
+          "to": "g-yrd-e",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-e",
+          "to": "g-yrd-core-n",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-core-n",
+          "to": "bld-core-ops-hall",
+          "kind": "ground",
+          "note": ""
+        }
+      ],
+      "pacing": {
+        "coreApproachM": 1126,
+        "note": "sum of main-surface + covered-route lengths (design pacing reference; run speed is playtest)"
+      }
+    },
+    {
+      "id": "path-covered-logistics",
+      "label": "covered/logistics: rear alley -> loading hall interior -> hub -> covered corridor -> security hall -> checkpoint court -> core",
+      "ok": true,
+      "steps": [
+        {
+          "from": "g-spawn-apron",
+          "to": "g-yrd-rear",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-rear",
+          "to": "e-loading-n-2",
+          "kind": "door",
+          "note": "e-loading-n-2 w8m h4.5m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "e-loading-n-2",
+          "to": "bld-loading-hall",
+          "kind": "door",
+          "note": "e-loading-n-2 w8m h4.5m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "bld-loading-hall",
+          "to": "e-loading-s",
+          "kind": "door",
+          "note": "e-loading-s w8m h4.5m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "e-loading-s",
+          "to": "g-yrd-hub",
+          "kind": "door",
+          "note": "e-loading-s w8m h4.5m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "g-yrd-hub",
+          "to": "g-yrd-checkpoint-n",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-checkpoint-n",
+          "to": "s-sec-threshold",
+          "kind": "stair",
+          "note": "s-sec-threshold rise0.17m tread0.3m width6m PASS"
+        },
+        {
+          "from": "s-sec-threshold",
+          "to": "e-sec-s",
+          "kind": "door",
+          "note": "e-sec-s w6m h2.4m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "e-sec-s",
+          "to": "bld-security-hall",
+          "kind": "door",
+          "note": "e-sec-s w6m h2.4m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "bld-security-hall",
+          "to": "g-yrd-core-n",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-core-n",
+          "to": "kz-court",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "kz-court",
+          "to": "g-yrd-core-n",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-core-n",
+          "to": "e-core-n",
+          "kind": "door",
+          "note": "e-core-n w4m h2.6m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "e-core-n",
+          "to": "bld-core-ops-hall",
+          "kind": "door",
+          "note": "e-core-n w4m h2.6m vs capsule 1.8m PASS"
+        }
+      ],
+      "pacing": {
+        "coreApproachM": 1126,
+        "note": "sum of main-surface + covered-route lengths (design pacing reference; run speed is playtest)"
+      }
+    },
+    {
+      "id": "path-east-flank",
+      "label": "east flank: east yard -> ridge -> core service wing -> walkway -> core hall",
+      "ok": true,
+      "steps": [
+        {
+          "from": "g-spawn-apron",
+          "to": "g-yrd-rear",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-rear",
+          "to": "g-yrd-pressure",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-pressure",
+          "to": "g-yrd-e",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-e",
+          "to": "g-yrd-east-ridge",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-east-ridge",
+          "to": "g-yrd-core-n",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-core-n",
+          "to": "e-wing-n",
+          "kind": "door",
+          "note": "e-wing-n w8m h2.4m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "e-wing-n",
+          "to": "bld-core-service-wing",
+          "kind": "door",
+          "note": "e-wing-n w8m h2.4m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "bld-core-service-wing",
+          "to": "bld-core-walkway",
+          "kind": "interior-link",
+          "note": ""
+        },
+        {
+          "from": "bld-core-walkway",
+          "to": "bld-core-ops-hall",
+          "kind": "interior-link",
+          "note": ""
+        }
+      ],
+      "pacing": {
+        "coreApproachM": 1126,
+        "note": "sum of main-surface + covered-route lengths (design pacing reference; run speed is playtest)"
+      }
+    },
+    {
+      "id": "path-tunnel-alternate",
+      "label": "tunnel alternate: checkpoint mouth -> below grade -> east ridge portal -> core yard -> walkway door -> hall",
+      "ok": true,
+      "steps": [
+        {
+          "from": "g-spawn-apron",
+          "to": "g-yrd-rear",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-rear",
+          "to": "g-yrd-pressure",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-pressure",
+          "to": "g-yrd-e",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-e",
+          "to": "g-yrd-core-n",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-core-n",
+          "to": "tp-west",
+          "kind": "tunnel",
+          "note": "tp-west h6m w8m clearance PASS xray"
+        },
+        {
+          "from": "tp-west",
+          "to": "tun-a",
+          "kind": "tunnel",
+          "note": "tp-west h6m w8m clearance PASS xray"
+        },
+        {
+          "from": "tun-a",
+          "to": "tun-b",
+          "kind": "tunnel",
+          "note": "tun-a h6m w10m clearance PASS xray"
+        },
+        {
+          "from": "tun-b",
+          "to": "tun-c",
+          "kind": "tunnel",
+          "note": "tun-b h6m w10m clearance PASS xray"
+        },
+        {
+          "from": "tun-c",
+          "to": "tp-east",
+          "kind": "tunnel",
+          "note": "tun-c h6m w10m clearance PASS xray"
+        },
+        {
+          "from": "tp-east",
+          "to": "g-yrd-east-ridge",
+          "kind": "tunnel",
+          "note": "tp-east h6m w8m clearance PASS xray"
+        },
+        {
+          "from": "g-yrd-east-ridge",
+          "to": "g-yrd-core-n",
+          "kind": "ground",
+          "note": ""
+        },
+        {
+          "from": "g-yrd-core-n",
+          "to": "e-walkway-w",
+          "kind": "door",
+          "note": "e-walkway-w w2m h2.4m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "e-walkway-w",
+          "to": "bld-core-walkway",
+          "kind": "door",
+          "note": "e-walkway-w w2m h2.4m vs capsule 1.8m PASS"
+        },
+        {
+          "from": "bld-core-walkway",
+          "to": "bld-core-ops-hall",
+          "kind": "interior-link",
+          "note": ""
+        }
+      ],
+      "pacing": {
+        "coreApproachM": 1126,
+        "note": "sum of main-surface + covered-route lengths (design pacing reference; run speed is playtest)"
+      }
+    }
+  ],
+  "drTraversal": {
+    "airRoutes": [
+      {
+        "id": "air-pressure-yard",
+        "waypoints": [
+          [
+            0,
+            140
+          ],
+          [
+            120,
+            140
+          ],
+          [
+            120,
+            100
+          ],
+          [
+            0,
+            100
+          ]
+        ],
+        "note": "fixed-wing strafe box over open-sky pressure yard"
+      },
+      {
+        "id": "air-courtyard",
+        "waypoints": [
+          [
+            -240,
+            120
+          ],
+          [
+            -120,
+            40
+          ],
+          [
+            -60,
+            10
+          ],
+          [
+            60,
+            0
+          ]
+        ],
+        "note": "bomber/rotary line over courtyard yards (GAMEPLAY: fixed-wing primary target zone_courtyard)"
+      },
+      {
+        "id": "air-spawn-apron",
+        "waypoints": [
+          [
+            -420,
+            240
+          ],
+          [
+            -320,
+            200
+          ],
+          [
+            -240,
+            190
+          ]
+        ],
+        "note": "recon approach over spawn apron"
+      },
+      {
+        "id": "air-roof-reentry",
+        "waypoints": [
+          [
+            258,
+            48
+          ],
+          [
+            150,
+            -40
+          ],
+          [
+            -150,
+            -100
+          ]
+        ],
+        "note": "tower -> maintenance air re-entry opening (drone-only)"
+      }
+    ],
+    "droneHoles": [
+      {
+        "id": "hd-roof-opening",
+        "clearWidth": 2.4,
+        "drop": 12
+      }
+    ],
+    "openSkyZones": [
+      {
+        "x": 78,
+        "z": 102,
+        "label": "Pressure Yard — open sky / fixed-wing yard"
+      }
+    ],
+    "tunnelXray": true,
+    "cameras": [
+      "camGatehouse",
+      "camServiceTower",
+      "camSurveillanceW",
+      "camSurveillanceE",
+      "camSecurity"
+    ],
+    "note": "drones: fixed-wing strafes air-pressure-yard (open sky); bomber lines air-courtyard + covered-route canopies; air re-entry via hd-roof-opening; ground drones use route_tunnel (X-ray interior) — below-grade arm is player-visible only via X-ray toggle"
+  },
+  "vertical": [
+    {
+      "id": "stair_sec_threshold",
+      "kind": "stair",
+      "host": "s-sec-threshold",
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 6
+      },
+      "connects": "checkpoint court -> security hall threshold (+1.5m)",
+      "capsuleOk": true
+    },
+    {
+      "id": "incline_plant",
+      "kind": "ramp",
+      "host": "in-plant",
+      "gauge": {
+        "grade": "1:12",
+        "width": 8
+      },
+      "connects": "hub/east yard -> processing hall floor 1 (+6m raised base, 72m run)",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_tower",
+      "kind": "stair",
+      "host": "bld-service-tower",
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.28,
+        "width": 1.2
+      },
+      "connects": "5 floors + catwalk exit east",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_core",
+      "kind": "stair",
+      "host": "bld-core-ops-hall",
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.28,
+        "width": 1.6
+      },
+      "connects": "6 floors; objective on floor 2",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_annex",
+      "kind": "stair",
+      "host": "bld-plant-annex",
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.28,
+        "width": 1.4
+      },
+      "connects": "2 floors",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_maint",
+      "kind": "stair",
+      "host": "bld-maintenance",
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.28,
+        "width": 1.4
+      },
+      "connects": "2 floors",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_security",
+      "kind": "stair",
+      "host": "bld-security-hall",
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.28,
+        "width": 1.4
+      },
+      "connects": "2 floors",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_catwalk_e",
+      "kind": "stair",
+      "host": "st-catwalk-e",
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 4
+      },
+      "connects": "catwalk (+6m) -> east yard",
+      "capsuleOk": true
+    },
+    {
+      "id": "hole_roof_reentry",
+      "kind": "hole-drone-entry",
+      "host": "hd-roof-opening",
+      "gauge": {
+        "clearWidth": 2.4,
+        "drop": 12
+      },
+      "connects": "air -> maintenance service yard (drone-only)",
+      "capsuleOk": true
+    },
+    {
+      "id": "tunnel_below_grade",
+      "kind": "belowGrade",
+      "host": "tun-a/tun-b/tun-c",
+      "gauge": {
+        "clearHeight": 6,
+        "clearWidth": 10
+      },
+      "connects": "checkpoint court mouth <-> east ridge portal; X-ray interior visibility required; >=60m from core",
+      "capsuleOk": true
+    }
+  ],
+  "coverCheck": [
+    {
+      "id": "cv-gate-w",
+      "names": [
+        "route_main_surface"
+      ],
+      "distToInterruptM": 15,
+      "heightClass": "full",
+      "threat": "both",
+      "ok": true
+    },
+    {
+      "id": "cv-gate-e",
+      "names": [
+        "route_main_surface"
+      ],
+      "distToInterruptM": 9,
+      "heightClass": "full",
+      "threat": "both",
+      "ok": true
+    },
+    {
+      "id": "cv-pressure-w",
+      "names": [
+        "air-pressure-yard",
+        "route_main_surface"
+      ],
+      "distToInterruptM": 21,
+      "heightClass": "full",
+      "threat": "both",
+      "ok": true
+    },
+    {
+      "id": "cv-pressure-e",
+      "names": [
+        "air-pressure-yard",
+        "route_north_ring"
+      ],
+      "distToInterruptM": 20,
+      "heightClass": "full",
+      "threat": "both",
+      "ok": true
+    },
+    {
+      "id": "cv-mix-1",
+      "names": [
+        "air-courtyard"
+      ],
+      "distToInterruptM": 16,
+      "heightClass": "low",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-mix-2",
+      "names": [
+        "route_covered",
+        "air-courtyard"
+      ],
+      "distToInterruptM": 17,
+      "heightClass": "mid",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-court-barr-1",
+      "names": [
+        "route_covered"
+      ],
+      "distToInterruptM": 16,
+      "heightClass": "full",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-court-barr-2",
+      "names": [
+        "route_covered"
+      ],
+      "distToInterruptM": 4,
+      "heightClass": "full",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-court-barr-3",
+      "names": [
+        "route_covered"
+      ],
+      "distToInterruptM": 22,
+      "heightClass": "full",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-plant-spur",
+      "names": [
+        "route_plant_spur"
+      ],
+      "distToInterruptM": 8,
+      "heightClass": "full",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-annex-e",
+      "names": [
+        "route_tunnel",
+        "route_south_retreat"
+      ],
+      "distToInterruptM": 18,
+      "heightClass": "mid",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-maint-n",
+      "names": [
+        "air-courtyard",
+        "route_maintenance_loop"
+      ],
+      "distToInterruptM": 12,
+      "heightClass": "full",
+      "threat": "both",
+      "ok": true
+    },
+    {
+      "id": "cv-spawn-1",
+      "names": [
+        "air-spawn-apron"
+      ],
+      "distToInterruptM": 12,
+      "heightClass": "low",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-spawn-2",
+      "names": [
+        "air-spawn-apron"
+      ],
+      "distToInterruptM": 17,
+      "heightClass": "low",
+      "threat": "ground",
+      "ok": true
+    }
+  ],
+  "killClosure": [
+    {
+      "id": "kz-core",
+      "closures": {
+        "covers": [],
+        "buildings": [
+          "bld-core-ops-hall",
+          "bld-core-walkway"
+        ],
+        "tunnelMouths": []
+      },
+      "ok": true
+    },
+    {
+      "id": "kz-plant",
+      "closures": {
+        "covers": [
+          "cv-plant-spur"
+        ],
+        "buildings": [
+          "bld-processing-hall"
+        ],
+        "tunnelMouths": []
+      },
+      "ok": true
+    },
+    {
+      "id": "kz-court",
+      "closures": {
+        "covers": [
+          "cv-court-barr-1",
+          "cv-court-barr-2",
+          "cv-court-barr-3"
+        ],
+        "buildings": [
+          "bld-security-hall",
+          "bld-core-walkway"
+        ],
+        "tunnelMouths": [
+          "tp-west",
+          "tun-a"
+        ]
+      },
+      "ok": true
+    }
+  ],
+  "warnings": []
+}
