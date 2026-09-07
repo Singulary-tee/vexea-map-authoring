@@ -16,6 +16,12 @@
   -> `node tools/gen-blockout-svg-full.mjs` -> `node tools/gen-full-geometry.mjs` -> serve ->
   `node tools/capture_viewer.mjs http://127.0.0.1:3000/editor/blockout-viewer.html out/shot.png` ->
   `python3 tools/analyze_shot.py out/shot.png`. Deterministic GLB (same bytes each regen).
+- **BUILD loop (built campus + blockout reference layer):** `node tools/gen-build-map.mjs` ->
+  `editor/facility-built.glb` + `out/build-report.json` (contact/depth/overlap gates; 21 materials, 9.7k tris).
+  Viewer loads built map with `BLOCKOUT LAYER` ghost overlay + `PLAYER CAM` (walks route_main_surface at
+  1.7m eye). Player-eye captures: `node tools/capture_player.mjs` -> artifacts/blockout-player-*.png.
+  Material-count trap: `idSeed()` is signed — index material arrays with `>>> 0` or THREE creates a default
+  material per mesh (67-material leak fixed to 21).
 
 ## GitHub push from VM (auth)
 - gh auth token exists but plain extraheader fails. USE:

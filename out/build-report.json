@@ -1,0 +1,45 @@
+{
+  "file": "blockout/blockout-full-v1.json",
+  "generated": "2026-09-07",
+  "materials": 21,
+  "triangles": 9727,
+  "segments": 92,
+  "checks": [
+    {
+      "n": "mountain mtn-nw sits on boundary band",
+      "p": true
+    },
+    {
+      "n": "mountain mtn-ne sits on boundary band",
+      "p": true
+    },
+    {
+      "n": "fence fence-w on boundary band",
+      "p": true
+    },
+    {
+      "n": "fence fence-s on boundary band",
+      "p": true
+    },
+    {
+      "n": "contact: non-displaceable volumes grounded on ground segments",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "architecture depth: every entrance binds to a constructed building",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "overlap: no unexplained non-displaceable AABB overlap (>5m)",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "depth: buildings render wall frame + roof + parapet (construction, not paper)",
+      "p": true,
+      "d": ""
+    }
+  ]
+}

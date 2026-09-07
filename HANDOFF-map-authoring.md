@@ -6,7 +6,22 @@ Repo: `Singulary-tee/vexea-map-authoring`, main is the source of truth. Codespac
 ## CURRENT CHECKPOINT (full-map blockout stage — 2026-09-07)
 - **Full-map segmented blockout realized: `blockout/blockout-full-v1.json`** (92 segments, 14 routes, 8 zones,
   21 deliberate covers, 3 kill-zone closures, 2 roll-down doors, 2 channel walls; r2: enterable reduced to 9
-  route/objective/chokepoint-backed buildings, overlaps removed, density raised toward reference metrics). Geometry frame = blockout-v3 annotated target (b4fa5260);
+  route/objective/chokepoint-backed buildings, overlaps removed, density raised toward reference metrics).
+- **BUILD STAGE (next layer, blockout stays as reference): `tools/gen-build-map.mjs` -> `editor/facility-built.glb`**
+  (deterministic, gitignored, 21 materials / 9.7k tris / 1MB). Promotes segments to construction:
+  real wall frames with door openings cut + lintels, roof + parapet, floor bands, seeded roof machinery,
+  window grids; segmented roads (ribbon + curb strips + seeded light poles); pipe racks along covered routes
+  (supports every 6m); cover family grammar (low crate stack / mid jersey / full bunker); displaced-icosahedron
+  rock masses; shoreline lip; fence posts+rails; portal rings; 1:12 incline step prism; real stair steps.
+  Build gates (out/build-report.json): contact grounded, architecture depth (entrances bind to constructed
+  buildings), no unexplained overlap — ALL PASS. Viewer now loads built map + blockout overlay toggle
+  (`BLOCKOUT LAYER` button, 35% ghost) + `PLAYER CAM` walk-through along route_main_surface at 1.7m eye
+  (window.__playerCamAt(t) for deterministic capture).
+- Evidence: `artifacts/blockout-player-{spawn,gate-square,pressure-yard,checkpoint,core-door}.png` player-eye
+  frames (mass 0.14-0.39, contrast 211-219, render gate green) + top/xray/orbit.
+- NEXT: slice grammar proof on the built map (loading hall <-> checkpoint court), then sourced-GLB placement
+  for vehicles/machinery only (SKILL reuse table: procedural for roads/buildings/utilities, GLBs for
+  complex machinery), then dressing/PBR per industrial-grammar reference. Geometry frame = blockout-v3 annotated target (b4fa5260);
   zone semantics = 7-zone contract; vertical gauges from blockout-v2; fixture = spec/calibration.md.
 - Everything is 1m-snapped; every cover carries threatElevation + directionality + interrupts + heightClass;
   every tunnel carries X-ray + belowGradeY -14; every entrance checked vs the 1.8m capsule.

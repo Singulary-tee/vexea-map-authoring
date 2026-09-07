@@ -12,7 +12,7 @@ canvas{display:block}
 .chip{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:-1px;border:1px solid #666}
 </style></head>
 <body><div id="ui">
-<button id="bTop" class="on">TOP ORTHO</button><button id="bOrbit">ORBIT PERSP</button><button id="bXray">X-RAY</button>
+<button id="bTop" class="on">TOP ORTHO</button><button id="bOrbit">ORBIT PERSP</button><button id="bXray">X-RAY</button><button id="bBlock" class="on">BLOCKOUT LAYER</button>
 <div id="legend"></div>
 </div>
 <script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
@@ -38,6 +38,13 @@ const light = new THREE.HemisphereLight(0xdde6ee, 0x404448, 1.1);
 scene.add(light, new THREE.DirectionalLight(0xffffff, 1.6).translateX(-300).translateY(500).translateZ(200));
 const controls = new OrbitControls(cam, renderer.domElement);
 controls.target.set(cx, 0, cz);
+// blockout reference layer (separate GLB, toggleable)
+let blockLayer = null;
+const bBlock = document.getElementById('bBlock');
+bBlock.onclick = () => {
+  const on = bBlock.classList.toggle('on');
+  if (blockLayer) blockLayer.visible = on;
+};
 // X-ray: ground/walls go translucent so tunnels + interiors read from above
 let xray = false;
 const bX = document.getElementById('bXray');
@@ -45,6 +52,7 @@ bX.onclick = () => {
   xray = !xray; bX.classList.toggle('on', xray);
   scene.traverse(o => {
     if (!o.isMesh || !o.material) return;
+    if (o === blockLayer || o.parent === blockLayer) return;
     const opaque = o.material.userData.opaque ?? true;
     if (xray && opaque) { o.material.transparent = true; o.material.opacity = 0.22; o.material.depthWrite = false; }
     else if (!xray && opaque) { o.material.transparent = o.material.userData.wasTransparent ?? false; o.material.opacity = o.material.userData.wasTransparent ? 0.5 : 1; o.material.depthWrite = true; }
@@ -58,19 +66,49 @@ const setCam = (top) => {
 };
 document.getElementById('bTop').onclick = () => setCam(true);
 document.getElementById('bOrbit').onclick = () => setCam(false);
+// player-eye camera: follows route_main_surface at 1.7m eye height (walk-through evidence)
+const ROUTE = [[-292, 170], [-240, 160], [-160, 150], [-60, 120], [0, 100], [60, 60], [120, 0], [140, -60], [110, -110], [100, -160], [100, -210], [40, -214], [20, -222], [20, -228]];
+function routePts() {
+  const pts = [];
+  for (let i = 0; i < ROUTE.length - 1; i++) {
+    const a = ROUTE[i], b = ROUTE[i + 1];
+    const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 8));
+    for (let k = 0; k < n; k++) pts.push([a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n]);
+  }
+  pts.push(ROUTE[ROUTE.length - 1]);
+  return pts;
+}
+const ROUTE_PTS = routePts();
+window.__playerCamAt = (t) => {
+  const i = Math.min(ROUTE_PTS.length - 2, Math.floor(t * (ROUTE_PTS.length - 1)));
+  const p = ROUTE_PTS[i], q = ROUTE_PTS[Math.min(i + 2, ROUTE_PTS.length - 1)];
+  cam = camP; setCam(false);
+  cam.position.set(p[0], 1.7, p[1]);
+  cam.lookAt(q[0], 1.4, q[1]);
+  controls.enabled = false;
+  renderer.render(scene, cam);
+};
 // legend mirrors tools/gen-full-geometry palette
 const LEG = [['#6e6a5a','ground'],['#3a5a7c','enterable bldg'],['#46688c','warehouse'],['#4a5560','non-enterable'],['#5b4a8c','tower'],['#2e8c8c','bridge'],['#7a6a4a','wall/fence'],['#c07a2e','stair'],['#d08a3a','incline'],['#b06030','roll-down door'],['#8a5ab8','tunnel (X-ray)'],['#d84a8c','drone hole'],['#e0c040','entrance'],['#3f7a45','cover'],['#5a9a5a','canopy'],['#5a4a3a','mountain'],['#2e5d7a','water'],['#40c0c0','spawn'],['#d04040','kill-zone']];
 document.getElementById('legend').innerHTML = LEG.map(([c, n]) => `<span class="chip" style="background:${c}"></span>${n}`).join('<br>');
-new GLTFLoader().load('./blockout-full.glb', (g) => {
+const loader = new GLTFLoader();
+let loaded = 0;
+loader.load('./facility-built.glb', (g) => {
   g.scene.traverse(o => {
     if (!o.isMesh) return;
     const m = o.material;
     m.userData.wasTransparent = m.transparent;
-    m.userData.opaque = !(m.transparent && m.opacity < 0.9); // kill/spawn/tunnel/canopy stay as authored
+    m.userData.opaque = !(m.transparent && m.opacity < 0.9);
     if (!xray && !m.userData.wasTransparent) { m.transparent = false; }
   });
   scene.add(g.scene);
-  window.__ready = true;
+  if (++loaded === 2) window.__ready = true;
+}, undefined, (e) => { window.__err = String(e); });
+loader.load('./blockout-full.glb', (g) => {
+  g.scene.traverse(o => { if (o.isMesh) o.material = o.material.clone(), o.material.transparent = true, o.material.opacity = 0.35, o.material.depthWrite = false; });
+  blockLayer = g.scene;
+  scene.add(g.scene);
+  if (++loaded === 2) window.__ready = true;
 }, undefined, (e) => { window.__err = String(e); });
 addEventListener('resize', () => {
   renderer.setSize(innerWidth, innerHeight);
