@@ -1,0 +1,10 @@
+{
+  "report": {
+    "file": "blockout/blockout-full-v1.json",
+    "generated": "2026-09-07",
+    "covers": 22,
+    "vertical": 9,
+    "clearance": 22,
+    "warnings": []
+  }
+}

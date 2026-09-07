@@ -56,27 +56,54 @@ File: blockout/blockout-full-v1.json  |  Fixture: spec/calibration.md (1.8m caps
 
 Pacing: core-approach surface roads ~1126m (sum main surface + covered route).
 
+## Path interiors (door -> floor -> objective continuity)
+
+**path-surface-main**:
+- bld-core-ops-hall (objective, 6F, objective on floor 2)
+
+**path-covered-logistics**:
+- bld-loading-hall (drive-through, 1F)
+- bld-security-hall (corridor, 2F)
+- bld-core-ops-hall (objective, 6F, objective on floor 2)
+
+**path-east-flank**:
+- bld-core-service-wing (open, 1F)
+- bld-core-walkway (corridor, 1F)
+- bld-core-ops-hall (objective, 6F, objective on floor 2)
+
+**path-tunnel-alternate**:
+- bld-core-walkway (corridor, 1F)
+- bld-core-ops-hall (objective, 6F, objective on floor 2)
+
 ## Cover placement (vs named interrupts)
 
 - cv-gate-w: 15m both/full OK
-- cv-gate-e: 9m both/full OK
-- cv-pressure-w: 21m both/full OK
-- cv-pressure-e: 20m both/full OK
+- cv-gate-e: 6m both/full OK
+- cv-pressure-w: 18m both/full OK
+- cv-pressure-e: 12m both/full OK
 - cv-mix-1: 16m ground/low OK
-- cv-mix-2: 17m ground/mid OK
+- cv-mix-2: 3m ground/mid OK
+- cv-mix-3: 6m ground/mid OK
 - cv-court-barr-1: 16m ground/full OK
 - cv-court-barr-2: 4m ground/full OK
 - cv-court-barr-3: 22m ground/full OK
-- cv-plant-spur: 8m ground/full OK
-- cv-annex-e: 18m ground/mid OK
-- cv-maint-n: 12m both/full OK
-- cv-spawn-1: 12m ground/low OK
-- cv-spawn-2: 17m ground/low OK
+- cv-plant-spur: 5m ground/full OK
+- cv-annex-e: 12m ground/mid OK
+- cv-maint-n: 2m both/full OK
+- cv-spawn-1: 7m ground/low OK
+- cv-spawn-2: 12m ground/low OK
+- cv-spawn-3: 5m ground/low OK
+- cv-east-1: 5m ground/mid OK
+- cv-east-2: 9m both/full OK
+- cv-east-3: 2m ground/full OK
+- cv-core-1: 8m both/full OK
+- cv-core-2: 6m ground/mid OK
+- cv-corridor-1: 16m both/full OK
 
 ## Kill-zone closures
 
-- kz-core: covers=[] buildings=[bld-core-ops-hall,bld-core-walkway] tunnel=[] CLOSED
-- kz-plant: covers=[cv-plant-spur] buildings=[bld-processing-hall] tunnel=[] CLOSED
+- kz-core: covers=[cv-core-1] buildings=[bld-core-ops-hall,bld-core-walkway] tunnel=[] CLOSED
+- kz-plant: covers=[cv-plant-spur,cv-east-1] buildings=[bld-processing-hall] tunnel=[] CLOSED
 - kz-court: covers=[cv-court-barr-1,cv-court-barr-2,cv-court-barr-3] buildings=[bld-security-hall,bld-core-walkway] tunnel=[tp-west,tun-a] CLOSED
 
 ## Vertical transitions
@@ -85,7 +112,6 @@ Pacing: core-approach surface roads ~1126m (sum main surface + covered route).
 - incline_plant (ramp, host in-plant): hub/east yard -> processing hall floor 1 (+6m raised base, 72m run) — capsule-OK
 - stair_tower (stair, host bld-service-tower): 5 floors + catwalk exit east — capsule-OK
 - stair_core (stair, host bld-core-ops-hall): 6 floors; objective on floor 2 — capsule-OK
-- stair_annex (stair, host bld-plant-annex): 2 floors — capsule-OK
 - stair_maint (stair, host bld-maintenance): 2 floors — capsule-OK
 - stair_security (stair, host bld-security-hall): 2 floors — capsule-OK
 - stair_catwalk_e (stair, host st-catwalk-e): catwalk (+6m) -> east yard — capsule-OK

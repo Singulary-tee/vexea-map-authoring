@@ -1,0 +1,788 @@
+{
+  "format": "vexea-semantic/1",
+  "map": "map_1_facility",
+  "slice": "full-map",
+  "match": {
+    "players": "5-10",
+    "durationS": 480,
+    "llmCycleMs": 8000
+  },
+  "zones": [
+    {
+      "id": "zone_spawn",
+      "name": "Spawn / Arrival",
+      "role": "contractor spawn, safe apron, ridgeline exit",
+      "bounds": {
+        "min": [
+          -360,
+          150
+        ],
+        "max": [
+          -180,
+          340
+        ]
+      }
+    },
+    {
+      "id": "zone_courtyard",
+      "name": "Courtyard / Gate",
+      "role": "first-contact yards, open-sky pressure yard (fixed-wing target), mix courts",
+      "bounds": {
+        "min": [
+          -360,
+          -60
+        ],
+        "max": [
+          200,
+          190
+        ]
+      }
+    },
+    {
+      "id": "zone_warehouse",
+      "name": "Warehouse / Service",
+      "role": "loading/logistics, maintenance workshops, deployment bays, storage shells",
+      "bounds": {
+        "min": [
+          -260,
+          -110
+        ],
+        "max": [
+          52,
+          156
+        ]
+      }
+    },
+    {
+      "id": "zone_plant",
+      "name": "Plant / Processing",
+      "role": "processing hall, plant annex, utility stack, substation, incline, tank farm",
+      "bounds": {
+        "min": [
+          90,
+          -196
+        ],
+        "max": [
+          380,
+          120
+        ]
+      }
+    },
+    {
+      "id": "zone_bridge",
+      "name": "Bridge / Overwatch",
+      "role": "service tower + catwalk over east yard (nearest equivalent to the bridge connector in the 7-zone contract; see openQuestions)",
+      "bounds": {
+        "min": [
+          243,
+          31
+        ],
+        "max": [
+          318,
+          68
+        ]
+      }
+    },
+    {
+      "id": "zone_tunnels",
+      "name": "Tunnels",
+      "role": "below-grade east-west arm, X-ray interior, far from core",
+      "bounds": {
+        "min": [
+          44,
+          -216
+        ],
+        "max": [
+          304,
+          -170
+        ]
+      }
+    },
+    {
+      "id": "zone_core",
+      "name": "Core",
+      "role": "objective hall, service wing, core yard, checkpoint court closure",
+      "bounds": {
+        "min": [
+          -89,
+          -312
+        ],
+        "max": [
+          380,
+          -60
+        ]
+      }
+    },
+    {
+      "id": "zone_boundary",
+      "name": "Perimeter / Boundary",
+      "role": "mountain north, reservoir east, fence west/south",
+      "bounds": {
+        "min": [
+          -462,
+          -322
+        ],
+        "max": [
+          470,
+          340
+        ]
+      }
+    }
+  ],
+  "adjacency": [
+    {
+      "from": "zone_courtyard",
+      "to": "zone_spawn",
+      "kind": "open"
+    },
+    {
+      "from": "zone_courtyard",
+      "to": "zone_warehouse",
+      "kind": "open"
+    },
+    {
+      "from": "zone_courtyard",
+      "to": "zone_plant",
+      "kind": "open"
+    },
+    {
+      "from": "zone_core",
+      "to": "zone_courtyard",
+      "kind": "open"
+    },
+    {
+      "from": "zone_core",
+      "to": "zone_warehouse",
+      "kind": "open"
+    },
+    {
+      "from": "zone_core",
+      "to": "zone_plant",
+      "kind": "open"
+    },
+    {
+      "from": "zone_bridge",
+      "to": "zone_plant",
+      "kind": "open"
+    },
+    {
+      "from": "zone_core",
+      "to": "zone_tunnels",
+      "kind": "open"
+    },
+    {
+      "from": "zone_boundary",
+      "to": "zone_spawn",
+      "kind": "open"
+    }
+  ],
+  "spawn": {
+    "id": "sp-spawn",
+    "box": {
+      "min": [
+        -340,
+        164
+      ],
+      "max": [
+        -250,
+        260
+      ]
+    },
+    "safeApron": 40,
+    "northExit": [
+      -240,
+      290
+    ]
+  },
+  "objective": {
+    "zone": "zone_core",
+    "building": "bld-core-ops-hall",
+    "floor": 2,
+    "holdTimeS": 8,
+    "proximityRadius": 3,
+    "terminalDamageable": false,
+    "box": {
+      "min": [
+        2,
+        -284
+      ],
+      "max": [
+        94,
+        -232
+      ]
+    },
+    "killZone": "kz-core"
+  },
+  "surveillance": [
+    {
+      "id": "camGatehouse",
+      "type": "camera",
+      "pos": [
+        -270,
+        150
+      ],
+      "destructible": true
+    },
+    {
+      "id": "camServiceTower",
+      "type": "camera",
+      "pos": [
+        262,
+        40
+      ],
+      "destructible": true
+    },
+    {
+      "id": "camSurveillanceW",
+      "type": "camera",
+      "pos": [
+        -100,
+        -124
+      ],
+      "destructible": true
+    },
+    {
+      "id": "camSurveillanceE",
+      "type": "camera",
+      "pos": [
+        190,
+        -130
+      ],
+      "destructible": true
+    },
+    {
+      "id": "camSecurity",
+      "type": "camera",
+      "pos": [
+        66,
+        -150
+      ],
+      "destructible": true
+    }
+  ],
+  "killZones": [
+    {
+      "id": "kz-core",
+      "box": {
+        "min": [
+          18,
+          -312
+        ],
+        "max": [
+          78,
+          -252
+        ]
+      },
+      "note": "final approach lanes to objective hold (killCore r30 @ (48,-282))"
+    },
+    {
+      "id": "kz-plant",
+      "box": {
+        "min": [
+          188,
+          -86
+        ],
+        "max": [
+          240,
+          -34
+        ]
+      },
+      "note": "killPlant r26 @ (214,-60); closes south service door approach (spur)"
+    },
+    {
+      "id": "kz-court",
+      "box": {
+        "min": [
+          26,
+          -192
+        ],
+        "max": [
+          70,
+          -148
+        ]
+      },
+      "note": "killCourt r22 @ (48,-170); walls + barricade line + tunnel mouth closure"
+    }
+  ],
+  "droneDeployment": [
+    {
+      "unit": "fixed_wing",
+      "zone": "zone_courtyard",
+      "anchor": {
+        "x": 78,
+        "z": 102,
+        "label": "Pressure Yard — open sky / fixed-wing yard"
+      },
+      "note": "open-sky strafe box; GAMEPLAY primary target zone_courtyard"
+    },
+    {
+      "unit": "wheeled",
+      "zone": "zone_warehouse",
+      "anchor": {
+        "min": [
+          -122,
+          -83
+        ],
+        "max": [
+          -78,
+          -57
+        ]
+      },
+      "note": "enclosed deployment bays; sealed roll-down egress"
+    },
+    {
+      "unit": "rotary_shooter",
+      "zone": "zone_courtyard",
+      "anchor": {
+        "min": [
+          -100,
+          -60
+        ],
+        "max": [
+          120,
+          95
+        ]
+      },
+      "note": "hub harassment"
+    },
+    {
+      "unit": "robot_dog",
+      "zone": "zone_plant",
+      "anchor": {
+        "min": [
+          100,
+          -170
+        ],
+        "max": [
+          380,
+          -120
+        ]
+      },
+      "note": "agile flank from plant south band"
+    },
+    {
+      "unit": "wheeled",
+      "zone": "zone_tunnels",
+      "anchor": {
+        "min": [
+          116,
+          -212
+        ],
+        "max": [
+          224,
+          -170
+        ]
+      },
+      "note": "below-grade interdiction (X-ray interior)"
+    }
+  ],
+  "routes": [
+    {
+      "id": "route_main_surface",
+      "kind": "ground",
+      "width": 9,
+      "waypoints": [
+        [
+          -292,
+          170
+        ],
+        [
+          -240,
+          160
+        ],
+        [
+          -160,
+          150
+        ],
+        [
+          -60,
+          120
+        ],
+        [
+          0,
+          100
+        ],
+        [
+          60,
+          60
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          140,
+          -60
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          100,
+          -160
+        ],
+        [
+          100,
+          -210
+        ],
+        [
+          40,
+          -214
+        ],
+        [
+          20,
+          -222
+        ],
+        [
+          20,
+          -228
+        ]
+      ]
+    },
+    {
+      "id": "route_covered",
+      "kind": "covered",
+      "width": 5,
+      "waypoints": [
+        [
+          -120,
+          80
+        ],
+        [
+          -80,
+          60
+        ],
+        [
+          -40,
+          40
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          40,
+          -40
+        ],
+        [
+          60,
+          -100
+        ],
+        [
+          50,
+          -150
+        ],
+        [
+          48,
+          -190
+        ]
+      ]
+    },
+    {
+      "id": "route_rear_alley",
+      "kind": "ground",
+      "width": 5,
+      "waypoints": [
+        [
+          -200,
+          140
+        ],
+        [
+          -140,
+          116
+        ],
+        [
+          -60,
+          110
+        ],
+        [
+          -4,
+          110
+        ]
+      ]
+    },
+    {
+      "id": "route_north_ring",
+      "kind": "ground",
+      "width": 7,
+      "waypoints": [
+        [
+          60,
+          120
+        ],
+        [
+          120,
+          110
+        ],
+        [
+          170,
+          70
+        ],
+        [
+          150,
+          10
+        ],
+        [
+          140,
+          -60
+        ],
+        [
+          150,
+          -120
+        ]
+      ]
+    },
+    {
+      "id": "route_south_retreat",
+      "kind": "ground",
+      "width": 6,
+      "waypoints": [
+        [
+          -40,
+          -60
+        ],
+        [
+          40,
+          -80
+        ],
+        [
+          120,
+          -100
+        ],
+        [
+          180,
+          -120
+        ],
+        [
+          240,
+          -160
+        ],
+        [
+          300,
+          -210
+        ]
+      ]
+    },
+    {
+      "id": "route_flank_backdoor",
+      "kind": "covered",
+      "width": 4,
+      "waypoints": [
+        [
+          148,
+          -210
+        ],
+        [
+          148,
+          -236
+        ]
+      ]
+    },
+    {
+      "id": "route_plant_spur",
+      "kind": "ground",
+      "width": 6,
+      "waypoints": [
+        [
+          140,
+          -100
+        ],
+        [
+          200,
+          -95
+        ],
+        [
+          214,
+          -80
+        ],
+        [
+          214,
+          -70
+        ]
+      ]
+    },
+    {
+      "id": "route_ridgeline_exit",
+      "kind": "ground",
+      "width": 6,
+      "waypoints": [
+        [
+          -290,
+          230
+        ],
+        [
+          -260,
+          270
+        ],
+        [
+          -240,
+          300
+        ],
+        [
+          -240,
+          330
+        ]
+      ]
+    },
+    {
+      "id": "route_maintenance_loop",
+      "kind": "covered",
+      "width": 5,
+      "waypoints": [
+        [
+          -200,
+          140
+        ],
+        [
+          -130,
+          60
+        ],
+        [
+          -130,
+          -10
+        ],
+        [
+          -130,
+          -70
+        ],
+        [
+          -100,
+          -70
+        ]
+      ]
+    },
+    {
+      "id": "route_tunnel",
+      "kind": "tunnel",
+      "width": 8,
+      "waypoints": [
+        [
+          48,
+          -196
+        ],
+        [
+          120,
+          -200
+        ],
+        [
+          220,
+          -206
+        ],
+        [
+          300,
+          -210
+        ]
+      ]
+    },
+    {
+      "id": "air-pressure-yard",
+      "kind": "air",
+      "width": 60,
+      "waypoints": [
+        [
+          0,
+          140
+        ],
+        [
+          120,
+          140
+        ],
+        [
+          120,
+          100
+        ],
+        [
+          0,
+          100
+        ]
+      ]
+    },
+    {
+      "id": "air-courtyard",
+      "kind": "air",
+      "width": 40,
+      "waypoints": [
+        [
+          -240,
+          120
+        ],
+        [
+          -120,
+          40
+        ],
+        [
+          -60,
+          10
+        ],
+        [
+          60,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "air-spawn-apron",
+      "kind": "air",
+      "width": 30,
+      "waypoints": [
+        [
+          -420,
+          240
+        ],
+        [
+          -320,
+          200
+        ],
+        [
+          -240,
+          190
+        ]
+      ]
+    },
+    {
+      "id": "air-roof-reentry",
+      "kind": "air",
+      "width": 20,
+      "waypoints": [
+        [
+          258,
+          48
+        ],
+        [
+          150,
+          -40
+        ],
+        [
+          -150,
+          -100
+        ]
+      ]
+    }
+  ],
+  "airRoutes": [
+    "air-pressure-yard",
+    "air-courtyard",
+    "air-spawn-apron",
+    "air-roof-reentry"
+  ],
+  "tunnelXray": true,
+  "droneHoles": [
+    {
+      "id": "hd-roof-opening",
+      "clearWidth": 2.4,
+      "pos": [
+        -150,
+        -100
+      ]
+    }
+  ],
+  "openSky": {
+    "x": 78,
+    "z": 102,
+    "label": "Pressure Yard — open sky / fixed-wing yard"
+  },
+  "sourceHashes": {
+    "blockout": "957ca3e4af70"
+  }
+}

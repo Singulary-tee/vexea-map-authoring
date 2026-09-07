@@ -3,3 +3,5 @@ node_modules
 tools/node_modules
 artifacts/*.glb
 editor/*.glb
+.hoplite/attachments/
+.hoplite/artifacts/

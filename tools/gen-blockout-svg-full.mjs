@@ -31,7 +31,10 @@ const P = {
   'waterbody-boundary': ['#2e5d7a', '#5a90b8'],
   'spawn': ['#40c0c0', '#a0f0f0'],
   'kill-zone': ['#d04040', '#f09090'],
+  'roll-down': ['#b06030', '#e0a060'],
 };
+// ground surface classes get their own fill so yards/roads read distinctly
+const SURF = { concrete: '#7a7668', asphalt: '#5f5c4e', gravel: '#6e6a5a', dirt: '#6a5f4e' };
 const dash = { 'tunnel-passage': 'stroke-dasharray="3 4"', 'hole-drone-entry': 'stroke-dasharray="5 3"' };
 let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VW} ${VH}" font-family="monospace">
 <rect width="${VW}" height="${VH}" fill="#10151b"/>`;
@@ -48,7 +51,8 @@ const order = k => ['ground-surface-type', 'kill-zone'].indexOf(k) === -1 ? 1 : 
 for (const seg of [...b.segments].sort((a, c) => order(a.category) - order(c.category))) {
   const [x1, z1, x2, z2] = seg.bounds;
   const rx = X(x1), ry = Y(z2), rw = (x2 - x1) * sx, rh = (z2 - z1) * sz;
-  const [f, st] = P[seg.category] || ['#333', '#666'];
+  let [f, st] = P[seg.category] || ['#333', '#666'];
+  if (seg.category === 'ground-surface-type') f = SURF[seg.surface] || f;
   const op = seg.category === 'kill-zone' ? '0.35' : seg.category === 'overhead-cover' ? '0.5' : seg.category === 'waterbody-boundary' ? '0.9' : '1';
   let extra = '';
   if (seg.category === 'kill-zone') extra = ' stroke-dasharray="8 6"';
@@ -96,7 +100,7 @@ s += `<text x="${X(0)}" y="${Y(W.maxZ) - 6}" fill="#c8c8c8" font-size="12" text-
 // scale bar + fixture figure (1.8m capsule) + legend
 s += `<g transform="translate(20,${VH - 14})"><rect x="0" y="-8" width="${(100 * sx).toFixed(0)}" height="4" fill="#c8c8c8"/>
 <text x="${(50 * sx).toFixed(0)}" y="-12" fill="#c8c8c8" font-size="9" text-anchor="middle">100 m</text></g>`;
-const legend = [['ground-surface-type', 'ground/surface'], ['building-enterable', 'enterable building'], ['warehouse-enterable', 'warehouse'], ['facade-non-enterable', 'non-enterable shell'], ['tower', 'tower/overwatch'], ['bridge', 'bridge'], ['wall-blocking', 'wall/fence'], ['stair', 'stair'], ['incline', 'incline 1:12'], ['tunnel-passage', 'tunnel (X-ray)'], ['hole-drone-entry', 'drone hole'], ['entrance-player', 'entrance'], ['cover', 'cover'], ['overhead-cover', 'overhead canopy'], ['mountain-boundary', 'mountain'], ['waterbody-boundary', 'water'], ['spawn', 'spawn'], ['kill-zone', 'kill zone']];
+const legend = [['ground-surface-type', 'ground/surface'], ['building-enterable', 'enterable building'], ['warehouse-enterable', 'warehouse'], ['facade-non-enterable', 'non-enterable shell'], ['tower', 'tower/overwatch'], ['bridge', 'bridge'], ['wall-blocking', 'wall/fence'], ['stair', 'stair'], ['incline', 'incline 1:12'], ['roll-down', 'roll-down door'], ['tunnel-passage', 'tunnel (X-ray)'], ['hole-drone-entry', 'drone hole'], ['entrance-player', 'entrance'], ['cover', 'cover'], ['overhead-cover', 'overhead canopy'], ['mountain-boundary', 'mountain'], ['waterbody-boundary', 'water'], ['spawn', 'spawn'], ['kill-zone', 'kill zone']];
 const lx = VW - 190, ly = 20;
 s += `<g transform="translate(${lx},${ly})"><rect x="-8" y="-10" width="196" height="${legend.length * 15 + 14}" fill="#0c1116" opacity="0.9" rx="3"/>`;
 legend.forEach(([k, nm], i) => {

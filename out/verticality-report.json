@@ -1,0 +1,284 @@
+{
+  "vertical": [
+    {
+      "id": "stair_sec_threshold",
+      "kind": "stair",
+      "host": "s-sec-threshold",
+      "connects": "checkpoint court -> security hall threshold (+1.5m)",
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 6
+      },
+      "support": "s-sec-threshold (stair)",
+      "purpose": "checkpoint court -> security hall threshold (+1.5m)",
+      "capsuleOk": true
+    },
+    {
+      "id": "incline_plant",
+      "kind": "ramp",
+      "host": "in-plant",
+      "connects": "hub/east yard -> processing hall floor 1 (+6m raised base, 72m run)",
+      "gauge": {
+        "grade": "1:12",
+        "width": 8
+      },
+      "support": "in-plant (incline)",
+      "purpose": "hub/east yard -> processing hall floor 1 (+6m raised base, 72m run)",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_tower",
+      "kind": "stair",
+      "host": "bld-service-tower",
+      "connects": "5 floors + catwalk exit east",
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.28,
+        "width": 1.2
+      },
+      "support": "bld-service-tower (tower)",
+      "purpose": "5 floors + catwalk exit east",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_core",
+      "kind": "stair",
+      "host": "bld-core-ops-hall",
+      "connects": "6 floors; objective on floor 2",
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.28,
+        "width": 1.6
+      },
+      "support": "bld-core-ops-hall (building-enterable)",
+      "purpose": "6 floors; objective on floor 2",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_maint",
+      "kind": "stair",
+      "host": "bld-maintenance",
+      "connects": "2 floors",
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.28,
+        "width": 1.4
+      },
+      "support": "bld-maintenance (building-enterable)",
+      "purpose": "2 floors",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_security",
+      "kind": "stair",
+      "host": "bld-security-hall",
+      "connects": "2 floors",
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.28,
+        "width": 1.4
+      },
+      "support": "bld-security-hall (building-enterable)",
+      "purpose": "2 floors",
+      "capsuleOk": true
+    },
+    {
+      "id": "stair_catwalk_e",
+      "kind": "stair",
+      "host": "st-catwalk-e",
+      "connects": "catwalk (+6m) -> east yard",
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 4
+      },
+      "support": "st-catwalk-e (stair)",
+      "purpose": "catwalk (+6m) -> east yard",
+      "capsuleOk": true
+    },
+    {
+      "id": "hole_roof_reentry",
+      "kind": "hole-drone-entry",
+      "host": "hd-roof-opening",
+      "connects": "air -> maintenance service yard (drone-only)",
+      "gauge": {
+        "clearWidth": 2.4,
+        "drop": 12
+      },
+      "support": "hd-roof-opening (hole-drone-entry)",
+      "purpose": "air -> maintenance service yard (drone-only)",
+      "capsuleOk": true
+    },
+    {
+      "id": "tunnel_below_grade",
+      "kind": "belowGrade",
+      "host": "tun-a/tun-b/tun-c",
+      "connects": "checkpoint court mouth <-> east ridge portal; X-ray interior visibility required; >=60m from core",
+      "gauge": {
+        "clearHeight": 6,
+        "clearWidth": 10
+      },
+      "support": "tun-a (tunnel-passage)",
+      "purpose": "checkpoint court mouth <-> east ridge portal; X-ray interior visibility required; >=60m from core",
+      "capsuleOk": true
+    }
+  ],
+  "clearance": [
+    {
+      "kind": "door",
+      "id": "e-loading-n-1",
+      "w": 8,
+      "h": 4.5,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-loading-n-2",
+      "w": 8,
+      "h": 4.5,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-loading-n-3",
+      "w": 8,
+      "h": 4.5,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-loading-s",
+      "w": 8,
+      "h": 4.5,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-maint-s",
+      "w": 4,
+      "h": 2.4,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-deploy-e",
+      "w": 8,
+      "h": 4.5,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-sec-s",
+      "w": 6,
+      "h": 2.4,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-core-n",
+      "w": 4,
+      "h": 2.6,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-wing-n",
+      "w": 8,
+      "h": 2.4,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-walkway-w",
+      "w": 2,
+      "h": 2.4,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-plant-w",
+      "w": 4,
+      "h": 2.4,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-plant-s",
+      "w": 4,
+      "h": 2.4,
+      "ok": true
+    },
+    {
+      "kind": "door",
+      "id": "e-tower-s",
+      "w": 4,
+      "h": 2.4,
+      "ok": true
+    },
+    {
+      "kind": "stair",
+      "id": "s-sec-threshold",
+      "rise": 0.17,
+      "tread": 0.3,
+      "w": 6,
+      "ok": true
+    },
+    {
+      "kind": "incline",
+      "id": "in-plant",
+      "grade": "1:12",
+      "w": 8,
+      "ok": true
+    },
+    {
+      "kind": "stair",
+      "id": "st-catwalk-e",
+      "rise": 0.17,
+      "tread": 0.3,
+      "w": 4,
+      "ok": true
+    },
+    {
+      "kind": "tunnel",
+      "id": "tp-west",
+      "h": 6,
+      "w": 8,
+      "ok": true
+    },
+    {
+      "kind": "tunnel",
+      "id": "tp-east",
+      "h": 6,
+      "w": 8,
+      "ok": true
+    },
+    {
+      "kind": "tunnel",
+      "id": "tun-a",
+      "h": 6,
+      "w": 10,
+      "ok": true
+    },
+    {
+      "kind": "tunnel",
+      "id": "tun-b",
+      "h": 6,
+      "w": 10,
+      "ok": true
+    },
+    {
+      "kind": "tunnel",
+      "id": "tun-c",
+      "h": 6,
+      "w": 10,
+      "ok": true
+    },
+    {
+      "kind": "drone-hole",
+      "id": "hd-roof-opening",
+      "clearWidth": 2.4,
+      "ok": true
+    }
+  ]
+}
