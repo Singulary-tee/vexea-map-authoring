@@ -26,6 +26,20 @@ Repo: `Singulary-tee/vexea-map-authoring`, main is the source of truth. Codespac
   (`interiors[]`, keyed to building id — traceable). Build report grew to 9 gates (interior gates included)
   ALL PASS. Evidence: `artifacts/blockout-int-{core-objective,loading-hall,tunnel,security-hall,maintenance}.png`
   all render-gate green (mass 0.28-0.77). `tools/capture_interior.mjs` + viewer `__interiorCam(name)`.
+- **PVE LAYER (building stage 3):** `tools/gen-combat-space.mjs` -> out/combat-space-matrix.{json,md} — 11
+  engagement spaces with player entry/exit, cover anchors, exposure/drone lanes, retreats, kill-zone closures,
+  vertical roles, authored decisions (gate: all spaces covered; found+fixed real gap: checkpoint corridor had
+  zero cover anchors -> cv-corridor-1). `tools/gen-pve-reports.mjs` -> cover-bindings.json +
+  verticality-report.json + capsule clearance registry. `tools/gen-slice-contract.mjs` -> out/slice-contract.json
+  (loading hall <-> checkpoint court via route_covered, source hashes). Constructed surveillance cameras
+  (pole+head+emissive lens on concrete base) at all 5 destructible positions + kill-zone closure cues (hazard
+  border strips + signage posts). Slice evidence: artifacts/slice-{loading,corridor,security,court}.png all
+  render-gate green (mass 0.28-0.68); viewer __sliceCamAt + tools/capture_slice.mjs.
+- **PERF (building stage 4):** `tools/measure-perf.mjs` -> out/perf-report.json — 28 draw items (merged
+  per-material), 16.2k tris, built GLB 1.7MB, blockout layer 202KB. Software-GL frame times (2-4fps) are
+  CPU-emulation artifacts, labeled as lower bound; budget is trivial for hardware.
+- **BLOCKER (recorded in data openQuestions):** sourced GLBs for vehicles/machinery — no assets or provenance
+  exist in this repo; needs Ox Alpha to point at the source. Procedural stand-ins would violate the reuse table.
 - NEXT: slice grammar proof on the built map (loading hall <-> checkpoint court), then sourced-GLB placement
   for vehicles/machinery only (SKILL reuse table: procedural for roads/buildings/utilities, GLBs for
   complex machinery), then dressing/PBR per industrial-grammar reference. Geometry frame = blockout-v3 annotated target (b4fa5260);
