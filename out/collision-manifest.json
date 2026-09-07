@@ -1,0 +1,1108 @@
+{
+  "file": "blockout/blockout-full-v1.json",
+  "generated": "2026-09-07",
+  "unit": "meters",
+  "yUp": true,
+  "colliders": [
+    {
+      "id": "bld-gatehouse",
+      "kind": "facade-non-enterable",
+      "box": [
+        -313,
+        122,
+        -271,
+        0,
+        10,
+        162
+      ]
+    },
+    {
+      "id": "bld-north-shed",
+      "kind": "facade-non-enterable",
+      "box": [
+        -209,
+        59,
+        -143,
+        0,
+        9,
+        101
+      ]
+    },
+    {
+      "id": "bld-pressure-store",
+      "kind": "facade-non-enterable",
+      "box": [
+        0,
+        120,
+        52,
+        0,
+        9,
+        156
+      ]
+    },
+    {
+      "id": "bld-yard-utility",
+      "kind": "facade-non-enterable",
+      "box": [
+        113,
+        65,
+        139,
+        0,
+        18,
+        91
+      ]
+    },
+    {
+      "id": "bld-service-tower",
+      "kind": "tower",
+      "box": [
+        243,
+        33,
+        273,
+        0,
+        30,
+        63
+      ]
+    },
+    {
+      "id": "bld-loading-hall",
+      "kind": "warehouse-enterable",
+      "box": [
+        -102,
+        34,
+        -30,
+        0,
+        12,
+        90
+      ]
+    },
+    {
+      "id": "bld-processing-hall",
+      "kind": "building-enterable",
+      "box": [
+        162,
+        -63,
+        266,
+        0,
+        26,
+        11
+      ]
+    },
+    {
+      "id": "bld-substation",
+      "kind": "facade-non-enterable",
+      "box": [
+        310,
+        25,
+        350,
+        0,
+        8,
+        55
+      ]
+    },
+    {
+      "id": "bld-plant-annex",
+      "kind": "facade-non-enterable",
+      "box": [
+        269,
+        -122,
+        339,
+        0,
+        16,
+        -62
+      ]
+    },
+    {
+      "id": "bld-maintenance",
+      "kind": "building-enterable",
+      "box": [
+        -225,
+        -51,
+        -143,
+        0,
+        12,
+        11
+      ]
+    },
+    {
+      "id": "bld-deployment-bays",
+      "kind": "building-enterable",
+      "box": [
+        -122,
+        -83,
+        -78,
+        0,
+        8,
+        -57
+      ]
+    },
+    {
+      "id": "bld-security-hall",
+      "kind": "building-enterable",
+      "box": [
+        2,
+        -167,
+        74,
+        0,
+        14,
+        -121
+      ]
+    },
+    {
+      "id": "bld-core-yard-shelter",
+      "kind": "facade-non-enterable",
+      "box": [
+        -89,
+        -248,
+        -43,
+        0,
+        7,
+        -212
+      ]
+    },
+    {
+      "id": "bld-core-ops-hall",
+      "kind": "building-enterable",
+      "box": [
+        2,
+        -284,
+        94,
+        0,
+        34,
+        -232
+      ]
+    },
+    {
+      "id": "bld-core-service-wing",
+      "kind": "building-enterable",
+      "box": [
+        122,
+        -255,
+        174,
+        0,
+        9,
+        -225
+      ]
+    },
+    {
+      "id": "bld-core-walkway",
+      "kind": "building-enterable",
+      "box": [
+        94,
+        -256,
+        122,
+        0,
+        9,
+        -230
+      ]
+    },
+    {
+      "id": "bld-east-storage-a",
+      "kind": "facade-non-enterable",
+      "box": [
+        150,
+        -92,
+        160,
+        0,
+        6,
+        -72
+      ]
+    },
+    {
+      "id": "bld-east-storage-b",
+      "kind": "facade-non-enterable",
+      "box": [
+        180,
+        50,
+        200,
+        0,
+        6,
+        70
+      ]
+    },
+    {
+      "id": "bld-tank-farm",
+      "kind": "facade-non-enterable",
+      "box": [
+        120,
+        -150,
+        140,
+        0,
+        8,
+        -130
+      ]
+    },
+    {
+      "id": "wl-court-w",
+      "kind": "wall-blocking",
+      "box": [
+        24,
+        -196,
+        26,
+        0,
+        3,
+        -169
+      ]
+    },
+    {
+      "id": "wl-court-e",
+      "kind": "wall-blocking",
+      "box": [
+        76,
+        -196,
+        78,
+        0,
+        3,
+        -169
+      ]
+    },
+    {
+      "id": "rd-deploy",
+      "kind": "roll-down",
+      "box": [
+        -76,
+        -74,
+        -75,
+        0,
+        4.5,
+        -66
+      ]
+    },
+    {
+      "id": "rd-loading",
+      "kind": "roll-down",
+      "box": [
+        -80,
+        92,
+        -40,
+        0,
+        4.5,
+        93
+      ]
+    },
+    {
+      "id": "s-sec-threshold",
+      "kind": "stair",
+      "box": [
+        40,
+        -177,
+        46,
+        0,
+        1.5,
+        -169
+      ]
+    },
+    {
+      "id": "in-plant",
+      "kind": "incline",
+      "box": [
+        90,
+        -47,
+        162,
+        0,
+        6,
+        -39
+      ],
+      "ramp": {
+        "grade": "1:12",
+        "riseAlong": "x"
+      }
+    },
+    {
+      "id": "st-catwalk-e",
+      "kind": "stair",
+      "box": [
+        314,
+        56,
+        318,
+        0,
+        6,
+        68
+      ]
+    },
+    {
+      "id": "br-catwalk",
+      "kind": "deck",
+      "box": [
+        273,
+        58,
+        314,
+        4.8,
+        6,
+        66
+      ]
+    },
+    {
+      "id": "tp-west",
+      "kind": "tunnel",
+      "box": [
+        44,
+        -202,
+        52,
+        -14,
+        -8,
+        -196
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-east",
+      "kind": "tunnel",
+      "box": [
+        296,
+        -216,
+        304,
+        -14,
+        -8,
+        -210
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-a",
+      "kind": "tunnel",
+      "box": [
+        44,
+        -206,
+        124,
+        -14,
+        -8,
+        -172
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-b",
+      "kind": "tunnel",
+      "box": [
+        116,
+        -212,
+        224,
+        -14,
+        -8,
+        -170
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-c",
+      "kind": "tunnel",
+      "box": [
+        216,
+        -216,
+        304,
+        -14,
+        -8,
+        -176
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "cv-gate-w",
+      "kind": "cover",
+      "box": [
+        -300,
+        152,
+        -292,
+        0,
+        1.7,
+        160
+      ]
+    },
+    {
+      "id": "cv-gate-e",
+      "kind": "cover",
+      "box": [
+        -252,
+        152,
+        -244,
+        0,
+        1.7,
+        160
+      ]
+    },
+    {
+      "id": "cv-pressure-w",
+      "kind": "cover",
+      "box": [
+        -20,
+        120,
+        -8,
+        0,
+        1.7,
+        128
+      ]
+    },
+    {
+      "id": "cv-pressure-e",
+      "kind": "cover",
+      "box": [
+        100,
+        120,
+        112,
+        0,
+        1.7,
+        128
+      ]
+    },
+    {
+      "id": "cv-mix-1",
+      "kind": "cover",
+      "box": [
+        -70,
+        -8,
+        -64,
+        0,
+        0.6,
+        0
+      ]
+    },
+    {
+      "id": "cv-mix-2",
+      "kind": "cover",
+      "box": [
+        -46,
+        6,
+        -40,
+        0,
+        1.1,
+        14
+      ]
+    },
+    {
+      "id": "cv-mix-3",
+      "kind": "cover",
+      "box": [
+        -58,
+        10,
+        -52,
+        0,
+        1.1,
+        18
+      ]
+    },
+    {
+      "id": "cv-court-barr-1",
+      "kind": "cover",
+      "box": [
+        28,
+        -196,
+        36,
+        0,
+        1.7,
+        -188
+      ]
+    },
+    {
+      "id": "cv-court-barr-2",
+      "kind": "cover",
+      "box": [
+        48,
+        -196,
+        56,
+        0,
+        1.7,
+        -188
+      ]
+    },
+    {
+      "id": "cv-court-barr-3",
+      "kind": "cover",
+      "box": [
+        66,
+        -196,
+        74,
+        0,
+        1.7,
+        -188
+      ]
+    },
+    {
+      "id": "cv-plant-spur",
+      "kind": "cover",
+      "box": [
+        208,
+        -92,
+        216,
+        0,
+        1.7,
+        -84
+      ]
+    },
+    {
+      "id": "cv-annex-e",
+      "kind": "cover",
+      "box": [
+        292,
+        -196,
+        300,
+        0,
+        1.4,
+        -188
+      ]
+    },
+    {
+      "id": "cv-maint-n",
+      "kind": "cover",
+      "box": [
+        -134,
+        44,
+        -126,
+        0,
+        1.7,
+        52
+      ]
+    },
+    {
+      "id": "cv-spawn-1",
+      "kind": "cover",
+      "box": [
+        -330,
+        206,
+        -322,
+        0,
+        0.5,
+        214
+      ]
+    },
+    {
+      "id": "cv-spawn-2",
+      "kind": "cover",
+      "box": [
+        -310,
+        206,
+        -302,
+        0,
+        0.5,
+        214
+      ]
+    },
+    {
+      "id": "cv-spawn-3",
+      "kind": "cover",
+      "box": [
+        -300,
+        196,
+        -292,
+        0,
+        0.5,
+        204
+      ]
+    },
+    {
+      "id": "cv-east-1",
+      "kind": "cover",
+      "box": [
+        140,
+        -10,
+        148,
+        0,
+        1.4,
+        -2
+      ]
+    },
+    {
+      "id": "cv-east-2",
+      "kind": "cover",
+      "box": [
+        160,
+        20,
+        168,
+        0,
+        1.7,
+        28
+      ]
+    },
+    {
+      "id": "cv-east-3",
+      "kind": "cover",
+      "box": [
+        200,
+        -140,
+        208,
+        0,
+        1.7,
+        -132
+      ]
+    },
+    {
+      "id": "cv-core-1",
+      "kind": "cover",
+      "box": [
+        10,
+        -220,
+        18,
+        0,
+        1.7,
+        -212
+      ]
+    },
+    {
+      "id": "cv-core-2",
+      "kind": "cover",
+      "box": [
+        140,
+        -222,
+        148,
+        0,
+        1.4,
+        -214
+      ]
+    },
+    {
+      "id": "cv-corridor-1",
+      "kind": "cover",
+      "box": [
+        88,
+        -120,
+        96,
+        0,
+        1.7,
+        -112
+      ]
+    },
+    {
+      "id": "mtn-nw",
+      "kind": "mountain-boundary",
+      "box": [
+        -460,
+        306,
+        -280,
+        0,
+        40,
+        340
+      ]
+    },
+    {
+      "id": "mtn-ne",
+      "kind": "mountain-boundary",
+      "box": [
+        -180,
+        306,
+        460,
+        0,
+        40,
+        340
+      ]
+    },
+    {
+      "id": "fence-w",
+      "kind": "wall-blocking",
+      "box": [
+        -462,
+        -320,
+        -452,
+        0,
+        4,
+        300
+      ]
+    },
+    {
+      "id": "fence-s",
+      "kind": "wall-blocking",
+      "box": [
+        -452,
+        -322,
+        80,
+        0,
+        4,
+        -312
+      ]
+    }
+  ],
+  "walkable": [
+    {
+      "id": "g-spawn-apron",
+      "box": [
+        -360,
+        150,
+        -240,
+        0,
+        0.01,
+        300
+      ],
+      "surface": "concrete"
+    },
+    {
+      "id": "g-gate-square",
+      "box": [
+        -360,
+        100,
+        -200,
+        0,
+        0.01,
+        150
+      ],
+      "surface": "asphalt"
+    },
+    {
+      "id": "g-ridgeline-exit",
+      "box": [
+        -280,
+        290,
+        -180,
+        0,
+        0.01,
+        340
+      ],
+      "surface": "gravel"
+    },
+    {
+      "id": "g-yrd-rear",
+      "box": [
+        -260,
+        108,
+        -4,
+        0,
+        0.01,
+        165
+      ],
+      "surface": "asphalt"
+    },
+    {
+      "id": "g-yrd-pressure",
+      "box": [
+        -40,
+        95,
+        200,
+        0,
+        0.01,
+        190
+      ],
+      "surface": "asphalt"
+    },
+    {
+      "id": "g-yrd-hub",
+      "box": [
+        -100,
+        -60,
+        120,
+        0,
+        0.01,
+        95
+      ],
+      "surface": "asphalt"
+    },
+    {
+      "id": "g-yrd-west",
+      "box": [
+        -260,
+        -110,
+        -80,
+        0,
+        0.01,
+        110
+      ],
+      "surface": "gravel"
+    },
+    {
+      "id": "g-yrd-checkpoint-n",
+      "box": [
+        -80,
+        -170,
+        120,
+        0,
+        0.01,
+        -60
+      ],
+      "surface": "asphalt"
+    },
+    {
+      "id": "g-yrd-e",
+      "box": [
+        120,
+        -120,
+        380,
+        0,
+        0.01,
+        120
+      ],
+      "surface": "concrete"
+    },
+    {
+      "id": "g-yrd-plant-s",
+      "box": [
+        100,
+        -170,
+        380,
+        0,
+        0.01,
+        -120
+      ],
+      "surface": "concrete"
+    },
+    {
+      "id": "g-yrd-core-n",
+      "box": [
+        -80,
+        -250,
+        160,
+        0,
+        0.01,
+        -170
+      ],
+      "surface": "concrete"
+    },
+    {
+      "id": "g-yrd-east-ridge",
+      "box": [
+        160,
+        -260,
+        380,
+        0,
+        0.01,
+        -170
+      ],
+      "surface": "asphalt"
+    },
+    {
+      "id": "g-mix-courts",
+      "box": [
+        -87,
+        -21,
+        -33,
+        0,
+        0.01,
+        21
+      ],
+      "surface": "concrete"
+    },
+    {
+      "id": "in-plant-ramp",
+      "box": [
+        90,
+        -47,
+        162,
+        0,
+        0.01,
+        -39
+      ],
+      "surface": "concrete",
+      "ramp": true
+    },
+    {
+      "id": "br-catwalk-deck",
+      "box": [
+        273,
+        58,
+        314,
+        6,
+        6.01,
+        66
+      ],
+      "surface": "metal"
+    }
+  ],
+  "warnings": [],
+  "kill-zoneVolumes": [
+    {
+      "id": "kz-core",
+      "box": [
+        18,
+        -312,
+        78,
+        0,
+        10,
+        -252
+      ]
+    },
+    {
+      "id": "kz-plant",
+      "box": [
+        188,
+        -86,
+        240,
+        0,
+        10,
+        -34
+      ]
+    },
+    {
+      "id": "kz-court",
+      "box": [
+        26,
+        -192,
+        70,
+        0,
+        10,
+        -148
+      ]
+    }
+  ],
+  "spawnVolumes": [
+    {
+      "id": "sp-spawn",
+      "box": [
+        -340,
+        164,
+        -250,
+        0,
+        10,
+        260
+      ]
+    }
+  ],
+  "openings": [
+    {
+      "id": "e-loading-n-1",
+      "kind": "opening",
+      "box": [
+        -80,
+        90,
+        -72,
+        92
+      ],
+      "height": 4.5,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-loading-n-2",
+      "kind": "opening",
+      "box": [
+        -64,
+        90,
+        -56,
+        92
+      ],
+      "height": 4.5,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-loading-n-3",
+      "kind": "opening",
+      "box": [
+        -48,
+        90,
+        -40,
+        92
+      ],
+      "height": 4.5,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-loading-s",
+      "kind": "opening",
+      "box": [
+        -70,
+        32,
+        -62,
+        34
+      ],
+      "height": 4.5,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-maint-s",
+      "kind": "opening",
+      "box": [
+        -170,
+        -53,
+        -166,
+        -51
+      ],
+      "height": 2.4,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-deploy-e",
+      "kind": "opening",
+      "box": [
+        -78,
+        -74,
+        -76,
+        -66
+      ],
+      "height": 4.5,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-sec-s",
+      "kind": "opening",
+      "box": [
+        40,
+        -169,
+        46,
+        -167
+      ],
+      "height": 2.4,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-core-n",
+      "kind": "opening",
+      "box": [
+        30,
+        -234,
+        34,
+        -232
+      ],
+      "height": 2.6,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-wing-n",
+      "kind": "opening",
+      "box": [
+        142,
+        -227,
+        150,
+        -225
+      ],
+      "height": 2.4,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-walkway-w",
+      "kind": "opening",
+      "box": [
+        92,
+        -248,
+        94,
+        -244
+      ],
+      "height": 2.4,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-plant-w",
+      "kind": "opening",
+      "box": [
+        162,
+        -45,
+        166,
+        -41
+      ],
+      "height": 2.4,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-plant-s",
+      "kind": "opening",
+      "box": [
+        210,
+        -65,
+        214,
+        -63
+      ],
+      "height": 2.4,
+      "note": "must stay clear of colliders"
+    },
+    {
+      "id": "e-tower-s",
+      "kind": "opening",
+      "box": [
+        254,
+        31,
+        258,
+        33
+      ],
+      "height": 2.4,
+      "note": "must stay clear of colliders"
+    }
+  ]
+}
