@@ -51,6 +51,9 @@ const M = {
   term: mat(0x22cc88, { roughness: 0.35, metalness: 0.3, emissive: 0x116633, emissiveIntensity: 0.6 }),
   light: mat(0xd8e8f0, { roughness: 0.3, emissive: 0x88aabb, emissiveIntensity: 0.8 }),
   killObj: mat(0xd04040, { transparent: true, opacity: 0.5, depthWrite: false }),
+  hazard: mat(0xd8c020, { roughness: 0.6 }),
+  hazardDark: mat(0x202020, { roughness: 0.8 }),
+  sign: mat(0x2a3a4a, { roughness: 0.5, metalness: 0.3 }),
 };
 const box = (w, h, d, x, y, z, m, ry = 0) => { const g = new Mesh(new BoxGeometry(w, h, d), m); g.position.set(x, y, z); g.rotation.y = ry; return g; };
 
@@ -503,6 +506,42 @@ for (const s of segs) if (bldCats.includes(s.category)) interiors(s);
       conduit.position.set((x1 + x2) / 2, -8.6, z1 + 0.6);
       group.add(conduit);
     }
+  }
+}
+
+// -------- surveillance cameras (destructible gameplay objects — GAMEPLAY cameras) --------
+for (const d of b.destructibles || []) {
+  const poleH = 4.5;
+  const pole = new Mesh(new CylinderGeometry(0.12, 0.16, poleH, 8), M.metal);
+  pole.position.set(d.x, poleH / 2, d.z);
+  group.add(pole);
+  const head = new Mesh(new BoxGeometry(0.5, 0.35, 0.9), M.metal);
+  head.position.set(d.x, poleH + 0.2, d.z);
+  group.add(head);
+  const lens = new Mesh(new BoxGeometry(0.16, 0.16, 0.1), M.light);
+  lens.position.set(d.x, poleH + 0.2, d.z + 0.45);
+  group.add(lens);
+  const base = new Mesh(new CylinderGeometry(0.5, 0.6, 0.4, 8), M.concreteDark);
+  base.position.set(d.x, 0.2, d.z);
+  group.add(base);
+}
+
+// -------- kill-zone closure cues: hazard ground border + signage posts --------
+for (const s of segs) {
+  if (s.category !== 'kill-zone') continue;
+  const [x1, z1, x2, z2] = s.bounds;
+  // hazard-striped ground border on the approach (north) edge + south edge — non-blocking
+  for (const [ez, dir] of [[z1, 1], [z2, -1]]) {
+    const nSegs = Math.max(4, Math.floor((x2 - x1) / 2));
+    for (let i = 0; i < nSegs; i++) {
+      const bx = x1 + (x2 - x1) * (i + 0.5) / nSegs;
+      group.add(box((x2 - x1) / nSegs - 0.1, 0.06, 0.8, bx, 0.03, ez + dir * 0.4, i % 2 ? M.hazard : M.hazardDark));
+    }
+  }
+  // signage posts at approach corners
+  for (const [sx, sz] of [[x1 + 1, z1 + 1], [x2 - 1, z1 + 1], [x1 + 1, z2 - 1], [x2 - 1, z2 - 1]]) {
+    group.add(box(0.14, 2.4, 0.14, sx, 1.2, sz, M.metal));
+    group.add(box(0.9, 0.6, 0.12, sx, 2.1, sz, M.sign));
   }
 }
 

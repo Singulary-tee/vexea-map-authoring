@@ -1,9 +1,9 @@
 {
   "file": "blockout/blockout-full-v1.json",
   "generated": "2026-09-07",
-  "materials": 25,
-  "triangles": 14455,
-  "segments": 92,
+  "materials": 28,
+  "triangles": 16164,
+  "segments": 93,
   "checks": [
     {
       "n": "mountain mtn-nw sits on boundary band",

@@ -1,0 +1,444 @@
+{
+  "file": "blockout/blockout-full-v1.json",
+  "generated": "2026-09-07",
+  "spaces": [
+    {
+      "id": "g-gate-square",
+      "zone": "zone_courtyard",
+      "name": "gate square",
+      "playerEntryExit": [
+        "g-spawn-apron",
+        "g-yrd-rear"
+      ],
+      "coverAnchors": [
+        "cv-gate-w",
+        "cv-gate-e"
+      ],
+      "canopies": [],
+      "exposureLanes": [
+        "route_rear_alley"
+      ],
+      "droneApproachLanes": [
+        "air-courtyard",
+        "air-spawn-apron"
+      ],
+      "tunnelRoutes": [],
+      "retreats": [
+        "route_maintenance_loop",
+        null
+      ],
+      "killZones": [],
+      "killZoneClosures": [],
+      "verticalRoles": [],
+      "intendedDecision": "first contact: commit through the gate line or rotate to the rear lane; gatehouse facade blocks the north sightline",
+      "gatePass": true
+    },
+    {
+      "id": "g-yrd-rear",
+      "zone": "zone_courtyard",
+      "name": "rear service lane",
+      "playerEntryExit": [
+        "g-spawn-apron",
+        "g-gate-square",
+        "g-yrd-pressure",
+        "g-yrd-west",
+        "e-loading-n-1",
+        "e-loading-n-2",
+        "e-loading-n-3"
+      ],
+      "coverAnchors": [
+        "cv-gate-e",
+        "cv-pressure-w"
+      ],
+      "canopies": [],
+      "exposureLanes": [
+        "route_main_surface",
+        "route_rear_alley"
+      ],
+      "droneApproachLanes": [
+        "air-pressure-yard",
+        "air-courtyard",
+        "air-spawn-apron"
+      ],
+      "tunnelRoutes": [],
+      "retreats": [
+        "route_maintenance_loop",
+        null
+      ],
+      "killZones": [],
+      "killZoneClosures": [],
+      "verticalRoles": [],
+      "intendedDecision": "flank vein: choose the loading bay roll-down gates (trappable) or continue east; dock canopy closes the UAV line",
+      "gatePass": true
+    },
+    {
+      "id": "g-yrd-pressure",
+      "zone": "zone_courtyard",
+      "name": "pressure yard (open sky)",
+      "playerEntryExit": [
+        "g-yrd-rear",
+        "g-yrd-hub",
+        "g-yrd-e"
+      ],
+      "coverAnchors": [
+        "cv-pressure-w",
+        "cv-pressure-e"
+      ],
+      "canopies": [
+        "oc-loading-dock"
+      ],
+      "exposureLanes": [
+        "route_main_surface",
+        "route_rear_alley",
+        "route_north_ring"
+      ],
+      "droneApproachLanes": [
+        "air-pressure-yard"
+      ],
+      "tunnelRoutes": [],
+      "retreats": [
+        null
+      ],
+      "killZones": [],
+      "killZoneClosures": [],
+      "verticalRoles": [],
+      "intendedDecision": "OPEN SKY: cross in 4 chunks between the two full-height bunkers, or hold the pressure-store facade; fixed-wing strafe box overhead",
+      "gatePass": true
+    },
+    {
+      "id": "g-yrd-hub",
+      "zone": "zone_courtyard",
+      "name": "switchyard / hub",
+      "playerEntryExit": [
+        "g-yrd-pressure",
+        "g-yrd-west",
+        "g-yrd-checkpoint-n",
+        "g-mix-courts",
+        "e-loading-s",
+        "in-plant"
+      ],
+      "coverAnchors": [
+        "cv-mix-1",
+        "cv-mix-2",
+        "cv-mix-3"
+      ],
+      "canopies": [
+        "oc-cw-a",
+        "oc-cw-b",
+        "oc-loading-dock"
+      ],
+      "exposureLanes": [
+        "route_main_surface",
+        "route_south_retreat"
+      ],
+      "droneApproachLanes": [
+        "air-pressure-yard",
+        "air-courtyard",
+        "air-roof-reentry"
+      ],
+      "tunnelRoutes": [],
+      "retreats": [
+        "route_covered",
+        "route_maintenance_loop",
+        null
+      ],
+      "killZones": [],
+      "killZoneClosures": [],
+      "verticalRoles": [
+        "incline_plant"
+      ],
+      "intendedDecision": "hub decision: take the covered route (bomber-denied), the incline to the plant, or the checkpoint corridor; mix-court crates give partial cover in the open",
+      "gatePass": true
+    },
+    {
+      "id": "g-yrd-west",
+      "zone": "zone_warehouse",
+      "name": "maintenance / deployment yard",
+      "playerEntryExit": [
+        "g-yrd-rear",
+        "g-yrd-hub",
+        "g-yrd-checkpoint-n",
+        "e-maint-s",
+        "e-deploy-e"
+      ],
+      "coverAnchors": [
+        "cv-mix-1",
+        "cv-maint-n"
+      ],
+      "canopies": [
+        "oc-loading-dock"
+      ],
+      "exposureLanes": [],
+      "droneApproachLanes": [
+        "air-courtyard",
+        "air-roof-reentry"
+      ],
+      "tunnelRoutes": [],
+      "retreats": [
+        "route_covered",
+        "route_maintenance_loop",
+        null
+      ],
+      "killZones": [],
+      "killZoneClosures": [],
+      "verticalRoles": [
+        "stair_maint",
+        "hole_roof_reentry"
+      ],
+      "intendedDecision": "service yard: enter maintenance (air re-entry above), push the deployment bays (sealed chokepoint), or slip south to the checkpoint corridor",
+      "gatePass": true
+    },
+    {
+      "id": "g-yrd-checkpoint-n",
+      "zone": "zone_core",
+      "name": "checkpoint approach corridor",
+      "playerEntryExit": [
+        "g-yrd-hub",
+        "g-yrd-west",
+        "g-yrd-core-n",
+        "g-yrd-e",
+        "s-sec-threshold"
+      ],
+      "coverAnchors": [
+        "cv-corridor-1"
+      ],
+      "canopies": [],
+      "exposureLanes": [
+        "route_main_surface",
+        "route_south_retreat"
+      ],
+      "droneApproachLanes": [
+        "air-roof-reentry"
+      ],
+      "tunnelRoutes": [],
+      "retreats": [
+        "route_covered",
+        null
+      ],
+      "killZones": [
+        "kz-court"
+      ],
+      "killZoneClosures": [
+        "bld-deployment-bays",
+        "bld-security-hall",
+        "cv-court-barr-1",
+        "cv-court-barr-2",
+        "cv-court-barr-3",
+        "cv-corridor-1"
+      ],
+      "verticalRoles": [
+        "stair_sec_threshold",
+        "incline_plant",
+        "stair_security",
+        "tunnel_below_grade"
+      ],
+      "intendedDecision": "approach corridor: channeled by court walls into the barricade line; threshold stair offers the raised security-hall bypass",
+      "gatePass": true
+    },
+    {
+      "id": "g-yrd-e",
+      "zone": "zone_plant",
+      "name": "east plant yard",
+      "playerEntryExit": [
+        "g-yrd-pressure",
+        "g-yrd-checkpoint-n",
+        "g-yrd-plant-s",
+        "g-yrd-core-n",
+        "g-yrd-east-ridge",
+        "e-tower-s",
+        "e-plant-w",
+        "in-plant"
+      ],
+      "coverAnchors": [
+        "cv-pressure-e",
+        "cv-plant-spur",
+        "cv-east-1",
+        "cv-east-2",
+        "cv-east-3"
+      ],
+      "canopies": [],
+      "exposureLanes": [
+        "route_main_surface",
+        "route_north_ring",
+        "route_south_retreat",
+        "route_plant_spur"
+      ],
+      "droneApproachLanes": [
+        "air-pressure-yard",
+        "air-roof-reentry"
+      ],
+      "tunnelRoutes": [],
+      "retreats": [
+        null
+      ],
+      "killZones": [
+        "kz-plant"
+      ],
+      "killZoneClosures": [
+        "bld-processing-hall",
+        "cv-pressure-e",
+        "cv-plant-spur",
+        "cv-east-1",
+        "cv-east-2",
+        "cv-east-3"
+      ],
+      "verticalRoles": [
+        "incline_plant",
+        "stair_tower",
+        "stair_catwalk_e"
+      ],
+      "intendedDecision": "east yard: container rows break the ring sightlines; catwalk stair + incline door are the vertical options; substation facade anchors the NE",
+      "gatePass": true
+    },
+    {
+      "id": "g-yrd-plant-s",
+      "zone": "zone_plant",
+      "name": "plant south band",
+      "playerEntryExit": [
+        "g-yrd-e",
+        "g-yrd-east-ridge"
+      ],
+      "coverAnchors": [
+        "cv-east-3",
+        "cv-corridor-1"
+      ],
+      "canopies": [],
+      "exposureLanes": [
+        "route_main_surface",
+        "route_north_ring",
+        "route_south_retreat"
+      ],
+      "droneApproachLanes": [],
+      "tunnelRoutes": [],
+      "retreats": [
+        null
+      ],
+      "killZones": [],
+      "killZoneClosures": [],
+      "verticalRoles": [
+        "tunnel_below_grade"
+      ],
+      "intendedDecision": "plant south band: tank farm breaks the ridge sightline; cover at the tunnel portal yard; processing south door is the killPlant trap",
+      "gatePass": true
+    },
+    {
+      "id": "g-yrd-core-n",
+      "zone": "zone_core",
+      "name": "core yard",
+      "playerEntryExit": [
+        "g-yrd-checkpoint-n",
+        "g-yrd-e",
+        "g-yrd-east-ridge",
+        "e-sec-s",
+        "s-sec-threshold",
+        "e-core-n",
+        "e-walkway-w",
+        "e-wing-n"
+      ],
+      "coverAnchors": [
+        "cv-court-barr-1",
+        "cv-court-barr-2",
+        "cv-court-barr-3",
+        "cv-core-1",
+        "cv-core-2"
+      ],
+      "canopies": [],
+      "exposureLanes": [
+        "route_main_surface"
+      ],
+      "droneApproachLanes": [],
+      "tunnelRoutes": [
+        "route_tunnel"
+      ],
+      "retreats": [
+        "route_covered",
+        "route_flank_backdoor",
+        null
+      ],
+      "killZones": [
+        "kz-core",
+        "kz-court"
+      ],
+      "killZoneClosures": [
+        "bld-security-hall",
+        "bld-core-ops-hall",
+        "bld-core-service-wing",
+        "bld-core-walkway",
+        "cv-court-barr-1",
+        "cv-court-barr-2",
+        "cv-court-barr-3",
+        "cv-core-1",
+        "cv-core-2"
+      ],
+      "verticalRoles": [
+        "stair_sec_threshold",
+        "stair_core",
+        "stair_security",
+        "tunnel_below_grade"
+      ],
+      "intendedDecision": "last cover before the objective: shelter + approach cover; commit through the main door or flank via the service wing",
+      "gatePass": true
+    },
+    {
+      "id": "g-yrd-east-ridge",
+      "zone": "zone_core",
+      "name": "east ridge yard",
+      "playerEntryExit": [
+        "g-yrd-e",
+        "g-yrd-plant-s",
+        "g-yrd-core-n"
+      ],
+      "coverAnchors": [
+        "cv-annex-e",
+        "cv-core-2"
+      ],
+      "canopies": [],
+      "exposureLanes": [
+        "route_south_retreat"
+      ],
+      "droneApproachLanes": [],
+      "tunnelRoutes": [
+        "route_tunnel"
+      ],
+      "retreats": [
+        "route_flank_backdoor",
+        null
+      ],
+      "killZones": [],
+      "killZoneClosures": [],
+      "verticalRoles": [],
+      "intendedDecision": "flank origin: tunnel portal (X-ray interior) or the ridge surface route; annex cover blocks dog pursuit from the mouth",
+      "gatePass": true
+    },
+    {
+      "id": "g-mix-courts",
+      "zone": "zone_courtyard",
+      "name": "concrete / mix courts",
+      "playerEntryExit": [
+        "g-yrd-hub"
+      ],
+      "coverAnchors": [
+        "cv-mix-1",
+        "cv-mix-2",
+        "cv-mix-3"
+      ],
+      "canopies": [
+        "oc-cw-a"
+      ],
+      "exposureLanes": [],
+      "droneApproachLanes": [
+        "air-courtyard"
+      ],
+      "tunnelRoutes": [],
+      "retreats": [
+        null
+      ],
+      "killZones": [],
+      "killZoneClosures": [],
+      "verticalRoles": [],
+      "intendedDecision": "open yard crossing: crate ladder gives jump-over + partial cover; bomber line overhead keeps it a paced crossing, not a hold",
+      "gatePass": true
+    }
+  ],
+  "warnings": []
+}

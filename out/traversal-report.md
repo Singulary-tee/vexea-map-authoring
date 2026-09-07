@@ -98,6 +98,7 @@ Pacing: core-approach surface roads ~1126m (sum main surface + covered route).
 - cv-east-3: 2m ground/full OK
 - cv-core-1: 8m both/full OK
 - cv-core-2: 6m ground/mid OK
+- cv-corridor-1: 16m both/full OK
 
 ## Kill-zone closures
 

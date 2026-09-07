@@ -795,6 +795,17 @@
       "heightClass": "mid",
       "threat": "ground",
       "ok": true
+    },
+    {
+      "id": "cv-corridor-1",
+      "names": [
+        "route_main_surface",
+        "air-courtyard"
+      ],
+      "distToInterruptM": 16,
+      "heightClass": "full",
+      "threat": "both",
+      "ok": true
     }
   ],
   "killClosure": [
