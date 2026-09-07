@@ -4,8 +4,9 @@ Authoritative memory: `.memory/tasks/map-authoring-STATE.md` + `.memory/notes/ma
 Repo: `Singulary-tee/vexea-map-authoring`, main is the source of truth. Codespace: `supreme-space-train-7vr496j4wwxxfx5p7`.
 
 ## CURRENT CHECKPOINT (full-map blockout stage — 2026-09-07)
-- **Full-map segmented blockout realized: `blockout/blockout-full-v1.json`** (84 segments, 13 routes, 8 zones,
-  14 deliberate covers, 3 kill-zone closures). Geometry frame = blockout-v3 annotated target (b4fa5260);
+- **Full-map segmented blockout realized: `blockout/blockout-full-v1.json`** (92 segments, 14 routes, 8 zones,
+  21 deliberate covers, 3 kill-zone closures, 2 roll-down doors, 2 channel walls; r2: enterable reduced to 9
+  route/objective/chokepoint-backed buildings, overlaps removed, density raised toward reference metrics). Geometry frame = blockout-v3 annotated target (b4fa5260);
   zone semantics = 7-zone contract; vertical gauges from blockout-v2; fixture = spec/calibration.md.
 - Everything is 1m-snapped; every cover carries threatElevation + directionality + interrupts + heightClass;
   every tunnel carries X-ray + belowGradeY -14; every entrance checked vs the 1.8m capsule.
