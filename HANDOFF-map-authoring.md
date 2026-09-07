@@ -19,6 +19,13 @@ Repo: `Singulary-tee/vexea-map-authoring`, main is the source of truth. Codespac
   (window.__playerCamAt(t) for deterministic capture).
 - Evidence: `artifacts/blockout-player-{spawn,gate-square,pressure-yard,checkpoint,core-door}.png` player-eye
   frames (mass 0.14-0.39, contrast 211-219, render gate green) + top/xray/orbit.
+- **INTERIORS (building stage 2):** all 9 enterable buildings have floor construction — floor slabs per level,
+  ceilings, partition walls (stalls/corridor/drive-through), stairwells, core objective room on floor 2
+  (barrier ring + capsule doorway + emissive terminal + kill pad), lit tunnel walking surface (floor + ceiling
+  strip + conduit), industrial ceiling light strips. Interior plans live in blockout-full-v1.json
+  (`interiors[]`, keyed to building id — traceable). Build report grew to 9 gates (interior gates included)
+  ALL PASS. Evidence: `artifacts/blockout-int-{core-objective,loading-hall,tunnel,security-hall,maintenance}.png`
+  all render-gate green (mass 0.28-0.77). `tools/capture_interior.mjs` + viewer `__interiorCam(name)`.
 - NEXT: slice grammar proof on the built map (loading hall <-> checkpoint court), then sourced-GLB placement
   for vehicles/machinery only (SKILL reuse table: procedural for roads/buildings/utilities, GLBs for
   complex machinery), then dressing/PBR per industrial-grammar reference. Geometry frame = blockout-v3 annotated target (b4fa5260);
