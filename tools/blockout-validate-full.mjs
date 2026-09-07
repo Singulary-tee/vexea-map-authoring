@@ -7,7 +7,8 @@ const b = JSON.parse(readFileSync(file, 'utf8'));
 const W = b.meta.world;
 const CATS = new Set(['ground-surface-type','wall-blocking','stair','incline','building-enterable',
   'warehouse-enterable','facade-non-enterable','tower','bridge','tunnel-passage','hole-drone-entry',
-  'entrance-player','cover','overhead-cover','mountain-boundary','waterbody-boundary','spawn','kill-zone']);
+  'entrance-player','cover','overhead-cover','mountain-boundary','waterbody-boundary','spawn','kill-zone',
+  'roll-down']);
 const NON_DISP = new Set(['building-enterable','warehouse-enterable','facade-non-enterable','tower',
   'mountain-boundary','bridge','wall-blocking']);
 const res = [];
@@ -187,6 +188,9 @@ c('tunnels carry xray flag', xrayBad.length === 0, xrayBad.join(','));
 // hole-drone-entry clearance >= 2m
 const holeBad = segs.filter(s => s.category === 'hole-drone-entry' && (s.clearWidth ?? 0) < 2).map(s => s.id);
 c('drone holes clear >=2m', holeBad.length === 0, holeBad.join(','));
+// roll-down doors: sealable openings must declare height + bind to their opening/building
+const rdBad = segs.filter(s => s.category === 'roll-down' && ((s.height ?? 0) < 2 || !(s.connectivity || []).some(r => byId.has(r)))).map(s => s.id);
+c('roll-down doors declare height + opening binding', rdBad.length === 0, rdBad.join(','));
 
 // 13. kill zones bind to segments + intersect an approach route or building
 let kBad = [];

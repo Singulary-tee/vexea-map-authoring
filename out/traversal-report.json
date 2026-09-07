@@ -456,18 +456,6 @@
       "capsuleOk": true
     },
     {
-      "id": "stair_annex",
-      "kind": "stair",
-      "host": "bld-plant-annex",
-      "gauge": {
-        "rise": 0.18,
-        "tread": 0.28,
-        "width": 1.4
-      },
-      "connects": "2 floors",
-      "capsuleOk": true
-    },
-    {
       "id": "stair_maint",
       "kind": "stair",
       "host": "bld-maintenance",
@@ -530,7 +518,8 @@
     {
       "id": "cv-gate-w",
       "names": [
-        "route_main_surface"
+        "route_main_surface",
+        "air-spawn-apron"
       ],
       "distToInterruptM": 15,
       "heightClass": "full",
@@ -540,9 +529,10 @@
     {
       "id": "cv-gate-e",
       "names": [
-        "route_main_surface"
+        "route_main_surface",
+        "air-spawn-apron"
       ],
-      "distToInterruptM": 9,
+      "distToInterruptM": 6,
       "heightClass": "full",
       "threat": "both",
       "ok": true
@@ -553,7 +543,7 @@
         "air-pressure-yard",
         "route_main_surface"
       ],
-      "distToInterruptM": 21,
+      "distToInterruptM": 18,
       "heightClass": "full",
       "threat": "both",
       "ok": true
@@ -564,7 +554,7 @@
         "air-pressure-yard",
         "route_north_ring"
       ],
-      "distToInterruptM": 20,
+      "distToInterruptM": 12,
       "heightClass": "full",
       "threat": "both",
       "ok": true
@@ -585,7 +575,18 @@
         "route_covered",
         "air-courtyard"
       ],
-      "distToInterruptM": 17,
+      "distToInterruptM": 3,
+      "heightClass": "mid",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-mix-3",
+      "names": [
+        "air-courtyard",
+        "route_covered"
+      ],
+      "distToInterruptM": 6,
       "heightClass": "mid",
       "threat": "ground",
       "ok": true
@@ -625,7 +626,7 @@
       "names": [
         "route_plant_spur"
       ],
-      "distToInterruptM": 8,
+      "distToInterruptM": 5,
       "heightClass": "full",
       "threat": "ground",
       "ok": true
@@ -636,7 +637,7 @@
         "route_tunnel",
         "route_south_retreat"
       ],
-      "distToInterruptM": 18,
+      "distToInterruptM": 12,
       "heightClass": "mid",
       "threat": "ground",
       "ok": true
@@ -647,7 +648,7 @@
         "air-courtyard",
         "route_maintenance_loop"
       ],
-      "distToInterruptM": 12,
+      "distToInterruptM": 2,
       "heightClass": "full",
       "threat": "both",
       "ok": true
@@ -657,7 +658,7 @@
       "names": [
         "air-spawn-apron"
       ],
-      "distToInterruptM": 12,
+      "distToInterruptM": 7,
       "heightClass": "low",
       "threat": "ground",
       "ok": true
@@ -667,8 +668,69 @@
       "names": [
         "air-spawn-apron"
       ],
-      "distToInterruptM": 17,
+      "distToInterruptM": 12,
       "heightClass": "low",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-spawn-3",
+      "names": [
+        "air-spawn-apron"
+      ],
+      "distToInterruptM": 5,
+      "heightClass": "low",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-east-1",
+      "names": [
+        "route_north_ring"
+      ],
+      "distToInterruptM": 5,
+      "heightClass": "mid",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-east-2",
+      "names": [
+        "route_north_ring",
+        "air-courtyard"
+      ],
+      "distToInterruptM": 9,
+      "heightClass": "full",
+      "threat": "both",
+      "ok": true
+    },
+    {
+      "id": "cv-east-3",
+      "names": [
+        "route_south_retreat"
+      ],
+      "distToInterruptM": 2,
+      "heightClass": "full",
+      "threat": "ground",
+      "ok": true
+    },
+    {
+      "id": "cv-core-1",
+      "names": [
+        "route_main_surface"
+      ],
+      "distToInterruptM": 8,
+      "heightClass": "full",
+      "threat": "both",
+      "ok": true
+    },
+    {
+      "id": "cv-core-2",
+      "names": [
+        "route_flank_backdoor"
+      ],
+      "distToInterruptM": 6,
+      "heightClass": "mid",
       "threat": "ground",
       "ok": true
     }
@@ -677,7 +739,9 @@
     {
       "id": "kz-core",
       "closures": {
-        "covers": [],
+        "covers": [
+          "cv-core-1"
+        ],
         "buildings": [
           "bld-core-ops-hall",
           "bld-core-walkway"
@@ -690,7 +754,8 @@
       "id": "kz-plant",
       "closures": {
         "covers": [
-          "cv-plant-spur"
+          "cv-plant-spur",
+          "cv-east-1"
         ],
         "buildings": [
           "bld-processing-hall"

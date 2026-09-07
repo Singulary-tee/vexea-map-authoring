@@ -124,8 +124,17 @@ for (const s of segs) {
   const names = toks.filter(t => routes.some(r => r.id === t) || byId.has(t));
   const c = center(s);
   let nearest = null;
+  const ptsOf = (r) => { // waypoints + dense re-sampling so covers on long segments are found
+    const pts = r.waypoints.slice();
+    for (let i = 0; i < r.waypoints.length - 1; i++) {
+      const a = r.waypoints[i], b2 = r.waypoints[i + 1];
+      const n = Math.max(1, Math.floor(dist(a, b2) / 10));
+      for (let k = 1; k < n; k++) pts.push([a[0] + (b2[0] - a[0]) * k / n, a[1] + (b2[1] - a[1]) * k / n]);
+    }
+    return pts;
+  };
   for (const r of routes) if (names.includes(r.id))
-    for (const w of r.waypoints) { const d = dist(w, c); nearest = nearest === null ? d : Math.min(nearest, d); }
+    for (const w of ptsOf(r)) { const d = dist(w, c); nearest = nearest === null ? d : Math.min(nearest, d); }
   for (const o of names.filter(t => byId.has(t))) { const d = dist(center(byId.get(o)), c); nearest = nearest === null ? d : Math.min(nearest, d); }
   const near = nearest !== null && nearest <= 25;
   if (!near) warn(`cover ${s.id} not within 25m of its named interrupts (${names.join(',')} @${nearest?.toFixed(0)}m)`);

@@ -22,9 +22,13 @@ const PAL = {
   'stair': 0xc07a2e, 'incline': 0xd08a3a, 'tunnel-passage': 0x8a5ab8, 'hole-drone-entry': 0xd84a8c,
   'entrance-player': 0xe0c040, 'cover': 0x3f7a45, 'overhead-cover': 0x5a9a5a,
   'mountain-boundary': 0x5a4a3a, 'waterbody-boundary': 0x2e5d7a, 'spawn': 0x40c0c0, 'kill-zone': 0xd04040,
+  'roll-down': 0xb06030,
 };
+// ground surface classes get their own color so yards/roads read distinctly
+const SURF = { concrete: 0x7a7668, asphalt: 0x5f5c4e, gravel: 0x6e6a5a, dirt: 0x6a5f4e };
 const mat = (hex, opt = {}) => new MeshStandardMaterial({ color: hex, roughness: 0.92, metalness: 0.0, ...opt });
 const mats = new Map(Object.entries(PAL).map(([k, v]) => [k, mat(v)]));
+Object.entries(SURF).forEach(([k, v]) => mats.set('ground:' + k, mat(v)));
 const trans = (hex, op) => mat(hex, { transparent: true, opacity: op, depthWrite: false, side: DoubleSide });
 const group = new Group();
 const box = (w, h, d, x, y, z, m) => { const g = new Group(); const mesh = new Mesh(new BoxGeometry(w, h, d), m); mesh.position.set(x, y, z); g.add(mesh); return g; };
@@ -35,7 +39,7 @@ for (const s of b.segments) {
   const M = mats.get(s.category) || mat(0x333333);
   switch (s.category) {
     case 'ground-surface-type':
-      group.add(box(w, 0.3, d, cx, -0.15, cz, M));
+      group.add(box(w, 0.3, d, cx, -0.15, cz, mats.get('ground:' + (s.surface || 'concrete')) || M));
       break;
     case 'building-enterable':
     case 'warehouse-enterable':
@@ -57,22 +61,22 @@ for (const s of b.segments) {
       break;
     }
     case 'incline': {
-      // wedge along X: rises from x1 (ground) to x2 (height)
-      const shp = new Shape([new Vector2(0, 0), new Vector2(w, 0), new Vector2(w, s.height)]);
-      const geo = new ShapeGeometry(shp);
-      const m = new Mesh(geo, M);
-      m.rotation.set(0, Math.PI / 2, 0);
-      m.position.set(x2, 0, cz);
-      m.scale.set(d / 1, 1, 1); // width along Z after rotation
-      m.updateMatrix();
-      group.add(m);
+      // ramp as stacked steps (12 x 0.5m rise / 6m run = 1:12): robust prism, no wedge math
+      const run = x2 - x1, wd = z2 - z1, h = s.height;
+      const steps = 12;
+      for (let i = 0; i < steps; i++) {
+        const rise = h * (i + 1) / steps, span = run / steps;
+        const stp = new Mesh(new BoxGeometry(span + 0.1, rise, wd), M);
+        stp.position.set(x1 + span * (i + 0.5), rise / 2, cz);
+        group.add(stp);
+      }
       break;
     }
     case 'tunnel-passage': {
       const y = s.belowGradeY ?? -14;
       group.add(box(w, s.height, d, cx, y + s.height / 2, cz, trans(PAL['tunnel-passage'], 0.85)));
-      // shaft marker at portals
-      if (s.id.startsWith('tp-')) group.add(box(w * 0.4, 14 + s.height, d * 0.4, cx, (14 + s.height) / 2, cz, trans(0xb06ee8, 0.25)));
+      // portal marker: low inset ring at grade (reads as marker, not a shaft)
+      if (s.id.startsWith('tp-')) group.add(box(w * 0.6, 0.5, d * 0.6, cx, 0.25, cz, trans(0xb06ee8, 0.3)));
       break;
     }
     case 'hole-drone-entry':
@@ -83,6 +87,12 @@ for (const s of b.segments) {
       const dw = Math.min(w, d), dh = s.height || 2.4;
       const thick = Math.max(w, d);
       group.add(box(w >= d ? 0.4 : w, dh, w >= d ? d : 0.4, cx, dh / 2, cz, M));
+      break;
+    }
+    case 'roll-down': {
+      // door panel: thin slab at the opening plane
+      const dw = Math.min(w, d), dh = s.height || 4.5;
+      group.add(box(w >= d ? 0.6 : w, dh, w >= d ? d : 0.6, cx, dh / 2, cz, M));
       break;
     }
     case 'cover':

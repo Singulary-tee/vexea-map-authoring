@@ -26,7 +26,7 @@ const WORLD = { x: [-465, 475], z: [-325, 340] };
 const cx = (WORLD.x[0] + WORLD.x[1]) / 2, cz = (WORLD.z[0] + WORLD.z[1]) / 2;
 const span = Math.max(WORLD.x[1] - WORLD.x[0], WORLD.z[1] - WORLD.z[0]);
 // orthographic top view (default) + perspective orbit camera
-const camO = new THREE.OrthographicCamera(-span * 0.75, span * 0.75, span * 0.75, -span * 0.75, 1, 3000);
+const camO = new THREE.OrthographicCamera(-span * 0.55, span * 0.55, span * 0.55, -span * 0.55, 1, 3000);
 camO.position.set(cx, 900, cz + 0.01); camO.up.set(0, 0, 1); camO.lookAt(cx, 0, cz); // north-up
 const camP = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 1, 4000);
 camP.position.set(-760, 520, 760); camP.lookAt(cx, 0, cz);
@@ -59,7 +59,7 @@ const setCam = (top) => {
 document.getElementById('bTop').onclick = () => setCam(true);
 document.getElementById('bOrbit').onclick = () => setCam(false);
 // legend mirrors tools/gen-full-geometry palette
-const LEG = [['#6e6a5a','ground'],['#3a5a7c','enterable bldg'],['#46688c','warehouse'],['#4a5560','non-enterable'],['#5b4a8c','tower'],['#2e8c8c','bridge'],['#7a6a4a','wall/fence'],['#c07a2e','stair'],['#d08a3a','incline'],['#8a5ab8','tunnel (X-ray)'],['#d84a8c','drone hole'],['#e0c040','entrance'],['#3f7a45','cover'],['#5a9a5a','canopy'],['#5a4a3a','mountain'],['#2e5d7a','water'],['#40c0c0','spawn'],['#d04040','kill-zone']];
+const LEG = [['#6e6a5a','ground'],['#3a5a7c','enterable bldg'],['#46688c','warehouse'],['#4a5560','non-enterable'],['#5b4a8c','tower'],['#2e8c8c','bridge'],['#7a6a4a','wall/fence'],['#c07a2e','stair'],['#d08a3a','incline'],['#b06030','roll-down door'],['#8a5ab8','tunnel (X-ray)'],['#d84a8c','drone hole'],['#e0c040','entrance'],['#3f7a45','cover'],['#5a9a5a','canopy'],['#5a4a3a','mountain'],['#2e5d7a','water'],['#40c0c0','spawn'],['#d04040','kill-zone']];
 document.getElementById('legend').innerHTML = LEG.map(([c, n]) => `<span class="chip" style="background:${c}"></span>${n}`).join('<br>');
 new GLTFLoader().load('./blockout-full.glb', (g) => {
   g.scene.traverse(o => {
