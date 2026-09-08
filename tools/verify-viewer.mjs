@@ -17,18 +17,27 @@ const step = async (name, fn) => {
   out.steps.push({ name, ...r });
 };
 // layers present
-await step('layers-loaded', () => pg.evaluate(() => ({
-  built: !![...document.querySelectorAll('canvas')].length,
-  blockLayerVisible: window.__ready === true,
-})));
+await step('layers-loaded', () => pg.evaluate(() => {
+  const built = !![...document.querySelectorAll('canvas')].length;
+  const blockLayerVisible = window.__viewerState?.().blockoutVisible === true;
+  return { ok: built && !blockLayerVisible, built, blockLayerVisible };
+}));
 // toggle blockout layer off/on (scene graph visibility)
 const vis = await pg.evaluate(() => {
   const btn = document.getElementById('bBlock');
   const before = btn.classList.contains('on');
   btn.click();
-  const mid = btn.classList.contains('on');
+  const afterFirst = btn.classList.contains('on');
   btn.click();
-  return { startedOn: before, offThenOn: !mid && btn.classList.contains('on') };
+  const afterSecond = btn.classList.contains('on');
+  const state = window.__viewerState?.();
+  return {
+    ok: afterFirst !== before && afterSecond !== afterFirst && state?.blockoutVisible === afterSecond,
+    startedOn: before,
+    firstToggle: afterFirst !== before,
+    secondToggle: afterSecond !== afterFirst,
+    finalVisible: state?.blockoutVisible === true,
+  };
 });
 out.steps.push({ name: 'blockout-toggle', ...vis });
 // camera switches
@@ -38,7 +47,7 @@ const camSwitch = await pg.evaluate(() => {
   const orbit = document.getElementById('bTop').classList.contains('on') === false && document.getElementById('bOrbit').classList.contains('on');
   document.getElementById('bTop').click();
   const top = document.getElementById('bTop').classList.contains('on');
-  return { orbit, top };
+  return { ok: orbit && top, orbit, top };
 });
 out.steps.push({ name: 'camera-switch', ...camSwitch });
 // x-ray leaves no page errors and toggles material state
@@ -52,11 +61,12 @@ out.steps.push({ name: 'player-cam', ok: await pg.evaluate(() => { window.__play
 out.steps.push({ name: 'interior-cam', ok: await pg.evaluate(() => window.__interiorCam('core-objective')) });
 out.steps.push({ name: 'slice-cam', ok: await pg.evaluate(() => { window.__sliceCamAt(0.5); return true; }) });
 // visual change detection: blockout-only vs built-only tops must differ (compositor screenshots)
-const shotA = await (async () => { await pg.evaluate(() => document.getElementById('bBlock').click()); await pg.waitForTimeout(500); return await pg.screenshot(); })();
-const shotB = await (async () => { await pg.evaluate(() => document.getElementById('bBlock').click()); await pg.waitForTimeout(500); return await pg.screenshot(); })();
-out.steps.push({ name: 'visual-diff-blockout-toggle', differs: !shotA.equals(shotB) });
+const shotA = await (async () => { await pg.evaluate(() => document.getElementById('bBlock').click()); await pg.waitForTimeout(500); return await pg.screenshot({ timeout: 120000 }); })();
+const shotB = await (async () => { await pg.evaluate(() => document.getElementById('bBlock').click()); await pg.waitForTimeout(500); return await pg.screenshot({ timeout: 120000 }); })();
+out.steps.push({ name: 'visual-diff-blockout-toggle', ok: !shotA.equals(shotB), differs: !shotA.equals(shotB) });
 out.errors = errors;
+const failedSteps = out.steps.filter(s => s.ok === false);
 console.log(JSON.stringify(out, null, 2));
-console.log(errors.length ? 'VIEWER VERIFY: FAIL (' + errors.length + ' errors)' : 'VIEWER VERIFY: PASS');
+console.log(errors.length || failedSteps.length ? `VIEWER VERIFY: FAIL (${errors.length} errors, ${failedSteps.length} failed steps)` : 'VIEWER VERIFY: PASS');
 await b.close();
-process.exit(errors.length ? 1 : 0);
+process.exit(errors.length || failedSteps.length ? 1 : 0);

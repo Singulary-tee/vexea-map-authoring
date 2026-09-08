@@ -1,8 +1,8 @@
 {
   "file": "blockout/blockout-full-v1.json",
   "generated": "2026-09-07",
-  "materials": 28,
-  "triangles": 16164,
+  "materials": 32,
+  "triangles": 43215,
   "segments": 93,
   "checks": [
     {

@@ -12,7 +12,8 @@ canvas{display:block}
 .chip{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:-1px;border:1px solid #666}
 </style></head>
 <body><div id="ui">
-<button id="bTop" class="on">TOP ORTHO</button><button id="bOrbit">ORBIT PERSP</button><button id="bXray">X-RAY</button><button id="bBlock" class="on">BLOCKOUT LAYER</button>
+<button id="bTop" class="on">TOP ORTHO</button><button id="bOrbit">ORBIT PERSP</button><button id="bXray">X-RAY</button><button id="bBlock">BLOCKOUT LAYER</button>
+<div id="status" style="margin-top:5px;color:#82909d">BUILT GEOMETRY · blockout reference hidden</div>
 <div id="legend"></div>
 </div>
 <script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
@@ -21,7 +22,8 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x10151b);
+scene.background = new THREE.Color(0x9aaab0);
+scene.fog = new THREE.Fog(0x9aaab0, 650, 1600);
 const WORLD = { x: [-465, 475], z: [-325, 340] };
 const cx = (WORLD.x[0] + WORLD.x[1]) / 2, cz = (WORLD.z[0] + WORLD.z[1]) / 2;
 const span = Math.max(WORLD.x[1] - WORLD.x[0], WORLD.z[1] - WORLD.z[0]);
@@ -32,10 +34,17 @@ const camP = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 1, 4000);
 camP.position.set(-760, 520, 760); camP.lookAt(cx, 0, cz);
 let cam = camO;
 const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.25;
 renderer.setSize(innerWidth, innerHeight);
 document.body.appendChild(renderer.domElement);
-const light = new THREE.HemisphereLight(0xdde6ee, 0x404448, 1.1);
-scene.add(light, new THREE.DirectionalLight(0xffffff, 1.6).translateX(-300).translateY(500).translateZ(200));
+const light = new THREE.HemisphereLight(0xdde6ee, 0x514b42, 1.7);
+const sun = new THREE.DirectionalLight(0xfff1d2, 2.2);
+sun.position.set(-300, 500, 200);
+const fill = new THREE.DirectionalLight(0xb8d4e6, 0.45);
+fill.position.set(350, 180, -260);
+scene.add(light, sun, fill);
 const controls = new OrbitControls(cam, renderer.domElement);
 controls.target.set(cx, 0, cz);
 // blockout reference layer (separate GLB, toggleable)
@@ -44,7 +53,14 @@ const bBlock = document.getElementById('bBlock');
 bBlock.onclick = () => {
   const on = bBlock.classList.toggle('on');
   if (blockLayer) blockLayer.visible = on;
+  document.getElementById('status').textContent = on ? 'BUILT GEOMETRY · blockout reference visible' : 'BUILT GEOMETRY · blockout reference hidden';
 };
+const hideReference = () => {
+  bBlock.classList.remove('on');
+  if (blockLayer) blockLayer.visible = false;
+  document.getElementById('status').textContent = 'BUILT GEOMETRY · blockout reference hidden';
+};
+window.__hideReference = hideReference;
 // X-ray: ground/walls go translucent so tunnels + interiors read from above
 let xray = false;
 const bX = document.getElementById('bXray');
@@ -80,6 +96,7 @@ function routePts() {
 }
 const ROUTE_PTS = routePts();
 window.__playerCamAt = (t) => {
+  hideReference();
   const i = Math.min(ROUTE_PTS.length - 2, Math.floor(t * (ROUTE_PTS.length - 1)));
   const p = ROUTE_PTS[i], q = ROUTE_PTS[Math.min(i + 2, ROUTE_PTS.length - 1)];
   cam = camP; setCam(false);
@@ -90,7 +107,7 @@ window.__playerCamAt = (t) => {
 };
 // interior viewpoints: [x, y, z, targetX, targetY, targetZ] at 1.6m eye
 const INT = {
-  'core-objective': [48, 7.3, -254, 48, 6.9, -258],
+  'core-objective': [48, 8.1, -270, 48, 7.2, -258],
   'loading-hall': [-50, 1.7, 62, -50, 1.4, 40],
   'tunnel': [80, -12.2, -190, 200, -12.2, -200],
   'security-hall': [38, 3.1, -140, 38, 2.6, -160],
@@ -99,6 +116,7 @@ const INT = {
 window.__interiorCam = (name) => {
   const p = INT[name];
   if (!p) return false;
+  hideReference();
   cam = camP; setCam(false);
   cam.position.set(p[0], p[1], p[2]);
   cam.lookAt(p[3], p[4], p[5]);
@@ -120,6 +138,7 @@ function slicePts() {
 }
 const SLICE_PTS = slicePts();
 window.__sliceCamAt = (t) => {
+  hideReference();
   const i = Math.min(SLICE_PTS.length - 2, Math.floor(t * (SLICE_PTS.length - 1)));
   const p = SLICE_PTS[i], q = SLICE_PTS[Math.min(i + 2, SLICE_PTS.length - 1)];
   cam = camP; setCam(false);
@@ -147,9 +166,17 @@ loader.load('./facility-built.glb', (g) => {
 loader.load('./blockout-full.glb', (g) => {
   g.scene.traverse(o => { if (o.isMesh) o.material = o.material.clone(), o.material.transparent = true, o.material.opacity = 0.35, o.material.depthWrite = false; });
   blockLayer = g.scene;
+  blockLayer.visible = bBlock.classList.contains('on');
   scene.add(g.scene);
   if (++loaded === 2) window.__ready = true;
 }, undefined, (e) => { window.__err = String(e); });
+window.__viewerState = () => ({
+  ready: window.__ready === true,
+  blockoutVisible: Boolean(blockLayer?.visible),
+  blockoutButtonOn: bBlock.classList.contains('on'),
+  xray,
+  camera: cam === camO ? 'top' : 'perspective',
+});
 addEventListener('resize', () => {
   renderer.setSize(innerWidth, innerHeight);
   camP.aspect = innerWidth / innerHeight; camP.updateProjectionMatrix();

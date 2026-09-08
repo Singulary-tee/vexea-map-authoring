@@ -1,8 +1,32 @@
 {
+  "format": "vexea-collision/1",
   "file": "blockout/blockout-full-v1.json",
+  "source": {
+    "path": "blockout/blockout-full-v1.json",
+    "revision": 3
+  },
   "generated": "2026-09-07",
   "unit": "meters",
   "yUp": true,
+  "boxFormat": [
+    "minX",
+    "minZ",
+    "maxX",
+    "minY",
+    "maxY",
+    "maxZ"
+  ],
+  "terrain": {
+    "defaultSurfaceY": 0,
+    "grading": {
+      "method": "linear-waypoint-elevations",
+      "maxWheeledGrade": "1:12",
+      "shoulderWidth": 1.2,
+      "gutterWidth": 0.35,
+      "gutterDepth": 0.18,
+      "groundSnap": "route-and-pad-authored"
+    }
+  },
   "colliders": [
     {
       "id": "bld-gatehouse",
@@ -23,8 +47,8 @@
         -209,
         59,
         -143,
-        0,
-        9,
+        -0.6,
+        8.4,
         101
       ]
     },
@@ -35,8 +59,8 @@
         0,
         120,
         52,
-        0,
-        9,
+        0.4,
+        9.4,
         156
       ]
     },
@@ -47,8 +71,8 @@
         113,
         65,
         139,
-        0,
-        18,
+        0.8,
+        18.8,
         91
       ]
     },
@@ -59,8 +83,8 @@
         243,
         33,
         273,
-        0,
-        30,
+        0.8,
+        30.8,
         63
       ]
     },
@@ -71,8 +95,8 @@
         -102,
         34,
         -30,
-        0,
-        12,
+        0.2,
+        12.2,
         90
       ]
     },
@@ -83,8 +107,8 @@
         162,
         -63,
         266,
-        0,
-        26,
+        6.8,
+        32.8,
         11
       ]
     },
@@ -95,8 +119,8 @@
         310,
         25,
         350,
-        0,
-        8,
+        0.8,
+        8.8,
         55
       ]
     },
@@ -107,8 +131,8 @@
         269,
         -122,
         339,
-        0,
-        16,
+        -1,
+        15,
         -62
       ]
     },
@@ -119,8 +143,8 @@
         -225,
         -51,
         -143,
-        0,
-        12,
+        -0.6,
+        11.4,
         11
       ]
     },
@@ -131,8 +155,8 @@
         -122,
         -83,
         -78,
-        0,
-        8,
+        -0.6,
+        7.4,
         -57
       ]
     },
@@ -143,8 +167,8 @@
         2,
         -167,
         74,
-        0,
-        14,
+        0.6,
+        14.6,
         -121
       ]
     },
@@ -155,8 +179,8 @@
         -89,
         -248,
         -43,
-        0,
-        7,
+        -1.2,
+        5.8,
         -212
       ]
     },
@@ -167,8 +191,8 @@
         2,
         -284,
         94,
-        0,
-        34,
+        -1.2,
+        32.8,
         -232
       ]
     },
@@ -179,8 +203,8 @@
         122,
         -255,
         174,
-        0,
-        9,
+        -1.2,
+        7.8,
         -225
       ]
     },
@@ -191,8 +215,8 @@
         94,
         -256,
         122,
-        0,
-        9,
+        -1.2,
+        7.8,
         -230
       ]
     },
@@ -203,8 +227,8 @@
         150,
         -92,
         160,
-        0,
-        6,
+        0.8,
+        6.8,
         -72
       ]
     },
@@ -215,8 +239,8 @@
         180,
         50,
         200,
-        0,
-        6,
+        0.8,
+        6.8,
         70
       ]
     },
@@ -227,8 +251,8 @@
         120,
         -150,
         140,
-        0,
-        8,
+        -1,
+        7,
         -130
       ]
     },
@@ -239,8 +263,8 @@
         24,
         -196,
         26,
-        0,
-        3,
+        -1.2,
+        1.8,
         -169
       ]
     },
@@ -251,8 +275,8 @@
         76,
         -196,
         78,
-        0,
-        3,
+        -1.2,
+        1.8,
         -169
       ]
     },
@@ -263,8 +287,8 @@
         -76,
         -74,
         -75,
-        0,
-        4.5,
+        -0.9,
+        3.6,
         -66
       ]
     },
@@ -287,10 +311,17 @@
         40,
         -177,
         46,
-        0,
-        1.5,
+        -0.9,
+        0.6,
         -169
-      ]
+      ],
+      "wheelAllowed": false,
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 6,
+        "steps": 9
+      }
     },
     {
       "id": "in-plant",
@@ -299,13 +330,25 @@
         90,
         -47,
         162,
-        0,
-        6,
+        0.8,
+        6.8,
         -39
       ],
+      "wheelAllowed": true,
       "ramp": {
         "grade": "1:12",
-        "riseAlong": "x"
+        "riseAlong": "x",
+        "baseY": 0.8,
+        "start": [
+          90,
+          0.8,
+          -47
+        ],
+        "end": [
+          162,
+          6.8,
+          -39
+        ]
       }
     },
     {
@@ -315,10 +358,17 @@
         314,
         56,
         318,
-        0,
-        6,
+        0.8,
+        6.8,
         68
-      ]
+      ],
+      "wheelAllowed": false,
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 4,
+        "steps": 35
+      }
     },
     {
       "id": "br-catwalk",
@@ -333,10 +383,38 @@
       ]
     },
     {
-      "id": "tp-west",
-      "kind": "tunnel",
+      "id": "tp-west-floor",
+      "kind": "tunnel-shell",
       "box": [
         44,
+        -202,
+        52,
+        -14.2,
+        -14,
+        -196
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-west-west",
+      "kind": "tunnel-shell",
+      "box": [
+        44,
+        -202,
+        44.35,
+        -14,
+        -8,
+        -196
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-west-east",
+      "kind": "tunnel-shell",
+      "box": [
+        51.65,
         -202,
         52,
         -14,
@@ -347,10 +425,80 @@
       "xray": true
     },
     {
-      "id": "tp-east",
-      "kind": "tunnel",
+      "id": "tp-west-south",
+      "kind": "tunnel-shell",
+      "box": [
+        44,
+        -202,
+        52,
+        -14,
+        -8,
+        -201.65
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-west-north",
+      "kind": "tunnel-shell",
+      "box": [
+        44,
+        -196.35,
+        52,
+        -14,
+        -8,
+        -196
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-west-ceiling",
+      "kind": "tunnel-shell",
+      "box": [
+        44,
+        -202,
+        52,
+        -8.35,
+        -8,
+        -196
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-east-floor",
+      "kind": "tunnel-shell",
       "box": [
         296,
+        -216,
+        304,
+        -14.2,
+        -14,
+        -210
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-east-west",
+      "kind": "tunnel-shell",
+      "box": [
+        296,
+        -216,
+        296.35,
+        -14,
+        -8,
+        -210
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-east-east",
+      "kind": "tunnel-shell",
+      "box": [
+        303.65,
         -216,
         304,
         -14,
@@ -361,10 +509,80 @@
       "xray": true
     },
     {
-      "id": "tun-a",
-      "kind": "tunnel",
+      "id": "tp-east-south",
+      "kind": "tunnel-shell",
+      "box": [
+        296,
+        -216,
+        304,
+        -14,
+        -8,
+        -215.65
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-east-north",
+      "kind": "tunnel-shell",
+      "box": [
+        296,
+        -210.35,
+        304,
+        -14,
+        -8,
+        -210
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tp-east-ceiling",
+      "kind": "tunnel-shell",
+      "box": [
+        296,
+        -216,
+        304,
+        -8.35,
+        -8,
+        -210
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-a-floor",
+      "kind": "tunnel-shell",
       "box": [
         44,
+        -206,
+        124,
+        -14.2,
+        -14,
+        -172
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-a-west",
+      "kind": "tunnel-shell",
+      "box": [
+        44,
+        -206,
+        44.35,
+        -14,
+        -8,
+        -172
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-a-east",
+      "kind": "tunnel-shell",
+      "box": [
+        123.65,
         -206,
         124,
         -14,
@@ -375,10 +593,80 @@
       "xray": true
     },
     {
-      "id": "tun-b",
-      "kind": "tunnel",
+      "id": "tun-a-south",
+      "kind": "tunnel-shell",
+      "box": [
+        44,
+        -206,
+        124,
+        -14,
+        -8,
+        -205.65
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-a-north",
+      "kind": "tunnel-shell",
+      "box": [
+        44,
+        -172.35,
+        124,
+        -14,
+        -8,
+        -172
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-a-ceiling",
+      "kind": "tunnel-shell",
+      "box": [
+        44,
+        -206,
+        124,
+        -8.35,
+        -8,
+        -172
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-b-floor",
+      "kind": "tunnel-shell",
       "box": [
         116,
+        -212,
+        224,
+        -14.2,
+        -14,
+        -170
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-b-west",
+      "kind": "tunnel-shell",
+      "box": [
+        116,
+        -212,
+        116.35,
+        -14,
+        -8,
+        -170
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-b-east",
+      "kind": "tunnel-shell",
+      "box": [
+        223.65,
         -212,
         224,
         -14,
@@ -389,13 +677,125 @@
       "xray": true
     },
     {
-      "id": "tun-c",
-      "kind": "tunnel",
+      "id": "tun-b-south",
+      "kind": "tunnel-shell",
+      "box": [
+        116,
+        -212,
+        224,
+        -14,
+        -8,
+        -211.65
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-b-north",
+      "kind": "tunnel-shell",
+      "box": [
+        116,
+        -170.35,
+        224,
+        -14,
+        -8,
+        -170
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-b-ceiling",
+      "kind": "tunnel-shell",
+      "box": [
+        116,
+        -212,
+        224,
+        -8.35,
+        -8,
+        -170
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-c-floor",
+      "kind": "tunnel-shell",
+      "box": [
+        216,
+        -216,
+        304,
+        -14.2,
+        -14,
+        -176
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-c-west",
+      "kind": "tunnel-shell",
+      "box": [
+        216,
+        -216,
+        216.35,
+        -14,
+        -8,
+        -176
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-c-east",
+      "kind": "tunnel-shell",
+      "box": [
+        303.65,
+        -216,
+        304,
+        -14,
+        -8,
+        -176
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-c-south",
+      "kind": "tunnel-shell",
       "box": [
         216,
         -216,
         304,
         -14,
+        -8,
+        -215.65
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-c-north",
+      "kind": "tunnel-shell",
+      "box": [
+        216,
+        -176.35,
+        304,
+        -14,
+        -8,
+        -176
+      ],
+      "interior": true,
+      "xray": true
+    },
+    {
+      "id": "tun-c-ceiling",
+      "kind": "tunnel-shell",
+      "box": [
+        216,
+        -216,
+        304,
+        -8.35,
         -8,
         -176
       ],
@@ -421,8 +821,8 @@
         -252,
         152,
         -244,
-        0,
-        1.7,
+        0.2,
+        1.9,
         160
       ]
     },
@@ -433,8 +833,8 @@
         -20,
         120,
         -8,
-        0,
-        1.7,
+        0.2,
+        1.9,
         128
       ]
     },
@@ -445,8 +845,8 @@
         100,
         120,
         112,
-        0,
-        1.7,
+        0.4,
+        2.1,
         128
       ]
     },
@@ -493,8 +893,8 @@
         28,
         -196,
         36,
-        0,
-        1.7,
+        -1.2,
+        0.5,
         -188
       ]
     },
@@ -505,8 +905,8 @@
         48,
         -196,
         56,
-        0,
-        1.7,
+        -1.2,
+        0.5,
         -188
       ]
     },
@@ -517,8 +917,8 @@
         66,
         -196,
         74,
-        0,
-        1.7,
+        -1.2,
+        0.5,
         -188
       ]
     },
@@ -529,8 +929,8 @@
         208,
         -92,
         216,
-        0,
-        1.7,
+        0.8,
+        2.5,
         -84
       ]
     },
@@ -541,8 +941,8 @@
         292,
         -196,
         300,
-        0,
-        1.4,
+        -1.5,
+        -0.10000000000000009,
         -188
       ]
     },
@@ -553,8 +953,8 @@
         -134,
         44,
         -126,
-        0,
-        1.7,
+        -0.6,
+        1.1,
         52
       ]
     },
@@ -601,8 +1001,8 @@
         140,
         -10,
         148,
-        0,
-        1.4,
+        0.8,
+        2.2,
         -2
       ]
     },
@@ -613,8 +1013,8 @@
         160,
         20,
         168,
-        0,
-        1.7,
+        0.8,
+        2.5,
         28
       ]
     },
@@ -625,8 +1025,8 @@
         200,
         -140,
         208,
-        0,
-        1.7,
+        -1,
+        0.7,
         -132
       ]
     },
@@ -637,8 +1037,8 @@
         10,
         -220,
         18,
-        0,
-        1.7,
+        -1.2,
+        0.5,
         -212
       ]
     },
@@ -649,8 +1049,8 @@
         140,
         -222,
         148,
-        0,
-        1.4,
+        -1.2,
+        0.19999999999999996,
         -214
       ]
     },
@@ -661,8 +1061,8 @@
         88,
         -120,
         96,
-        0,
-        1.7,
+        -0.9,
+        0.7999999999999999,
         -112
       ]
     },
@@ -746,8 +1146,8 @@
         -280,
         290,
         -180,
-        0,
-        0.01,
+        1.5,
+        1.51,
         340
       ],
       "surface": "gravel"
@@ -758,8 +1158,8 @@
         -260,
         108,
         -4,
-        0,
-        0.01,
+        0.2,
+        0.21000000000000002,
         165
       ],
       "surface": "asphalt"
@@ -770,8 +1170,8 @@
         -40,
         95,
         200,
-        0,
-        0.01,
+        0.4,
+        0.41000000000000003,
         190
       ],
       "surface": "asphalt"
@@ -794,8 +1194,8 @@
         -260,
         -110,
         -80,
-        0,
-        0.01,
+        -0.6,
+        -0.59,
         110
       ],
       "surface": "gravel"
@@ -806,8 +1206,8 @@
         -80,
         -170,
         120,
-        0,
-        0.01,
+        -0.9,
+        -0.89,
         -60
       ],
       "surface": "asphalt"
@@ -818,8 +1218,8 @@
         120,
         -120,
         380,
-        0,
-        0.01,
+        0.8,
+        0.81,
         120
       ],
       "surface": "concrete"
@@ -830,8 +1230,8 @@
         100,
         -170,
         380,
-        0,
-        0.01,
+        -1,
+        -0.99,
         -120
       ],
       "surface": "concrete"
@@ -842,8 +1242,8 @@
         -80,
         -250,
         160,
-        0,
-        0.01,
+        -1.2,
+        -1.19,
         -170
       ],
       "surface": "concrete"
@@ -854,8 +1254,8 @@
         160,
         -260,
         380,
-        0,
-        0.01,
+        -1.5,
+        -1.49,
         -170
       ],
       "surface": "asphalt"
@@ -873,17 +1273,58 @@
       "surface": "concrete"
     },
     {
+      "id": "s-sec-threshold-steps",
+      "box": [
+        40,
+        -177,
+        46,
+        -0.9,
+        0.61,
+        -169
+      ],
+      "surface": "concrete",
+      "stairs": true,
+      "wheelAllowed": false,
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 6,
+        "steps": 9
+      }
+    },
+    {
       "id": "in-plant-ramp",
       "box": [
         90,
         -47,
         162,
-        0,
-        0.01,
+        0.8,
+        0.81,
         -39
       ],
       "surface": "concrete",
-      "ramp": true
+      "ramp": true,
+      "wheelAllowed": true
+    },
+    {
+      "id": "st-catwalk-e-steps",
+      "box": [
+        314,
+        56,
+        318,
+        0.8,
+        6.81,
+        68
+      ],
+      "surface": "concrete",
+      "stairs": true,
+      "wheelAllowed": false,
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 4,
+        "steps": 35
+      }
     },
     {
       "id": "br-catwalk-deck",
@@ -896,6 +1337,541 @@
         66
       ],
       "surface": "metal"
+    },
+    {
+      "id": "tp-west-floor-surface",
+      "box": [
+        44,
+        -202,
+        52,
+        -14,
+        -13.99,
+        -196
+      ],
+      "surface": "concrete",
+      "tunnel": true,
+      "wheelAllowed": true
+    },
+    {
+      "id": "tp-east-floor-surface",
+      "box": [
+        296,
+        -216,
+        304,
+        -14,
+        -13.99,
+        -210
+      ],
+      "surface": "concrete",
+      "tunnel": true,
+      "wheelAllowed": true
+    },
+    {
+      "id": "tun-a-floor-surface",
+      "box": [
+        44,
+        -206,
+        124,
+        -14,
+        -13.99,
+        -172
+      ],
+      "surface": "concrete",
+      "tunnel": true,
+      "wheelAllowed": true
+    },
+    {
+      "id": "tun-b-floor-surface",
+      "box": [
+        116,
+        -212,
+        224,
+        -14,
+        -13.99,
+        -170
+      ],
+      "surface": "concrete",
+      "tunnel": true,
+      "wheelAllowed": true
+    },
+    {
+      "id": "tun-c-floor-surface",
+      "box": [
+        216,
+        -216,
+        304,
+        -14,
+        -13.99,
+        -176
+      ],
+      "surface": "concrete",
+      "tunnel": true,
+      "wheelAllowed": true
+    },
+    {
+      "id": "route_main_surface-grade",
+      "kind": "route",
+      "box": [
+        -292,
+        -228,
+        140,
+        -1.2,
+        0.41000000000000003,
+        170
+      ],
+      "surface": "asphalt",
+      "width": 9,
+      "waypoints": [
+        [
+          -292,
+          0,
+          170
+        ],
+        [
+          -240,
+          0.1,
+          160
+        ],
+        [
+          -160,
+          0.3,
+          150
+        ],
+        [
+          -60,
+          0.4,
+          120
+        ],
+        [
+          0,
+          0.4,
+          100
+        ],
+        [
+          60,
+          0.1,
+          60
+        ],
+        [
+          120,
+          0,
+          0
+        ],
+        [
+          140,
+          -0.3,
+          -60
+        ],
+        [
+          110,
+          -0.6,
+          -110
+        ],
+        [
+          100,
+          -0.9,
+          -160
+        ],
+        [
+          100,
+          -1.1,
+          -210
+        ],
+        [
+          40,
+          -1.2,
+          -214
+        ],
+        [
+          20,
+          -1.2,
+          -222
+        ],
+        [
+          20,
+          -1.2,
+          -228
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": false
+    },
+    {
+      "id": "route_covered-grade",
+      "kind": "route",
+      "box": [
+        -120,
+        -190,
+        60,
+        -1.2,
+        0.21000000000000002,
+        80
+      ],
+      "surface": "asphalt",
+      "width": 5,
+      "waypoints": [
+        [
+          -120,
+          0.2,
+          80
+        ],
+        [
+          -80,
+          0.1,
+          60
+        ],
+        [
+          -40,
+          0,
+          40
+        ],
+        [
+          0,
+          -0.2,
+          10
+        ],
+        [
+          40,
+          -0.5,
+          -40
+        ],
+        [
+          60,
+          -0.8,
+          -100
+        ],
+        [
+          50,
+          -1,
+          -150
+        ],
+        [
+          48,
+          -1.2,
+          -190
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": false
+    },
+    {
+      "id": "route_rear_alley-grade",
+      "kind": "route",
+      "box": [
+        -200,
+        110,
+        -4,
+        0.2,
+        0.31,
+        140
+      ],
+      "surface": "asphalt",
+      "width": 5,
+      "waypoints": [
+        [
+          -200,
+          0.2,
+          140
+        ],
+        [
+          -140,
+          0.25,
+          116
+        ],
+        [
+          -60,
+          0.3,
+          110
+        ],
+        [
+          -4,
+          0.3,
+          110
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": false
+    },
+    {
+      "id": "route_north_ring-grade",
+      "kind": "route",
+      "box": [
+        60,
+        -120,
+        170,
+        -0.7,
+        0.51,
+        120
+      ],
+      "surface": "asphalt",
+      "width": 7,
+      "waypoints": [
+        [
+          60,
+          0.4,
+          120
+        ],
+        [
+          120,
+          0.5,
+          110
+        ],
+        [
+          170,
+          0.5,
+          70
+        ],
+        [
+          150,
+          0.3,
+          10
+        ],
+        [
+          140,
+          -0.1,
+          -60
+        ],
+        [
+          150,
+          -0.7,
+          -120
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": false
+    },
+    {
+      "id": "route_south_retreat-grade",
+      "kind": "route",
+      "box": [
+        -40,
+        -210,
+        300,
+        -1.5,
+        -0.89,
+        -60
+      ],
+      "surface": "asphalt",
+      "width": 6,
+      "waypoints": [
+        [
+          -40,
+          -0.9,
+          -60
+        ],
+        [
+          40,
+          -1,
+          -80
+        ],
+        [
+          120,
+          -1.1,
+          -100
+        ],
+        [
+          180,
+          -1.2,
+          -120
+        ],
+        [
+          240,
+          -1.4,
+          -160
+        ],
+        [
+          300,
+          -1.5,
+          -210
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": false
+    },
+    {
+      "id": "route_flank_backdoor-grade",
+      "kind": "route",
+      "box": [
+        148,
+        -236,
+        148,
+        -1.5,
+        -1.19,
+        -210
+      ],
+      "surface": "asphalt",
+      "width": 4,
+      "waypoints": [
+        [
+          148,
+          -1.2,
+          -210
+        ],
+        [
+          148,
+          -1.5,
+          -236
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": false
+    },
+    {
+      "id": "route_plant_spur-grade",
+      "kind": "route",
+      "box": [
+        140,
+        -100,
+        214,
+        0.8,
+        1.41,
+        -70
+      ],
+      "surface": "asphalt",
+      "width": 6,
+      "waypoints": [
+        [
+          140,
+          0.8,
+          -100
+        ],
+        [
+          200,
+          1,
+          -95
+        ],
+        [
+          214,
+          1.2,
+          -80
+        ],
+        [
+          214,
+          1.4,
+          -70
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": false
+    },
+    {
+      "id": "route_ridgeline_exit-grade",
+      "kind": "route",
+      "box": [
+        -290,
+        230,
+        -240,
+        0,
+        1.51,
+        330
+      ],
+      "surface": "asphalt",
+      "width": 6,
+      "waypoints": [
+        [
+          -290,
+          0,
+          230
+        ],
+        [
+          -260,
+          0.5,
+          270
+        ],
+        [
+          -240,
+          1.1,
+          300
+        ],
+        [
+          -240,
+          1.5,
+          330
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": false
+    },
+    {
+      "id": "route_maintenance_loop-grade",
+      "kind": "route",
+      "box": [
+        -200,
+        -70,
+        -100,
+        -0.6,
+        0.21000000000000002,
+        140
+      ],
+      "surface": "asphalt",
+      "width": 5,
+      "waypoints": [
+        [
+          -200,
+          0.2,
+          140
+        ],
+        [
+          -130,
+          -0.2,
+          60
+        ],
+        [
+          -130,
+          -0.4,
+          -10
+        ],
+        [
+          -130,
+          -0.6,
+          -70
+        ],
+        [
+          -100,
+          -0.6,
+          -70
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": false
+    },
+    {
+      "id": "route_tunnel-grade",
+      "kind": "route",
+      "box": [
+        48,
+        -210,
+        300,
+        -13.7,
+        -13.69,
+        -196
+      ],
+      "surface": "asphalt",
+      "width": 8,
+      "waypoints": [
+        [
+          48,
+          -13.7,
+          -196
+        ],
+        [
+          120,
+          -13.7,
+          -200
+        ],
+        [
+          220,
+          -13.7,
+          -206
+        ],
+        [
+          300,
+          -13.7,
+          -210
+        ]
+      ],
+      "wheelAllowed": true,
+      "tunnel": true
     }
   ],
   "warnings": [],
@@ -917,8 +1893,8 @@
         188,
         -86,
         240,
-        0,
-        10,
+        0.8,
+        10.8,
         -34
       ]
     },
@@ -928,8 +1904,8 @@
         26,
         -192,
         70,
-        0,
-        10,
+        -1.2,
+        8.8,
         -148
       ]
     }

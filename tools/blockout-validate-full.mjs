@@ -73,6 +73,32 @@ for (const s of segs) {
 }
 c('stair/incline gauges within fixture', stBad.length === 0, stBad.join(','));
 
+// 5b. controlled terrain profiles keep wheeled routes below the 1:12 limit.
+const terrainBad = [];
+let gradedRoutes = 0;
+for (const r of b.routes.filter(r => r.kind === 'ground' || r.kind === 'covered')) {
+  const ys = r.elevations;
+  if (!Array.isArray(ys) || ys.length !== r.waypoints.length || ys.some(y => !Number.isFinite(y))) {
+    terrainBad.push(`${r.id}(elevations length/number)`);
+    continue;
+  }
+  if (Math.max(...ys) - Math.min(...ys) >= 0.5) gradedRoutes++;
+  for (let i = 0; i < ys.length - 1; i++) {
+    const run = Math.hypot(r.waypoints[i + 1][0] - r.waypoints[i][0], r.waypoints[i + 1][1] - r.waypoints[i][1]);
+    if (Math.abs(ys[i + 1] - ys[i]) > run / 12 + 1e-6) terrainBad.push(`${r.id}[${i}](grade)`);
+  }
+}
+c('ground/covered routes carry controlled elevations', terrainBad.length === 0 && gradedRoutes >= 3, terrainBad.length ? terrainBad.join(',') : `${gradedRoutes} materially graded routes`);
+c('terrain grading contract declares 1:12 wheeled limit', b.terrain?.grading?.maxWheeledGrade === '1:12');
+
+// 5c. traversal permissions are authored rather than inferred by the runtime.
+const routePermissionBad = b.routes.filter(r => typeof r.wheelAllowed !== 'boolean' ||
+  (r.kind === 'air' && r.wheelAllowed) || (r.kind !== 'air' && !r.wheelAllowed)).map(r => `${r.id}:${r.wheelAllowed}`);
+const connectorPermissionBad = segs.filter(s => s.category === 'stair' || s.category === 'incline')
+  .filter(s => s.wheelAllowed !== (s.category === 'incline')).map(s => `${s.id}:${s.wheelAllowed}`);
+c('routes author explicit wheeled permissions', routePermissionBad.length === 0, routePermissionBad.join(','));
+c('stairs deny wheels while inclines allow them', connectorPermissionBad.length === 0, connectorPermissionBad.join(','));
+
 // 6. cover obligations
 const covBad = [];
 const routeNames = new Set(b.routes.map(r => r.id));

@@ -1,0 +1,79 @@
+{
+  "source": "blockout/blockout-full-v1.json",
+  "generated": "2026-09-07",
+  "segments": 93,
+  "structuralSegments": 24,
+  "glb": {
+    "path": "editor/facility-built.glb",
+    "bytes": 4568620
+  },
+  "checks": [
+    {
+      "name": "structural-footprints-do-not-interpenetrate",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "structural-segments-have-ground-contact",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "entrances-project-to-clear-host-walls",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "covered-route-utility-supports-clear-walk-lane",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "tunnel-route-aligns-with-authored-portals",
+      "pass": true,
+      "details": "48,-196 -> 300,-210"
+    },
+    {
+      "name": "tunnel-depth-is-explicit",
+      "pass": true,
+      "details": "-13.7"
+    },
+    {
+      "name": "loading-dock-lip-anchor-is-authored",
+      "pass": true,
+      "details": "oc-loading-dock"
+    },
+    {
+      "name": "source-ambiguities-are-resolved",
+      "pass": true,
+      "details": "0 open questions"
+    },
+    {
+      "name": "resolved-decisions-are-traceable",
+      "pass": true,
+      "details": "10 decisions"
+    },
+    {
+      "name": "wheeled-route-grades-within-1:12",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "controlled-ground-variation-is-nontrivial",
+      "pass": true,
+      "details": "-1.5..1.5m"
+    },
+    {
+      "name": "terrain-pads-are-authored",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "generated-built-glb-exists",
+      "pass": true,
+      "details": "4568620 bytes"
+    }
+  ],
+  "passed": 13,
+  "failed": 0
+}

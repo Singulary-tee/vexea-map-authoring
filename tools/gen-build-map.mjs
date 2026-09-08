@@ -29,10 +29,12 @@ const group = new Group();
 const mat = (hex, opt = {}) => new MeshStandardMaterial({ color: hex, roughness: 0.92, metalness: 0.02, ...opt });
 // material families (PBR, shared per family to bound draw groups after merge)
 const M = {
-  concrete: [mat(0x878b93, { roughness: 0.92 }), mat(0x8d9199, { roughness: 0.9 }), mat(0x94989e, { roughness: 0.94 })],
-  concreteDark: mat(0x6f757d, { roughness: 0.95 }),
-  roof: mat(0x565b63, { roughness: 0.9 }),
-  metal: mat(0x5a6570, { roughness: 0.4, metalness: 0.85 }),
+  concrete: [mat(0x878b93, { roughness: 0.92 }), mat(0x96958d, { roughness: 0.9 }), mat(0x7f8788, { roughness: 0.94 })],
+  concreteDark: mat(0x626a6d, { roughness: 0.95 }),
+  roof: mat(0x454d53, { roughness: 0.9 }),
+  metal: mat(0x59656a, { roughness: 0.4, metalness: 0.85 }),
+  siding: [mat(0x596553, { roughness: 0.82, metalness: 0.12 }), mat(0x4d5c63, { roughness: 0.8, metalness: 0.16 }), mat(0x6b6658, { roughness: 0.86, metalness: 0.1 })],
+  trim: mat(0x303b40, { roughness: 0.58, metalness: 0.55 }),
   glass: mat(0x2c3844, { roughness: 0.15, metalness: 0.75, transparent: true, opacity: 0.85 }),
   road: mat(0x494c50, { roughness: 0.95 }),
   curb: mat(0x6d6d6d, { roughness: 0.9 }),
@@ -56,49 +58,112 @@ const M = {
   sign: mat(0x2a3a4a, { roughness: 0.5, metalness: 0.3 }),
 };
 const box = (w, h, d, x, y, z, m, ry = 0) => { const g = new Mesh(new BoxGeometry(w, h, d), m); g.position.set(x, y, z); g.rotation.y = ry; return g; };
+const groundSegments = segs.filter(s => s.category === 'ground-surface-type');
+const inBounds = (x, z, s) => {
+  const [x1, z1, x2, z2] = s.bounds;
+  return x >= Math.min(x1, x2) && x <= Math.max(x1, x2) && z >= Math.min(z1, z2) && z <= Math.max(z1, z2);
+};
+const surfaceYAt = (x, z, fallback = b.terrain?.defaultSurfaceY ?? 0) => {
+  const candidates = groundSegments.filter(s => inBounds(x, z, s));
+  if (!candidates.length) return fallback;
+  candidates.sort((a, c) => Math.abs((a.bounds[2] - a.bounds[0]) * (a.bounds[3] - a.bounds[1])) - Math.abs((c.bounds[2] - c.bounds[0]) * (c.bounds[3] - c.bounds[1])));
+  return Number.isFinite(candidates[0].surfaceY) ? candidates[0].surfaceY : fallback;
+};
+const segmentTerrainY = s => Number.isFinite(s.terrainY)
+  ? s.terrainY
+  : surfaceYAt((s.bounds[0] + s.bounds[2]) / 2, (s.bounds[1] + s.bounds[3]) / 2);
+const raisedBase = s => segmentTerrainY(s) + (s.raisedBase ?? s.raisedThreshold ?? 0);
+const orientedBox = (w, h, d, cx, cy, cz, dx, dy, dz, m) => {
+  const g = new Mesh(new BoxGeometry(w, h, d), m);
+  const dir = new Vector3(dx, dy, dz).normalize();
+  g.position.set(cx, cy, cz);
+  g.quaternion.setFromUnitVectors(new Vector3(1, 0, 0), dir);
+  return g;
+};
+const segmentFrame = (ax, az, bx, bz) => {
+  const dx = bx - ax, dz = bz - az, len = Math.hypot(dx, dz) || 1;
+  return { len, ang: -Math.atan2(dz, dx), nx: -dz / len, nz: dx / len };
+};
+const offsetPoint = (x, z, frame, offset) => [x + frame.nx * offset, z + frame.nz * offset];
+const routeElevation = (r, i, t) => {
+  const fallback = b.terrain?.defaultSurfaceY ?? 0;
+  const a = r.elevations?.[i] ?? fallback, c = r.elevations?.[i + 1] ?? a;
+  return a + (c - a) * t;
+};
+const catmull = (p0, p1, p2, p3, t) => {
+  const t2 = t * t, t3 = t2 * t;
+  return 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
+};
+const routeSamples = r => {
+  const out = [];
+  for (let i = 0; i < r.waypoints.length - 1; i++) {
+    const prev = r.waypoints[i - 1] || r.waypoints[i];
+    const a = r.waypoints[i], c = r.waypoints[i + 1], next = r.waypoints[i + 2] || c;
+    const len = Math.hypot(c[0] - a[0], c[1] - a[1]);
+    const steps = Math.max(1, Math.ceil(len / 10));
+    for (let j = 0; j < steps; j++) {
+      const t = j / steps;
+      out.push([catmull(prev[0], a[0], c[0], next[0], t), routeElevation(r, i, t), catmull(prev[1], a[1], c[1], next[1], t)]);
+    }
+  }
+  const last = r.waypoints.at(-1);
+  out.push([last[0], r.elevations?.at(-1) ?? b.terrain?.defaultSurfaceY ?? 0, last[1]]);
+  return out;
+};
 
 // -------- grounds (surface class) --------
 const SURF_MAT = { concrete: () => M.concreteDark, asphalt: () => M.road, gravel: () => M.gravel, dirt: () => M.gravel };
-for (const s of segs) {
-  if (s.category !== 'ground-surface-type') continue;
+for (const s of groundSegments) {
   const [x1, z1, x2, z2] = s.bounds;
-  // 0.4m slab; tops at y=0
-  group.add(box(x2 - x1, 0.4, z2 - z1, (x1 + x2) / 2, -0.2, (z1 + z2) / 2, SURF_MAT[s.surface]?.() ?? M.concreteDark));
+  const y = s.surfaceY ?? b.terrain?.defaultSurfaceY ?? 0;
+  group.add(box(x2 - x1, 0.4, z2 - z1, (x1 + x2) / 2, y - 0.2, (z1 + z2) / 2, SURF_MAT[s.surface]?.() ?? M.concreteDark));
 }
 
-// -------- roads: route ribbons + curbs + poles --------
+// -------- roads: spline ribbons + curbs, shoulders, gutters, and poles --------
 for (const r of b.routes) {
   if (r.kind === 'air') continue;
   const wdt = r.kind === 'tunnel' ? r.width || 8 : Math.max(4, r.width || 6);
-  const y = r.kind === 'tunnel' ? -13.9 : 0.12;
-  const wp = r.waypoints;
-  for (let i = 0; i < wp.length - 1; i++) {
-    const [ax, az] = wp[i], [bx, bz] = wp[i + 1];
-    const len = Math.hypot(bx - ax, bz - az), ang = -Math.atan2(bz - az, bx - ax);
-    group.add(box(len + 1, 0.24, wdt, (ax + bx) / 2, y, (az + bz) / 2, r.kind === 'tunnel' ? M.tunnelLight : M.road, ang));
-    if (r.kind !== 'tunnel' && r.kind !== 'covered') {
-      // curb strips both edges
-      for (const off of [-wdt / 2 - 0.5, wdt / 2 + 0.5]) {
-        group.add(box(len + 1, 0.3, 1, (ax + bx) / 2, 0.09, (az + bz) / 2 - off * Math.sin(-ang) * -1 + 0, M.curb, ang));
+  const samples = r.kind === 'tunnel' ? r.waypoints.map(([x, z]) => [x, -13.9, z]) : routeSamples(r);
+  for (let i = 0; i < samples.length - 1; i++) {
+    const a = samples[i], c = samples[i + 1];
+    const frame = segmentFrame(a[0], a[2], c[0], c[2]);
+    const dx = c[0] - a[0], dy = c[1] - a[1], dz = c[2] - a[2];
+    const len = Math.hypot(dx, dy, dz) || 1;
+    const mx = (a[0] + c[0]) / 2, my = (a[1] + c[1]) / 2, mz = (a[2] + c[2]) / 2;
+    group.add(orientedBox(len + 1, 0.24, wdt, mx, my + 0.12, mz, dx, dy, dz, r.kind === 'tunnel' ? M.tunnelLight : M.road));
+    if (r.kind !== 'tunnel') {
+      const shoulderWidth = b.terrain?.grading?.shoulderWidth ?? 1.2;
+      const gutterWidth = b.terrain?.grading?.gutterWidth ?? 0.35;
+      const gutterDepth = b.terrain?.grading?.gutterDepth ?? 0.18;
+      for (const side of [-1, 1]) {
+        const [sx, sz] = offsetPoint(mx, mz, frame, side * (wdt / 2 + 0.15 + shoulderWidth / 2));
+        group.add(orientedBox(len + 1, 0.08, shoulderWidth, sx, my + 0.04, sz, dx, dy, dz, M.gravel));
+        const [gx, gz] = offsetPoint(mx, mz, frame, side * (wdt / 2 + 0.15 + shoulderWidth + gutterWidth / 2));
+        group.add(orientedBox(len + 1, gutterDepth, gutterWidth, gx, my - gutterDepth / 2, gz, dx, dy, dz, M.concreteDark));
+        if (r.kind !== 'covered') {
+          const [cx, cz] = offsetPoint(mx, mz, frame, side * (wdt / 2 + 0.15));
+          group.add(orientedBox(len + 1, 0.3, 0.3, cx, my + 0.15, cz, dx, dy, dz, M.curb));
+        }
       }
     }
   }
   // light poles along ground routes, seeded by waypoint hash, every ~30m
   if (r.kind === 'ground') {
     const rand = rng(idSeed('pole-' + r.id));
-    for (let i = 0; i < wp.length - 1; i++) {
-      const [ax, az] = wp[i], [bx, bz] = wp[i + 1];
-      const len = Math.hypot(bx - ax, bz - az);
-      const n = Math.floor(len / 30);
+    for (let i = 0; i < r.waypoints.length - 1; i++) {
+      const [ax, az] = r.waypoints[i], [bx, bz] = r.waypoints[i + 1];
+      const frame = segmentFrame(ax, az, bx, bz);
+      const n = Math.floor(frame.len / 30);
       for (let k = 1; k <= n; k++) {
         const t = (k + rand() * 0.3 - 0.15) / (n + 1);
         const px = ax + (bx - ax) * t, pz = az + (bz - az) * t;
+        const py = routeElevation(r, i, t);
         const sgn = rand() > 0.5 ? 1 : -1;
         const off = sgn * (wdt / 2 + 2);
-        const ang = -Math.atan2(bz - az, bx - ax);
-        const ox = px + Math.cos(ang) * 0 - Math.sin(ang) * off, oz = pz + Math.sin(ang) * Math.cos(Math.PI / 2) * 0 + Math.cos(ang) * off;
-        group.add(box(0.35, 7, 0.35, ox, 3.5, oz, M.metal));
-        group.add(box(1.6, 0.4, 0.3, ox - Math.sin(ang) * 0.65, 7.2, oz + Math.cos(ang) * 0.65, M.metal, ang));
+        const [ox, oz] = offsetPoint(px, pz, frame, off);
+        group.add(box(0.35, 7, 0.35, ox, py + 3.5, oz, M.metal));
+        const [hx, hz] = offsetPoint(ox, oz, frame, sgn * 0.65);
+        group.add(box(1.6, 0.4, 0.3, hx, py + 7.2, hz, M.metal, frame.ang));
       }
     }
   }
@@ -121,22 +186,28 @@ for (const d of segs) {
 const wallPiece = (w, h, t, x, y, z, m, ry = 0) => group.add(box(w, h, t, x, y, z, m, ry));
 function building(s) {
   const [x1, z1, x2, z2] = s.bounds;
-  const w = x2 - x1, d = z2 - z1, h = s.height, base = s.raisedBase || 0;
+  const w = x2 - x1, d = z2 - z1, h = s.height, base = raisedBase(s);
   const cx2 = (x1 + x2) / 2, cz2 = (z1 + z2) / 2;
-  const cm = M.concrete[(idSeed(s.id) >>> 0) % M.concrete.length];
+  const cm = ['building-enterable', 'warehouse-enterable'].includes(s.category)
+    ? M.siding[(idSeed(s.id) >>> 0) % M.siding.length]
+    : M.concrete[(idSeed(s.id) >>> 0) % M.concrete.length];
   const rand = rng(idSeed(s.id) * 977 + 13);
   // plinth for raised bases
   if (base > 0) group.add(box(w + 6, base, d + 6, cx2, base / 2, cz2, M.concreteDark));
   const WT = 0.6;
   const doors = (doorsByBld.get(s.id) || []).map(d => ({
-    // project door onto the nearest wall of this building
+    // Doors are authored one metre outside the wall; project the opening to the facade.
     dx: (d.bounds[0] + d.bounds[2]) / 2, dz: (d.bounds[1] + d.bounds[3]) / 2,
     w: Math.max(d.bounds[2] - d.bounds[0], d.bounds[3] - d.bounds[1]),
     h: d.height || 2.4,
-  }));
-  const opensOn = (side) => doors.filter(d => side === 'n' ? Math.abs(d.dz - z2) < 3 : side === 's' ? Math.abs(d.dz - z1) < 3 : side === 'e' ? Math.abs(d.dx - x2) < 3 : Math.abs(d.dx - x1) < 3);
-  const cut = (lo, hi, side, openW) => { // wall pieces along a side, minus openings
-    const o = opensOn(side).map(d => ({ a: d.dx - d.w / 2, c: d.dx + d.w / 2 })).sort((a, c2) => a.a - c2.a);
+    side: (() => {
+      const sides = [[Math.abs((d.bounds[1] + d.bounds[3]) / 2 - z1), 's'], [Math.abs((d.bounds[1] + d.bounds[3]) / 2 - z2), 'n'], [Math.abs((d.bounds[0] + d.bounds[2]) / 2 - x1), 'w'], [Math.abs((d.bounds[0] + d.bounds[2]) / 2 - x2), 'e']];
+      return sides.sort((a, b) => a[0] - b[0])[0][1];
+    })(),
+  })).map(d => ({ ...d, axis: ['n', 's'].includes(d.side) ? d.dx : d.dz }));
+  const opensOn = side => doors.filter(d => d.side === side);
+  const cut = (lo, hi, side) => { // wall pieces along a side, minus door openings
+    const o = opensOn(side).map(d => ({ a: d.axis - d.w / 2, c: d.axis + d.w / 2 })).sort((a, c2) => a.a - c2.a);
     let cur = lo, pieces = [];
     for (const op of o) {
       const a2 = Math.max(lo, Math.min(hi, op.a)), c2 = Math.max(lo, Math.min(hi, op.c));
@@ -146,14 +217,42 @@ function building(s) {
     if (cur < hi) pieces.push([cur, hi]);
     return pieces;
   };
-  // four walls (rotate pieces into place)
-  const addWallX = (x, z0, z1b, m) => { for (const [a, c] of cut(z0, z1b, x === x1 ? 'w' : 'e', 0)) group.add(box(WT, h, c - a, x, base + h / 2, (a + c) / 2, m)); };
-  const addWallZ = (z, x0, x1b, m) => { for (const [a, c] of cut(x0, x1b, z === z2 ? 'n' : 's', 0)) group.add(box(c - a, h, WT, (a + c) / 2, base + h / 2, z, m)); };
-  addWallX(x1, z1, z2, cm); addWallX(x2, z1, z2, cm); addWallZ(z1, x1, x2, cm); addWallZ(z2, x1, x2, cm);
-  // door frames (dark reveal + lintel)
+  const addWallX = (x, side, m) => {
+    for (const [a, c] of cut(z1, z2, side)) group.add(box(WT, h, c - a, x, base + h / 2, (a + c) / 2, m));
+    for (const door of opensOn(side)) {
+      const doorH = Math.min(h - 0.15, door.h), topH = h - doorH;
+      if (topH <= 0) continue;
+      group.add(box(WT, topH, door.w, x, base + doorH + topH / 2, door.axis, m));
+    }
+  };
+  const addWallZ = (z, side, m) => {
+    for (const [a, c] of cut(x1, x2, side)) group.add(box(c - a, h, WT, (a + c) / 2, base + h / 2, z, m));
+    for (const door of opensOn(side)) {
+      const doorH = Math.min(h - 0.15, door.h), topH = h - doorH;
+      if (topH <= 0) continue;
+      group.add(box(door.w, topH, WT, door.axis, base + doorH + topH / 2, z, m));
+    }
+  };
+  addWallX(x1, 'w', cm); addWallX(x2, 'e', cm); addWallZ(z1, 's', cm); addWallZ(z2, 'n', cm);
+  // door frames and thresholds, aligned to the actual wall rather than the authored exterior marker
   for (const d of doors) {
-    group.add(box(d.w + 0.6, d.h, 0.25, d.dx, base + d.h / 2, d.dz, M.door));
-    group.add(box(d.w + 0.6, 0.4, 0.3, d.dx, base + d.h + 0.15, d.dz, M.metal));
+    const normal = d.side === 'n' ? 1 : d.side === 's' ? -1 : d.side === 'e' ? 1 : -1;
+    const wallX = d.side === 'w' ? x1 : d.side === 'e' ? x2 : d.dx;
+    const wallZ = d.side === 's' ? z1 : d.side === 'n' ? z2 : d.dz;
+    const frameX = d.side === 'w' || d.side === 'e' ? wallX + normal * 0.34 : d.axis;
+    const frameZ = d.side === 'n' || d.side === 's' ? wallZ + normal * 0.34 : d.axis;
+    const frameDepth = 0.28;
+    if (d.side === 'n' || d.side === 's') {
+      group.add(box(0.25, d.h, frameDepth, d.axis - d.w / 2, base + d.h / 2, frameZ, M.trim));
+      group.add(box(0.25, d.h, frameDepth, d.axis + d.w / 2, base + d.h / 2, frameZ, M.trim));
+      group.add(box(d.w + 0.5, 0.25, frameDepth, d.axis, base + d.h, frameZ, M.metal));
+      group.add(box(d.w, 0.12, 0.8, d.axis, base + 0.06, wallZ + normal * 0.2, M.door));
+    } else {
+      group.add(box(frameDepth, d.h, 0.25, frameX, base + d.h / 2, d.axis - d.w / 2, M.trim));
+      group.add(box(frameDepth, d.h, 0.25, frameX, base + d.h / 2, d.axis + d.w / 2, M.trim));
+      group.add(box(frameDepth, 0.25, d.w + 0.5, frameX, base + d.h, d.axis, M.metal));
+      group.add(box(0.8, 0.12, d.w, wallX + normal * 0.2, base + 0.06, d.axis, M.door));
+    }
   }
   // floor band for multi-floor
   if (s.floors >= 2) for (let f = 1; f < s.floors; f++) group.add(box(w + 0.4, 0.5, d + 0.4, cx2, base + h * f / s.floors, cz2, M.concreteDark));
@@ -165,58 +264,115 @@ function building(s) {
   // roof machinery (seeded, small)
   const n = 1 + Math.floor(rand() * 2);
   for (let i = 0; i < n; i++) {
-    const bw = 3 + rand() * 6, bd = 3 + rand() * 5, bh = 2 + rand() * 2.5;
-    const bx = (rand() - 0.5) * (w - bw - 6), bz = (rand() - 0.5) * (d - bd - 6);
+    const bw = Math.min(Math.max(3, w - 6), 3 + rand() * 6), bd = Math.min(Math.max(3, d - 6), 3 + rand() * 5), bh = 2 + rand() * 2.5;
+    const bx = (rand() - 0.5) * Math.max(0, w - bw - 4), bz = (rand() - 0.5) * Math.max(0, d - bd - 4);
     group.add(box(bw, bh, bd, cx2 + bx, base + h + 0.6 + bh / 2, cz2 + bz, rand() > 0.5 ? M.roof : M.metal));
   }
   const vent = new Mesh(new CylinderGeometry(1.2, 1.2, 3, 10), M.metal);
   vent.position.set(cx2 + (rand() - 0.5) * w * 0.4, base + h + 0.6 + 1.5, cz2 + (rand() - 0.5) * d * 0.4);
   group.add(vent);
-  // windows: seeded grid on the long face without a door on that side
+  // Corrugated ribs and windows establish an industrial facade without hiding openings.
+  const addRibs = side => {
+    const sideDoors = opensOn(side);
+    const lo = ['n', 's'].includes(side) ? x1 + 3 : z1 + 3;
+    const hi = ['n', 's'].includes(side) ? x2 - 3 : z2 - 3;
+    const step = 6;
+    for (let axis = lo; axis <= hi; axis += step) {
+      if (sideDoors.some(d => Math.abs(d.axis - axis) < d.w / 2 + 0.7)) continue;
+      const out = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
+      if (side === 'n' || side === 's') group.add(box(0.16, Math.max(1, h - 0.8), 0.16, axis, base + (h - 0.8) / 2 + 0.4, (side === 'n' ? z2 : z1) + out * 0.36, M.trim));
+      else group.add(box(0.16, Math.max(1, h - 0.8), 0.16, (side === 'e' ? x2 : x1) + out * 0.36, base + (h - 0.8) / 2 + 0.4, axis, M.trim));
+    }
+  };
+  for (const side of ['n', 's', 'e', 'w']) addRibs(side);
   if (s.floors >= 2 && s.category !== 'facade-non-enterable') {
     const fh = h / s.floors;
-    const faceSide = d >= w ? 'n' : 'e';
-    const o = opensOn(faceSide);
     const bay = 5 + Math.floor(rand() * 2);
-    const runLen = d >= w ? w : d;
-    const fx = d >= w ? x1 : (s.bounds[2]), fz = d >= w ? z2 : z1;
-    if (o.length === 0) {
-      for (let f = 0; f < s.floors; f++) {
-        for (let x = 2.5; x < runLen - 2.5; x += bay) {
-          group.add(box(1.6, fh * 0.45, 0.2, d >= w ? x1 + x : fx, base + fh * (f + 0.65), d >= w ? fz : z1 + x, M.glass));
-        }
+    for (const side of ['n', 's', 'e', 'w']) {
+      const sideDoors = opensOn(side);
+      const lo = ['n', 's'].includes(side) ? x1 + 3 : z1 + 3;
+      const hi = ['n', 's'].includes(side) ? x2 - 3 : z2 - 3;
+      const out = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
+      for (let f = 0; f < s.floors; f++) for (let axis = lo; axis <= hi; axis += bay) {
+        const winW = 1.8;
+        if (sideDoors.some(d => Math.abs(d.axis - axis) < d.w / 2 + winW / 2 + 0.6)) continue;
+        const wy = base + fh * (f + 0.58);
+        if (side === 'n' || side === 's') group.add(box(winW, Math.min(1.6, fh * 0.42), 0.16, axis, wy, (side === 'n' ? z2 : z1) + out * 0.34, M.glass));
+        else group.add(box(0.16, Math.min(1.6, fh * 0.42), winW, (side === 'e' ? x2 : x1) + out * 0.34, wy, axis, M.glass));
       }
     }
   }
 }
 for (const s of segs) if (bldCats.includes(s.category)) building(s);
 
+// -------- industrial dressing: tanks, substations, and stacked freight --------
+for (const s of segs) {
+  const [x1, z1, x2, z2] = s.bounds;
+  const cx3 = (x1 + x2) / 2, cz3 = (z1 + z2) / 2;
+  const sy = segmentTerrainY(s);
+  if (s.id === 'bld-tank-farm') {
+    for (const [ox, oz, radius, height] of [[-5, 0, 4.3, 7], [5, 0, 4.3, 7]]) {
+      const tank = new Mesh(new CylinderGeometry(radius, radius * 1.05, height, 16), M.siding[0]);
+      tank.position.set(cx3 + ox, sy + height / 2, cz3 + oz);
+      group.add(tank);
+      group.add(box(radius * 1.5, 0.25, radius * 1.5, cx3 + ox, sy + height + 0.15, cz3 + oz, M.metal));
+      const pipe = new Mesh(new CylinderGeometry(0.22, 0.22, height + 2, 8), M.pipe);
+      pipe.position.set(cx3 + ox + radius * 0.65, sy + (height + 2) / 2, cz3 + oz);
+      group.add(pipe);
+    }
+    group.add(box(18, 0.35, 2, cx3, sy + 0.18, z2 + 1.2, M.concreteDark));
+  }
+  if (s.id === 'bld-substation') {
+    for (let i = 0; i < 3; i++) {
+      const px = x1 + 8 + i * 12;
+      group.add(box(7, 3.2, 5, px, sy + 1.6, cz3, M.metal));
+      group.add(box(7.4, 0.25, 5.4, px, sy + 3.25, cz3, M.concreteDark));
+      for (const side of [-1, 1]) group.add(box(0.18, 5, 0.18, px + side * 2.2, sy + 5.1, cz3, M.pipe));
+    }
+  }
+  if (s.id === 'bld-east-storage-a' || s.id === 'bld-east-storage-b') {
+    const crateW = Math.max(4, Math.min(8, x2 - x1 - 2)), crateD = Math.max(4, Math.min(8, z2 - z1 - 2));
+    group.add(box(crateW, 2.4, crateD, cx3, sy + 1.2, cz3, M.cover[0]));
+    group.add(box(crateW * 0.92, 2.1, crateD * 0.92, cx3, sy + 3.45, cz3, M.cover[1]));
+    group.add(box(crateW + 0.3, 0.18, 0.18, cx3, sy + 1.3, z1 - 0.15, M.trim));
+  }
+}
+
 // -------- walls & fences --------
 for (const s of segs) {
   if (s.category !== 'wall-blocking') continue;
   const [x1, z1, x2, z2] = s.bounds, h = s.height || 4;
-  group.add(box(x2 - x1, h, 0.6, (x1 + x2) / 2, h / 2, (z1 + z2) / 2, M.concreteDark));
+  const w = Math.abs(x2 - x1), d = Math.abs(z2 - z1);
+  const sy = segmentTerrainY(s);
+  group.add(box(Math.max(w, 0.6), h, Math.max(d, 0.6), (x1 + x2) / 2, sy + h / 2, (z1 + z2) / 2, M.concreteDark));
 }
 
 // -------- stairs (real steps) --------
 for (const s of segs) {
   if (s.category !== 'stair') continue;
   const [x1, z1, x2, z2] = s.bounds;
-  const w = x2 - x1, d = z2 - z1, h = s.height || 1.5;
+  const w = Math.abs(x2 - x1), d = Math.abs(z2 - z1), h = s.height || 1.5;
+  const sy = segmentTerrainY(s);
   const steps = Math.min(12, Math.max(3, s.gauge?.steps || 6));
   const sh = h / steps, sd = d / steps;
-  for (let i = 0; i < steps; i++) group.add(box(w, sh * (i + 1), sd, (x1 + x2) / 2, sh * (i + 1) / 2, z2 - sd * (i + 0.5), M.concrete[1]));
+  const dir = z2 >= z1 ? 1 : -1;
+  for (let i = 0; i < steps; i++) group.add(box(w, sh * (i + 1), sd, (x1 + x2) / 2, sy + sh * (i + 1) / 2, z2 - dir * sd * (i + 0.5), M.concrete[1]));
+  for (const railX of [(x1 + x2) / 2 - w / 2 + 0.25, (x1 + x2) / 2 + w / 2 - 0.25]) {
+    group.add(box(0.12, h + 0.9, 0.12, railX, sy + h / 2 + 0.45, (z1 + z2) / 2, M.metal));
+  }
 }
 
 // -------- incline (1:12 step prism) --------
 for (const s of segs) {
   if (s.category !== 'incline') continue;
   const [x1, z1, x2, z2] = s.bounds;
-  const run = x2 - x1, wd = z2 - z1, h = s.height;
+  const run = Math.abs(x2 - x1), wd = Math.abs(z2 - z1), h = s.height;
+  const sy = segmentTerrainY(s);
   const steps = 12;
+  const dir = x2 >= x1 ? 1 : -1;
   for (let i = 0; i < steps; i++) {
     const rise = h * (i + 1) / steps, span = run / steps;
-    group.add(box(span + 0.1, rise, wd, x1 + span * (i + 0.5), rise / 2, (z1 + z2) / 2, M.concrete[1]));
+    group.add(box(span + 0.1, rise, wd, x1 + dir * span * (i + 0.5), sy + rise / 2, (z1 + z2) / 2, M.concrete[1]));
   }
 }
 
@@ -232,24 +388,15 @@ for (const s of segs) {
   }
 }
 
-// -------- tunnels: below-grade tube + portal rings --------
-for (const s of segs) {
-  if (s.category !== 'tunnel-passage') continue;
-  const [x1, z1, x2, z2] = s.bounds, y = s.belowGradeY ?? -14;
-  const w = x2 - x1, d = z2 - z1, h = s.height || 6;
-  group.add(box(w, h, d, (x1 + x2) / 2, y + h / 2, (z1 + z2) / 2, M.tunnel));
-  if (s.id.startsWith('tp-')) {
-    group.add(box(w * 0.7, 0.6, d * 0.7, (x1 + x2) / 2, 0.3, (z1 + z2) / 2, M.metal));
-    // portal frame at grade
-    group.add(box(w, h, 0.8, (x1 + x2) / 2, y + h / 2, z1, M.concreteDark));
-  }
-}
+// Tunnel shells are built from the route below so the interior remains walkable;
+// source passage AABBs are semantic bounds, not solid geometry.
 
 // -------- drone hole: dark ring at grade --------
 for (const s of segs) {
   if (s.category !== 'hole-drone-entry') continue;
   const [x1, z1, x2, z2] = s.bounds;
-  group.add(box(x2 - x1, 0.3, z2 - z1, (x1 + x2) / 2, 0.1, (z1 + z2) / 2, M.door));
+  const sy = segmentTerrainY(s);
+  group.add(box(x2 - x1, 0.3, z2 - z1, (x1 + x2) / 2, sy + 0.1, (z1 + z2) / 2, M.door));
 }
 
 // -------- roll-down doors --------
@@ -258,7 +405,8 @@ for (const s of segs) {
   const [x1, z1, x2, z2] = s.bounds;
   const w = x2 - x1, d = z2 - z1;
   const horiz = w >= d;
-  group.add(box(horiz ? w : 0.5, s.height || 4.5, horiz ? 0.5 : d, (x1 + x2) / 2, (s.height || 4.5) / 2, (z1 + z2) / 2, M.metal));
+  const sy = segmentTerrainY(s);
+  group.add(box(horiz ? w : 0.5, s.height || 4.5, horiz ? 0.5 : d, (x1 + x2) / 2, sy + (s.height || 4.5) / 2, (z1 + z2) / 2, M.metal));
 }
 
 // -------- covers: family grammar (low crate / mid barrier / full bunker) --------
@@ -266,20 +414,21 @@ for (const s of segs) {
   if (s.category !== 'cover') continue;
   const [x1, z1, x2, z2] = s.bounds;
   const w = x2 - x1, d = z2 - z1, h = s.height, cx2 = (x1 + x2) / 2, cz2 = (z1 + z2) / 2;
+  const sy = segmentTerrainY(s);
   const cls = s.cover?.heightClass || 'mid';
   const cm = M.cover[(idSeed(s.id) >>> 0) % M.cover.length];
   if (cls === 'low') {
     // crate stack: two boxes
-    group.add(box(w, h * 0.55, d, cx2, h * 0.275, cz2, cm));
-    group.add(box(w * 0.9, h * 0.45, d * 0.9, cx2, h * 0.55 + h * 0.225, cz2, M.cover[((idSeed(s.id) + 1) >>> 0) % M.cover.length]));
+    group.add(box(w, h * 0.55, d, cx2, sy + h * 0.275, cz2, cm));
+    group.add(box(w * 0.9, h * 0.45, d * 0.9, cx2, sy + h * 0.55 + h * 0.225, cz2, M.cover[((idSeed(s.id) + 1) >>> 0) % M.cover.length]));
   } else if (cls === 'mid') {
     // jersey barrier with base flare
-    group.add(box(w, h, d, cx2, h / 2, cz2, cm));
-    group.add(box(w + 0.3, 0.3, d + 0.3, cx2, 0.15, cz2, M.concreteDark));
+    group.add(box(w, h, d, cx2, sy + h / 2, cz2, cm));
+    group.add(box(w + 0.3, 0.3, d + 0.3, cx2, sy + 0.15, cz2, M.concreteDark));
   } else {
     // bunker block: solid with roof overhang
-    group.add(box(w, h, d, cx2, h / 2, cz2, cm));
-    group.add(box(w + 0.8, 0.4, d + 0.8, cx2, h + 0.2, cz2, M.roof));
+    group.add(box(w, h, d, cx2, sy + h / 2, cz2, cm));
+    group.add(box(w + 0.8, 0.4, d + 0.8, cx2, sy + h + 0.2, cz2, M.roof));
   }
 }
 
@@ -288,9 +437,21 @@ for (const s of segs) {
   if (s.category !== 'overhead-cover') continue;
   const [x1, z1, x2, z2] = s.bounds;
   const h = s.height || 6, w = x2 - x1, d = z2 - z1;
-  group.add(box(w, 0.5, d, (x1 + x2) / 2, h - 0.25, (z1 + z2) / 2, M.metal));
+  const sy = segmentTerrainY(s);
+  group.add(box(w, 0.5, d, (x1 + x2) / 2, sy + h - 0.25, (z1 + z2) / 2, M.metal));
   for (const [px, pz] of [[x1 + 0.5, z1 + 0.5], [x2 - 0.5, z1 + 0.5], [x1 + 0.5, z2 - 0.5], [x2 - 0.5, z2 - 0.5]])
-    group.add(box(0.35, h - 0.5, 0.35, px, (h - 0.5) / 2, pz, M.concreteDark));
+    group.add(box(0.35, h - 0.5, 0.35, px, sy + (h - 0.5) / 2, pz, M.concreteDark));
+}
+
+// Loading dock lip: the overhead canopy is not the walkable loading edge.
+const loadingDock = segs.find(s => s.id === 'oc-loading-dock');
+if (loadingDock) {
+  const [x1, z1, x2, z2] = loadingDock.bounds;
+  const sy = segmentTerrainY(loadingDock);
+  group.add(box(x2 - x1, 0.5, 2.4, (x1 + x2) / 2, sy + 0.25, z2 - 0.4, M.concreteDark));
+  for (let x = x1 + 3; x < x2 - 1; x += 6) {
+    group.add(box(0.35, 0.9, 0.35, x, sy + 0.7, z2 - 1.5, M.hazard));
+  }
 }
 
 // -------- mountains: displaced rock masses --------
@@ -337,44 +498,55 @@ for (const s of segs) {
 for (const s of segs) {
   if (!['fence-w', 'fence-s'].includes(s.id)) continue;
   const [x1, z1, x2, z2] = s.bounds;
-  const len = Math.max(x2 - x1, z2 - z1);
-  const horiz = x2 - x1 >= z2 - z1;
+  const w = Math.abs(x2 - x1), d = Math.abs(z2 - z1), len = Math.max(w, d);
+  const horiz = w >= d;
+  const sy = segmentTerrainY(s);
   const nPosts = Math.max(3, Math.floor(len / 10));
   for (let i = 0; i <= nPosts; i++) {
     const t = i / nPosts;
     const px = horiz ? x1 + (x2 - x1) * t : x1, pz = horiz ? z1 : z1 + (z2 - z1) * t;
-    group.add(box(horiz ? 0.25 : 0.3, 4, horiz ? 0.3 : 0.25, px, 2, pz, M.metal));
+    group.add(box(horiz ? 0.25 : 0.3, 4, horiz ? 0.3 : 0.25, px, sy + 2, pz, M.metal));
   }
-  group.add(box(horiz ? len : 0.15, 2.6, horiz ? 0.15 : len, (x1 + x2) / 2, 2.3, (z1 + z2) / 2, M.metal));
+  group.add(box(horiz ? len : 0.15, 2.6, horiz ? 0.15 : len, (x1 + x2) / 2, sy + 2.3, (z1 + z2) / 2, M.metal));
 }
 
 // -------- kill/spawn markers (reference layer, semi-transparent) --------
 for (const s of segs) {
   if (s.category === 'kill-zone') {
     const [x1, z1, x2, z2] = s.bounds;
-    group.add(box(x2 - x1, 0.12, z2 - z1, (x1 + x2) / 2, 0.06, (z1 + z2) / 2, M.kill));
+    const sy = segmentTerrainY(s);
+    group.add(box(x2 - x1, 0.12, z2 - z1, (x1 + x2) / 2, sy + 0.06, (z1 + z2) / 2, M.kill));
   }
   if (s.category === 'spawn') {
     const [x1, z1, x2, z2] = s.bounds;
-    group.add(box(x2 - x1, 0.08, z2 - z1, (x1 + x2) / 2, 0.04, (z1 + z2) / 2, M.spawn));
+    const sy = segmentTerrainY(s);
+    group.add(box(x2 - x1, 0.08, z2 - z1, (x1 + x2) / 2, sy + 0.04, (z1 + z2) / 2, M.spawn));
   }
 }
 
 // -------- utility runs: pipe racks along covered routes (supports + pipes) --------
 for (const r of b.routes) {
   if (r.kind !== 'covered') continue;
-  const wp = r.waypoints;
-  for (let i = 0; i < wp.length - 1; i++) {
-    const [ax, az] = wp[i], [bx2, bz] = wp[i + 1];
-    const len = Math.hypot(bx2 - ax, bz - az), ang = -Math.atan2(bz - az, bx2 - ax);
-    const nSup = Math.max(2, Math.floor(len / 6));
+  const samples = routeSamples(r);
+  for (let i = 0; i < samples.length - 1; i++) {
+    const a = samples[i], c = samples[i + 1];
+    const [ax, az] = [a[0], a[2]], [bx2, bz] = [c[0], c[2]];
+    const frame = segmentFrame(ax, az, bx2, bz);
+    const routeWidth = r.width || 5;
+    const nSup = Math.max(2, Math.floor(frame.len / 6));
     for (let k = 0; k <= nSup; k++) {
       const t = k / nSup;
-      group.add(box(0.2, 3.2, 0.2, ax + (bx2 - ax) * t, 1.6, az + (bz - az) * t, M.metal));
+      const px = ax + (bx2 - ax) * t, pz = az + (bz - az) * t;
+      const py = a[1] + (c[1] - a[1]) * t;
+      for (const side of [-1, 1]) {
+        const [sx, sz] = offsetPoint(px, pz, frame, side * Math.max(1.5, routeWidth / 2 - 0.35));
+        group.add(box(0.2, 3.2, 0.2, sx, py + 1.6, sz, M.metal));
+      }
     }
-    const pipe = new Mesh(new CylinderGeometry(0.28, 0.28, len, 8), M.pipe);
-    pipe.rotation.z = Math.PI / 2; pipe.rotation.y = ang;
-    pipe.position.set((ax + bx2) / 2, 3.2, (az + bz) / 2);
+    const dx = bx2 - ax, dy = c[1] - a[1], dz = bz - az;
+    const pipe = new Mesh(new CylinderGeometry(0.28, 0.28, Math.hypot(dx, dy, dz), 8), M.pipe);
+    pipe.quaternion.setFromUnitVectors(new Vector3(0, 1, 0), new Vector3(dx, dy, dz).normalize());
+    pipe.position.set((ax + bx2) / 2, (a[1] + c[1]) / 2 + 3.2, (az + bz) / 2);
     group.add(pipe);
   }
 }
@@ -386,7 +558,7 @@ function interiors(s) {
   const plan = interiorByBld.get(s.id);
   if (!plan) return;
   const [x1, z1, x2, z2] = s.bounds;
-  const w = x2 - x1, d = z2 - z1, h = s.height, base = s.raisedBase || s.raisedThreshold || 0;
+  const w = x2 - x1, d = z2 - z1, h = s.height, base = raisedBase(s);
   const cx2 = (x1 + x2) / 2, cz2 = (z1 + z2) / 2;
   const nF = plan.floors || s.floors || 1;
   const fh = h / nF;
@@ -446,16 +618,15 @@ function interiors(s) {
       const ow = Math.min(14, w - 8), od = Math.min(12, d - 8);
       const tx = cx2, tz = cz2;
       group.add(box(ow, 0.4, od, tx, lvlY + FLOOR_T + 0.2, tz, M.concreteDark));
-      // barrier ring (three walls, north doorway - capsule-wide)
+      // barrier ring with a real capsule-width north doorway
       const B = 0.5;
       group.add(box(ow + 2 * B, 1.3, B, tx, lvlY + 1.4, tz - od / 2, M.metal));
-      group.add(box(ow + 2 * B, 1.3, B, tx, lvlY + 1.4, tz + od / 2, M.metal));
       group.add(box(B, 1.3, od, tx - ow / 2, lvlY + 1.4, tz, M.metal));
       group.add(box(B, 1.3, od, tx + ow / 2, lvlY + 1.4, tz, M.metal));
-      // doorway gap in north wall
       const gapW = 3;
-      group.add(box(ow + 2 * B, 1.3, B + 0.2, tx - gapW / 2 - 1, lvlY + 1.4, tz + od / 2 + 0.1, M.cover[0]));
-      group.add(box(ow + 2 * B, 1.3, B + 0.2, tx + gapW / 2 + 1, lvlY + 1.4, tz + od / 2 + 0.1, M.cover[0]));
+      const railLen = (ow - gapW) / 2;
+      group.add(box(railLen, 1.3, B, tx - gapW / 2 - railLen / 2, lvlY + 1.4, tz + od / 2, M.metal));
+      group.add(box(railLen, 1.3, B, tx + gapW / 2 + railLen / 2, lvlY + 1.4, tz + od / 2, M.metal));
       // terminal block
       const term = new Mesh(new BoxGeometry(2.4, 1.8, 1.2), M.term);
       term.position.set(tx, lvlY + FLOOR_T + 1.0, tz);
@@ -465,46 +636,73 @@ function interiors(s) {
       break;
     }
     case 'staircore': {
-      // central stair shaft + landing per floor
+      // open stair core: landings and treads stay traversable instead of a solid shaft
       const sw = 4.5, sd = 5.5;
-      group.add(box(sw, h, sd, cx2, base + h / 2, cz2, M.rib));
-      for (let f = 0; f < nF; f++) group.add(box(sw - 1, 0.4, sd - 1, cx2, base + fh * f + FLOOR_T + 0.2, cz2, M.concreteDark));
+      const treadW = sw - 1, treadD = sd - 1;
+      for (let f = 0; f < nF - 1; f++) {
+        const stepCount = Math.max(8, Math.ceil(fh / 0.2)), stepRise = fh / stepCount, stepDepth = treadD / stepCount;
+        const dir = f % 2 === 0 ? 1 : -1;
+        const startZ = cz2 - dir * treadD / 2;
+        for (let i = 0; i < stepCount; i++) {
+          const z = startZ + dir * stepDepth * (i + 0.5);
+          group.add(box(treadW, stepRise * (i + 1), stepDepth, cx2, base + fh * f + FLOOR_T + stepRise * (i + 1) / 2, z, M.concrete[1]));
+        }
+      }
+      for (let f = 0; f < nF; f++) group.add(box(treadW, 0.22, treadD, cx2, base + fh * f + FLOOR_T + 0.11, cz2, M.concreteDark));
       break;
     }
     case 'open':
     default:
       break;
   }
-  // interior stairwell for multi-floor layouts (corner, away from the main door side)
+  // Interior stairs for multi-floor layouts (corner, away from the main door side).
   if (nF > 1 && plan.layout !== 'staircore') {
     const sw2 = 3.2, sd2 = 4.5;
     const sx = x1 + sw2 / 2 + 1, sz = z1 + sd2 / 2 + 1;
-    group.add(box(sw2, h, sd2, sx, base + h / 2, sz, M.rib));
-    group.add(box(sw2 - 1, h - 0.4, sd2 - 1, sx, base + h / 2 + 0.2, sz, M.concreteDark));
-    const totalSteps = Math.ceil(h / 0.18);
-    const runLen = totalSteps * 0.3;
-    for (let i = 0; i < totalSteps; i++)
-      group.add(box(sw2 - 1.2, 0.18 * (i + 1), 0.3, sx, 0.18 * (i + 1) / 2, sz + sd2 / 2 - 1.2, M.concrete[1]));
-    for (let f = 1; f < nF; f++) group.add(box(sw2 - 1, 0.4, sd2 - 1, sx, base + fh * f, sz, M.concreteDark));
+    const treadW = sw2 - 1.2, treadD = sd2 - 1.2;
+    for (let f = 0; f < nF - 1; f++) {
+      const stepCount = Math.max(8, Math.ceil(fh / 0.2)), stepRise = fh / stepCount, stepDepth = treadD / stepCount;
+      const dir = f % 2 === 0 ? 1 : -1;
+      const startZ = sz - dir * treadD / 2;
+      for (let i = 0; i < stepCount; i++) {
+        const z = startZ + dir * stepDepth * (i + 0.5);
+        group.add(box(treadW, stepRise * (i + 1), stepDepth, sx, base + fh * f + FLOOR_T + stepRise * (i + 1) / 2, z, M.concrete[1]));
+      }
+    }
+    for (let f = 0; f < nF; f++) group.add(box(treadW, 0.22, treadD, sx, base + fh * f + FLOOR_T + 0.11, sz, M.concreteDark));
   }
 }
 for (const s of segs) if (bldCats.includes(s.category)) interiors(s);
 
-// -------- tunnel interior: walking surface + conduit/light strips --------
+// -------- tunnel interior: walkable shell + conduit/light strips --------
 {
   const ti = b.tunnelInterior;
-  if (ti) {
-    const tunSegs2 = segs.filter(s => s.category === 'tunnel-passage' && s.id !== 'tp-west' && s.id !== 'tp-east');
-    for (const s of tunSegs2) {
-      const [x1, z1, x2, z2] = s.bounds;
-      group.add(box(x2 - x1, 0.4, ti.width - 1, (x1 + x2) / 2, ti.floorY + 0.2, (z1 + z2) / 2, M.concreteDark));
-      // continuous ceiling light strip (X-ray visibility anchor) + conduit
-      const strip = new Mesh(new BoxGeometry(x2 - x1 - 2, 0.14, 0.5), M.light);
-      strip.position.set((x1 + x2) / 2, -8.0, (z1 + z2) / 2);
+  const tr = b.routes.find(r => r.id === 'route_tunnel' && r.kind === 'tunnel');
+  if (ti && tr) {
+    const tunnelH = 6, width = ti.width || tr.width || 8, floorY = ti.floorY;
+    for (let i = 0; i < tr.waypoints.length - 1; i++) {
+      const [ax, az] = tr.waypoints[i], [bx2, bz] = tr.waypoints[i + 1];
+      const frame = segmentFrame(ax, az, bx2, bz);
+      const cx3 = (ax + bx2) / 2, cz3 = (az + bz) / 2;
+      group.add(box(frame.len + 1, 0.4, width, cx3, floorY - 0.2, cz3, M.concreteDark, frame.ang));
+      group.add(box(frame.len + 1, 0.35, width, cx3, floorY + tunnelH, cz3, M.tunnel, frame.ang));
+      for (const side of [-1, 1]) {
+        const [sx, sz] = offsetPoint(cx3, cz3, frame, side * (width / 2 - 0.2));
+        group.add(box(frame.len + 1, tunnelH, 0.35, sx, floorY + tunnelH / 2, sz, M.tunnel, frame.ang));
+        const [cx4, cz4] = offsetPoint(cx3, cz3, frame, side * (width / 2 - 0.65));
+        group.add(box(frame.len - 2, 0.25, 0.25, cx4, floorY + tunnelH - 0.65, cz4, M.metal, frame.ang));
+      }
+      const strip = box(Math.max(1, frame.len - 2), 0.14, 0.5, cx3, floorY + tunnelH - 0.35, cz3, M.light, frame.ang);
       group.add(strip);
-      const conduit = new Mesh(new BoxGeometry(x2 - x1 - 2, 0.3, 0.3), M.metal);
-      conduit.position.set((x1 + x2) / 2, -8.6, z1 + 0.6);
-      group.add(conduit);
+    }
+    for (const [index, endpoint] of [tr.waypoints[0], tr.waypoints.at(-1)].entries()) {
+      const next = index === 0 ? tr.waypoints[1] : tr.waypoints.at(-2);
+      const frame = segmentFrame(endpoint[0], endpoint[1], next[0], next[1]);
+      for (const side of [-1, 1]) {
+        const [px, pz] = offsetPoint(endpoint[0], endpoint[1], frame, side * (width / 2 - 0.25));
+        group.add(box(0.5, tunnelH, 0.5, px, floorY + tunnelH / 2, pz, M.concreteDark));
+      }
+      group.add(box(width, 0.5, 0.5, endpoint[0], floorY + tunnelH - 0.25, endpoint[1], M.concreteDark, frame.ang));
     }
   }
 }

@@ -6,16 +6,32 @@ const require = createRequire(existsSync(local) ? local : '/workspaces/vexea-int
 const { chromium } = require('playwright');
 const b = await chromium.launch({ args: ['--enable-unsafe-swiftshader', '--use-gl=angle', '--use-angle=swiftshader', '--in-process-gpu', '--no-sandbox'] });
 const pg = await b.newPage({ viewport: { width: 1400, height: 900 } });
-pg.on('pageerror', e => console.log('[pgerr]', e.message));
-await pg.goto('http://127.0.0.1:3000/editor/blockout-viewer.html');
-await pg.waitForFunction('window.__ready === true', null, { timeout: 20000 });
-await pg.waitForTimeout(800);
+const shotTimeoutMs = Number(process.env.SCREENSHOT_TIMEOUT_MS || 30000);
+const failures = [];
 const spots = ['core-objective', 'loading-hall', 'tunnel', 'security-hall', 'maintenance'];
-for (const name of spots) {
-  const ok = await pg.evaluate((n) => window.__interiorCam(n), name);
-  if (!ok) { console.log('MISS', name); continue; }
+const closeBrowser = () => Promise.race([
+  b.close().catch(() => {}),
+  new Promise(resolve => setTimeout(resolve, 5000)),
+]);
+pg.on('pageerror', e => console.log('[pgerr]', e.message));
+try {
+  await pg.goto('http://127.0.0.1:3000/editor/blockout-viewer.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await pg.waitForFunction('window.__ready === true', null, { timeout: 30000 });
   await pg.waitForTimeout(500);
-  await pg.screenshot({ path: `artifacts/blockout-int-${name}.png` });
-  console.log('shot', name);
+  for (const name of spots) {
+    const ok = await pg.evaluate((n) => window.__interiorCam(n), name);
+    if (!ok) { console.log('MISS', name); continue; }
+    await pg.waitForTimeout(300);
+    try {
+      await pg.screenshot({ path: `artifacts/blockout-int-${name}.png`, timeout: shotTimeoutMs });
+      console.log('shot', name);
+    } catch (error) {
+      failures.push(name);
+      console.log('FAIL', name, error.message);
+    }
+  }
+} finally {
+  await closeBrowser();
 }
-await b.close();
+console.log(`INTERIOR CAPTURE: ${spots.length - failures.length}/${spots.length} shots written`);
+process.exit(failures.length ? 1 : 0);

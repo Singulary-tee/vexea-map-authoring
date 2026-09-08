@@ -1,0 +1,222 @@
+{
+  "format": "vexea-runtime-map/1",
+  "map": "map_1_facility",
+  "revision": 3,
+  "source": {
+    "path": "blockout/blockout-full-v1.json",
+    "hash": "d4698d2e2e68",
+    "generated": "2026-09-07"
+  },
+  "coordinateSystem": {
+    "up": "y",
+    "horizontal": [
+      "x",
+      "z"
+    ],
+    "world": {
+      "minX": -465,
+      "maxX": 475,
+      "minZ": -325,
+      "maxZ": 340,
+      "note": "playfield inside the boundary band (mountain/reservoir/fence segments sit just outside the v3 -460..460/-320..320 frame)"
+    },
+    "tunnelFloorY": -13.7,
+    "collisionBoxFormat": [
+      "minX",
+      "minZ",
+      "maxX",
+      "minY",
+      "maxY",
+      "maxZ"
+    ],
+    "note": "Use authored v3 coordinates directly; do not apply the legacy 768x768 or tunnel-Y=-20 calibration."
+  },
+  "terrain": {
+    "defaultSurfaceY": 0,
+    "grading": {
+      "method": "linear-waypoint-elevations",
+      "maxWheeledGrade": "1:12",
+      "shoulderWidth": 1.2,
+      "gutterWidth": 0.35,
+      "gutterDepth": 0.18,
+      "groundSnap": "route-and-pad-authored"
+    },
+    "routeProfiles": [
+      {
+        "id": "route_main_surface",
+        "elevations": [
+          0,
+          0.1,
+          0.3,
+          0.4,
+          0.4,
+          0.1,
+          0,
+          -0.3,
+          -0.6,
+          -0.9,
+          -1.1,
+          -1.2,
+          -1.2,
+          -1.2
+        ],
+        "wheelAllowed": true
+      },
+      {
+        "id": "route_covered",
+        "elevations": [
+          0.2,
+          0.1,
+          0,
+          -0.2,
+          -0.5,
+          -0.8,
+          -1,
+          -1.2
+        ],
+        "wheelAllowed": true
+      },
+      {
+        "id": "route_rear_alley",
+        "elevations": [
+          0.2,
+          0.25,
+          0.3,
+          0.3
+        ],
+        "wheelAllowed": true
+      },
+      {
+        "id": "route_north_ring",
+        "elevations": [
+          0.4,
+          0.5,
+          0.5,
+          0.3,
+          -0.1,
+          -0.7
+        ],
+        "wheelAllowed": true
+      },
+      {
+        "id": "route_south_retreat",
+        "elevations": [
+          -0.9,
+          -1,
+          -1.1,
+          -1.2,
+          -1.4,
+          -1.5
+        ],
+        "wheelAllowed": true
+      },
+      {
+        "id": "route_flank_backdoor",
+        "elevations": [
+          -1.2,
+          -1.5
+        ],
+        "wheelAllowed": true
+      },
+      {
+        "id": "route_plant_spur",
+        "elevations": [
+          0.8,
+          1,
+          1.2,
+          1.4
+        ],
+        "wheelAllowed": true
+      },
+      {
+        "id": "route_ridgeline_exit",
+        "elevations": [
+          0,
+          0.5,
+          1.1,
+          1.5
+        ],
+        "wheelAllowed": true
+      },
+      {
+        "id": "route_maintenance_loop",
+        "elevations": [
+          0.2,
+          -0.2,
+          -0.4,
+          -0.6,
+          -0.6
+        ],
+        "wheelAllowed": true
+      },
+      {
+        "id": "route_tunnel",
+        "elevations": [
+          -13.7,
+          -13.7,
+          -13.7,
+          -13.7
+        ],
+        "wheelAllowed": true
+      }
+    ]
+  },
+  "geometry": {
+    "path": "editor/facility-built.glb",
+    "bytes": 4568620
+  },
+  "collision": {
+    "path": "out/collision-manifest.json",
+    "format": "vexea-collision/1",
+    "boxFormat": [
+      "minX",
+      "minZ",
+      "maxX",
+      "minY",
+      "maxY",
+      "maxZ"
+    ],
+    "colliders": 83,
+    "walkable": 32,
+    "openings": 13
+  },
+  "semantic": {
+    "path": "out/semantic-export.json",
+    "format": "vexea-semantic/1",
+    "zones": 8,
+    "routes": 14,
+    "droneAnchors": 5
+  },
+  "checks": [
+    {
+      "name": "geometry-exists",
+      "pass": true,
+      "details": "4568620 bytes"
+    },
+    {
+      "name": "collision-source-matches",
+      "pass": true,
+      "details": "blockout/blockout-full-v1.json"
+    },
+    {
+      "name": "semantic-source-matches",
+      "pass": true,
+      "details": "d4698d2e2e68"
+    },
+    {
+      "name": "semantic-map-id",
+      "pass": true,
+      "details": "map_1_facility"
+    },
+    {
+      "name": "collision-y-up",
+      "pass": true,
+      "details": "true"
+    },
+    {
+      "name": "terrain-grading-exported",
+      "pass": true,
+      "details": "linear-waypoint-elevations"
+    }
+  ]
+}

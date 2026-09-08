@@ -71,7 +71,7 @@
     {
       "id": "zone_bridge",
       "name": "Bridge / Overwatch",
-      "role": "service tower + catwalk over east yard (nearest equivalent to the bridge connector in the 7-zone contract; see openQuestions)",
+      "role": "service tower + catwalk over east yard (implemented connector for the 7-zone contract; see resolvedDecisions)",
       "bounds": {
         "min": [
           243,
@@ -376,6 +376,84 @@
       "note": "below-grade interdiction (X-ray interior)"
     }
   ],
+  "terrain": {
+    "defaultSurfaceY": 0,
+    "grading": {
+      "method": "linear-waypoint-elevations",
+      "maxWheeledGrade": "1:12",
+      "shoulderWidth": 1.2,
+      "gutterWidth": 0.35,
+      "gutterDepth": 0.18,
+      "groundSnap": "route-and-pad-authored"
+    },
+    "pads": [
+      {
+        "id": "g-spawn-apron",
+        "surfaceY": 0,
+        "surface": "concrete"
+      },
+      {
+        "id": "g-gate-square",
+        "surfaceY": 0,
+        "surface": "asphalt"
+      },
+      {
+        "id": "g-ridgeline-exit",
+        "surfaceY": 1.5,
+        "surface": "gravel"
+      },
+      {
+        "id": "g-yrd-rear",
+        "surfaceY": 0.2,
+        "surface": "asphalt"
+      },
+      {
+        "id": "g-yrd-pressure",
+        "surfaceY": 0.4,
+        "surface": "asphalt"
+      },
+      {
+        "id": "g-yrd-hub",
+        "surfaceY": 0,
+        "surface": "asphalt"
+      },
+      {
+        "id": "g-yrd-west",
+        "surfaceY": -0.6,
+        "surface": "gravel"
+      },
+      {
+        "id": "g-yrd-checkpoint-n",
+        "surfaceY": -0.9,
+        "surface": "asphalt"
+      },
+      {
+        "id": "g-yrd-e",
+        "surfaceY": 0.8,
+        "surface": "concrete"
+      },
+      {
+        "id": "g-yrd-plant-s",
+        "surfaceY": -1,
+        "surface": "concrete"
+      },
+      {
+        "id": "g-yrd-core-n",
+        "surfaceY": -1.2,
+        "surface": "concrete"
+      },
+      {
+        "id": "g-yrd-east-ridge",
+        "surfaceY": -1.5,
+        "surface": "asphalt"
+      },
+      {
+        "id": "g-mix-courts",
+        "surfaceY": 0,
+        "surface": "concrete"
+      }
+    ]
+  },
   "routes": [
     {
       "id": "route_main_surface",
@@ -438,7 +516,24 @@
           20,
           -228
         ]
-      ]
+      ],
+      "elevations": [
+        0,
+        0.1,
+        0.3,
+        0.4,
+        0.4,
+        0.1,
+        0,
+        -0.3,
+        -0.6,
+        -0.9,
+        -1.1,
+        -1.2,
+        -1.2,
+        -1.2
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "route_covered",
@@ -477,7 +572,18 @@
           48,
           -190
         ]
-      ]
+      ],
+      "elevations": [
+        0.2,
+        0.1,
+        0,
+        -0.2,
+        -0.5,
+        -0.8,
+        -1,
+        -1.2
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "route_rear_alley",
@@ -500,7 +606,14 @@
           -4,
           110
         ]
-      ]
+      ],
+      "elevations": [
+        0.2,
+        0.25,
+        0.3,
+        0.3
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "route_north_ring",
@@ -531,7 +644,16 @@
           150,
           -120
         ]
-      ]
+      ],
+      "elevations": [
+        0.4,
+        0.5,
+        0.5,
+        0.3,
+        -0.1,
+        -0.7
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "route_south_retreat",
@@ -562,7 +684,16 @@
           300,
           -210
         ]
-      ]
+      ],
+      "elevations": [
+        -0.9,
+        -1,
+        -1.1,
+        -1.2,
+        -1.4,
+        -1.5
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "route_flank_backdoor",
@@ -577,7 +708,12 @@
           148,
           -236
         ]
-      ]
+      ],
+      "elevations": [
+        -1.2,
+        -1.5
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "route_plant_spur",
@@ -600,7 +736,14 @@
           214,
           -70
         ]
-      ]
+      ],
+      "elevations": [
+        0.8,
+        1,
+        1.2,
+        1.4
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "route_ridgeline_exit",
@@ -623,7 +766,14 @@
           -240,
           330
         ]
-      ]
+      ],
+      "elevations": [
+        0,
+        0.5,
+        1.1,
+        1.5
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "route_maintenance_loop",
@@ -650,7 +800,15 @@
           -100,
           -70
         ]
-      ]
+      ],
+      "elevations": [
+        0.2,
+        -0.2,
+        -0.4,
+        -0.6,
+        -0.6
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "route_tunnel",
@@ -673,7 +831,14 @@
           300,
           -210
         ]
-      ]
+      ],
+      "elevations": [
+        -13.7,
+        -13.7,
+        -13.7,
+        -13.7
+      ],
+      "wheelAllowed": true
     },
     {
       "id": "air-pressure-yard",
@@ -696,7 +861,9 @@
           0,
           100
         ]
-      ]
+      ],
+      "elevations": null,
+      "wheelAllowed": false
     },
     {
       "id": "air-courtyard",
@@ -719,7 +886,9 @@
           60,
           0
         ]
-      ]
+      ],
+      "elevations": null,
+      "wheelAllowed": false
     },
     {
       "id": "air-spawn-apron",
@@ -738,7 +907,9 @@
           -240,
           190
         ]
-      ]
+      ],
+      "elevations": null,
+      "wheelAllowed": false
     },
     {
       "id": "air-roof-reentry",
@@ -757,7 +928,50 @@
           -150,
           -100
         ]
-      ]
+      ],
+      "elevations": null,
+      "wheelAllowed": false
+    }
+  ],
+  "verticalConnectors": [
+    {
+      "id": "s-sec-threshold",
+      "kind": "stair",
+      "baseY": -0.9,
+      "height": 1.5,
+      "wheelAllowed": false,
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 6,
+        "steps": 9
+      }
+    },
+    {
+      "id": "in-plant",
+      "kind": "incline",
+      "baseY": 0.8,
+      "height": 6,
+      "wheelAllowed": true,
+      "gauge": {
+        "grade": "1:12",
+        "width": 8,
+        "rise": 6,
+        "run": 72
+      }
+    },
+    {
+      "id": "st-catwalk-e",
+      "kind": "stair",
+      "baseY": 0.8,
+      "height": 6,
+      "wheelAllowed": false,
+      "gauge": {
+        "rise": 0.17,
+        "tread": 0.3,
+        "width": 4,
+        "steps": 35
+      }
     }
   ],
   "airRoutes": [
@@ -783,6 +997,6 @@
     "label": "Pressure Yard — open sky / fixed-wing yard"
   },
   "sourceHashes": {
-    "blockout": "957ca3e4af70"
+    "blockout": "d4698d2e2e68"
   }
 }

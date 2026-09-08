@@ -1,27 +1,27 @@
 {
   "renderer": "WebGL2 (swiftshader software GL, headless measurement)",
-  "materials": 28,
-  "triangles": 16164,
-  "drawItems": 28,
+  "materials": 32,
+  "triangles": 27097,
+  "drawItems": 32,
   "segments": 93,
-  "glbBytes": 1721328,
+  "glbBytes": 2873964,
   "blockoutLayerBytes": 202904,
   "views": [
     {
       "view": "top-ortho",
-      "avgFrameMs": 300.22
+      "avgFrameMs": 243.73
     },
     {
       "view": "orbit-persp",
-      "avgFrameMs": 245.46
+      "avgFrameMs": 235.71
     },
     {
       "view": "xray-top",
-      "avgFrameMs": 336.14
+      "avgFrameMs": 291.84
     },
     {
       "view": "player-route",
-      "avgFrameMs": 559.23
+      "avgFrameMs": 478.17
     }
   ],
   "note": "software-GL frame times are a lower bound on GPU-class hardware; draw items = merged per-material meshes"
