@@ -27,6 +27,16 @@ const adjacency = [...adj].map(e => { const [a, c2] = e.split('|'); return { fro
 const core = byId.get('bld-core-ops-hall');
 const coreInt = (b.interiors || []).find(i => i.building === 'bld-core-ops-hall');
 const spawn = segs.find(s => s.category === 'spawn');
+const objectiveLevel = coreInt?.objectiveLevel || 2;
+const coreBaseY = Number(core?.terrainY ?? 0);
+const coreFloorHeight = Number(core?.height) / Number(core?.floors);
+const objectiveSurfaceY = Number((coreBaseY + coreFloorHeight * (objectiveLevel - 1) + 0.3).toFixed(1));
+const coreObjectiveStair = {
+  id: 'st-core-ops-floor2', kind: 'stair', baseY: coreBaseY,
+  height: Number((objectiveSurfaceY - coreBaseY).toFixed(1)), wheelAllowed: false,
+  host: 'bld-core-ops-hall', box: [8, -274, 14, coreBaseY, objectiveSurfaceY, -234],
+  gauge: { rise: 0.18, tread: 0.3, width: 6, steps: 34, axis: 'z' },
+};
 const exportData = {
   format: 'vexea-semantic/1',
   map: 'map_1_facility', slice: 'full-map',
@@ -34,7 +44,7 @@ const exportData = {
   zones, adjacency,
   spawn: { id: spawn.id, box: boxOf(spawn), safeApron: b.spawn.safeApron, northExit: b.spawn.northExit },
   objective: {
-    zone: 'zone_core', building: 'bld-core-ops-hall', floor: coreInt?.objectiveLevel || 2,
+    zone: 'zone_core', building: 'bld-core-ops-hall', floor: objectiveLevel, surfaceY: objectiveSurfaceY,
     holdTimeS: 8, proximityRadius: 3, terminalDamageable: false,
     box: boxOf(core), killZone: 'kz-core',
   },
@@ -53,7 +63,7 @@ const exportData = {
     pads: segs.filter(s => s.category === 'ground-surface-type').map(s => ({ id: s.id, surfaceY: s.surfaceY ?? b.terrain?.defaultSurfaceY ?? 0, surface: s.surface || 'concrete' })),
   },
   routes: b.routes.map(r => ({ id: r.id, kind: r.kind, width: r.width, waypoints: r.waypoints, elevations: r.elevations || null, wheelAllowed: r.wheelAllowed ?? (r.kind !== 'air') })),
-  verticalConnectors: segs.filter(s => s.category === 'stair' || s.category === 'incline').map(s => ({ id: s.id, kind: s.category, baseY: s.terrainY ?? null, height: s.height, wheelAllowed: s.wheelAllowed ?? (s.category === 'incline'), gauge: s.gauge || null })),
+  verticalConnectors: [coreObjectiveStair, ...segs.filter(s => s.category === 'stair' || s.category === 'incline').map(s => ({ id: s.id, kind: s.category, baseY: s.terrainY ?? null, height: s.height, wheelAllowed: s.wheelAllowed ?? (s.category === 'incline'), gauge: s.gauge || null }))],
   airRoutes: b.routes.filter(r => r.kind === 'air').map(r => r.id),
   tunnelXray: segs.filter(s => s.category === 'tunnel-passage').every(s => s.xray),
   droneHoles: segs.filter(s => s.category === 'hole-drone-entry').map(s => ({ id: s.id, clearWidth: s.clearWidth, pos: [(s.bounds[0] + s.bounds[2]) / 2, (s.bounds[1] + s.bounds[3]) / 2] })),

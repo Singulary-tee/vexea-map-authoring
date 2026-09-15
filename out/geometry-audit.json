@@ -5,7 +5,7 @@
   "structuralSegments": 24,
   "glb": {
     "path": "editor/facility-built.glb",
-    "bytes": 4568620
+    "bytes": 61950236
   },
   "checks": [
     {
@@ -25,6 +25,26 @@
     },
     {
       "name": "covered-route-utility-supports-clear-walk-lane",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "generated-threshold-helpers-clear-route-envelopes",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "generated-industrial-helpers-clear-route-envelopes",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "generated-logistics-helpers-clear-route-envelopes",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "generated-thresholds-clear-authored-structures",
       "pass": true,
       "details": ""
     },
@@ -71,9 +91,9 @@
     {
       "name": "generated-built-glb-exists",
       "pass": true,
-      "details": "4568620 bytes"
+      "details": "61950236 bytes"
     }
   ],
-  "passed": 13,
+  "passed": 17,
   "failed": 0
 }

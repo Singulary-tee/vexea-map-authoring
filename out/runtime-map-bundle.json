@@ -163,7 +163,7 @@
   },
   "geometry": {
     "path": "editor/facility-built.glb",
-    "bytes": 4568620
+    "bytes": 62772384
   },
   "collision": {
     "path": "out/collision-manifest.json",
@@ -191,7 +191,7 @@
     {
       "name": "geometry-exists",
       "pass": true,
-      "details": "4568620 bytes"
+      "details": "62772384 bytes"
     },
     {
       "name": "collision-source-matches",

@@ -17,6 +17,7 @@ pg.on('pageerror', e => console.log('[pgerr]', e.message));
 try {
   await pg.goto('http://127.0.0.1:3000/editor/blockout-viewer.html', { waitUntil: 'domcontentloaded', timeout: 30000 });
   await pg.waitForFunction('window.__ready === true', null, { timeout: 30000 });
+  await pg.evaluate(() => document.getElementById('ui')?.style.setProperty('display', 'none'));
   await pg.waitForTimeout(500);
   for (const [t, name] of stops) {
     await pg.evaluate((tt) => window.__playerCamAt(tt), t);

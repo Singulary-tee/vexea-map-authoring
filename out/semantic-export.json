@@ -198,6 +198,7 @@
     "zone": "zone_core",
     "building": "bld-core-ops-hall",
     "floor": 2,
+    "surfaceY": 4.8,
     "holdTimeS": 8,
     "proximityRadius": 3,
     "terminalDamageable": false,
@@ -934,6 +935,29 @@
     }
   ],
   "verticalConnectors": [
+    {
+      "id": "st-core-ops-floor2",
+      "kind": "stair",
+      "baseY": -1.2,
+      "height": 6,
+      "wheelAllowed": false,
+      "host": "bld-core-ops-hall",
+      "box": [
+        8,
+        -274,
+        14,
+        -1.2,
+        4.8,
+        -234
+      ],
+      "gauge": {
+        "rise": 0.18,
+        "tread": 0.3,
+        "width": 6,
+        "steps": 34,
+        "axis": "z"
+      }
+    },
     {
       "id": "s-sec-threshold",
       "kind": "stair",

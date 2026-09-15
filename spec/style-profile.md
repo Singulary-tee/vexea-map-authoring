@@ -2,7 +2,7 @@
 
 Source: Notion "VEXEA Map Inspiration" page (images removed by user; this is derived from
 the earlier ingestion + user's doctrine). Target = VEXEA FACILITY AREA (LLM Center), an
-industrial compound — NOT desert, NOT a single building, NOT a canyon.
+industrial compound — NOT desert, NOT a single building, NOT a natural-landform map.
 
 ## What the map IS
 A game-playable industrial facility AREA (the "one of the webp was a great target" — it is
@@ -12,11 +12,10 @@ combat, 1.8 m player capsule, two factions (Vibe Co / Slop Inc). Enemy = VEXEA d
 directed by a rogue LLM commander.
 
 ## Quality targets (ingested refs, as QUALITY direction — not 1:1 match targets)
-- `01-sun-gap.webp` / `17e96510…webp`: the "great target" — an AREA reference for atmosphere/
-  light/color grading (warm raking light, deep cumulative shadow, readable depth bands). NOT a
-  desert layout — take its lighting/color/quality, not its terrain shape.
-- `c1a6e8f0…jpg` golden-hour city street: the "capable quality" shot — material realism,
-  PBR contact, exposure gradient between lit and shadow.
+- `17e96510…webp`: the primary facility reference — corrugated factory massing, loading doors,
+  service pipes, fencing, utility vehicles, vegetation, wet asphalt, and drainage.
+- `c1a6e8f0…jpg` golden-hour city street: explicit negative reference — do not copy the urban
+  street, car lineup, or sky treatment.
 - Chrome bunker pair + X shot: industrial framing, hard edges, tarmac/concrete/utility surface
   language.
 - `ee7a4d00…png` current-map baseline: the GAP to close (flat tarmac, low-poly olive warehouse,
