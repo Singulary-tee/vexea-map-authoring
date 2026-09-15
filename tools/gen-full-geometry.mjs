@@ -32,6 +32,40 @@ Object.entries(SURF).forEach(([k, v]) => mats.set('ground:' + k, mat(v)));
 const trans = (hex, op) => mat(hex, { transparent: true, opacity: op, depthWrite: false, side: DoubleSide });
 const group = new Group();
 const box = (w, h, d, x, y, z, m) => { const g = new Group(); const mesh = new Mesh(new BoxGeometry(w, h, d), m); mesh.position.set(x, y, z); g.add(mesh); return g; };
+const groundSegments = b.segments.filter(s => s.category === 'ground-surface-type');
+const surfaceYAt = (x, z) => {
+  const candidates = groundSegments.filter(s => x >= Math.min(s.bounds[0], s.bounds[2]) && x <= Math.max(s.bounds[0], s.bounds[2]) && z >= Math.min(s.bounds[1], s.bounds[3]) && z <= Math.max(s.bounds[1], s.bounds[3]));
+  candidates.sort((a, c) => Math.abs((a.bounds[2] - a.bounds[0]) * (a.bounds[3] - a.bounds[1])) - Math.abs((c.bounds[2] - c.bounds[0]) * (c.bounds[3] - c.bounds[1])));
+  return candidates[0]?.surfaceY ?? b.terrain?.defaultSurfaceY ?? 0;
+};
+const routeElevation = (r, i, t) => {
+  const a = r.elevations?.[i] ?? b.terrain?.defaultSurfaceY ?? 0, c = r.elevations?.[i + 1] ?? a;
+  return a + (c - a) * t;
+};
+const catmull = (p0, p1, p2, p3, t) => {
+  const t2 = t * t, t3 = t2 * t;
+  return 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
+};
+const routeSamples = r => {
+  const out = [];
+  for (let i = 0; i < r.waypoints.length - 1; i++) {
+    const prev = r.waypoints[i - 1] || r.waypoints[i], a = r.waypoints[i], c = r.waypoints[i + 1], next = r.waypoints[i + 2] || c;
+    const steps = Math.max(1, Math.ceil(Math.hypot(c[0] - a[0], c[1] - a[1]) / 10));
+    for (let j = 0; j < steps; j++) {
+      const t = j / steps;
+      out.push([catmull(prev[0], a[0], c[0], next[0], t), routeElevation(r, i, t), catmull(prev[1], a[1], c[1], next[1], t)]);
+    }
+  }
+  const last = r.waypoints.at(-1);
+  out.push([last[0], r.elevations?.at(-1) ?? b.terrain?.defaultSurfaceY ?? 0, last[1]]);
+  return out;
+};
+const orientedBox = (w, h, d, cx, cy, cz, dx, dy, dz, m) => {
+  const mesh = new Mesh(new BoxGeometry(w, h, d), m);
+  mesh.position.set(cx, cy, cz);
+  mesh.quaternion.setFromUnitVectors(new Vector3(1, 0, 0), new Vector3(dx, dy, dz).normalize());
+  const g = new Group(); g.add(mesh); return g;
+};
 
 for (const s of b.segments) {
   const [x1, z1, x2, z2] = s.bounds;
@@ -39,35 +73,37 @@ for (const s of b.segments) {
   const M = mats.get(s.category) || mat(0x333333);
   switch (s.category) {
     case 'ground-surface-type':
-      group.add(box(w, 0.3, d, cx, -0.15, cz, mats.get('ground:' + (s.surface || 'concrete')) || M));
+      group.add(box(w, 0.3, d, cx, (s.surfaceY ?? 0) - 0.15, cz, mats.get('ground:' + (s.surface || 'concrete')) || M));
       break;
     case 'building-enterable':
     case 'warehouse-enterable':
     case 'facade-non-enterable':
     case 'tower': {
-      const base = s.raisedBase || 0;
+      const base = (s.terrainY ?? surfaceYAt(cx, cz)) + (s.raisedBase ?? s.raisedThreshold ?? 0);
       if (base > 0) group.add(box(w + 4, base, d + 4, cx, base / 2, cz, mat(0x565b63)));
       group.add(box(w, s.height, d, cx, base + s.height / 2, cz, M));
       break;
     }
     case 'wall-blocking':
     case 'mountain-boundary':
-      group.add(box(w, s.height || 4, d, cx, (s.height || 4) / 2, cz, M));
+      group.add(box(w, s.height || 4, d, cx, surfaceYAt(cx, cz) + (s.height || 4) / 2, cz, M));
       break;
     case 'stair': {
       const steps = Math.min(12, Math.max(3, s.gauge?.steps || 6));
       const sh = (s.height || 1.5) / steps, sd = d / steps;
-      for (let i = 0; i < steps; i++) group.add(box(w, sh * (i + 1), sd, cx, sh * (i + 1) / 2, z2 - sd * (i + 0.5), M));
+      const sy = s.terrainY ?? surfaceYAt(cx, cz);
+      for (let i = 0; i < steps; i++) group.add(box(w, sh * (i + 1), sd, cx, sy + sh * (i + 1) / 2, z2 - sd * (i + 0.5), M));
       break;
     }
     case 'incline': {
       // ramp as stacked steps (12 x 0.5m rise / 6m run = 1:12): robust prism, no wedge math
       const run = x2 - x1, wd = z2 - z1, h = s.height;
+      const sy = s.terrainY ?? surfaceYAt(cx, cz);
       const steps = 12;
       for (let i = 0; i < steps; i++) {
         const rise = h * (i + 1) / steps, span = run / steps;
         const stp = new Mesh(new BoxGeometry(span + 0.1, rise, wd), M);
-        stp.position.set(x1 + span * (i + 0.5), rise / 2, cz);
+        stp.position.set(x1 + span * (i + 0.5), sy + rise / 2, cz);
         group.add(stp);
       }
       break;
@@ -108,10 +144,10 @@ for (const s of b.segments) {
       group.add(box(w, 1.2, d, cx, s.height - 0.6, cz, M));
       break;
     case 'kill-zone':
-      group.add(box(w, 0.12, d, cx, 0.06, cz, trans(PAL['kill-zone'], 0.3)));
+      group.add(box(w, 0.12, d, cx, surfaceYAt(cx, cz) + 0.06, cz, trans(PAL['kill-zone'], 0.3)));
       break;
     case 'spawn':
-      group.add(box(w, 0.08, d, cx, 0.04, cz, trans(PAL['spawn'], 0.35)));
+      group.add(box(w, 0.08, d, cx, surfaceYAt(cx, cz) + 0.04, cz, trans(PAL['spawn'], 0.35)));
       break;
     case 'waterbody-boundary': {
       // shoreline polygon from terrain.waterEdge, closed to the map's east/south edges
@@ -139,18 +175,12 @@ for (const s of b.segments) {
   const roadMat = mat(0x494c50);
   for (const r of b.routes) {
     if (r.kind === 'air') continue;
-    const y = r.kind === 'tunnel' ? -13.9 : 0.16;
     const wd = Math.max(2, r.width || 6);
-    const wp = r.waypoints;
-    for (let i = 0; i < wp.length - 1; i++) {
-      const [ax, az] = wp[i], [bx, bz] = wp[i + 1];
-      const len = Math.hypot(bx - ax, bz - az);
-      const g = new Group();
-      const m = new Mesh(new BoxGeometry(len + 2, 0.1, wd), roadMat);
-      m.position.set((ax + bx) / 2, y, (az + bz) / 2);
-      m.rotation.y = -Math.atan2(bz - az, bx - ax);
-      g.add(m);
-      group.add(g);
+    const samples = r.kind === 'tunnel' ? r.waypoints.map(([x, z]) => [x, -13.9, z]) : routeSamples(r);
+    for (let i = 0; i < samples.length - 1; i++) {
+      const a = samples[i], c = samples[i + 1];
+      const dx = c[0] - a[0], dy = c[1] - a[1], dz = c[2] - a[2];
+      group.add(orientedBox(Math.hypot(dx, dy, dz) + 2, 0.1, wd, (a[0] + c[0]) / 2, (a[1] + c[1]) / 2, (a[2] + c[2]) / 2, dx, dy, dz, roadMat));
     }
   }
 }

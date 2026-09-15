@@ -106,7 +106,7 @@ IF scene_description mentions topology clues:
   "forest" / "park" / "field" → OPEN_SCATTER
   "stadium" / "arena" / "amphitheatre" → RADIAL_HIERARCHICAL
   "harbour" / "dock" / "beach" / "coastline" → BOUNDARY_INTERFACE or BOUNDARY_GRADIENT
-  "canyon" / "valley" / "mountain" → TERRAIN_TOPOLOGY or TERRAIN_VERTICAL
+  "valley" / "mountain" → TERRAIN_TOPOLOGY or TERRAIN_VERTICAL
   "plaza" / "courtyard" / "square" → SURFACE_NEGATIVE_SPACE
   "combat" / "arena" / "game level" → TRAVERSAL_SIGHTLINE_COVER
   → CLASSIFY topology BEFORE choosing any construction technique
