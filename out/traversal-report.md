@@ -1,6 +1,6 @@
 # Full-Map Blockout — Traversal Report
 
-File: blockout/blockout-full-v1.json  |  Fixture: spec/calibration.md (1.8m capsule, door >=1x2m, stair rise<=0.18m, incline<=1:12, tunnel 6hx10w)
+File: /tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/blockout/blockout-full-v1.json  |  Fixture: spec/calibration.md (1.8m capsule, door >=1x2m, stair rise<=0.18m, incline<=1:12, tunnel 6hx10w)
 
 ## Spawn -> Objective paths
 

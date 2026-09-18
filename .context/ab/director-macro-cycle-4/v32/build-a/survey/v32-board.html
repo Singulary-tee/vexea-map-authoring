@@ -1,0 +1,60 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box }
+  html, body { margin: 0; background: #0c1317; color: #f4f7f8; font: 600 18px Arial, sans-serif }
+  body { padding: 8px }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px }
+  .tile { min-width: 0; background: #172126 }
+  .label { height: 30px; padding: 5px 8px; background: #121a1f; text-transform: lowercase; letter-spacing: .3px }
+  .shot { display: block; width: 100%; aspect-ratio: 14 / 9; object-fit: cover }
+  .board { display: grid; grid-template-columns: 1400px 1400px; gap: 0; align-items: start; background: #0c1317 }
+  .panel { min-width: 0; padding: 8px }
+  .panel > h1 { height: 42px; margin: 0; padding: 8px 12px; background: #111b20; font-size: 22px; letter-spacing: .8px }
+  .panel > img { display: block; width: 100%; height: auto; background: #9eb5c9 }
+  .candidate .grid { grid-template-columns: repeat(4, 1fr) }
+</style>
+<div id="root"></div>
+<script>
+const ids = [
+  'top', 'orbit', 'xray', 'zone-spawn', 'zone-courtyard', 'zone-warehouse',
+  'zone-plant', 'zone-bridge', 'zone-tunnels', 'zone-core', 'zone-boundary',
+  'route-main-surface', 'route-covered', 'route-rear-alley', 'route-north-ring',
+  'route-south-retreat', 'route-flank-backdoor', 'objective-core', 'cover-courtyard',
+  'tunnel-portal', 'vertical-connector',
+];
+const survey = '.';
+const reference = '../../../../../../references/inspiration/user-supplied-industrial-campus-board.png';
+const root = document.querySelector('#root');
+const label = id => id.replaceAll('-', ' ');
+const grid = () => {
+  const element = document.createElement('div');
+  element.className = 'grid';
+  for (const id of ids) {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.innerHTML = `<div class="label">${label(id)}</div><img class="shot" src="${survey}/canonical-${id}.png" alt="${label(id)}">`;
+    element.append(tile);
+  }
+  return element;
+};
+if (new URLSearchParams(location.search).get('mode') === 'contact') {
+  root.append(grid());
+} else {
+  const board = document.createElement('div');
+  board.className = 'board';
+  const left = document.createElement('section');
+  left.className = 'panel';
+  left.innerHTML = '<h1>SUPPLIED REFERENCE BOARD · MANY SMALL VIEWS</h1>';
+  const image = document.createElement('img');
+  image.src = reference;
+  image.alt = 'Supplied industrial campus reference board';
+  left.append(image);
+  const right = document.createElement('section');
+  right.className = 'panel candidate';
+  right.innerHTML = '<h1>V32 CANDIDATE · FRESH SURVEY</h1>';
+  right.append(grid());
+  board.append(left, right);
+  root.append(board);
+}
+</script>

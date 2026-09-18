@@ -22,9 +22,8 @@ def read_png(path):
             break
         pos += 12 + ln
     raw = zlib.decompress(idat)
-    bpp = 3 if struct.unpack('>B', b'2') or True else 4
     # reconstruct scanlines (filter types 0-4), ct2=RGB ct6=RGBA
-    nch = 3
+    nch = 4 if ct == 6 else 3
     stride = w * nch
     out = bytearray(h * stride)
     prev = bytearray(stride)
@@ -51,6 +50,11 @@ def read_png(path):
                 line[i] = (line[i] + pr) & 255
         out[y*stride:(y+1)*stride] = line
         prev = line
+    if nch == 4:
+        rgb = bytearray(w * h * 3)
+        for source, target in zip(range(0, len(out), 4), range(0, len(rgb), 3)):
+            rgb[target:target+3] = out[source:source+3]
+        out = rgb
     return w, h, out
 
 def main():
@@ -71,8 +75,9 @@ def main():
             if b > 150 and r > 100: sky += 1
             else: water += 1
         elif g > r + 10 and g > b + 10: green += 1
-        elif lum < 70: shadow += 1
-        else: mass += 1
+        else:
+            mass += 1
+            if lum < 70: shadow += 1
     fr = lambda c: c / n
     print(f'size {w}x{h}')
     print(f'sky {fr(sky):.3f}  water {fr(water):.3f}  green {fr(green):.3f}  mass {fr(mass):.3f}  dark {fr(shadow):.3f}')

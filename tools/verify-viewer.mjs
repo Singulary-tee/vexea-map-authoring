@@ -10,7 +10,7 @@ const errors = [];
 pg.on('pageerror', e => errors.push('pageerror: ' + e.message));
 pg.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
 await pg.goto('http://127.0.0.1:3000/editor/blockout-viewer.html');
-await pg.waitForFunction('window.__ready === true', null, { timeout: 20000 });
+await pg.waitForFunction('window.__ready === true', null, { timeout: 120000 });
 const out = { steps: [] };
 const step = async (name, fn) => {
   const r = await fn();

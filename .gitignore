@@ -5,3 +5,8 @@ artifacts/*.glb
 editor/*.glb
 .hoplite/attachments/
 .hoplite/artifacts/
+
+# Recovery iterations are scratch; retained candidate packages are force-added.
+.context/
+tools/__pycache__/
+artifacts/*.png

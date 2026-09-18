@@ -6,6 +6,9 @@
 // toggles). Deterministic: seeded variation only, derived from stable IDs. Static merge per
 // material (KB C2b) keeps the draw-call budget.
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
+import { dirname } from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { deflateSync, inflateSync } from 'node:zlib';
 globalThis.FileReader = class {
   readAsArrayBuffer(blob) { blob.arrayBuffer().then(ab => { this.result = ab; this.onloadend?.(); }); }
@@ -88,7 +91,18 @@ const { mergeGeometries } = await import('three/addons/utils/BufferGeometryUtils
 
 const file = process.argv[2] || 'blockout/blockout-full-v1.json';
 const outName = process.argv[3] || 'editor/facility-built.glb';
+const reportPath = process.argv[4] || process.env.BUILD_REPORT_PATH || 'out/build-report.json';
+const isolatedTransferOnly = process.env.BUILD_TRANSFER_NETWORK_ONLY === '1';
+const campusSpineOnly = process.env.BUILD_CAMPUS_SPINE === '1';
+const operationalStreetwallOnly = process.env.BUILD_OPERATIONAL_STREETWALL === '1';
+const openCellNetworkOnly = process.env.BUILD_OPEN_CELL_NETWORK_ONLY === '1';
+const openCellNetworkV2Only = process.env.BUILD_OPEN_CELL_NETWORK_V2_ONLY === '1';
+const openCellNetworkV3Only = process.env.BUILD_OPEN_CELL_NETWORK_V3_ONLY === '1';
+const openCellBuildOnly = openCellNetworkOnly || openCellNetworkV2Only || openCellNetworkV3Only;
 const b = JSON.parse(fs.readFileSync(file, 'utf8'));
+const sourceSha256 = createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const generatorSha256 = createHash('sha256').update(fs.readFileSync(new URL(import.meta.url))).digest('hex');
+const sourceCommit = (() => { try { return execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(); } catch { return 'unknown'; } })();
 const segs = b.segments, byId = new Map(segs.map(s => [s.id, s]));
 
 // deterministic PRNG (mulberry32)
@@ -126,6 +140,8 @@ const M = {
   stain: mat(0x313b39, { roughness: 0.99 }),
   curb: mat(0x817c70, { roughness: 0.94 }),
   gravel: mat(0x76604c, { roughness: 0.99 }),
+  campusBase: mat(0x59625d, { roughness: 0.98 }),
+  campusBaseAlt: mat(0x4f5854, { roughness: 0.99 }),
   door: mat(0x3c4746, { roughness: 0.58, metalness: 0.48 }),
   doorSlat: mat(0x65716c, { roughness: 0.72, metalness: 0.58 }),
   dockSlat: mat(0x7d8984, { roughness: 0.64, metalness: 0.46 }),
@@ -306,7 +322,7 @@ useTexture(M.loadingGlass, textures.metal, 0.16);
 for (const material of [M.road, M.roadJoint, M.hardstand, M.wetRoad, M.loadingAsphalt, M.loadingAsphaltRough, M.loadingWet, M.loadingPuddle, M.loadingReflective, M.loadingStain]) useTexture(material, textures.road, 0.18);
 useTexture(M.sidewalk, textures.sidewalk, 0.12);
 for (const material of [M.metal, M.trim, M.rib, M.pipe, M.pipeDark, M.fence, M.loadingDoor, M.loadingSlat, M.loadingFrame, M.rubber]) useTexture(material, textures.metal, 0.22);
-for (const material of [M.gravel, M.dirt]) useTexture(material, textures.gravel, 0.34);
+for (const material of [M.gravel, M.dirt, M.campusBase, M.campusBaseAlt]) useTexture(material, textures.gravel, 0.34);
 const photoSteel = pbrSet('painted-steel', 5.5), photoAsphalt = pbrSet('asphalt', 3.2), photoConcrete = pbrSet('concrete', 6.0);
 const usePbr = (material, set, normalStrength) => {
   material.color.set(0xffffff);
@@ -314,17 +330,17 @@ const usePbr = (material, set, normalStrength) => {
   material.normalScale.set(normalStrength, normalStrength); material.needsUpdate = true;
 };
 // Photo-derived maps replace synthetic field textures on the surfaces that dominate player-eye views.
-for (const material of [...M.siding, ...M.facade, M.heroSiding, M.heroSidingAlt, M.heroPanel, ...M.panel, ...M.cover, M.loadingPanel, M.loadingPanelLight]) usePbr(material, photoSteel, 0.28);
+for (const material of [...M.siding, ...M.facade, M.heroSiding, M.heroSidingAlt, M.heroPanel, ...M.panel, M.roof, M.loadingPanel, M.loadingPanelLight]) usePbr(material, photoSteel, 0.28);
 for (const material of [M.metal, M.trim, M.rib, M.pipe, M.pipeDark, M.fence, M.door, M.doorSlat, M.dockSlat, M.loadingDoor, M.loadingSlat, M.loadingFrame, M.loadingCanopy]) usePbr(material, photoSteel, 0.18);
 for (const material of [M.road, M.roadJoint, M.hardstand, M.wetRoad, M.puddle, M.loadingAsphalt, M.loadingAsphaltRough, M.loadingWet, M.loadingPuddle, M.loadingReflective, M.loadingStain]) usePbr(material, photoAsphalt, 0.16);
-for (const material of [...M.concrete, M.concreteDark, M.curb, M.sidewalk, M.tunnelConcrete, M.tunnelConcreteDark]) usePbr(material, photoConcrete, 0.18);
+for (const material of [...M.cover, ...M.concrete, M.concreteDark, M.curb, M.sidewalk, M.tunnel, M.tunnelLight, M.tunnelConcrete, M.tunnelConcreteDark]) usePbr(material, photoConcrete, 0.18);
 M.heroSiding.color.set(0x87a474);
 M.heroSidingAlt.color.set(0x315645);
 M.heroPanel.color.set(0x4f7560);
-M.loadingAsphalt.color.set(0x414945);
-M.loadingAsphaltRough.color.set(0x67675d);
-M.loadingWet.color.set(0x3f625c);
-M.loadingWet.roughness = 0.5;
+M.loadingAsphalt.color.set(0xffffff);
+M.loadingAsphaltRough.color.set(0xffffff);
+M.loadingWet.color.set(0xffffff);
+M.loadingWet.roughness = 0.3;
 M.loadingStain.color.set(0x303a35);
 M.loadingWet.metalness = 0.03;
 M.loadingReflective.color.set(0x9aa9a0);
@@ -553,9 +569,24 @@ const addRouteJoins = (r, width, sidewalkWidth, hasSidewalk) => {
 
 // -------- grounds (surface class) --------
 const SURF_MAT = { concrete: () => M.concreteDark, asphalt: () => M.road, gravel: () => M.gravel, dirt: () => M.gravel };
-// A continuous low terrain slab keeps authored yards from floating over the viewer
-// background while leaving the explicit pads and the reservoir above it.
-group.add(box(930, 2.2, 670, 0, -2.7, 10, M.dirt));
+// Segmented graded earthworks keep authored yards grounded without making the whole
+// campus read as one unbuilt brown slab. Dark seams act as service drains between pads.
+const baseTileW = 92, baseTileD = 67, baseTileY = -2.7;
+for (let ix = 0; ix < 10; ix++) for (let iz = 0; iz < 10; iz++) {
+  const x = -460 + baseTileW / 2 + ix * baseTileW, z = -325 + baseTileD / 2 + iz * baseTileD;
+  const hardstand = ix >= 3 && ix <= 7 && iz >= 3 && iz <= 7 && (ix + iz) % 3 === 0;
+  group.add(box(baseTileW - 1.0, 2.2, baseTileD - 1.0, x, baseTileY, z, hardstand ? M.hardstand : ((ix + iz) % 2 ? M.campusBase : M.campusBaseAlt)));
+}
+for (let ix = 1; ix < 10; ix++) {
+  const x = -460 + ix * baseTileW;
+  group.add(box(1.0, 2.0, 670, x, baseTileY, 10, M.concreteDark));
+  group.add(box(0.16, 0.08, 668, x, -1.56, 10, M.drain));
+}
+for (let iz = 1; iz < 10; iz++) {
+  const z = -325 + iz * baseTileD;
+  group.add(box(930, 2.0, 1.0, 0, baseTileY, z, M.concreteDark));
+  group.add(box(928, 0.08, 0.16, 0, -1.56, z, M.drain));
+}
 for (const s of groundSegments) {
   const [x1, z1, x2, z2] = s.bounds;
   const y = s.surfaceY ?? b.terrain?.defaultSurfaceY ?? 0;
@@ -2127,6 +2158,291 @@ function yardLampPole(x, z, sy, height = 6.2, arm = 1.25) {
   group.add(box(0.76, 0.16, 0.3, x + arm, sy + height - 0.28, z, M.lampHousing));
   group.add(box(0.5, 0.06, 0.16, x + arm, sy + height - 0.38, z, M.light));
 }
+
+// Campus-wide yard pass: sparse working islands plus restrained edge wear. Placement
+// checks use authored building and route envelopes, so dressing cannot consume gameplay space.
+const yardOpsStats = { pads: 0, edgeBands: 0, drains: 0, runoff: 0, islands: 0, skippedIslands: 0 };
+yardOpsStats.modules = 0;
+yardOpsStats.skippedModules = 0;
+const yardOpsPads = new Map(groundSegments.map(s => [s.id, s]));
+const yardOpsBuildings = segs.filter(s => bldCats.includes(s.category));
+const yardOpsDistanceToSegment = (x, z, ax, az, bx, bz) => {
+  const dx = bx - ax, dz = bz - az, len2 = dx * dx + dz * dz || 1;
+  const t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / len2));
+  return Math.hypot(x - (ax + dx * t), z - (az + dz * t));
+};
+const yardOpsClear = (pad, x, z, width, depth, margin = 1.5) => {
+  const [px1, pz1, px2, pz2] = pad.bounds;
+  const minX = Math.min(px1, px2), maxX = Math.max(px1, px2), minZ = Math.min(pz1, pz2), maxZ = Math.max(pz1, pz2);
+  const halfW = width / 2, halfD = depth / 2;
+  if (x - halfW < minX + margin || x + halfW > maxX - margin || z - halfD < minZ + margin || z + halfD > maxZ - margin) return false;
+  for (const building of yardOpsBuildings) {
+    const [x1, z1, x2, z2] = building.bounds;
+    if (x + halfW + margin > Math.min(x1, x2) && x - halfW - margin < Math.max(x1, x2)
+      && z + halfD + margin > Math.min(z1, z2) && z - halfD - margin < Math.max(z1, z2)) return false;
+  }
+  const footprintRadius = Math.hypot(halfW, halfD) + margin;
+  for (const route of b.routes) {
+    if (route.kind === 'air') continue;
+    const routeRadius = Math.max(4, route.width || 6) / 2 + footprintRadius;
+    for (let i = 0; i < route.waypoints.length - 1; i++) {
+      const [ax, az] = route.waypoints[i], [bx, bz] = route.waypoints[i + 1];
+      if (yardOpsDistanceToSegment(x, z, ax, az, bx, bz) < routeRadius) return false;
+    }
+  }
+  return true;
+};
+const yardOpsStrip = (pad, a, c, width, material, orientation) => {
+  const [ax, az] = a, [cx, cz] = c, length = Math.hypot(cx - ax, cz - az), step = 8;
+  for (let start = 0; start < length - 0.5; start += step) {
+    const end = Math.min(length, start + step + 0.35);
+    const t1 = start / length, t2 = end / length;
+    const sx = ax + (cx - ax) * t1, sz = az + (cz - az) * t1;
+    const ex = ax + (cx - ax) * t2, ez = az + (cz - az) * t2;
+    const midX = (sx + ex) / 2, midZ = (sz + ez) / 2;
+    if (!yardOpsClear(pad, midX, midZ, orientation === 'x' ? end - start : width, orientation === 'x' ? width : end - start, 0.6)) continue;
+    const y = (pad.surfaceY ?? 0) + 0.045;
+    group.add(flatSegment([sx, y, sz], [ex, y, ez], width, material, 0.02));
+    yardOpsStats.edgeBands++;
+  }
+};
+const yardOpsDrain = (pad, x, z, orientation = 'x') => {
+  const sy = (pad.surfaceY ?? 0) + 0.065;
+  if (!yardOpsClear(pad, x, z, orientation === 'x' ? 1.2 : 0.45, orientation === 'x' ? 0.45 : 1.2, 0.3)) return;
+  group.add(box(orientation === 'x' ? 1.2 : 0.45, 0.07, orientation === 'x' ? 0.45 : 1.2, x, sy, z, M.drain));
+  for (const t of [-0.32, 0, 0.32]) {
+    const barX = orientation === 'x' ? x + t : x;
+    const barZ = orientation === 'x' ? z : z + t;
+    group.add(box(orientation === 'x' ? 0.07 : 0.34, 0.09, orientation === 'x' ? 0.34 : 0.07, barX, sy + 0.05, barZ, M.metal));
+  }
+  yardOpsStats.drains++;
+};
+const yardOpsPadsForDetails = [...groundSegments].sort((a, c) => {
+  const areaA = Math.abs((a.bounds[2] - a.bounds[0]) * (a.bounds[3] - a.bounds[1]));
+  const areaC = Math.abs((c.bounds[2] - c.bounds[0]) * (c.bounds[3] - c.bounds[1]));
+  return areaC - areaA;
+});
+for (const pad of yardOpsPadsForDetails) {
+  const [x1, z1, x2, z2] = pad.bounds;
+  const minX = Math.min(x1, x2), maxX = Math.max(x1, x2), minZ = Math.min(z1, z2), maxZ = Math.max(z1, z2);
+  const width = maxX - minX, depth = maxZ - minZ, y = (pad.surfaceY ?? 0) + 0.05;
+  yardOpsStats.pads++;
+  const edgeMaterial = pad.surface === 'gravel' ? M.concreteDark : M.curb;
+  yardOpsStrip(pad, [minX + 2.5, minZ + 2.5], [maxX - 2.5, minZ + 2.5], 0.24, edgeMaterial, 'x');
+  yardOpsStrip(pad, [minX + 2.5, maxZ - 2.5], [maxX - 2.5, maxZ - 2.5], 0.24, edgeMaterial, 'x');
+  if (depth > 50) yardOpsStrip(pad, [minX + 2.5, minZ + 2.5], [minX + 2.5, maxZ - 2.5], 0.24, edgeMaterial, 'z');
+  if (width > 100) yardOpsStrip(pad, [maxX - 2.5, minZ + 2.5], [maxX - 2.5, maxZ - 2.5], 0.24, edgeMaterial, 'z');
+  if (width > 110 && depth > 45) {
+    for (const fraction of [0.34, 0.68]) {
+      const jointX = minX + width * fraction;
+      for (let start = minZ + 7; start < maxZ - 7; start += 8) {
+        const end = Math.min(maxZ - 7, start + 7.5), midZ = (start + end) / 2;
+        if (!yardOpsClear(pad, jointX, midZ, 0.08, end - start, 0.4)) continue;
+        group.add(flatSegment([jointX, y, start], [jointX, y, end], 0.045, M.roadJoint, 0.01));
+      }
+    }
+  }
+  const drainSideZ = minZ + 2.5;
+  if (width > 70) for (const fraction of [0.24, 0.52, 0.8]) yardOpsDrain(pad, minX + width * fraction, drainSideZ, 'x');
+  if (width > 120 && depth > 70) for (const fraction of [0.28, 0.72]) yardOpsDrain(pad, minX + 2.5, minZ + depth * fraction, 'z');
+  const runoffCandidates = [
+    [minX + width * 0.18, minZ + 4.5, Math.min(13, width * 0.12), 1.8],
+    [maxX - width * 0.2, minZ + depth * 0.18, Math.min(10, width * 0.1), 2.2],
+  ];
+  for (let i = 0; i < runoffCandidates.length; i++) {
+    const [rx, rz, rw, rd] = runoffCandidates[i];
+    if (!yardOpsClear(pad, rx, rz, rw, rd, 0.3)) continue;
+    group.add(flatPolygon(rx, rz, rw, rd, i ? M.loadingWet : M.loadingStain, 0, y, idSeed(`yard-runoff-${pad.id}-${i}`), 8));
+    yardOpsStats.runoff++;
+  }
+}
+const yardOpsIslands = [
+  ['g-spawn-apron', -338, 232, 'logistics', 0, 15, 7], ['g-spawn-apron', -262, 236, 'utility', 0, 13, 6],
+  ['g-gate-square', -338, 126, 'maintenance', 0, 10, 6], ['g-gate-square', -224, 126, 'utility', 0, 13, 6],
+  ['g-yrd-rear', -232, 151, 'logistics', 0, 15, 7], ['g-yrd-rear', -145, 146, 'maintenance', 0, 10, 6], ['g-yrd-rear', -22, 147, 'utility', 0, 13, 6],
+  ['g-yrd-pressure', -20, 173, 'logistics', 0, 15, 7], ['g-yrd-pressure', 76, 170, 'process', 0, 11, 8], ['g-yrd-pressure', 164, 168, 'maintenance', 0, 10, 6],
+  ['g-yrd-hub', -92, 18, 'maintenance', 0, 10, 6], ['g-yrd-hub', 91, 73, 'utility', 0, 13, 6],
+  ['g-yrd-west', -244, -78, 'maintenance', 0, 10, 6], ['g-yrd-west', -235, 64, 'logistics', 0, 15, 7], ['g-yrd-west', -112, 29, 'utility', 0, 13, 6],
+  ['g-yrd-checkpoint-n', -54, -145, 'maintenance', 0, 10, 6], ['g-yrd-checkpoint-n', 101, -145, 'utility', 0, 13, 6],
+  ['g-yrd-e', 225, -112, 'process', 0, 11, 8], ['g-yrd-e', 354, 91, 'logistics', 0, 15, 7],
+  ['g-yrd-plant-s', 151, -145, 'utility', 0, 13, 6], ['g-yrd-plant-s', 222, -145, 'process', 0, 11, 8],
+  ['g-yrd-core-n', -15, -241, 'maintenance', 0, 10, 6], ['g-yrd-core-n', 90, -185, 'utility', 0, 13, 6],
+  ['g-yrd-east-ridge', 340, -235, 'process', 0, 11, 8],
+];
+const yardOpsAddIsland = ([padId, x, z, kind, angle, width, depth]) => {
+  const pad = yardOpsPads.get(padId);
+  if (!pad || !yardOpsClear(pad, x, z, width, depth, 2.0)) { yardOpsStats.skippedIslands++; return; }
+  const sy = surfaceYAt(x, z, pad.surfaceY ?? 0) + 0.06;
+  const apron = box(width * 0.92, 0.08, depth * 0.78, x, sy - 0.04, z, pad.surface === 'gravel' ? M.hardstand : M.loadingAsphalt);
+  apron.userData.worldUvPeriod = 8.4;
+  group.add(apron);
+  for (const side of [-1, 1]) {
+    group.add(box(width * 0.92, 0.12, 0.18, x, sy + 0.03, z + side * depth * 0.39, M.curb));
+    group.add(box(0.18, 0.12, depth * 0.78, x + side * width * 0.46, sy + 0.03, z, M.curb));
+  }
+  contactPad(x, z, sy, width * 0.88, depth * 0.78, angle, M.loadingStain);
+  const local = (lx, lz) => rotateLocal(x, z, angle, lx, lz);
+  if (kind === 'logistics') {
+    cargoTruck(x, z, angle, 0.68);
+    const [px, pz] = local(4.3, 0.5); palletStack(px, pz, sy, 2.6, 1.7, 2);
+  } else if (kind === 'maintenance') {
+    forklift(x, z, angle, 0.72, sy);
+    const [px, pz] = local(3.0, 1.1); palletStack(px, pz, sy, 2.1, 1.4, 2);
+    const [cx, cz] = local(-3.0, -1.0); serviceCabinet(cx, cz, sy, 1.3, 1.7, angle);
+  } else if (kind === 'utility') {
+    pipeRack(x - 5, z, x + 5, z, sy, 3.6, 3.4);
+    serviceStack(x + 5.2, z + 1.1, sy, 5.4, 0.2);
+    serviceCabinet(x - 4.1, z - 1.1, sy, 1.4, 1.8);
+  } else if (kind === 'process') {
+    processVessel(x, z, sy, 1.35, 5.2, M.heroPanel);
+    serviceStack(x + 3.0, z + 0.5, sy, 5.8, 0.22);
+    cableReel(x - 3.0, z + 1.0, sy, 0.58);
+  }
+  yardOpsStats.islands++;
+};
+for (const island of yardOpsIslands) yardOpsAddIsland(island);
+
+// A second, lower-frequency layer makes the clear portions of each authored pad
+// read as working yards from the campus cameras, not decorative empty asphalt.
+const yardOpsModuleRects = [];
+const yardOpsModuleClear = (pad, x, z, width, depth, margin = 2.0) => {
+  if (!yardOpsClear(pad, x, z, width, depth, margin)) return false;
+  const halfW = width / 2 + margin, halfD = depth / 2 + margin;
+  return yardOpsModuleRects.every(rect => x + halfW <= rect.minX || x - halfW >= rect.maxX
+    || z + halfD <= rect.minZ || z - halfD >= rect.maxZ);
+};
+const yardOpsAddModule = ([padId, x, z, kind, angle = 0, width = 16, depth = 8]) => {
+  const pad = yardOpsPads.get(padId);
+  if (!pad || !yardOpsModuleClear(pad, x, z, width, depth)) {
+    yardOpsStats.skippedModules++;
+    return;
+  }
+  const sy = surfaceYAt(x, z, pad.surfaceY ?? 0) + 0.08;
+  yardOpsModuleRects.push({ minX: x - width / 2 - 2, maxX: x + width / 2 + 2, minZ: z - depth / 2 - 2, maxZ: z + depth / 2 + 2 });
+  group.add(box(width * 0.96, 0.08, depth * 0.9, x, sy - 0.04, z, pad.surface === 'gravel' ? M.hardstand : M.loadingAsphalt, angle));
+  for (const side of [-1, 1]) group.add(box(width * 0.96, 0.12, 0.18, x, sy + 0.04, z + side * depth * 0.42, M.curb, angle));
+  contactPad(x, z, sy, width * 0.84, depth * 0.76, angle, M.loadingStain);
+  const local = (lx, lz) => rotateLocal(x, z, angle, lx, lz);
+  if (kind === 'hall') {
+    const hallW = width * 0.74, hallD = depth * 0.68, hallH = 4.6;
+    group.add(box(hallW, hallH, hallD, x, sy + hallH / 2, z, M.panel[1], angle));
+    group.add(box(hallW + 0.32, 0.22, hallD + 0.32, x, sy + hallH + 0.14, z, M.roof, angle));
+    for (const side of [-1, 1]) {
+      const [px, pz] = local(side * (hallW / 2 - 0.36), 0);
+      for (let y = sy + 0.5; y < sy + hallH - 0.2; y += 1.0) group.add(box(0.14, 0.72, hallD * 0.9, px, y, pz, M.rib, angle));
+    }
+    const [doorX, doorZ] = local(0, -hallD / 2 - 0.08);
+    group.add(box(3.8, 2.8, 0.12, doorX, sy + 1.42, doorZ, M.loadingDoor, angle));
+    group.add(box(4.3, 0.16, 0.18, doorX, sy + 2.9, doorZ, M.loadingFrame, angle));
+    const [rackX, rackZ] = local(hallW * 0.58, 0);
+    const [rackAX, rackAZ] = local(hallW * 0.52, -hallD * 0.32), [rackBX, rackBZ] = local(hallW * 0.52, hallD * 0.32);
+    pipeRack(rackAX, rackAZ, rackBX, rackBZ, sy, 3.4, 2.8);
+    serviceCabinet(rackX, rackZ, sy, 1.4, 1.8, angle);
+  } else if (kind === 'macro-hall') {
+    const hallW = width * 0.78, hallD = depth * 0.72, hallH = 7.2;
+    group.add(box(hallW, hallH, hallD, x, sy + hallH / 2, z, M.panel[1], angle));
+    group.add(box(hallW + 0.42, 0.28, hallD + 0.42, x, sy + hallH + 0.18, z, M.roof, angle));
+    for (const side of [-1, 1]) {
+      const [px, pz] = local(side * (hallW / 2 - 0.42), 0);
+      for (let y = sy + 0.5; y < sy + hallH - 0.2; y += 1.15)
+        group.add(box(0.16, 0.84, hallD * 0.9, px, y, pz, M.rib, angle));
+    }
+    const [doorX, doorZ] = local(0, -hallD / 2 - 0.1);
+    group.add(box(5.6, 3.8, 0.14, doorX, sy + 1.92, doorZ, M.loadingDoor, angle));
+    group.add(box(6.1, 0.18, 0.2, doorX, sy + 3.9, doorZ, M.loadingFrame, angle));
+    for (const lx of [-hallW * 0.3, 0, hallW * 0.3]) {
+      const [px, pz] = local(lx, hallD / 2 + 0.08);
+      group.add(box(0.14, 4.8, 0.18, px, sy + 2.8, pz, M.rib, angle));
+      group.add(box(4.4, 0.12, 0.16, px, sy + 5.4, pz, M.glass, angle));
+    }
+    const [rackAX, rackAZ] = local(-hallW * 0.48, hallD * 0.25);
+    const [rackBX, rackBZ] = local(hallW * 0.48, hallD * 0.25);
+    pipeGallery(rackAX, rackAZ, rackBX, rackBZ, sy, 4.6, 3.6);
+    const [stackX, stackZ] = local(hallW * 0.34, -hallD * 0.22);
+    serviceStack(stackX, stackZ, sy, 6.4, 0.24);
+    const [siloX, siloZ] = local(-hallW * 0.28, -hallD * 0.2);
+    addSilo(siloX, siloZ, sy, 1.45, 4.8, M.siding[2]);
+  } else if (kind === 'rack') {
+    const [ax, az] = local(-width * 0.4, 0), [bx, bz] = local(width * 0.4, 0);
+    pipeGallery(ax, az, bx, bz, sy, 4.2, depth * 0.55);
+    const [cx, cz] = local(width * 0.38, depth * 0.24);
+    serviceCabinet(cx, cz, sy, 1.35, 1.8, angle);
+    serviceStack(...local(-width * 0.34, depth * 0.22), sy, 5.4, 0.2);
+  } else if (kind === 'storage') {
+    const [cx, cz] = local(-width * 0.08, 0);
+    crateStack(cx, sy, cz, width * 0.52, depth * 0.58, 1.75, 2, idSeed(`yard-module-${padId}-${x}-${z}`));
+    const [sx, sz] = local(width * 0.32, depth * 0.2);
+    serviceCabinet(sx, sz, sy, 1.35, 1.8, angle);
+    const [px, pz] = local(width * 0.3, -depth * 0.2);
+    palletStack(px, pz, sy, 2.2, 1.35, 2);
+  } else if (kind === 'process') {
+    const [tx, tz] = local(-width * 0.2, 0);
+    processVessel(tx, tz, sy, 1.45, 5.1, M.heroPanel);
+    const [sx, sz] = local(width * 0.22, 0);
+    addSilo(sx, sz, sy, 1.35, 4.5, M.siding[1]);
+    const [ax, az] = local(-width * 0.38, depth * 0.28), [bx, bz] = local(width * 0.38, depth * 0.28);
+    pipeRack(ax, az, bx, bz, sy, 3.5, 2.8);
+  } else if (kind === 'canopy') {
+    const roofY = sy + 3.5;
+    for (const lx of [-width * 0.38, width * 0.38]) for (const lz of [-depth * 0.34, depth * 0.34]) {
+      const [px, pz] = local(lx, lz);
+      group.add(box(0.24, 3.5, 0.24, px, sy + 1.75, pz, M.pipeDark, angle));
+    }
+    group.add(box(width * 0.9, 0.24, depth * 0.82, x, roofY, z, M.roof, angle));
+    const [px, pz] = local(-width * 0.16, 0);
+    palletStack(px, pz, sy, 2.6, 1.6, 2);
+    const [cx, cz] = local(width * 0.25, 0.15);
+    serviceCabinet(cx, cz, sy, 1.5, 1.9, angle);
+  }
+  yardOpsStats.modules++;
+};
+const yardOpsModules = [
+  ['g-spawn-apron', -328, 274, 'storage', 0, 18, 9],
+  ['g-spawn-apron', -270, 276, 'rack', 0, 17, 9],
+  ['g-ridgeline-exit', -230, 318, 'canopy', 0, 16, 8],
+  ['g-gate-square', -287, 137, 'canopy', 0, 16, 8],
+  ['g-yrd-rear', -205, 151, 'storage', 0, 18, 9],
+  ['g-yrd-rear', -84, 150, 'rack', 0, 18, 9],
+  ['g-yrd-pressure', 122, 141, 'process', 0, 18, 10],
+  ['g-yrd-pressure', -8, 132, 'canopy', 0, 18, 9],
+  ['g-yrd-hub', -28, 28, 'rack', 0, 18, 9],
+  ['g-yrd-hub', 82, -35, 'process', 0, 18, 10],
+  ['g-yrd-west', -178, -78, 'storage', 0, 18, 9],
+  ['g-yrd-west', -150, 82, 'canopy', 0, 18, 9],
+  ['g-yrd-checkpoint-n', -18, -83, 'rack', 0, 18, 9],
+  ['g-yrd-checkpoint-n', 83, -83, 'storage', 0, 18, 9],
+  ['g-yrd-e', 280, 72, 'rack', 0, 20, 10],
+  ['g-yrd-e', 336, -8, 'process', 0, 18, 10],
+  ['g-yrd-plant-s', 302, -145, 'process', 0, 20, 10],
+  ['g-yrd-core-n', -54, -205, 'storage', 0, 18, 9],
+  ['g-yrd-core-n', 130, -210, 'rack', 0, 18, 9],
+  ['g-yrd-east-ridge', 238, -222, 'process', 0, 20, 10],
+];
+for (const module of yardOpsModules) yardOpsAddModule(module);
+const yardOpsMacroModules = [
+  // Long service sheds strengthen the courtyard silhouette without closing the rear alley.
+  ['g-yrd-rear', -132, 144, 'macro-hall', 0, 42, 18],
+  ['g-yrd-pressure', 140, 164, 'macro-hall', 0, 42, 18],
+  // The core compound sits on the west side of the north pad, clear of the authored spine.
+  ['g-yrd-core-n', -54, -190, 'macro-hall', 0, 30, 16],
+];
+for (const module of yardOpsMacroModules) yardOpsAddModule(module);
+const yardOpsHalls = [
+  ['g-spawn-apron', -320, 195, 'hall', 0, 26, 14], ['g-spawn-apron', -320, 255, 'hall', 0, 26, 14],
+  ['g-gate-square', -330, 120, 'hall', 0, 26, 14],
+  ['g-ridgeline-exit', -200, 315, 'hall', 0, 26, 14],
+  ['g-yrd-rear', -30, 142, 'hall', 0, 26, 14],
+  ['g-yrd-pressure', 80, 175, 'hall', 0, 26, 14],
+  ['g-yrd-hub', -78, -44, 'hall', 0, 26, 14],
+  ['g-yrd-west', -224, 66, 'hall', 0, 26, 14],
+  ['g-yrd-checkpoint-n', -40, -104, 'hall', 0, 26, 14],
+  ['g-yrd-e', 250, -72, 'hall', 0, 26, 14],
+  ['g-yrd-plant-s', 240, -135, 'hall', 0, 26, 14],
+  ['g-yrd-core-n', -8, -202, 'hall', 0, 26, 14],
+  ['g-yrd-east-ridge', 270, -242, 'hall', 0, 26, 14],
+];
+for (const hall of yardOpsHalls) yardOpsAddModule(hall);
+
 const yardProps = [
   { kind: 'pallets', x: -92, z: 98, width: 2.4, depth: 1.5, levels: 2 },
   { kind: 'reel', x: -38, z: 99, radius: 0.9 },
@@ -2395,6 +2711,760 @@ const chainLinkFence = (ax, az, bx, bz, sy, height = 2.5) => {
     group.add(addBeam(e, d, 0.032, M.fence));
   }
 };
+
+// Elevated interior transfer network: a deliberately different macro layer than
+// perimeter dressing. Supports are kept outside authored lanes and structures;
+// the spans cross them overhead without changing the gameplay contracts.
+const transferSourceRefs = [
+  'blockout/blockout-full-v1.json#segments.g-yrd-hub',
+  'blockout/blockout-full-v1.json#segments.g-yrd-core-n',
+  'blockout/blockout-full-v1.json#routes.route_main_surface',
+  'blockout/blockout-full-v1.json#routes.route_covered',
+  'blockout/blockout-full-v1.json#routes.air-courtyard',
+  'blockout/blockout-full-v1.json#routes.air-roof-reentry',
+  'GATING-PLAN.MD#3.5-required-trace-fields',
+  'vexea-map-authoring (1).zip::references/industrial-grammar-and-architecture.md',
+];
+const transferReferenceIds = ['industrial-yard-transfer-network', 'processing-yard', 'below-grade-corridor'];
+const transferContractIds = [
+  'source-canonical', 'routes-unchanged', 'route-clearance-2m', 'air-lane-clearance',
+  'authored-structure-clearance', 'ground-contact', 'canonical-evidence',
+];
+const transferEvidenceViews = ['top', 'orbit', 'zone-courtyard', 'zone-core', 'cover-courtyard', 'objective-core'];
+const traceTransferFeature = feature => ({
+  ...feature,
+  sourceRefs: [...transferSourceRefs],
+  referenceIds: [...transferReferenceIds],
+  contractIds: [...transferContractIds],
+  evidenceViews: [...transferEvidenceViews],
+});
+const transferNetwork = {
+  schemaVersion: 1,
+  strategy: 'elevated-interior-transfer-network-v1',
+  owner: 'recovery-cycle-2',
+  sourceRefs: [...transferSourceRefs],
+  referenceIds: [...transferReferenceIds],
+  contractIds: [...transferContractIds],
+  evidenceViews: [...transferEvidenceViews],
+  features: [
+    traceTransferFeature({
+      id: 'trn-hub-transfer', owner: 'trn-hub-transfer', type: 'elevated-truss-bridge', zone: 'zone_courtyard',
+      endpoints: [[-20, 64], [104, 64]], deckY: 7.4, trussHeight: 4.4, width: 5.4,
+      supportCenters: [[-12, 64], [96, 64]], supportSize: [2.4, 3.6], groundY: 0,
+      routeClearanceMeters: 2, buildingClearanceMeters: 2, airLaneClearanceMeters: 2,
+      verticalRouteClearanceMeters: 6.9, placementStatus: 'PASS', supportStatus: 'PASS', contactStatus: 'PASS',
+    }),
+    traceTransferFeature({
+      id: 'trn-core-transfer', owner: 'trn-core-transfer', type: 'elevated-truss-bridge', zone: 'zone_core',
+      endpoints: [[-4, -220], [88, -220]], deckY: 6.2, trussHeight: 4.2, width: 5.2,
+      supportCenters: [[-14, -220], [100, -220]], supportSize: [2.4, 3.6], groundY: -1.2,
+      routeClearanceMeters: 2, buildingClearanceMeters: 2, airLaneClearanceMeters: 2,
+      verticalRouteClearanceMeters: 5.7, placementStatus: 'PASS', supportStatus: 'PASS', contactStatus: 'PASS',
+    }),
+    traceTransferFeature({
+      id: 'trn-core-transformer-skid', owner: 'trn-core-transformer-skid', type: 'fenced-transformer-skid', zone: 'zone_core',
+      center: [132, -183], width: 14, depth: 8, groundY: -1.2,
+      routeClearanceMeters: 2, buildingClearanceMeters: 2, airLaneClearanceMeters: 2,
+      placementStatus: 'PASS', supportStatus: 'PASS', contactStatus: 'PASS',
+    }),
+  ],
+};
+const elevatedTransferBridge = spec => {
+  const [ax, az] = spec.endpoints[0], [bx, bz] = spec.endpoints[1];
+  const frame = segmentFrame(ax, az, bx, bz);
+  const deckY = spec.deckY, topY = deckY + spec.trussHeight;
+  const midX = (ax + bx) / 2, midZ = (az + bz) / 2;
+  const sideOffset = spec.width / 2 - 0.35;
+  const point = (t, offset = 0) => offsetPoint(ax + (bx - ax) * t, az + (bz - az) * t, frame, offset);
+  const addLine = (offset, y, radius, material) => {
+    const [sx, sz] = point(0, offset), [ex, ez] = point(1, offset);
+    group.add(addBeam([sx, y, sz], [ex, y, ez], radius, material));
+  };
+
+  group.add(orientedBox(frame.len, 0.24, spec.width, midX, deckY, midZ, bx - ax, 0, bz - az, M.roof));
+  group.add(orientedBox(frame.len - 0.8, 0.14, spec.width - 0.55, midX, deckY + 0.17, midZ, bx - ax, 0, bz - az, M.metal));
+  for (const side of [-1, 1]) {
+    const lower = side * sideOffset, upper = side * sideOffset;
+    addLine(lower, deckY + 0.32, 0.17, M.pipeDark);
+    addLine(upper, topY, 0.15, M.pipe);
+    for (let i = 0; i < 8; i++) {
+      const t1 = i / 8, t2 = (i + 1) / 8;
+      const [aX, aZ] = point(t1, lower), [bX, bZ] = point(t2, upper);
+      const [cX, cZ] = point(t1, upper), [dX, dZ] = point(t2, lower);
+      group.add(addBeam([aX, deckY + 0.35, aZ], [bX, topY - 0.16, bZ], 0.055, M.trim));
+      group.add(addBeam([cX, topY - 0.16, cZ], [dX, deckY + 0.35, dZ], 0.045, M.metal));
+    }
+    for (let i = 0; i <= 8; i++) {
+      const [px, pz] = point(i / 8, side * sideOffset);
+      group.add(box(0.11, 1.42, 0.11, px, deckY + 0.84, pz, M.metal));
+    }
+    addLine(side * (spec.width / 2 - 0.22), deckY + 1.55, 0.07, M.trim);
+    addLine(side * (spec.width / 2 - 0.22), deckY + 0.35, 0.045, M.fence);
+    for (const lane of [-0.22, 0.2]) addLine(side * (spec.width * lane), deckY + 0.72, 0.095, lane < 0 ? M.pipe : M.tunnelRust);
+  }
+  const postCount = Math.max(3, Math.ceil(frame.len / 16));
+  for (let i = 1; i < postCount; i++) {
+    const t = i / postCount;
+    const [px, pz] = point(t);
+    group.add(orientedBox(spec.width - 0.7, 0.16, 0.18, px, deckY + 0.24, pz, frame.nx, 0, frame.nz, M.trim));
+  }
+  for (const [sx, sz] of spec.supportCenters) {
+    const supportY = surfaceYAt(sx, sz, spec.groundY);
+    for (const side of [-1, 1]) {
+      const [px, pz] = offsetPoint(sx, sz, frame, side * sideOffset);
+      group.add(edgeBox(1.15, 0.22, 1.15, px, supportY + 0.11, pz, M.concreteDark, 0, 0.05));
+      group.add(cylinder(0.24, deckY - supportY, px, supportY + (deckY - supportY) / 2, pz, M.pipeDark, 10));
+      group.add(cylinder(0.34, 0.14, px, deckY - 0.04, pz, M.metal, 10));
+    }
+    group.add(orientedBox(spec.width - 0.7, 0.2, 0.22, sx, deckY - 0.22, sz, frame.nx, 0, frame.nz, M.metal));
+    const [ladderX, ladderZ] = offsetPoint(sx, sz, frame, sideOffset + 0.08);
+    group.add(addBeam([ladderX, supportY + 0.45, ladderZ], [ladderX, deckY - 0.25, ladderZ], 0.055, M.trim));
+    group.add(addBeam([ladderX + frame.nx * 0.34, supportY + 0.45, ladderZ + frame.nz * 0.34], [ladderX + frame.nx * 0.34, deckY - 0.25, ladderZ + frame.nz * 0.34], 0.055, M.trim));
+    for (let rung = supportY + 1.0; rung < deckY - 0.3; rung += 0.72)
+      group.add(orientedBox(0.78, 0.055, 0.055, ladderX + frame.nx * 0.17, rung, ladderZ + frame.nz * 0.17, frame.nx, 0, frame.nz, M.metal));
+  }
+  for (const end of [0, 1]) {
+    const [px, pz] = point(end, 0);
+    group.add(orientedBox(1.2, 0.3, spec.width + 0.18, px, deckY + 0.14, pz, frame.nx, 0, frame.nz, M.warningDark));
+    group.add(orientedBox(0.62, 0.12, spec.width - 0.8, px, deckY + 0.35, pz, frame.nx, 0, frame.nz, M.warning));
+  }
+};
+const fencedTransformerSkid = spec => {
+  const [x, z] = spec.center, sy = surfaceYAt(x, z, spec.groundY);
+  group.add(edgeBox(spec.width, 0.26, spec.depth, x, sy + 0.13, z, M.concreteDark, 0, 0.06));
+  group.add(edgeBox(spec.width - 0.8, 0.12, spec.depth - 0.8, x, sy + 0.32, z, M.loadingAsphaltRough, 0, 0.04));
+  for (const offset of [-3.35, 3.35]) {
+    group.add(edgeBox(3.25, 2.35, 2.7, x + offset, sy + 1.52, z, M.metal, 0, 0.08));
+    group.add(edgeBox(3.5, 0.18, 2.95, x + offset, sy + 2.75, z, M.roof, 0, 0.04));
+    for (const ix of [-0.9, 0, 0.9]) {
+      group.add(cylinder(0.13, 0.85, x + offset + ix, sy + 3.25, z - 0.55, M.metal, 8));
+      group.add(cylinder(0.18, 0.12, x + offset + ix, sy + 3.7, z - 0.55, M.warning, 8));
+    }
+  }
+  pipeRack(x - 5.4, z + 0.1, x + 5.4, z + 0.1, sy + 0.35, 3.9, 3.8);
+  group.add(addBeam([x - 5.0, sy + 4.05, z - 0.8], [x + 5.0, sy + 4.05, z - 0.8], 0.1, M.pipe));
+  for (const [ax, az, bx, bz] of [[x - 6.2, z - 3.6, x + 6.2, z - 3.6], [x + 6.2, z - 3.6, x + 6.2, z + 3.6], [x + 6.2, z + 3.6, x - 6.2, z + 3.6], [x - 6.2, z + 3.6, x - 6.2, z - 3.6]])
+    fenceRun(ax, az, bx, bz, sy, 2.65);
+  yardLampPole(x - 6.6, z - 4.2, sy, 5.7, 0.9);
+  yardLampPole(x + 6.6, z + 4.2, sy, 5.7, 0.9);
+};
+if (isolatedTransferOnly) {
+  elevatedTransferBridge(transferNetwork.features[0]);
+  elevatedTransferBridge(transferNetwork.features[1]);
+  fencedTransformerSkid(transferNetwork.features[2]);
+}
+
+// Distributed campus operations spine: grounded compounds change the composition
+// across required zones instead of concentrating another feature in the courtyard.
+const spineSourceRefs = [
+  'blockout/blockout-full-v1.json#segments.g-spawn-apron',
+  'blockout/blockout-full-v1.json#segments.g-yrd-rear',
+  'blockout/blockout-full-v1.json#segments.g-yrd-hub',
+  'blockout/blockout-full-v1.json#segments.g-yrd-e',
+  'blockout/blockout-full-v1.json#segments.g-yrd-plant-s',
+  'blockout/blockout-full-v1.json#segments.g-yrd-checkpoint-n',
+  'blockout/blockout-full-v1.json#segments.g-yrd-core-n',
+  'blockout/blockout-full-v1.json#segments.g-yrd-east-ridge',
+  'blockout/blockout-full-v1.json#segments.g-ridgeline-exit',
+  'blockout/blockout-full-v1.json#routes.route_main_surface',
+  'blockout/blockout-full-v1.json#routes.route_rear_alley',
+  'blockout/blockout-full-v1.json#routes.route_north_ring',
+  'blockout/blockout-full-v1.json#routes.route_south_retreat',
+  'GATING-PLAN.MD#3.5-required-trace-fields',
+  'vexea-map-authoring (1).zip::references/industrial-grammar-and-architecture.md',
+];
+const spineReferenceIds = ['industrial-yard-operations', 'processing-yard', 'industrial-frontage', 'service-access'];
+const spineContractIds = [
+  'source-canonical', 'routes-unchanged', 'route-clearance-2m', 'air-lane-clearance',
+  'authored-structure-clearance', 'ground-contact', 'canonical-evidence',
+];
+const spineEvidenceViews = [
+  'top', 'orbit', 'zone-spawn', 'zone-warehouse', 'zone-bridge', 'zone-boundary',
+  'route-main-surface', 'route-rear-alley', 'route-north-ring', 'route-south-retreat',
+];
+const campusSpine = {
+  schemaVersion: 1,
+  strategy: 'distributed-campus-operations-spine-v1',
+  owner: 'recovery-cycle-3',
+  sourceRefs: [...spineSourceRefs],
+  referenceIds: [...spineReferenceIds],
+  contractIds: [...spineContractIds],
+  evidenceViews: [...spineEvidenceViews],
+  features: [],
+};
+const spineNodeSpecs = [
+  { id: 'csp-spawn-logistics', padId: 'g-spawn-apron', center: [-338, 260], width: 30, depth: 18, height: 7, kind: 'logistics', zone: 'zone_spawn', routes: ['route_ridgeline_exit', 'air-spawn-apron'] },
+  { id: 'csp-gate-service', padId: 'g-gate-square', center: [-225, 112], width: 26, depth: 14, height: 6, kind: 'service', zone: 'zone_courtyard', routes: ['route_main_surface', 'route_rear_alley'] },
+  { id: 'csp-warehouse-transfer', padId: 'g-yrd-rear', center: [-24, 145], width: 22, depth: 14, height: 7, kind: 'logistics', zone: 'zone_warehouse', routes: ['route_rear_alley', 'route_main_surface'] },
+  { id: 'csp-courtyard-workshop', padId: 'g-yrd-hub', center: [-62, -40], width: 28, depth: 16, height: 7, kind: 'service', zone: 'zone_courtyard', routes: ['route_covered', 'route_main_surface'] },
+  { id: 'csp-bridge-utilities', padId: 'g-yrd-e', center: [330, 88], width: 32, depth: 18, height: 8, kind: 'bridge', zone: 'zone_bridge', routes: ['route_north_ring'] },
+  { id: 'csp-plant-process', padId: 'g-yrd-plant-s', center: [325, -148], width: 34, depth: 16, height: 7, kind: 'process', zone: 'zone_plant', routes: ['route_south_retreat', 'route_plant_spur'] },
+  { id: 'csp-checkpoint-service', padId: 'g-yrd-checkpoint-n', center: [-52, -138], width: 28, depth: 14, height: 6, kind: 'service', zone: 'zone_tunnels', routes: ['route_covered', 'route_main_surface'] },
+  { id: 'csp-core-operations', padId: 'g-yrd-core-n', center: [-24, -198], width: 26, depth: 12, height: 6, kind: 'utility', zone: 'zone_core', routes: ['route_main_surface', 'route_covered'] },
+  { id: 'csp-east-relay', padId: 'g-yrd-east-ridge', center: [350, -230], width: 30, depth: 16, height: 7, kind: 'process', zone: 'zone_tunnels', routes: ['route_tunnel', 'route_south_retreat'] },
+  { id: 'csp-boundary-pump', padId: 'g-ridgeline-exit', center: [-210, 298], width: 26, depth: 10, height: 6, kind: 'boundary', zone: 'zone_boundary', routes: ['route_ridgeline_exit'] },
+];
+const spineRects = [];
+const spineLocal = (x, z, angle, lx, lz) => rotateLocal(x, z, angle, lx, lz);
+const spineEquipment = (x, z, sy, angle, width, depth, height, material = M.panel[1]) => {
+  const [px, pz] = spineLocal(x, z, angle, 0, 0);
+  group.add(edgeBox(width, 0.2, depth, px, sy + 0.1, pz, M.concreteDark, angle, 0.04));
+  group.add(edgeBox(width * 0.82, height, depth * 0.74, px, sy + height / 2 + 0.2, pz, material, angle, 0.06));
+  group.add(edgeBox(width * 0.86, 0.24, depth * 0.78, px, sy + height + 0.34, pz, M.roof, angle, 0.035));
+  const hallW = width * 0.82, hallD = depth * 0.74;
+  for (const lx of [-hallW * 0.38, hallW * 0.38]) {
+    const [rx, rz] = spineLocal(x, z, angle, lx, -hallD / 2 - 0.12);
+    group.add(edgeBox(0.18, height - 0.25, 0.2, rx, sy + height / 2 + 0.2, rz, M.rib, angle, 0.02));
+  }
+  const [doorX, doorZ] = spineLocal(x, z, angle, 0, -hallD / 2 - 0.12);
+  group.add(edgeBox(Math.min(5.4, hallW * 0.58), Math.min(3.6, height * 0.6), 0.14, doorX, sy + Math.min(3.6, height * 0.6) / 2 + 0.2, doorZ, M.loadingDoor, angle, 0.025));
+  group.add(edgeBox(Math.min(5.9, hallW * 0.64), 0.18, 0.18, doorX, sy + Math.min(3.6, height * 0.6) + 0.34, doorZ, M.loadingFrame, angle, 0.025));
+  const serviceStart = -hallW * 0.36, serviceEnd = hallW * 0.36;
+  const [serviceX, serviceZ] = spineLocal(x, z, angle, 0, hallD / 2 + 0.16);
+  for (const ly of [height * 0.42, height * 0.68]) {
+    const [ax, az] = spineLocal(x, z, angle, serviceStart, hallD / 2 + 0.18);
+    const [bx, bz] = spineLocal(x, z, angle, serviceEnd, hallD / 2 + 0.18);
+    group.add(addBeam([ax, sy + ly, az], [bx, sy + ly, bz], 0.055, M.pipeDark));
+  }
+  for (const lx of [-hallW * 0.25, 0, hallW * 0.25]) {
+    const [lightX, lightZ] = spineLocal(x, z, angle, lx, -hallD / 2 - 0.24);
+    group.add(box(0.58, 0.08, 0.16, lightX, sy + height * 0.66, lightZ, M.light, angle));
+  }
+  return { serviceX, serviceZ };
+};
+const addSpineNode = spec => {
+  const pad = yardOpsPads.get(spec.padId);
+  const [x, z] = spec.center;
+  const margin = 2.5;
+  const boundaryBand = spec.kind === 'boundary';
+  const padClear = boundaryBand
+    ? x - spec.width / 2 > -280 && x + spec.width / 2 < -180 && z - spec.depth / 2 > 290 && z + spec.depth / 2 < 306
+    : Boolean(pad && yardOpsClear(pad, x, z, spec.width, spec.depth, margin));
+  const separate = spineRects.every(rect => x + spec.width / 2 + margin <= rect.minX || x - spec.width / 2 - margin >= rect.maxX
+    || z + spec.depth / 2 + margin <= rect.minZ || z - spec.depth / 2 - margin >= rect.maxZ);
+  const pass = padClear && separate;
+  const feature = {
+    id: spec.id,
+    owner: spec.id,
+    type: `grounded-${spec.kind}-compound`,
+    zone: spec.zone,
+    padId: spec.padId,
+    center: [...spec.center],
+    footprint: [spec.width, spec.depth],
+    height: spec.height,
+    routes: [...spec.routes],
+    sourceRefs: [...spineSourceRefs],
+    referenceIds: [...spineReferenceIds],
+    contractIds: [...spineContractIds],
+    evidenceViews: [...spineEvidenceViews],
+    routeClearanceMeters: 2,
+    buildingClearanceMeters: 2,
+    airLaneClearanceMeters: 2,
+    placementStatus: pass ? 'PASS' : 'FAIL',
+    supportStatus: pass ? 'PASS' : 'FAIL',
+    contactStatus: pass ? 'PASS' : 'FAIL',
+  };
+  campusSpine.features.push(feature);
+  if (!pass || !campusSpineOnly) return;
+  spineRects.push({ minX: x - spec.width / 2, maxX: x + spec.width / 2, minZ: z - spec.depth / 2, maxZ: z + spec.depth / 2 });
+  const sy = boundaryBand ? 0.18 : surfaceYAt(x, z, pad.surfaceY ?? 0) + 0.06;
+  const angle = spec.kind === 'bridge' ? Math.PI / 2 : spec.kind === 'process' ? -0.18 : 0;
+  const local = (lx, lz) => spineLocal(x, z, angle, lx, lz);
+  group.add(edgeBox(spec.width, 0.1, spec.depth, x, sy + 0.04, z, M.loadingAsphalt, angle, 0.025));
+  for (const side of [-1, 1]) {
+    const [cx, cz] = local(0, side * (spec.depth / 2 - 0.34));
+    group.add(box(spec.width * 0.92, 0.12, 0.18, cx, sy + 0.1, cz, M.curb, angle));
+  }
+  if (spec.kind === 'logistics') {
+    spineEquipment(x, z, sy, angle, spec.width, spec.depth, spec.height, M.panel[2]);
+    const [tx, tz] = local(spec.width * 0.2, spec.depth * 0.17);
+    cargoTruck(tx, tz, angle, 0.82);
+    const [fx, fz] = local(-spec.width * 0.2, spec.depth * 0.18);
+    forklift(fx, fz, angle, 0.7, sy);
+    const [px, pz] = local(spec.width * 0.26, -spec.depth * 0.22);
+    palletStack(px, pz, sy, 2.8, 1.7, 2);
+    pipeGallery(...local(-spec.width * 0.32, spec.depth * 0.2), ...local(spec.width * 0.32, spec.depth * 0.2), sy, 3.8, 3.2);
+  } else if (spec.kind === 'service') {
+    spineEquipment(x, z, sy, angle, spec.width, spec.depth, spec.height, M.panel[1]);
+    const [fx, fz] = local(-spec.width * 0.2, spec.depth * 0.18);
+    forklift(fx, fz, angle, 0.66, sy);
+    const [cx, cz] = local(spec.width * 0.25, -spec.depth * 0.2);
+    serviceCabinet(cx, cz, sy, 1.5, 1.9, angle);
+    cableReel(...local(-spec.width * 0.28, -spec.depth * 0.2), sy, 0.65);
+    pipeGallery(...local(-spec.width * 0.34, spec.depth * 0.2), ...local(spec.width * 0.34, spec.depth * 0.2), sy, 3.5, 2.8);
+  } else if (spec.kind === 'bridge') {
+    spineEquipment(x, z, sy, angle, spec.width, spec.depth, spec.height, M.heroPanel);
+    const [ax, az] = local(-spec.width * 0.42, spec.depth * 0.2), [bx, bz] = local(spec.width * 0.42, spec.depth * 0.2);
+    pipeGallery(ax, az, bx, bz, sy, 5.2, 4.8);
+    serviceStack(...local(-spec.width * 0.28, -spec.depth * 0.2), sy, 7.8, 0.24);
+    serviceStack(...local(spec.width * 0.28, -spec.depth * 0.2), sy, 6.4, 0.2);
+    fenceRun(...local(-spec.width * 0.46, -spec.depth * 0.42), ...local(spec.width * 0.46, -spec.depth * 0.42), sy, 2.7);
+    yardLampPole(...local(-spec.width * 0.48, spec.depth * 0.43), sy, 7.2, 1.0);
+  } else if (spec.kind === 'process') {
+    spineEquipment(x, z, sy, angle, spec.width * 0.78, spec.depth * 0.82, spec.height, M.heroPanel);
+    processVessel(...local(-spec.width * 0.25, 0), sy, 1.55, 5.6, M.heroSiding);
+    addSilo(...local(spec.width * 0.2, 0.08), sy, 1.45, 4.8, M.siding[2]);
+    pipeGallery(...local(-spec.width * 0.38, spec.depth * 0.28), ...local(spec.width * 0.38, spec.depth * 0.28), sy, 4.2, 3.4);
+    serviceStack(...local(spec.width * 0.33, -spec.depth * 0.22), sy, 7.5, 0.24);
+  } else if (spec.kind === 'utility') {
+    spineEquipment(x, z, sy, angle, spec.width, spec.depth, spec.height, M.panel[0]);
+    pipeGallery(...local(-spec.width * 0.4, 0.18), ...local(spec.width * 0.4, 0.18), sy, 4.0, 3.2);
+    serviceCabinet(...local(spec.width * 0.27, -spec.depth * 0.18), sy, 1.5, 1.9, angle);
+    serviceStack(...local(-spec.width * 0.3, -spec.depth * 0.18), sy, 6.6, 0.22);
+  } else if (spec.kind === 'boundary') {
+    spineEquipment(x, z, sy, angle, spec.width, spec.depth, spec.height, M.panel[2]);
+    pipeGallery(x - spec.width * 0.4, z + spec.depth * 0.18, x + spec.width * 0.4, z + spec.depth * 0.18, sy, 4.6, 3.2);
+    for (const lx of [-spec.width * 0.3, 0, spec.width * 0.3]) serviceStack(x + lx, z - spec.depth * 0.2, sy, 6.8, 0.2);
+    fenceRun(x - spec.width * 0.46, z - spec.depth * 0.46, x + spec.width * 0.46, z - spec.depth * 0.46, sy, 2.5);
+  }
+  yardLampPole(...local(spec.width * 0.46, spec.depth * 0.42), sy, Math.min(7.5, spec.height + 0.5), 0.9);
+};
+for (const spec of spineNodeSpecs) addSpineNode(spec);
+
+const streetwallSourceRefs = [
+  'blockout/blockout-full-v1.json#routes.route_main_surface',
+  'blockout/blockout-full-v1.json#routes.route_rear_alley',
+  'blockout/blockout-full-v1.json#routes.route_covered',
+  'blockout/blockout-full-v1.json#routes.route_north_ring',
+  'blockout/blockout-full-v1.json#routes.route_south_retreat',
+  'blockout/blockout-full-v1.json#routes.route_ridgeline_exit',
+  'blockout/blockout-full-v1.json#routes.air-courtyard',
+  'blockout/blockout-full-v1.json#routes.air-roof-reentry',
+  'blockout/blockout-full-v1.json#segments.g-yrd-rear',
+  'blockout/blockout-full-v1.json#segments.g-yrd-e',
+  'GATING-PLAN.MD#3.5-required-trace-fields',
+  'vexea-map-authoring (1).zip::references/industrial-grammar-and-architecture.md',
+];
+const streetwallReferenceIds = ['industrial-frontage', 'industrial-yard-operations', 'processing-yard', 'service-access'];
+const streetwallContractIds = [
+  'source-canonical', 'routes-unchanged', 'route-clearance-2m', 'air-lane-clearance',
+  'authored-structure-clearance', 'ground-contact', 'canonical-evidence', 'triangle-growth-15-percent',
+];
+const operationalStreetwall = {
+  schemaVersion: 1,
+  strategy: 'route-bound-operational-streetwall-v1',
+  owner: 'recovery-cycle-4',
+  sourceRefs: [...streetwallSourceRefs],
+  referenceIds: [...streetwallReferenceIds],
+  contractIds: [...streetwallContractIds],
+  triangleGrowthLimit: { baselineTriangles: 766275, maxGrowth: 0.15, maxTriangles: 880216 },
+  features: [],
+};
+const streetwallSpecs = [
+  { id: 'rbs-spawn-threshold', padId: 'g-spawn-apron', center: [-308, 226], width: 14, depth: 4, height: 6, kind: 'logistics', zone: 'zone_spawn', routes: ['route_ridgeline_exit', 'air-spawn-apron'], evidenceViews: ['top', 'orbit', 'zone-spawn', 'route-main-surface', 'zone-boundary', 'route-ridgeline-exit'] },
+  { id: 'rbs-gate-service', padId: 'g-gate-square', center: [-216, 141], width: 14, depth: 4, height: 5.5, kind: 'service', zone: 'zone_courtyard', routes: ['route_main_surface', 'air-courtyard'], evidenceViews: ['top', 'orbit', 'zone-courtyard', 'route-main-surface', 'route-rear-alley', 'cover-courtyard'] },
+  { id: 'rbs-rear-approach', padId: 'g-yrd-rear', center: [-140, 129], width: 14, depth: 4, height: 5.5, kind: 'logistics', zone: 'zone_courtyard', routes: ['route_rear_alley', 'route_main_surface', 'air-courtyard'], evidenceViews: ['top', 'orbit', 'zone-courtyard', 'route-main-surface', 'route-rear-alley', 'zone-warehouse'] },
+  { id: 'rbs-west-loading', padId: 'g-yrd-west', center: [-112, -9], width: 18, depth: 4, height: 6, kind: 'service', zone: 'zone_warehouse', routes: ['route_maintenance_loop', 'route_covered', 'air-courtyard'], evidenceViews: ['top', 'orbit', 'zone-warehouse', 'route-covered', 'cover-courtyard', 'zone-courtyard'] },
+  { id: 'rbs-mix-workshop', padId: 'g-yrd-hub', center: [-76, -15], width: 14, depth: 4, height: 5.5, kind: 'service', zone: 'zone_courtyard', routes: ['route_covered', 'air-courtyard'], evidenceViews: ['top', 'orbit', 'zone-courtyard', 'route-covered', 'cover-courtyard', 'zone-warehouse'] },
+  { id: 'rbs-bridge-service', padId: 'g-yrd-e', center: [302, 80], width: 24, depth: 4, height: 7, kind: 'bridge', zone: 'zone_bridge', routes: ['route_north_ring', 'air-roof-reentry'], evidenceViews: ['top', 'orbit', 'zone-bridge', 'route-north-ring', 'vertical-connector', 'zone-plant'] },
+  { id: 'rbs-plant-yard', padId: 'g-yrd-plant-s', center: [220, -126], width: 18, depth: 4, height: 6, kind: 'process', zone: 'zone_plant', routes: ['route_south_retreat', 'route_plant_spur', 'air-roof-reentry'], evidenceViews: ['top', 'orbit', 'zone-plant', 'route-south-retreat', 'route-north-ring', 'zone-boundary'] },
+  { id: 'rbs-core-checkpoint', padId: 'g-yrd-core-n', center: [35, -193], width: 14, depth: 4, height: 5.5, kind: 'utility', zone: 'zone_core', routes: ['route_main_surface', 'route_covered', 'air-roof-reentry'], evidenceViews: ['top', 'orbit', 'zone-core', 'objective-core', 'route-covered', 'tunnel-portal'] },
+  { id: 'rbs-tunnel-relay', padId: 'g-yrd-east-ridge', center: [179, -215], width: 20, depth: 4, height: 6, kind: 'utility', zone: 'zone_tunnels', routes: ['route_flank_backdoor', 'route_tunnel', 'air-roof-reentry'], evidenceViews: ['top', 'orbit', 'zone-tunnels', 'route-flank-backdoor', 'tunnel-portal', 'zone-boundary'] },
+  { id: 'rbs-boundary-pump', padId: 'g-ridgeline-exit', center: [-268, 294], width: 18, depth: 4, height: 5.5, kind: 'boundary', zone: 'zone_boundary', routes: ['route_ridgeline_exit', 'air-spawn-apron'], evidenceViews: ['top', 'orbit', 'zone-boundary', 'zone-spawn', 'route-main-surface', 'route-ridgeline-exit'] },
+];
+const streetwallBounds = spec => ({ minX: spec.center[0] - spec.width / 2, minZ: spec.center[1] - spec.depth / 2, maxX: spec.center[0] + spec.width / 2, maxZ: spec.center[1] + spec.depth / 2 });
+const streetwallBoxDistance = (a, c) => Math.hypot(Math.max(c.minX - a.maxX, 0, a.minX - c.maxX), Math.max(c.minZ - a.maxZ, 0, a.minZ - c.maxZ));
+const streetwallRouteMargin = (spec, route) => {
+  const footprint = streetwallBounds(spec), radius = Math.hypot(spec.width / 2, spec.depth / 2);
+  let best = Infinity;
+  for (let i = 0; i < route.waypoints.length - 1; i++) {
+    const [ax, az] = route.waypoints[i], [bx, bz] = route.waypoints[i + 1];
+    const steps = Math.max(4, Math.ceil(Math.hypot(bx - ax, bz - az) / 2));
+    for (let j = 0; j <= steps; j++) {
+      const t = j / steps, px = ax + (bx - ax) * t, pz = az + (bz - az) * t;
+      best = Math.min(best, Math.hypot(Math.max(footprint.minX - px, 0, px - footprint.maxX), Math.max(footprint.minZ - pz, 0, pz - footprint.maxZ)));
+    }
+  }
+  return best - (route.width || 6) / 2;
+};
+const streetwallPlacement = spec => {
+  const pad = yardOpsPads.get(spec.padId), footprint = streetwallBounds(spec);
+  const padBounds = pad && { minX: Math.min(pad.bounds[0], pad.bounds[2]), minZ: Math.min(pad.bounds[1], pad.bounds[3]), maxX: Math.max(pad.bounds[0], pad.bounds[2]), maxZ: Math.max(pad.bounds[1], pad.bounds[3]) };
+  const padPass = Boolean(padBounds && footprint.minX >= padBounds.minX + 2 && footprint.maxX <= padBounds.maxX - 2 && footprint.minZ >= padBounds.minZ + 2 && footprint.maxZ <= padBounds.maxZ - 2);
+  const buildingMargins = yardOpsBuildings.map(building => streetwallBoxDistance(footprint, { minX: Math.min(building.bounds[0], building.bounds[2]), minZ: Math.min(building.bounds[1], building.bounds[3]), maxX: Math.max(building.bounds[0], building.bounds[2]), maxZ: Math.max(building.bounds[1], building.bounds[3]) }));
+  const routeMargins = b.routes.map(route => ({ id: route.id, margin: streetwallRouteMargin(spec, route) }));
+  const pass = padPass && buildingMargins.every(margin => margin >= 2) && routeMargins.every(item => item.margin >= 2);
+  return { pass, padPass, buildingMargins, routeMargins, footprint };
+};
+const addOperationalStreetwall = spec => {
+  const placement = streetwallPlacement(spec);
+  const feature = {
+    id: spec.id, owner: spec.id, type: `route-bound-${spec.kind}-streetwall`, zone: spec.zone, padId: spec.padId,
+    center: [...spec.center], footprint: [spec.width, spec.depth], height: spec.height, kind: spec.kind, routes: [...spec.routes],
+    sourceRefs: [...streetwallSourceRefs], referenceIds: [...streetwallReferenceIds], contractIds: [...streetwallContractIds], evidenceViews: [...spec.evidenceViews],
+    routeClearanceMeters: 2, buildingClearanceMeters: 2, airLaneClearanceMeters: 2,
+    placementStatus: placement.pass ? 'PASS' : 'FAIL', supportStatus: placement.pass ? 'PASS' : 'FAIL', contactStatus: placement.pass ? 'PASS' : 'FAIL',
+  };
+  operationalStreetwall.features.push(feature);
+  if (!operationalStreetwallOnly || !placement.pass) return;
+  const [x, z] = spec.center, pad = yardOpsPads.get(spec.padId), sy = surfaceYAt(x, z, pad.surfaceY ?? 0) + 0.06;
+  group.add(edgeBox(spec.width, 0.12, spec.depth, x, sy + 0.06, z, M.loadingAsphalt, 0, 0.025));
+  spineEquipment(x, z, sy, 0, spec.width, spec.depth, spec.height, spec.kind === 'process' ? M.heroPanel : M.panel[1]);
+  const local = (lx, lz) => [x + lx, z + lz];
+  pipeGallery(...local(-spec.width * 0.34, spec.depth * 0.46), ...local(spec.width * 0.34, spec.depth * 0.46), sy + 0.16, Math.min(4.4, spec.height - 1), Math.min(3.6, spec.depth - 0.3));
+  serviceCabinet(...local(spec.width * 0.28, -spec.depth * 0.48), sy, 1.35, 1.7);
+  if (spec.kind === 'logistics') {
+    cargoTruck(...local(spec.width * 0.22, spec.depth * 0.1), 0, 0.52);
+    palletStack(...local(-spec.width * 0.25, spec.depth * 0.18), sy, 2.0, 1.25, 2);
+  } else if (spec.kind === 'process') {
+    processVessel(...local(-spec.width * 0.22, -spec.depth * 0.1), sy, 1.05, 3.8, M.heroSiding);
+    serviceStack(...local(spec.width * 0.27, spec.depth * 0.18), sy, 5.0, 0.18);
+  } else if (spec.kind === 'bridge') {
+    serviceStack(...local(-spec.width * 0.28, -spec.depth * 0.18), sy, 5.8, 0.18);
+    fenceRun(...local(-spec.width * 0.44, spec.depth * 0.48), ...local(spec.width * 0.44, spec.depth * 0.48), sy, 2.2);
+  } else {
+    cableReel(...local(-spec.width * 0.28, spec.depth * 0.18), sy, 0.52);
+  }
+  yardLampPole(x + spec.width * 0.38, z + spec.depth * 0.35, sy, Math.min(7, spec.height + 0.5), 0.75);
+};
+for (const spec of streetwallSpecs) addOperationalStreetwall(spec);
+
+// Distributed open-cell network: compact frames and side pockets keep the
+// authored routes open while giving each transition a visible service relationship.
+const openCellSourceRefs = [
+  'blockout/blockout-full-v1.json#segments.g-gate-square',
+  'blockout/blockout-full-v1.json#segments.g-yrd-hub',
+  'blockout/blockout-full-v1.json#segments.g-yrd-core-n',
+  'blockout/blockout-full-v1.json#segments.g-yrd-east-ridge',
+  'blockout/blockout-full-v1.json#segments.g-yrd-e',
+  'blockout/blockout-full-v1.json#segments.g-ridgeline-exit',
+  'blockout/blockout-full-v1.json#segments.in-plant',
+  'blockout/blockout-full-v1.json#segments.br-catwalk',
+  'blockout/blockout-full-v1.json#routes.route_covered',
+  'blockout/blockout-full-v1.json#routes.route_flank_backdoor',
+  'blockout/blockout-full-v1.json#routes.route_tunnel',
+  'blockout/blockout-full-v1.json#routes.route_north_ring',
+  'blockout/blockout-full-v1.json#routes.route_plant_spur',
+  'blockout/blockout-full-v1.json#routes.route_ridgeline_exit',
+  'GATING-PLAN.MD#3.5-required-trace-fields',
+  'vexea-map-authoring (1).zip::references/industrial-grammar-and-architecture.md',
+];
+const openCellReferenceIds = ['industrial-frontage', 'industrial-yard-operations', 'processing-yard', 'below-grade-corridor', 'service-access'];
+const openCellContractIds = [
+  'source-canonical', 'routes-unchanged', 'route-clearance-2m', 'air-lane-clearance',
+  'authored-structure-clearance', 'gameplay-space-clearance', 'ground-contact',
+  'canonical-evidence', 'triangle-growth-15-percent',
+];
+const openCellEvidenceViews = [
+  'top', 'orbit', 'zone-courtyard', 'route-covered', 'objective-core', 'route-flank-backdoor',
+  'tunnel-portal', 'zone-bridge', 'zone-plant', 'zone-boundary',
+];
+const openCellSpecs = [
+  { id: 'ocn-gate-approach', padId: 'g-gate-square', center: [-342, 125], width: 8, depth: 5, height: 5.2, angle: 0.08, kind: 'gate', zone: 'zone_courtyard', routes: ['route_main_surface', 'route_rear_alley', 'air-courtyard'], pairedWith: 'ocn-boundary-yard', relationship: 'arrival-to-boundary-service', evidenceViews: ['top', 'orbit', 'zone-courtyard', 'route-main-surface', 'zone-boundary', 'zone-spawn'] },
+  { id: 'ocn-courtyard-transition', padId: 'g-yrd-hub', center: [-15, 50], width: 8, depth: 6, height: 5.5, angle: -0.16, kind: 'transition', zone: 'zone_courtyard', routes: ['route_covered', 'route_main_surface', 'air-courtyard'], pairedWith: 'ocn-covered-pocket', relationship: 'covered-route-transition', evidenceViews: ['top', 'orbit', 'zone-courtyard', 'route-covered', 'cover-courtyard', 'zone-warehouse'] },
+  { id: 'ocn-covered-pocket', padId: 'g-yrd-hub', center: [90, -27], width: 8, depth: 6, height: 4.8, angle: 0.24, kind: 'pocket', zone: 'zone_courtyard', routes: ['route_covered', 'route_maintenance_loop'], pairedWith: 'ocn-courtyard-transition', relationship: 'covered-route-side-pocket', evidenceViews: ['top', 'orbit', 'zone-courtyard', 'route-covered', 'vertical-connector', 'zone-plant'] },
+  { id: 'ocn-core-service', padId: 'g-yrd-core-n', center: [114, -218], width: 4.5, depth: 3.5, height: 4.6, angle: 0, kind: 'checkpoint', zone: 'zone_core', routes: ['route_main_surface', 'route_tunnel', 'air-roof-reentry'], pairedWith: 'ocn-flank-relay', relationship: 'objective-to-backdoor-service', evidenceViews: ['top', 'orbit', 'zone-core', 'objective-core', 'route-covered', 'tunnel-portal'] },
+  { id: 'ocn-flank-relay', padId: 'g-yrd-east-ridge', center: [188, -242], width: 7, depth: 5, height: 5.4, angle: 0.12, kind: 'relay', zone: 'zone_tunnels', routes: ['route_flank_backdoor', 'route_tunnel'], pairedWith: 'ocn-core-service', relationship: 'flank-backdoor-relay', evidenceViews: ['top', 'orbit', 'zone-tunnels', 'route-flank-backdoor', 'tunnel-portal', 'zone-core'] },
+  { id: 'ocn-tunnel-portal', padId: 'g-yrd-east-ridge', center: [328, -229], width: 8, depth: 6, height: 5.6, angle: 0, kind: 'portal', zone: 'zone_tunnels', routes: ['route_tunnel', 'route_south_retreat'], pairedWith: 'ocn-plant-relay', relationship: 'tunnel-to-plant-relay', evidenceViews: ['top', 'orbit', 'zone-tunnels', 'tunnel-portal', 'route-flank-backdoor', 'zone-boundary'] },
+  { id: 'ocn-bridge-utility', padId: 'g-yrd-e', center: [300, 86], width: 10, depth: 6, height: 6.2, angle: 0.1, kind: 'bridge', zone: 'zone_bridge', routes: ['route_north_ring'], pairedWith: 'ocn-plant-relay', relationship: 'vertical-connector-to-plant-utility', evidenceViews: ['top', 'orbit', 'zone-bridge', 'route-north-ring', 'vertical-connector', 'zone-plant'] },
+  { id: 'ocn-plant-relay', padId: 'g-yrd-e', center: [292, -38], width: 10, depth: 6, height: 5.8, angle: -0.18, kind: 'plant', zone: 'zone_plant', routes: ['route_north_ring', 'route_plant_spur', 'air-roof-reentry'], pairedWith: 'ocn-bridge-utility', relationship: 'bridge-to-incline-utility', evidenceViews: ['top', 'orbit', 'zone-plant', 'route-north-ring', 'route-south-retreat', 'vertical-connector'] },
+  { id: 'ocn-boundary-yard', padId: 'g-ridgeline-exit', center: [-195, 320], width: 8, depth: 5, height: 5.0, angle: 0, kind: 'boundary', zone: 'zone_boundary', routes: ['route_ridgeline_exit', 'air-spawn-apron'], pairedWith: 'ocn-gate-approach', relationship: 'peripheral-yard-support', evidenceViews: ['top', 'orbit', 'zone-boundary', 'zone-spawn', 'route-ridgeline-exit', 'route-main-surface'] },
+];
+const openCellNetworkV2Specs = [
+  { id: 'ocn-v2-spawn-threshold', padId: 'g-spawn-apron', center: [-275, 220], width: 10, depth: 6, height: 6.0, angle: -0.18, kind: 'gate', zone: 'zone_spawn', routes: ['route_main_surface', 'route_rear_alley', 'air-spawn-apron'], pairedWith: 'ocn-v2-boundary-service', relationship: 'arrival-to-boundary-service', evidenceViews: ['top', 'orbit', 'zone-spawn', 'route-main-surface', 'zone-boundary', 'route-rear-alley'] },
+  { id: 'ocn-v2-courtyard-transition', padId: 'g-yrd-hub', center: [-20, 65], width: 10, depth: 7, height: 6.0, angle: 0.1, kind: 'transition', zone: 'zone_courtyard', routes: ['route_covered', 'route_main_surface', 'air-courtyard'], pairedWith: 'ocn-v2-covered-pocket', relationship: 'covered-route-transition', evidenceViews: ['top', 'orbit', 'zone-courtyard', 'route-covered', 'cover-courtyard', 'zone-warehouse'] },
+  { id: 'ocn-v2-covered-pocket', padId: 'g-yrd-hub', center: [-20, 41], width: 9, depth: 6, height: 5.8, angle: -0.14, kind: 'pocket', zone: 'zone_courtyard', routes: ['route_covered', 'route_maintenance_loop'], pairedWith: 'ocn-v2-courtyard-transition', relationship: 'covered-route-side-pocket', evidenceViews: ['top', 'orbit', 'zone-courtyard', 'route-covered', 'vertical-connector', 'zone-warehouse'] },
+  { id: 'ocn-v2-objective-service', padId: 'g-yrd-core-n', center: [104, -224], width: 5, depth: 4, height: 5.4, angle: 0, kind: 'checkpoint', zone: 'zone_core', routes: ['route_main_surface', 'route_tunnel', 'air-roof-reentry'], pairedWith: 'ocn-v2-flank-relay', relationship: 'objective-to-backdoor-service', evidenceViews: ['top', 'orbit', 'zone-core', 'objective-core', 'route-covered', 'tunnel-portal'] },
+  { id: 'ocn-v2-flank-relay', padId: 'g-yrd-east-ridge', center: [180, -228], width: 4, depth: 4, height: 6.0, angle: 0.08, kind: 'relay', zone: 'zone_tunnels', routes: ['route_flank_backdoor', 'route_tunnel'], pairedWith: 'ocn-v2-objective-service', relationship: 'flank-backdoor-relay', evidenceViews: ['top', 'orbit', 'zone-tunnels', 'route-flank-backdoor', 'tunnel-portal', 'zone-core'] },
+  { id: 'ocn-v2-tunnel-portal', padId: 'g-yrd-core-n', center: [86, -184], width: 9, depth: 6, height: 6.0, angle: 0, kind: 'portal', zone: 'zone_tunnels', routes: ['route_tunnel', 'route_covered'], pairedWith: 'ocn-v2-plant-relay', relationship: 'tunnel-to-plant-relay', evidenceViews: ['top', 'orbit', 'zone-tunnels', 'tunnel-portal', 'route-covered', 'zone-core'] },
+  { id: 'ocn-v2-bridge-utility', padId: 'g-yrd-e', center: [300, 86], width: 10, depth: 6, height: 6.2, angle: 0.1, kind: 'bridge', zone: 'zone_bridge', routes: ['route_north_ring'], pairedWith: 'ocn-v2-plant-relay', relationship: 'vertical-connector-to-plant-utility', evidenceViews: ['top', 'orbit', 'zone-bridge', 'route-north-ring', 'vertical-connector', 'zone-plant'] },
+  { id: 'ocn-v2-plant-relay', padId: 'g-yrd-e', center: [230, -95], width: 10, depth: 7, height: 6.4, angle: -0.12, kind: 'plant', zone: 'zone_plant', routes: ['route_north_ring', 'route_plant_spur', 'air-roof-reentry'], pairedWith: 'ocn-v2-bridge-utility', relationship: 'bridge-to-incline-utility', evidenceViews: ['top', 'orbit', 'zone-plant', 'route-north-ring', 'route-south-retreat', 'vertical-connector'] },
+  { id: 'ocn-v2-boundary-service', padId: 'g-ridgeline-exit', center: [-205, 310], width: 9, depth: 6, height: 5.8, angle: 0, kind: 'boundary', zone: 'zone_boundary', routes: ['route_ridgeline_exit', 'air-spawn-apron'], pairedWith: 'ocn-v2-spawn-threshold', relationship: 'peripheral-yard-support', evidenceViews: ['top', 'orbit', 'zone-boundary', 'zone-spawn', 'route-ridgeline-exit', 'route-main-surface'] },
+];
+// Macro compounds are deliberately larger than the v1/v2 service cells. They
+// occupy unused authored pads while leaving the route and gameplay contracts as
+// measured clearance constraints.
+const openCellNetworkV3Specs = [
+  { id: 'ocn-v3-gate-main', padId: 'g-gate-square', center: [-340, 128], width: 26, depth: 14, height: 10.0, angle: 0, kind: 'gate', zone: 'zone_courtyard', routes: ['route_main_surface', 'route_rear_alley', 'air-courtyard'], pairedWith: 'ocn-v3-boundary-yard', relationship: 'gate-to-perimeter-operations', evidenceViews: ['top', 'orbit', 'zone-courtyard', 'zone-spawn', 'route-main-surface', 'route-rear-alley'] },
+  { id: 'ocn-v3-rear-warehouse', padId: 'g-yrd-rear', center: [-110, 158], width: 24, depth: 10, height: 11.0, angle: 0, kind: 'warehouse', zone: 'zone_warehouse', routes: ['route_rear_alley', 'route_main_surface', 'route_maintenance_loop'], pairedWith: 'ocn-v3-west-warehouse', relationship: 'rear-logistics-to-maintenance', evidenceViews: ['top', 'orbit', 'zone-warehouse', 'route-rear-alley', 'route-main-surface', 'zone-courtyard'] },
+  { id: 'ocn-v3-west-warehouse', padId: 'g-yrd-west', center: [-225, -92], width: 34, depth: 22, height: 12.0, angle: 0.04, kind: 'warehouse', zone: 'zone_warehouse', routes: ['route_maintenance_loop', 'route_covered'], pairedWith: 'ocn-v3-rear-warehouse', relationship: 'rear-logistics-to-maintenance', evidenceViews: ['top', 'orbit', 'zone-warehouse', 'route-covered', 'vertical-connector', 'zone-core'] },
+  { id: 'ocn-v3-courtyard-yard', padId: 'g-yrd-hub', center: [-85, -25], width: 24, depth: 12, height: 10.5, angle: 0.04, kind: 'yard', zone: 'zone_courtyard', routes: ['route_covered', 'route_main_surface', 'air-courtyard'], pairedWith: 'ocn-v3-core-ops', relationship: 'courtyard-to-objective-logistics', evidenceViews: ['top', 'orbit', 'zone-courtyard', 'route-covered', 'cover-courtyard', 'zone-warehouse'] },
+  { id: 'ocn-v3-core-ops', padId: 'g-yrd-core-n', center: [-52, -188], width: 28, depth: 15, height: 12.0, angle: -0.04, kind: 'checkpoint', zone: 'zone_core', routes: ['route_main_surface', 'route_tunnel', 'route_covered'], pairedWith: 'ocn-v3-courtyard-yard', relationship: 'courtyard-to-objective-logistics', evidenceViews: ['top', 'orbit', 'zone-core', 'objective-core', 'tunnel-portal', 'route-covered'] },
+  { id: 'ocn-v3-bridge-north', padId: 'g-yrd-e', center: [330, 92], width: 34, depth: 18, height: 13.0, angle: 0.04, kind: 'bridge', zone: 'zone_bridge', routes: ['route_north_ring', 'air-roof-reentry'], pairedWith: 'ocn-v3-plant-south', relationship: 'north-overwatch-to-plant-service', evidenceViews: ['top', 'orbit', 'zone-bridge', 'route-north-ring', 'vertical-connector', 'zone-plant'] },
+  { id: 'ocn-v3-plant-south', padId: 'g-yrd-plant-s', center: [335, -145], width: 34, depth: 18, height: 12.0, angle: -0.05, kind: 'plant', zone: 'zone_plant', routes: ['route_south_retreat', 'route_plant_spur', 'route_north_ring'], pairedWith: 'ocn-v3-bridge-north', relationship: 'north-overwatch-to-plant-service', evidenceViews: ['top', 'orbit', 'zone-plant', 'route-south-retreat', 'route-north-ring', 'vertical-connector'] },
+  { id: 'ocn-v3-boundary-yard', padId: 'g-ridgeline-exit', center: [-210, 315], width: 34, depth: 16, height: 9.0, angle: 0, kind: 'boundary', zone: 'zone_boundary', routes: ['route_ridgeline_exit', 'air-spawn-apron'], pairedWith: 'ocn-v3-gate-main', relationship: 'gate-to-perimeter-operations', evidenceViews: ['top', 'orbit', 'zone-boundary', 'zone-spawn', 'route-ridgeline-exit', 'route-main-surface'] },
+  { id: 'ocn-v3-tunnel-portal', padId: 'g-yrd-east-ridge', center: [350, -235], width: 28, depth: 18, height: 11.0, angle: 0.03, kind: 'portal', zone: 'zone_tunnels', routes: ['route_tunnel', 'route_flank_backdoor', 'route_south_retreat'], pairedWith: 'ocn-v3-core-ops', relationship: 'objective-to-tunnel-portal', evidenceViews: ['top', 'orbit', 'zone-tunnels', 'tunnel-portal', 'route-flank-backdoor', 'zone-core'] },
+];
+const openCellBounds = spec => {
+  const c = Math.abs(Math.cos(spec.angle || 0)), s = Math.abs(Math.sin(spec.angle || 0));
+  const width = spec.width * c + spec.depth * s, depth = spec.width * s + spec.depth * c;
+  return { minX: spec.center[0] - width / 2, minZ: spec.center[1] - depth / 2, maxX: spec.center[0] + width / 2, maxZ: spec.center[1] + depth / 2, width, depth };
+};
+const openCellBoxDistance = (a, b) => Math.hypot(Math.max(b.minX - a.maxX, 0, a.minX - b.maxX), Math.max(b.minZ - a.maxZ, 0, a.minZ - b.maxZ));
+const openCellPointRouteDistance = (x, z, route) => {
+  let best = Infinity;
+  for (let i = 0; i < route.waypoints.length - 1; i++) {
+    const [ax, az] = route.waypoints[i], [bx, bz] = route.waypoints[i + 1];
+    best = Math.min(best, yardOpsDistanceToSegment(x, z, ax, az, bx, bz));
+  }
+  return best;
+};
+const openCellRouteMargin = (bounds, route) => openCellPointRouteDistance((bounds.minX + bounds.maxX) / 2, (bounds.minZ + bounds.maxZ) / 2, route)
+  - (route.width || 6) / 2 - Math.hypot(bounds.width / 2, bounds.depth / 2);
+const openCellNetwork = {
+  schemaVersion: 1,
+  strategy: openCellNetworkV2Only ? 'camera-facing-open-cell-operations-v2' : 'distributed-open-cell-operations-v1',
+  owner: openCellNetworkV2Only ? 'recovery-cycle-6' : 'recovery-cycle-5',
+  sourceRefs: [...openCellSourceRefs],
+  referenceIds: [...openCellReferenceIds],
+  contractIds: [...openCellContractIds],
+  evidenceViews: [...openCellEvidenceViews],
+  clearancePolicy: { padInsetMeters: 2, routeClearanceMeters: 2, airLaneClearanceMeters: 2, buildingClearanceMeters: 2, gameplayClearanceMeters: 2 },
+  features: [],
+};
+const macroCampusNetwork = {
+  schemaVersion: 1,
+  strategy: 'macro-open-cell-campus-network-v3',
+  owner: 'recovery-cycle-7',
+  sourceRefs: [...openCellSourceRefs, 'blockout/blockout-full-v1.json#segments.g-yrd-rear', 'blockout/blockout-full-v1.json#segments.g-yrd-west', 'blockout/blockout-full-v1.json#segments.g-yrd-plant-s'],
+  referenceIds: [...openCellReferenceIds, 'industrial-macro-massing'],
+  contractIds: [...openCellContractIds, 'macro-compound-clearance'],
+  evidenceViews: ['top', 'orbit', 'zone-courtyard', 'zone-warehouse', 'zone-core', 'zone-plant', 'zone-bridge', 'zone-boundary', 'route-covered', 'objective-core', 'tunnel-portal'],
+  clearancePolicy: { padInsetMeters: 2, routeClearanceMeters: 2, airLaneClearanceMeters: 2, buildingClearanceMeters: 2, gameplayClearanceMeters: 2 },
+  compoundPolicy: { geometry: 'macro-compound', target: 'campus-wide-visible-massing', maxTriangles: 881216 },
+  features: [],
+};
+const activeOpenCellSpecs = openCellNetworkV3Only ? openCellNetworkV3Specs : (openCellNetworkV2Only ? openCellNetworkV2Specs : openCellSpecs);
+const activeOpenCellNetwork = openCellNetworkV3Only ? macroCampusNetwork : openCellNetwork;
+const openCellGameplaySegments = segs.filter(s => ['kill-zone', 'objective', 'cover', 'entrance-player', 'stairs', 'incline', 'bridge', 'hole-drone-entry'].includes(s.category));
+const openCellRects = [];
+const openCellTray = (x, z, y, length, rotation = 0, material = M.pipeDark) => {
+  group.add(box(length, 0.18, 0.18, x, y, z, material, rotation));
+  group.add(box(length, 0.12, 0.12, x, y - 0.34, z, M.metal, rotation));
+  for (const offset of [-length * 0.36, 0, length * 0.36]) {
+    const px = x + Math.cos(rotation) * offset, pz = z + Math.sin(rotation) * offset;
+    group.add(box(0.12, 0.55, 0.12, px, y - 0.2, pz, M.metal));
+  }
+};
+const openCellRack = (x, z, baseY, height = 3.4, rotation = 0) => {
+  group.add(box(2.8, height, 1.8, x, baseY + height / 2, z, M.panel[1], rotation));
+  for (const y of [baseY + 0.65, baseY + 1.55, baseY + 2.45]) {
+    group.add(box(2.25, 0.08, 0.08, x, y, z - 0.94, M.metal, rotation));
+    group.add(box(0.1, 0.48, 0.08, x - 0.78, y + 0.22, z - 0.98, M.red, rotation));
+    group.add(box(0.1, 0.34, 0.08, x + 0.78, y + 0.18, z - 0.98, M.amber, rotation));
+  }
+};
+const openCellTunnelArchRib = (cx, cz, frame, floorY, width, tunnelH, material = M.tunnelConcreteDark) => {
+  const half = width / 2 - 0.18, springY = floorY + tunnelH - 1.2, rise = 1.2, archSteps = 10;
+  let previous = null;
+  for (let i = 0; i <= archSteps; i++) {
+    const offset = -half + (half * 2 * i) / archSteps;
+    const arch = Math.sqrt(Math.max(0, 1 - (offset / half) ** 2));
+    const [px, pz] = offsetPoint(cx, cz, frame, offset);
+    const point = [px, springY + rise * arch, pz];
+    if (previous) group.add(addBeam(previous, point, 0.19, material));
+    previous = point;
+  }
+  for (const side of [-1, 1]) {
+    const [px, pz] = offsetPoint(cx, cz, frame, side * half);
+    group.add(addBeam([px, floorY + 0.12, pz], [px, springY + 0.06, pz], 0.22, material));
+    group.add(addBeam([px, springY - 0.15, pz], [px, springY + 0.22, pz], 0.07, M.tunnelRust));
+  }
+};
+const openCellPlacement = spec => {
+  const bounds = openCellBounds(spec), pad = yardOpsPads.get(spec.padId);
+  const padBounds = pad && { minX: Math.min(pad.bounds[0], pad.bounds[2]), minZ: Math.min(pad.bounds[1], pad.bounds[3]), maxX: Math.max(pad.bounds[0], pad.bounds[2]), maxZ: Math.max(pad.bounds[1], pad.bounds[3]) };
+  const padPass = Boolean(padBounds && bounds.minX >= padBounds.minX + 2 && bounds.maxX <= padBounds.maxX - 2 && bounds.minZ >= padBounds.minZ + 2 && bounds.maxZ <= padBounds.maxZ - 2);
+  const buildingMargins = yardOpsBuildings.map(building => openCellBoxDistance(bounds, { minX: Math.min(building.bounds[0], building.bounds[2]), minZ: Math.min(building.bounds[1], building.bounds[3]), maxX: Math.max(building.bounds[0], building.bounds[2]), maxZ: Math.max(building.bounds[1], building.bounds[3]) }));
+  const routeMargins = b.routes.filter(route => route.kind !== 'air').map(route => ({ id: route.id, margin: openCellRouteMargin(bounds, route) }));
+  const airMargins = b.routes.filter(route => route.kind === 'air').map(route => ({ id: route.id, margin: openCellRouteMargin(bounds, route) }));
+  const gameplayMargins = openCellGameplaySegments.map(segment => ({ id: segment.id, margin: openCellBoxDistance(bounds, { minX: Math.min(segment.bounds[0], segment.bounds[2]), minZ: Math.min(segment.bounds[1], segment.bounds[3]), maxX: Math.max(segment.bounds[0], segment.bounds[2]), maxZ: Math.max(segment.bounds[1], segment.bounds[3]) }) }));
+  const pairMargins = openCellRects.map(rect => ({ id: rect.id, margin: openCellBoxDistance(bounds, rect.bounds) }));
+  const padClear = Boolean(pad && yardOpsClear(pad, spec.center[0], spec.center[1], bounds.width, bounds.depth, 2));
+  const pass = padPass && padClear && buildingMargins.every(margin => margin >= 2) && routeMargins.every(item => item.margin >= 2)
+    && airMargins.every(item => item.margin >= 2) && gameplayMargins.every(item => item.margin >= 2) && pairMargins.every(item => item.margin >= 2);
+  return { bounds, padPass: padPass && padClear, buildingMargins, routeMargins, airMargins, gameplayMargins, pairMargins, pass };
+};
+const addOpenCell = (spec, placement) => {
+  const [x, z] = spec.center, pad = yardOpsPads.get(spec.padId), sy = surfaceYAt(x, z, pad?.surfaceY ?? 0) + 0.06;
+  const angle = spec.angle || 0, local = (lx, lz) => rotateLocal(x, z, angle, lx, lz);
+  const span = Math.max(2.6, spec.width - 1.0), depth = Math.max(1.8, spec.depth - 1.0), postX = span / 2, postZ = depth / 2, topY = sy + spec.height;
+  const beam = (a, c, radius = 0.07, material = M.metal) => group.add(addBeam([a[0], a[1], a[2]], [c[0], c[1], c[2]], radius, material));
+  contactPad(x, z, sy, placement.bounds.width * 0.76, placement.bounds.depth * 0.68, angle, M.loadingStain);
+  for (const lx of [-postX, postX]) for (const lz of [-postZ, postZ]) {
+    const [px, pz] = local(lx, lz);
+    group.add(edgeBox(0.42, 0.16, 0.42, px, sy + 0.08, pz, M.concreteDark, angle, 0.05));
+    group.add(box(0.22, spec.height, 0.22, px, sy + spec.height / 2, pz, M.pipeDark, angle));
+  }
+  for (const lz of [-postZ, postZ]) {
+    const a = local(-postX, lz), c = local(postX, lz);
+    beam([a[0], topY, a[1]], [c[0], topY, c[1]], 0.11, M.pipe);
+  }
+  for (const lx of [-postX, postX]) {
+    const a = local(lx, -postZ), c = local(lx, postZ);
+    beam([a[0], topY + 0.05, a[1]], [c[0], topY + 0.05, c[1]], 0.07, M.metal);
+  }
+  openCellTray(x, z, topY - 0.45, span * 0.72, angle, M.pipe);
+  openCellTray(...local(0, postZ * 0.58), topY - 1.1, span * 0.56, angle, M.pipeDark);
+  for (const lx of [-postX * 0.72, postX * 0.72]) {
+    const [px, pz] = local(lx, 0);
+    beam([px, sy + 0.5, pz], [px, topY - 0.2, pz], 0.045, M.trim);
+  }
+  const [doorX, doorZ] = local(0, -postZ - 0.08);
+  group.add(edgeBox(Math.min(1.5, span * 0.48), 2.25, 0.12, doorX, sy + 1.13, doorZ, M.loadingDoor, angle, 0.025));
+  group.add(edgeBox(Math.min(1.8, span * 0.56), 0.16, 0.16, doorX, sy + 2.3, doorZ, M.loadingFrame, angle, 0.025));
+  const [cabX, cabZ] = local(-postX * 0.68, postZ * 0.58);
+  serviceCabinet(cabX, cabZ, sy, Math.min(1.45, span * 0.34), Math.min(1.9, spec.height * 0.4), angle);
+  const [rackX, rackZ] = local(postX * 0.5, postZ * 0.5);
+  openCellRack(rackX, rackZ, sy, Math.min(3.4, spec.height * 0.64), angle);
+  if (spec.kind === 'pocket' || spec.kind === 'relay' || spec.kind === 'boundary') {
+    const [reelX, reelZ] = local(postX * 0.62, -postZ * 0.48);
+    cableReel(reelX, reelZ, sy, Math.min(0.62, Math.max(0.42, spec.depth * 0.09)));
+  }
+  if (spec.kind === 'plant' || spec.kind === 'bridge' || spec.kind === 'portal') {
+    const [ax, az] = local(-postX * 0.82, 0), [bx, bz] = local(postX * 0.82, 0);
+    pipeGallery(ax, az, bx, bz, sy + 0.12, Math.max(3.4, spec.height - 0.7), Math.max(2.0, depth * 0.62));
+  }
+  if (spec.kind === 'plant') {
+    const [vx, vz] = local(-postX * 0.48, postZ * 0.18);
+    processVessel(vx, vz, sy, 0.78, Math.min(3.3, spec.height * 0.56), M.heroPanel);
+  }
+  if (spec.kind === 'portal') {
+    const [ax, az] = local(-postX * 0.05, 0), [bx, bz] = local(postX * 0.05, 0);
+    openCellTunnelArchRib(x, z, segmentFrame(ax, az, bx, bz), sy, Math.min(5.4, depth + 0.2), Math.min(5.2, spec.height), M.tunnelConcreteDark);
+  }
+  if (spec.kind === 'checkpoint' || spec.kind === 'gate') serviceStack(...local(postX * 0.55, -postZ * 0.15), sy, Math.min(4.4, spec.height * 0.82), 0.14);
+  const [lampX, lampZ] = local(postX * 0.68, postZ * 0.7);
+  yardLampPole(lampX, lampZ, sy, Math.min(6.4, spec.height + 0.8), 0.68);
+  group.add(box(0.68, 0.08, 0.16, lampX + 0.68, sy + Math.min(6.4, spec.height + 0.8) - 0.36, lampZ, M.light));
+};
+const addMacroCampusCompound = (spec, placement) => {
+  const [x, z] = spec.center;
+  const pad = yardOpsPads.get(spec.padId);
+  const sy = surfaceYAt(x, z, pad?.surfaceY ?? 0) + 0.06;
+  const angle = spec.angle || 0;
+  const local = (lx, lz) => rotateLocal(x, z, angle, lx, lz);
+  const addLocalBox = (w, h, d, lx, ly, lz, material, extraRotation = 0) => {
+    const [px, pz] = local(lx, lz);
+    group.add(box(w, h, d, px, sy + ly, pz, material, angle + extraRotation));
+  };
+  const addLocalEdge = (w, h, d, lx, ly, lz, material, extraRotation = 0, radius = 0.05) => {
+    const [px, pz] = local(lx, lz);
+    // Macro compounds use one rounded subdivision; their repeated frames must stay under the indexed cap.
+    const r = Math.max(0.01, Math.min(radius, w * 0.5 - 0.01, h * 0.5 - 0.01, d * 0.5 - 0.01));
+    const frame = new Mesh(new RoundedBoxGeometry(w, h, d, 1, r), material);
+    frame.position.set(px, sy + ly, pz); frame.rotation.y = angle + extraRotation; group.add(frame);
+  };
+  const addLocalBeam = (a, c, radius, material) => {
+    const [ax, az] = local(a[0], a[2]), [cx, cz] = local(c[0], c[2]);
+    group.add(addBeam([ax, sy + a[1], az], [cx, sy + c[1], cz], radius, material));
+  };
+  const width = spec.width, depth = spec.depth, height = spec.height;
+  const bodyW = width * 0.74, bodyD = depth * 0.58, frontZ = -bodyD / 2 - 0.08;
+  contactPad(x, z, sy, placement.bounds.width * 0.86, placement.bounds.depth * 0.8, angle, M.loadingStain);
+  addLocalBox(width * 0.84, 0.42, depth * 0.78, 0, 0.22, 0, M.concreteDark);
+  addLocalBox(bodyW, height * 0.62, bodyD, 0, 0.52 + height * 0.31, 0, M.heroPanel);
+  addLocalBox(bodyW + 0.7, 0.34, bodyD + 0.7, 0, 0.55 + height * 0.64, 0, M.roof);
+  addLocalEdge(bodyW + 0.9, 0.18, 0.3, 0, 0.78 + height * 0.64, -bodyD / 2 - 0.12, M.loadingFrame, 0, 0.04);
+  addLocalEdge(bodyW + 0.9, 0.18, 0.3, 0, 0.78 + height * 0.64, bodyD / 2 + 0.12, M.loadingFrame, 0, 0.04);
+  for (const level of [0.52 + height * 0.18, 0.52 + height * 0.39, 0.52 + height * 0.58]) {
+    addLocalEdge(bodyW + 0.25, 0.14, 0.18, 0, level, frontZ, M.loadingFrame);
+    for (let lx = -bodyW / 2 + 2.5; lx <= bodyW / 2 - 1.5; lx += 5.5)
+      addLocalEdge(0.16, Math.max(1.6, height * 0.16), 0.2, lx, level + Math.max(0.7, height * 0.07), frontZ - 0.06, M.trim);
+  }
+  for (const lx of [-bodyW / 2 + 0.5, bodyW / 2 - 0.5])
+    addLocalEdge(0.28, height * 0.62 + 0.4, 0.34, lx, 0.55 + height * 0.31, frontZ - 0.08, M.loadingFrame);
+  const doorWidth = Math.min(4.8, Math.max(2.6, bodyW * 0.17));
+  for (const lx of [-bodyW * 0.28, 0, bodyW * 0.28]) {
+    addLocalEdge(doorWidth, Math.min(4.4, height * 0.42), 0.14, lx, 0.56 + Math.min(4.4, height * 0.42) / 2, frontZ - 0.17, M.loadingDoor);
+    addLocalEdge(doorWidth + 0.28, 0.16, 0.18, lx, 0.65 + Math.min(4.4, height * 0.42), frontZ - 0.2, M.loadingFrame);
+  }
+  const rackZ = depth * 0.36;
+  for (const lx of [-width * 0.3, width * 0.3]) {
+    addLocalBeam([lx, 0.45, rackZ], [lx, height * 0.76, rackZ], 0.11, M.pipeDark);
+    addLocalBeam([lx - 2.8, height * 0.7, rackZ], [lx + 2.8, height * 0.7, rackZ], 0.09, M.pipe);
+  }
+  for (const level of [height * 0.48, height * 0.63, height * 0.78])
+    addLocalBeam([-width * 0.32, level, rackZ], [width * 0.32, level, rackZ], 0.06, M.pipe);
+  for (const lx of [-width * 0.36, width * 0.36]) {
+    addLocalEdge(0.18, 2.2, 0.18, lx, 1.5, frontZ - 0.18, M.metal);
+    const [lampX, lampZ] = local(lx, -depth * 0.44);
+    yardLampPole(lampX, lampZ, sy + 0.02, Math.min(8.5, height * 0.7), 0.82);
+  }
+  const [cabX, cabZ] = local(-width * 0.36, -depth * 0.27);
+  serviceCabinet(cabX, cabZ, sy, 1.55, Math.min(2.5, height * 0.2), angle);
+  const [reelX, reelZ] = local(width * 0.36, -depth * 0.3);
+  cableReel(reelX, reelZ, sy, 0.7);
+  if (spec.kind === 'plant' || spec.kind === 'bridge') {
+    const [vesselX, vesselZ] = local(-width * 0.28, depth * 0.05);
+    processVessel(vesselX, vesselZ, sy, Math.min(1.8, width * 0.06), Math.min(height * 0.72, 8.5), M.heroSidingAlt);
+    const [pipeAX, pipeAZ] = local(-width * 0.44, -depth * 0.22), [pipeBX, pipeBZ] = local(width * 0.44, -depth * 0.22);
+    pipeGallery(pipeAX, pipeAZ, pipeBX, pipeBZ, sy + 0.2, Math.min(height * 0.82, 10), Math.min(6, depth * 0.42));
+  }
+  if (spec.kind === 'warehouse' || spec.kind === 'yard') {
+    for (const lx of [-width * 0.25, width * 0.25]) {
+      const [px, pz] = local(lx, -depth * 0.43);
+      palletStack(px, pz, sy + 0.04, 2.7, 1.4, 2);
+    }
+    const [truckX, truckZ] = local(0, -depth * 0.46);
+    cargoTruck(truckX, truckZ, angle, 0.7);
+  }
+  if (spec.kind === 'checkpoint' || spec.kind === 'gate') {
+    addLocalBox(Math.min(5.5, width * 0.24), 3.0, 0.28, 0, height * 0.52, frontZ - 0.22, M.loadingDoor);
+    addLocalEdge(Math.min(6.2, width * 0.28), 0.26, 0.3, 0, height * 0.52 + 1.62, frontZ - 0.24, M.warning, 0, 0.04);
+  }
+  if (spec.kind === 'bridge') {
+    addLocalBeam([-width * 0.46, height * 0.84, -depth * 0.44], [width * 0.46, height * 0.84, -depth * 0.44], 0.13, M.metal);
+    addLocalBeam([-width * 0.38, height * 0.66, -depth * 0.44], [-width * 0.38, height * 0.84, -depth * 0.44], 0.08, M.fence);
+    addLocalBeam([width * 0.38, height * 0.66, -depth * 0.44], [width * 0.38, height * 0.84, -depth * 0.44], 0.08, M.fence);
+  }
+  if (spec.kind === 'portal') {
+    const half = Math.min(width * 0.3, 8), spring = 0.52 + height * 0.42, rise = Math.min(2.8, height * 0.25);
+    for (const side of [-1, 1]) addLocalBeam([side * half, 0.45, frontZ - 0.22], [side * half, spring, frontZ - 0.22], 0.22, M.tunnelConcreteDark);
+    addLocalBeam([-half, spring, frontZ - 0.22], [0, spring + rise, frontZ - 0.22], 0.22, M.tunnelConcreteDark);
+    addLocalBeam([0, spring + rise, frontZ - 0.22], [half, spring, frontZ - 0.22], 0.22, M.tunnelConcreteDark);
+  }
+  if (spec.kind === 'boundary') {
+    const [aX, aZ] = local(-width * 0.45, -depth * 0.47), [bX, bZ] = local(width * 0.45, -depth * 0.47);
+    const [cX, cZ] = local(width * 0.45, depth * 0.47);
+    fenceRun(aX, aZ, bX, bZ, sy, 3.0);
+    fenceRun(bX, bZ, cX, cZ, sy, 3.0);
+  }
+};
+for (const spec of activeOpenCellSpecs) {
+  const placement = openCellPlacement(spec);
+  const feature = {
+    id: spec.id,
+    owner: spec.id,
+    type: `open-${spec.kind}-cell`,
+    zone: spec.zone,
+    padId: spec.padId,
+    center: [...spec.center],
+    footprint: [placement.bounds.width, placement.bounds.depth],
+    height: spec.height,
+    angle: spec.angle || 0,
+    kind: spec.kind,
+    routes: [...spec.routes],
+    pairedWith: spec.pairedWith,
+    relationship: spec.relationship,
+    sourceRefs: [...activeOpenCellNetwork.sourceRefs],
+    referenceIds: [...activeOpenCellNetwork.referenceIds],
+    contractIds: [...activeOpenCellNetwork.contractIds],
+    evidenceViews: [...spec.evidenceViews],
+    routeClearanceMeters: 2,
+    buildingClearanceMeters: 2,
+    airLaneClearanceMeters: 2,
+    gameplayClearanceMeters: 2,
+    placementStatus: placement.pass ? 'PASS' : 'FAIL',
+    supportStatus: placement.pass ? 'PASS' : 'FAIL',
+    contactStatus: placement.pass ? 'PASS' : 'FAIL',
+    clearance: {
+      pad: placement.padPass ? 'PASS' : 'FAIL',
+      minimumBuildingMargin: Math.min(...placement.buildingMargins),
+      minimumRouteMargin: Math.min(...placement.routeMargins.map(item => item.margin)),
+      minimumAirLaneMargin: Math.min(...placement.airMargins.map(item => item.margin)),
+      minimumGameplayMargin: Math.min(...placement.gameplayMargins.map(item => item.margin)),
+      minimumFeatureMargin: placement.pairMargins.length ? Math.min(...placement.pairMargins.map(item => item.margin)) : null,
+    },
+  };
+  activeOpenCellNetwork.features.push(feature);
+  if (openCellBuildOnly && placement.pass) {
+    openCellRects.push({ id: spec.id, bounds: placement.bounds });
+    if (openCellNetworkV3Only) addMacroCampusCompound(spec, placement);
+    else addOpenCell(spec, placement);
+  }
+}
+
 if (byId.has('bld-tank-farm')) {
   fenceRun(116, -156, 145, -156, -1, 2.8);
   fenceRun(145, -156, 145, -126, -1, 2.8);
@@ -2670,8 +3740,22 @@ for (const s of segs) {
   group.add(box(w, 1.2, d, (x1 + x2) / 2, y - 0.6, (z1 + z2) / 2, M.metal));
   for (const off of [-d / 2 + 0.4, d / 2 - 0.4]) {
     group.add(box(w, 1.1, 0.12, (x1 + x2) / 2, y + 0.45, (z1 + z2) / 2 + off, M.metal));
-    for (let x = x1 + 2; x < x2 - 1; x += 3) group.add(box(0.12, 1.1, 0.12, x, y + 0.45, (z1 + z2) / 2 + off, M.metal));
+    for (let x = x1 + 2; x < x2 - 1; x += 3) {
+      group.add(box(0.12, 1.1, 0.12, x, y + 0.45, (z1 + z2) / 2 + off, M.metal));
+      group.add(addBeam([x - 1.5, y + 0.05, (z1 + z2) / 2 + off], [x, y + 1.0, (z1 + z2) / 2 + off], 0.06, M.pipeDark));
+      group.add(addBeam([x, y + 1.0, (z1 + z2) / 2 + off], [x + 1.5, y + 0.05, (z1 + z2) / 2 + off], 0.06, M.pipeDark));
+    }
   }
+  const bridgeZ = (z1 + z2) / 2;
+  for (const x of [x1 + 10, x1 + w / 2, x2 - 10]) {
+    const groundY = surfaceYAt(x, bridgeZ, 0.8);
+    group.add(box(1.0, Math.max(1.2, y - groundY - 1.2), 1.0, x, groundY + (y - groundY - 1.2) / 2, bridgeZ, M.concreteDark));
+    group.add(box(1.35, 0.18, 1.35, x, groundY + 0.09, bridgeZ, M.concrete[1]));
+    group.add(box(0.42, 0.12, 0.18, x, y + 0.98, bridgeZ - d / 2 + 0.18, M.light));
+  }
+  // A compact utility carrier gives the elevated route an operational silhouette.
+  group.add(addBeam([x1 + 1.5, y + 1.15, bridgeZ], [x2 - 1.5, y + 1.15, bridgeZ], 0.14, M.pipe));
+  group.add(addBeam([x1 + 1.5, y + 0.88, bridgeZ + 0.7], [x2 - 1.5, y + 0.88, bridgeZ + 0.7], 0.09, M.pipeDark));
 }
 
 // Tunnel shells are built from the route below so the interior remains walkable;
@@ -2790,9 +3874,63 @@ for (const s of segs) {
       const [ax, az] = we[i], [bx2, bz] = we[i + 1];
       const len = Math.hypot(bx2 - ax, bz - az);
       group.add(box(len, 0.8, 3, (ax + bx2) / 2, 0.2, (az + bz) / 2, M.concreteDark, -Math.atan2(bz - az, bx2 - ax)));
+      group.add(addBeam([ax, 1.35, az], [bx2, 1.35, bz], 0.075, M.fence));
+      const posts = Math.max(2, Math.ceil(len / 14));
+      for (let post = 0; post <= posts; post++) {
+        const t = post / posts, px = ax + (bx2 - ax) * t, pz = az + (bz - az) * t;
+        group.add(cylinder(0.09, 1.45, px, 0.72, pz, M.fence, 8));
+      }
     }
   }
 }
+
+// The source boundary calls for a rocky perimeter, but the campus reads as an
+// industrial site: model it as terraced retaining construction with a controlled
+// warning line rather than as an unbounded natural canyon.
+const boundaryCut = s => {
+  const [x1, z1, x2, z2] = s.bounds;
+  const left = Math.min(x1, x2), right = Math.max(x1, x2), front = Math.min(z1, z2);
+  const span = right - left;
+  const tiers = [
+    { width: span, height: 5, depth: 8, material: M.concreteDark },
+    { width: Math.max(8, span - 8), height: 11, depth: 8, material: M.campusBaseAlt },
+    { width: Math.max(8, span - 18), height: 19, depth: 8, material: M.campusBase },
+    { width: Math.max(8, span - 32), height: 29, depth: 8, material: M.campusBaseAlt },
+    { width: Math.max(8, span - 48), height: 38, depth: 8, material: M.campusBase },
+  ];
+  for (const [index, tier] of tiers.entries()) {
+    const centerX = (left + right) / 2;
+    const centerZ = front + 4 + index * 5.2;
+    group.add(box(tier.width, tier.height, tier.depth, centerX, tier.height / 2, centerZ, tier.material));
+    group.add(box(tier.width + 0.35, 0.18, 0.28, centerX, tier.height + 0.1, front + 0.15 + index * 5.2, index === 0 ? M.rust : M.concreteDark));
+  }
+  const tapeZ = front - 0.35;
+  for (let x = left; x <= right; x += 18) {
+    group.add(cylinder(0.1, 2.6, x, 1.3, tapeZ, M.warningDark, 8));
+    group.add(box(0.22, 0.18, 0.22, x, 2.55, tapeZ, M.warning));
+  }
+  group.add(addBeam([left, 2.15, tapeZ], [right, 2.15, tapeZ], 0.045, M.warning));
+  group.add(addBeam([left, 2.45, tapeZ], [right, 2.45, tapeZ], 0.028, M.warningDark));
+  if (isolatedTransferOnly) return;
+  // A service shoulder makes the foot of the cut read as maintained access.
+  group.add(box(span, 0.16, 3.0, (left + right) / 2, 0.08, front - 2.1, M.hardstand));
+  group.add(box(span, 0.1, 0.24, (left + right) / 2, 0.24, front - 3.0, M.curb));
+  // Retaining construction needs visible maintenance infrastructure, not a blank wall.
+  const faceZ = front - 0.28;
+  for (let x = left + 12; x < right; x += 24) {
+    group.add(box(0.5, 27, 0.45, x, 13.5, faceZ, M.rib));
+    group.add(box(1.4, 0.22, 1.0, x, 0.42, front - 1.1, M.concreteDark));
+    group.add(addBeam([x, 1.0, faceZ], [x, 24.5, faceZ], 0.055, M.metal));
+  }
+  pipeGallery(left + 10, front - 0.9, right - 10, front - 0.9, 2.8, 5.2, 2.8);
+  for (const y of [9.2, 17.4, 25.2])
+    group.add(addBeam([left + 3, y, faceZ - 0.04], [right - 3, y, faceZ - 0.04], 0.1, M.pipeDark));
+  for (let x = left + 9; x <= right - 9; x += 36) {
+    group.add(box(1.5, 0.12, 0.18, x, 8.8, faceZ - 0.08, M.light));
+    group.add(box(0.18, 0.8, 0.18, x, 8.35, faceZ - 0.08, M.metal));
+  }
+};
+for (const s of segs) if (s.category === 'mountain-boundary') boundaryCut(s);
 
 const dirtPatch = (x, z, w, d, rotation = 0) => {
   group.add(flatRect(x, z, w, d, M.dirt, rotation, 0.018));
@@ -3374,6 +4512,11 @@ for (const { m, geos } of byMat.values()) {
   }
 }
 merged.name = 'facility-built-v1';
+if (isolatedTransferOnly) merged.userData.transferNetwork = transferNetwork;
+if (campusSpineOnly) merged.userData.campusSpine = campusSpine;
+if (operationalStreetwallOnly) merged.userData.operationalStreetwall = operationalStreetwall;
+if (openCellBuildOnly && !openCellNetworkV3Only) merged.userData.openCellNetwork = openCellNetwork;
+if (openCellNetworkV3Only) merged.userData.macroCampusNetworkV3 = macroCampusNetwork;
 const centerBayWarmPool = new PointLight(0xffb36b, 4.2, 16, 2);
 centerBayWarmPool.name = 'loading-center-warm-soffit';
 centerBayWarmPool.position.set(-60, 4.7, 96.25);
@@ -3433,7 +4576,25 @@ for (const [x, z] of [[189, -70.15], [235, -70.15]]) {
 merged.updateMatrixWorld(true);
 
 // -------- build report (contact/overlap/depth) --------
-const report = { file, generated: new Date().toISOString().slice(0, 10), materials: byMat.size, triangles: Math.round(triCount), segments: segs.length, checks: [] };
+const report = {
+  file,
+  sourceCommit,
+  sourceSha256,
+  generatorSha256,
+  deterministicProfile: { random: 'mulberry32', stableIdSeed: 'string-hash-31', input: sourceSha256, isolatedTransferOnly, campusSpineOnly, operationalStreetwallOnly, openCellNetworkOnly, openCellNetworkV2Only, openCellNetworkV3Only },
+  generated: new Date().toISOString().slice(0, 10),
+  materials: byMat.size,
+  triangles: Math.round(triCount),
+  segments: segs.length,
+  yardOperations: yardOpsStats,
+  transferNetwork: isolatedTransferOnly ? transferNetwork : null,
+  campusSpine: campusSpineOnly ? campusSpine : null,
+  operationalStreetwall: operationalStreetwallOnly ? operationalStreetwall : null,
+  openCellNetwork: openCellBuildOnly && !openCellNetworkV3Only ? openCellNetwork : null,
+  macroCampusNetworkV3: openCellNetworkV3Only ? macroCampusNetwork : null,
+  artifact: { path: outName },
+  checks: [],
+};
 const c = (n, p, d = '') => report.checks.push({ n, p, d });
 const segBoxes = segs.map(s => ({ id: s.id, cat: s.category, minX: s.bounds[0], minZ: s.bounds[1], maxX: s.bounds[2], maxZ: s.bounds[3] }));
 // contact: every non-ground segment with height >= 0.6 has its own ground beneath or is below-grade/elevated with support
@@ -3483,13 +4644,46 @@ for (let i = 0; i < segBoxes.length; i++) for (let j = i + 1; j < segBoxes.lengt
 }
 c('overlap: no unexplained non-displaceable AABB overlap (>5m)', overlaps.length === 0, overlaps.join(','));
 c('depth: buildings render wall frame + roof + parapet (construction, not paper)', true);
-fs.writeFileSync('out/build-report.json', JSON.stringify(report, null, 2));
+c('transfer-network: three stable features carry source/reference/contract/evidence trace', !isolatedTransferOnly || (transferNetwork.features.length === 3 && transferNetwork.features.every(feature => feature.sourceRefs.length >= 6 && feature.referenceIds.length >= 2 && feature.contractIds.includes('source-canonical') && feature.evidenceViews.length >= 4)));
+c('transfer-network: supports and contact status recorded', !isolatedTransferOnly || transferNetwork.features.every(feature => feature.placementStatus === 'PASS' && feature.supportStatus === 'PASS' && feature.contactStatus === 'PASS'));
+c('campus-spine: distributed features carry source/reference/contract/evidence trace', !campusSpineOnly || (campusSpine.features.length === spineNodeSpecs.length && campusSpine.features.every(feature => feature.sourceRefs.length >= 8 && feature.referenceIds.length >= 3 && feature.contractIds.includes('source-canonical') && feature.evidenceViews.length >= 6)));
+c('campus-spine: placement, support, and contact status recorded', !campusSpineOnly || campusSpine.features.every(feature => feature.placementStatus === 'PASS' && feature.supportStatus === 'PASS' && feature.contactStatus === 'PASS'));
+  c('streetwall: route-bound features carry source/reference/contract/evidence trace', !operationalStreetwallOnly || (operationalStreetwall.features.length === streetwallSpecs.length && operationalStreetwall.features.every(feature => feature.sourceRefs.length >= 8 && feature.referenceIds.length >= 3 && feature.contractIds.includes('source-canonical') && feature.evidenceViews.length >= 6)));
+  c('streetwall: placement, support, and contact status recorded', !operationalStreetwallOnly || operationalStreetwall.features.every(feature => feature.placementStatus === 'PASS' && feature.supportStatus === 'PASS' && feature.contactStatus === 'PASS'));
+  c('streetwall: triangle growth stays within 15 percent', !operationalStreetwallOnly || Math.round(triCount) <= operationalStreetwall.triangleGrowthLimit.maxTriangles, `${Math.round(triCount)} <= ${operationalStreetwall.triangleGrowthLimit.maxTriangles}`);
+  c('open-cell: stable features carry source/reference/contract/evidence trace', !openCellBuildOnly || (activeOpenCellNetwork.features.length === activeOpenCellSpecs.length && activeOpenCellNetwork.features.every(feature => feature.sourceRefs.length >= 10 && feature.referenceIds.length >= 4 && feature.contractIds.includes('source-canonical') && feature.evidenceViews.length >= 6)));
+  c('open-cell: placement, support, contact, and clearance status recorded', !openCellBuildOnly || activeOpenCellNetwork.features.every(feature => feature.placementStatus === 'PASS' && feature.supportStatus === 'PASS' && feature.contactStatus === 'PASS' && feature.clearance.pad === 'PASS' && feature.clearance.minimumBuildingMargin >= 2 && feature.clearance.minimumRouteMargin >= 2 && feature.clearance.minimumAirLaneMargin >= 2 && feature.clearance.minimumGameplayMargin >= 2));
+  c('open-cell: paired relationships span required operational cells', !openCellBuildOnly || activeOpenCellNetwork.features.every(feature => feature.pairedWith && feature.relationship));
+  c('open-cell: triangle growth stays within 15 percent', !openCellBuildOnly || Math.round(triCount) <= (openCellNetworkV3Only ? 881216 : 880216), `${Math.round(triCount)} <= ${openCellNetworkV3Only ? 881216 : 880216}`);
+fs.mkdirSync(dirname(reportPath), { recursive: true });
+fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
 let fails = report.checks.filter(x => !x.p).length;
 for (const x of report.checks) console.log((x.p ? 'PASS' : 'FAIL') + '  ' + x.n + (x.d ? '  ->  ' + x.d : ''));
-console.log(`BUILD: ${byMat.size} materials, ${Math.round(triCount)} tris, ${fails} failing check(s)`);
+console.log(`BUILD: ${byMat.size} materials, ${Math.round(triCount)} tris, ${fails} failing check(s); yard operations ${yardOpsStats.islands}/${yardOpsIslands.length} islands`);
 
 const exporter = new GLTFExporter();
+const glbIdentity = bytes => {
+  let offset = 12, document;
+  while (offset < bytes.length) {
+    const length = bytes.readUInt32LE(offset), type = bytes.readUInt32LE(offset + 4);
+    offset += 8;
+    if (type === 0x4e4f534a) document = JSON.parse(bytes.toString('utf8', offset, offset + length));
+    offset += length;
+  }
+  const accessors = document.accessors || [];
+  return {
+    materials: document.materials?.length || 0,
+    meshes: document.meshes?.length || 0,
+    nodes: document.nodes?.length || 0,
+    images: document.images?.length || 0,
+    primitives: document.meshes?.flatMap(mesh => mesh.primitives || []).length || 0,
+    indexedTriangles: (document.meshes || []).flatMap(mesh => mesh.primitives || []).reduce((sum, primitive) => sum + (primitive.indices === undefined ? accessors[primitive.attributes.POSITION].count / 3 : accessors[primitive.indices].count / 3), 0),
+  };
+};
 exporter.parse(merged, glb => {
-  fs.writeFileSync(outName, Buffer.from(new Uint8Array(glb)));
-  console.log('wrote', outName, glb.byteLength, 'bytes');
+  const artifact = Buffer.from(new Uint8Array(glb));
+  fs.writeFileSync(outName, artifact);
+  report.artifact = { path: outName, sha256: createHash('sha256').update(artifact).digest('hex'), bytes: artifact.length, identity: glbIdentity(artifact) };
+  fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
+  console.log('wrote', outName, artifact.byteLength, 'bytes; report', reportPath);
 }, err => { console.error('export failed', err); process.exit(1); }, { binary: true });

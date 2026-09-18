@@ -1,0 +1,8 @@
+captured route-north-ring via readPixels sample=135,94,67,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=112 triangles=790032
+captured route-south-retreat via readPixels sample=73,68,62,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=108 triangles=788808
+captured route-flank-backdoor via readPixels sample=146,131,110,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=93 triangles=777856
+captured objective-core via readPixels sample=49,47,37,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=94 triangles=777268
+captured cover-courtyard via readPixels sample=60,56,44,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=120 triangles=791580
+captured tunnel-portal via readPixels sample=100,92,78,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=109 triangles=789228
+captured vertical-connector via readPixels sample=84,78,72,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=98 triangles=773896
+SURVEY PASS: 7/21 views; artifact 0b9ef3e4179bbc439cab690cd7127f4a198883860f2a0bc21198a1c7deaaf1bb

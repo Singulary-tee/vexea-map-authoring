@@ -1,10 +1,8 @@
 <!doctype html>
-<!-- Full-map blockout viewer (stage deliverable): orbit-controllable, orthographic-capable,
-     category color-coded, X-ray toggle for tunnels/interiors. Serves editor/blockout-full.glb
-     from tools/gen-full-geometry.mjs (blockout/blockout-full-v1.json). -->
+<!-- Full-map blockout viewer: built geometry, route cameras, X-ray interiors, and blockout reference. -->
 <html><head><meta charset="utf-8"><style>
 html,body{margin:0;height:100%;background:#10151b;font-family:monospace}
-canvas{display:block}
+canvas{display:block;width:100vw;height:100vh}
 #ui{position:fixed;top:10px;left:10px;background:#0c1116dd;padding:8px 10px;border-radius:4px;color:#b8c4d0;font-size:11px}
 #ui button{margin-right:6px;background:#1b2733;color:#cfe0ee;border:1px solid #33475c;padding:3px 8px;border-radius:3px;cursor:pointer;font-family:monospace;font-size:11px}
 #ui button.on{background:#2e5d7a}
@@ -16,230 +14,176 @@ canvas{display:block}
 <div id="status" style="margin-top:5px;color:#82909d">BUILT GEOMETRY · blockout reference hidden</div>
 <div id="legend"></div>
 </div>
-<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
 <script type="module">
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { Sky } from 'three/addons/objects/Sky.js';
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x858e8a);
-scene.fog = new THREE.Fog(0x858e8a, 460, 1100);
-const WORLD = { x: [-465, 475], z: [-325, 340] };
-const cx = (WORLD.x[0] + WORLD.x[1]) / 2, cz = (WORLD.z[0] + WORLD.z[1]) / 2;
-const span = Math.max(WORLD.x[1] - WORLD.x[0], WORLD.z[1] - WORLD.z[0]);
-// orthographic top view (default) + perspective orbit camera
-const camO = new THREE.OrthographicCamera(-span * 0.55, span * 0.55, span * 0.55, -span * 0.55, 1, 3000);
-camO.position.set(cx, 900, cz + 0.01); camO.up.set(0, 0, 1); camO.lookAt(cx, 0, cz); // north-up
-const camP = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 1, 4000);
-camP.position.set(-760, 520, 760); camP.lookAt(cx, 0, cz);
-let cam = camO;
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.18;
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFShadowMap;
-renderer.setSize(innerWidth, innerHeight);
-document.body.appendChild(renderer.domElement);
-const pmrem = new THREE.PMREMGenerator(renderer);
-const environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
-scene.environment = environment;
-scene.environmentIntensity = 0.28;
-const light = new THREE.HemisphereLight(0xd8dfd9, 0x39413d, 0.9);
-const sun = new THREE.DirectionalLight(0xe6ddc9, 1.45);
-sun.position.set(-260, 360, 280);
-sun.castShadow = true;
-sun.shadow.mapSize.set(1024, 1024);
-sun.shadow.camera.left = -700;
-sun.shadow.camera.right = 700;
-sun.shadow.camera.top = 700;
-sun.shadow.camera.bottom = -700;
-sun.shadow.camera.near = 1;
-sun.shadow.camera.far = 1800;
-sun.shadow.bias = -0.0005;
-sun.shadow.normalBias = 0.02;
-const fill = new THREE.DirectionalLight(0x9bb8ba, 0.42);
-fill.position.set(120, 180, -300);
-const frontKey = new THREE.DirectionalLight(0xe2c8a9, 2.2);
-frontKey.position.set(-330, 260, -260);
-scene.add(light, sun, fill, frontKey);
-for (const [x, y, z, intensity, distance] of [
-  [-92, 6.2, 92, 1.45, 26], [-68, 6.2, 92, 1.45, 26], [-44, 6.2, 92, 1.45, 26],
-  [-91, 6.3, 114, 1.1, 20], [-40, 6.3, 114, 1.1, 20],
-  [-66, 6.2, 34, 1.25, 22], [26, 5.1, 120, 1.35, 24], [44, 5.1, 120, 1.35, 24],
-  [158, 7.2, -45, 1.55, 28], [214, 6.5, -105, 1.15, 22], [42, 3.8, -169, 1.35, 22], [32, 6.8, -231, 1.7, 26],
-  [70, 6.8, -231, 1.35, 24], [106, 4.5, -102, 1.2, 22],
-  [176, 7.0, -66.2, 1.55, 20], [212, 7.0, -66.2, 1.9, 24], [250, 7.0, -66.2, 1.6, 20],
-  [180, 4.85, -66.2, 1.15, 15], [246, 4.85, -66.2, 1.25, 15],
-  [198, 4.0, -66.9, 0.9, 12], [232, 4.0, -66.9, 0.9, 12],
-  [190, 3.2, -69.0, 0.62, 16], [240, 3.2, -69.0, 0.62, 16],
-  [42, 5.0, -157, 2.0, 22], [56, 4.3, -145, 1.5, 20],
-  [48, 7.0, -254, 2.0, 24], [48, 6.2, -270, 1.35, 20],
-  [70, -11.7, -198, 1.15, 18], [150, -11.7, -202, 1.15, 18], [230, -11.7, -207, 1.15, 18], [285, -11.7, -210, 1.15, 18],
-  [60, -8.55, -196.7, 1.35, 24], [92, -8.55, -198.4, 1.25, 24], [128, -8.55, -200.5, 1.28, 24],
-  [166, -8.55, -203.1, 1.18, 24], [204, -8.55, -205.2, 1.24, 24], [246, -8.55, -207.7, 1.2, 24], [282, -8.55, -209.2, 1.3, 24],
-]) {
-  const lamp = new THREE.PointLight(0xffbd7b, intensity, distance, 2);
-  lamp.position.set(x, y, z);
-  scene.add(lamp);
-}
-const sky = new Sky();
-sky.scale.setScalar(3000);
-sky.material.uniforms.turbidity.value = 18;
-sky.material.uniforms.rayleigh.value = 0.28;
-sky.material.uniforms.mieCoefficient.value = 0.075;
-sky.material.uniforms.mieDirectionalG.value = 0.18;
-sky.material.uniforms.sunPosition.value.set(-320, 42, 300);
-// A neutral overcast plate is more honest for this facility than a blue-sky
-// backdrop; the fog and warm practicals still establish depth and hierarchy.
-sky.visible = false;
-const controls = new OrbitControls(cam, renderer.domElement);
-controls.target.set(cx, 0, cz);
-// blockout reference layer (separate GLB, toggleable)
-let blockLayer = null;
+const canvas = document.createElement('canvas');
+const size = () => ({ width: Math.max(1, innerWidth), height: Math.max(1, innerHeight) });
+const initialSize = size();
+canvas.width = initialSize.width;
+canvas.height = initialSize.height;
+document.body.appendChild(canvas);
+
+const worker = new Worker('./blockout-render-worker.js', { type: 'module' });
+let ready = false;
+let cameraKind = 'top';
+let xray = false;
+let blockoutVisible = false;
+const post = message => worker.postMessage(message);
+
+const bTop = document.getElementById('bTop');
+const bOrbit = document.getElementById('bOrbit');
+const bX = document.getElementById('bXray');
 const bBlock = document.getElementById('bBlock');
-bBlock.onclick = () => {
-  const on = bBlock.classList.toggle('on');
-  if (blockLayer) blockLayer.visible = on;
-  document.getElementById('status').textContent = on ? 'BUILT GEOMETRY · blockout reference visible' : 'BUILT GEOMETRY · blockout reference hidden';
+const status = document.getElementById('status');
+const setCameraButtons = top => {
+  bTop.classList.toggle('on', top);
+  bOrbit.classList.toggle('on', !top);
+};
+const setStatus = () => {
+  status.textContent = blockoutVisible
+    ? 'BUILT GEOMETRY · blockout reference visible'
+    : 'BUILT GEOMETRY · blockout reference hidden';
+};
+const setTop = () => {
+  cameraKind = 'top';
+  setCameraButtons(true);
+  post({ type: 'top' });
+};
+const setOrbit = () => {
+  cameraKind = 'orbit';
+  setCameraButtons(false);
+  post({ type: 'orbit' });
 };
 const hideReference = () => {
+  const changed = blockoutVisible;
+  blockoutVisible = false;
   bBlock.classList.remove('on');
-  if (blockLayer) blockLayer.visible = false;
-  document.getElementById('status').textContent = 'BUILT GEOMETRY · blockout reference hidden';
+  setStatus();
+  if (changed) post({ type: 'blockout', value: false });
 };
-window.__hideReference = hideReference;
-// X-ray: ground/walls go translucent so tunnels + interiors read from above
-let xray = false;
-const bX = document.getElementById('bXray');
+const setPlayerMode = () => {
+  cameraKind = 'player';
+  setCameraButtons(false);
+};
+
+bTop.onclick = setTop;
+bOrbit.onclick = setOrbit;
 bX.onclick = () => {
-  xray = !xray; bX.classList.toggle('on', xray);
-  scene.traverse(o => {
-    if (!o.isMesh || !o.material) return;
-    if (o === blockLayer || o.parent === blockLayer) return;
-    const opaque = o.material.userData.opaque ?? true;
-    if (xray && opaque) { o.material.transparent = true; o.material.opacity = 0.22; o.material.depthWrite = false; }
-    else if (!xray && opaque) { o.material.transparent = o.material.userData.wasTransparent ?? false; o.material.opacity = o.material.userData.wasTransparent ? 0.5 : 1; o.material.depthWrite = true; }
-  });
+  xray = !xray;
+  bX.classList.toggle('on', xray);
+  post({ type: 'xray', value: xray });
 };
-const setCam = (top) => {
-  cam = top ? camO : camP;
-  controls.object = cam; controls.update();
-  document.getElementById('bTop').classList.toggle('on', top);
-  document.getElementById('bOrbit').classList.toggle('on', !top);
+bBlock.onclick = () => {
+  blockoutVisible = !blockoutVisible;
+  bBlock.classList.toggle('on', blockoutVisible);
+  setStatus();
+  post({ type: 'blockout', value: blockoutVisible });
 };
-document.getElementById('bTop').onclick = () => setCam(true);
-document.getElementById('bOrbit').onclick = () => setCam(false);
-// player-eye camera: follows route_main_surface at 1.7m eye height (walk-through evidence)
-const ROUTE = [[-292, 170], [-240, 160], [-160, 150], [-60, 120], [0, 100], [60, 60], [120, 0], [140, -60], [110, -110], [100, -160], [100, -210], [40, -214], [20, -222], [20, -228]];
-function routePts() {
-  const pts = [];
-  for (let i = 0; i < ROUTE.length - 1; i++) {
-    const a = ROUTE[i], b = ROUTE[i + 1];
-    const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 8));
-    for (let k = 0; k < n; k++) pts.push([a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n]);
-  }
-  pts.push(ROUTE[ROUTE.length - 1]);
-  return pts;
-}
-const ROUTE_PTS = routePts();
-window.__playerCamAt = (t) => {
-  hideReference();
-  const i = Math.min(ROUTE_PTS.length - 2, Math.floor(t * (ROUTE_PTS.length - 1)));
-  const p = ROUTE_PTS[i], q = ROUTE_PTS[Math.min(i + 2, ROUTE_PTS.length - 1)];
-  cam = camP; setCam(false);
-  cam.position.set(p[0], 1.7, p[1]);
-  cam.lookAt(q[0], 1.4, q[1]);
-  controls.enabled = false;
-  renderer.render(scene, cam);
-};
-window.__playerCamPose = (x, z, tx, tz, y = 1.7) => {
-  hideReference();
-  cam = camP; setCam(false);
-  cam.position.set(x, y, z);
-  cam.lookAt(tx, 1.4, tz);
-  controls.enabled = false;
-  renderer.render(scene, cam);
-};
-// interior viewpoints: [x, y, z, targetX, targetY, targetZ] at 1.6m eye
-const INT = {
-  'core-objective': [48, 6.25, -246, 48, 5.7, -258],
-  'loading-hall': [-50, 1.7, 62, -50, 1.4, 40],
-  'tunnel': [80, -12.05, -197.8, 200, -12.05, -205],
-  'security-hall': [43, 2.35, -164, 53, 1.85, -153],
-  'maintenance': [-184, 1.7, -20, -160, 1.5, -20],
-};
-window.__interiorCam = (name) => {
-  const p = INT[name];
-  if (!p) return false;
-  hideReference();
-  cam = camP; setCam(false);
-  cam.position.set(p[0], p[1], p[2]);
-  cam.lookAt(p[3], p[4], p[5]);
-  controls.enabled = false;
-  renderer.render(scene, cam);
-  return true;
-};
-// slice camera: walks route_covered (loading hall -> covered legs -> security hall -> court)
-const SLICE = [[-120, 80], [-80, 60], [-40, 40], [0, 10], [40, -40], [60, -100], [50, -150], [48, -190]];
-function slicePts() {
-  const pts = [];
-  for (let i = 0; i < SLICE.length - 1; i++) {
-    const a = SLICE[i], b = SLICE[i + 1];
-    const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 8));
-    for (let k = 0; k < n; k++) pts.push([a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n]);
-  }
-  pts.push(SLICE[SLICE.length - 1]);
-  return pts;
-}
-const SLICE_PTS = slicePts();
-window.__sliceCamAt = (t) => {
-  hideReference();
-  const i = Math.min(SLICE_PTS.length - 2, Math.floor(t * (SLICE_PTS.length - 1)));
-  const p = SLICE_PTS[i], q = SLICE_PTS[Math.min(i + 2, SLICE_PTS.length - 1)];
-  cam = camP; setCam(false);
-  cam.position.set(p[0], 1.7, p[1]);
-  cam.lookAt(q[0], 1.4, q[1]);
-  controls.enabled = false;
-  renderer.render(scene, cam);
-};
-// legend mirrors tools/gen-full-geometry palette
-const LEG = [['#6e6a5a','ground'],['#3a5a7c','enterable bldg'],['#46688c','warehouse'],['#4a5560','non-enterable'],['#5b4a8c','tower'],['#2e8c8c','bridge'],['#7a6a4a','wall/fence'],['#c07a2e','stair'],['#d08a3a','incline'],['#b06030','roll-down door'],['#8a5ab8','tunnel (X-ray)'],['#d84a8c','drone hole'],['#e0c040','entrance'],['#3f7a45','cover'],['#5a9a5a','canopy'],['#5a4a3a','mountain'],['#2e5d7a','water'],['#40c0c0','spawn'],['#d04040','kill-zone']];
-document.getElementById('legend').innerHTML = LEG.map(([c, n]) => `<span class="chip" style="background:${c}"></span>${n}`).join('<br>');
-const loader = new GLTFLoader();
-let loaded = 0;
-loader.load('./facility-built.glb', (g) => {
-  g.scene.traverse(o => {
-    if (!o.isMesh) return;
-    const m = o.material;
-    o.castShadow = true;
-    o.receiveShadow = true;
-    m.userData.wasTransparent = m.transparent;
-    m.userData.opaque = !(m.transparent && m.opacity < 0.9);
-    if (!xray && !m.userData.wasTransparent) { m.transparent = false; }
-  });
-  scene.add(g.scene);
-  if (++loaded === 2) window.__ready = true;
-}, undefined, (e) => { window.__err = String(e); });
-loader.load('./blockout-full.glb', (g) => {
-  g.scene.traverse(o => { if (o.isMesh) o.material = o.material.clone(), o.material.transparent = true, o.material.opacity = 0.35, o.material.depthWrite = false, o.receiveShadow = true; });
-  blockLayer = g.scene;
-  blockLayer.visible = bBlock.classList.contains('on');
-  scene.add(g.scene);
-  if (++loaded === 2) window.__ready = true;
-}, undefined, (e) => { window.__err = String(e); });
+
+window.__forceRender = () => post({ type: 'force' });
+window.__hideReference = hideReference;
 window.__viewerState = () => ({
-  ready: window.__ready === true,
-  blockoutVisible: Boolean(blockLayer?.visible),
+  ready,
+  blockoutVisible,
   blockoutButtonOn: bBlock.classList.contains('on'),
   xray,
-  camera: cam === camO ? 'top' : 'perspective',
+  camera: cameraKind === 'top' ? 'top' : 'perspective',
 });
-addEventListener('resize', () => {
-  renderer.setSize(innerWidth, innerHeight);
-  camP.aspect = innerWidth / innerHeight; camP.updateProjectionMatrix();
+
+function routePoints(route) {
+  const points = [];
+  for (let i = 0; i < route.length - 1; i++) {
+    const a = route[i], b = route[i + 1];
+    const count = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 8));
+    for (let k = 0; k < count; k++) points.push([a[0] + (b[0] - a[0]) * k / count, a[1] + (b[1] - a[1]) * k / count]);
+  }
+  points.push(route[route.length - 1]);
+  return points;
+}
+const ROUTE = routePoints([[-292, 170], [-240, 160], [-160, 150], [-60, 120], [0, 100], [60, 60], [120, 0], [140, -60], [110, -110], [100, -160], [100, -210], [40, -214], [20, -222], [20, -228]]);
+const SLICE = routePoints([[-120, 80], [-80, 60], [-40, 40], [0, 10], [40, -40], [60, -100], [50, -150], [48, -190]]);
+window.__playerCamAt = t => {
+  hideReference();
+  setPlayerMode();
+  const i = Math.min(ROUTE.length - 2, Math.floor(t * (ROUTE.length - 1)));
+  const p = ROUTE[i], q = ROUTE[Math.min(i + 2, ROUTE.length - 1)];
+  post({ type: 'player-pose', x: p[0], z: p[1], targetX: q[0], targetZ: q[1], y: 1.7 });
+};
+window.__playerCamPose = (x, z, targetX, targetZ, y = 1.7) => {
+  hideReference();
+  setPlayerMode();
+  post({ type: 'player-pose', x, z, targetX, targetZ, y });
+};
+const INTERIORS = {
+  'core-objective': true,
+  'loading-hall': true,
+  tunnel: true,
+  'security-hall': true,
+  maintenance: true,
+};
+window.__interiorCam = name => {
+  if (!INTERIORS[name]) return false;
+  hideReference();
+  setPlayerMode();
+  post({ type: 'interior', name });
+  return true;
+};
+window.__sliceCamAt = t => {
+  hideReference();
+  setPlayerMode();
+  const i = Math.min(SLICE.length - 2, Math.floor(t * (SLICE.length - 1)));
+  const p = SLICE[i], q = SLICE[Math.min(i + 2, SLICE.length - 1)];
+  post({ type: 'player-pose', x: p[0], z: p[1], targetX: q[0], targetZ: q[1], y: 1.7 });
+};
+
+let pointerId = null;
+let previousPointer = null;
+canvas.addEventListener('pointerdown', event => {
+  if (cameraKind !== 'orbit') return;
+  pointerId = event.pointerId;
+  previousPointer = [event.clientX, event.clientY];
+  canvas.setPointerCapture(pointerId);
 });
-(function loop(){ requestAnimationFrame(loop); renderer.render(scene, cam); })();
+canvas.addEventListener('pointermove', event => {
+  if (event.pointerId !== pointerId || !previousPointer) return;
+  const dx = event.clientX - previousPointer[0];
+  const dy = event.clientY - previousPointer[1];
+  previousPointer = [event.clientX, event.clientY];
+  post({ type: 'orbit-delta', dx, dy });
+});
+const endPointer = event => {
+  if (event.pointerId !== pointerId) return;
+  pointerId = null;
+  previousPointer = null;
+};
+canvas.addEventListener('pointerup', endPointer);
+canvas.addEventListener('pointercancel', endPointer);
+canvas.addEventListener('wheel', event => {
+  if (cameraKind === 'orbit') post({ type: 'orbit-zoom', delta: event.deltaY });
+}, { passive: true });
+
+worker.onmessage = event => {
+  const message = event.data;
+  if (message.type === 'ready') {
+    ready = true;
+    window.__ready = true;
+    return;
+  }
+  if (message.type === 'error') {
+    window.__err = message.message || 'render worker failed';
+    status.textContent = `RENDER ERROR · ${window.__err}`;
+  }
+};
+worker.onerror = event => {
+  window.__err = event.message || 'render worker failed';
+  status.textContent = `RENDER ERROR · ${window.__err}`;
+};
+
+window.addEventListener('resize', () => {
+  const next = size();
+  post({ type: 'resize', width: next.width, height: next.height });
+});
+const LEG = [['#6e6a5a','ground'],['#3a5a7c','enterable bldg'],['#46688c','warehouse'],['#4a5560','non-enterable'],['#5b4a8c','tower'],['#2e8c8c','bridge'],['#7a6a4a','wall/fence'],['#c07a2e','stair'],['#d08a3a','incline'],['#b06030','roll-down door'],['#8a5ab8','tunnel (X-ray)'],['#d84a8c','drone hole'],['#e0c040','entrance'],['#3f7a45','cover'],['#5a9a5a','canopy'],['#5a4a3a','mountain'],['#2e5d7a','water'],['#40c0c0','spawn'],['#d04040','kill-zone']];
+document.getElementById('legend').innerHTML = LEG.map(([color, name]) => `<span class="chip" style="background:${color}"></span>${name}`).join('<br>');
+const offscreen = canvas.transferControlToOffscreen();
+worker.postMessage({ type: 'init', canvas: offscreen, width: initialSize.width, height: initialSize.height }, [offscreen]);
 </script></body></html>

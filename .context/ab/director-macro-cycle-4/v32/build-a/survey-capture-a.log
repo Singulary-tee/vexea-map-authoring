@@ -1,0 +1,8 @@
+captured top via readPixels sample=168,189,210,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=147 triangles=812784
+captured orbit via readPixels sample=168,189,210,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=147 triangles=812784
+captured xray via readPixels sample=168,189,210,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=147 triangles=812784
+captured zone-spawn via readPixels sample=191,175,154,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=137 triangles=812376
+captured zone-courtyard via readPixels sample=183,167,142,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=127 triangles=811980
+captured zone-warehouse via readPixels sample=124,100,74,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=119 triangles=791856
+captured zone-plant via readPixels sample=58,56,54,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=106 triangles=789768
+SURVEY PASS: 7/21 views; artifact 0b9ef3e4179bbc439cab690cd7127f4a198883860f2a0bc21198a1c7deaaf1bb

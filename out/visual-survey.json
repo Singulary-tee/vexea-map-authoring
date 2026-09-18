@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-18T02:29:21.527Z",
+  "sourceCommit": "b12c0af8c30b989fa709c95c2e7f1fd92b17c1ae",
+  "sourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+  "generatorSha256": "d4f8616fd317093398af49647b0801113a2d0514e96c88d8ccbb16256ef78eb3",
+  "artifact": {
+    "path": ".context/ab/director-macro-cycle-4/v23/facility-built-director-macro-cycle-4-v23.glb",
+    "sha256": "64284fbea89fdb619f46d2e9b8ed3da415ab3c77dacf2f96fae78c5201afac8c",
+    "bytes": 96540452
+  },
+  "renderer": "standalone Playwright Chromium SwiftShader; direct WebGL canvas",
+  "views": [
+    {
+      "id": "orbit",
+      "path": ".context/ab/director-macro-cycle-4/v23/survey/canonical-orbit.png",
+      "zone": null,
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "kind": "perspective",
+        "position": [
+          -760,
+          470,
+          720
+        ],
+        "target": [
+          5,
+          0,
+          10
+        ]
+      }
+    },
+    {
+      "id": "zone-plant",
+      "path": ".context/ab/director-macro-cycle-4/v23/survey/canonical-zone-plant.png",
+      "zone": "zone_plant",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          188,
+          1.7,
+          -92
+        ],
+        "target": [
+          238,
+          6,
+          -48
+        ]
+      }
+    },
+    {
+      "id": "zone-bridge",
+      "path": ".context/ab/director-macro-cycle-4/v23/survey/canonical-zone-bridge.png",
+      "zone": "zone_bridge",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          250,
+          1.7,
+          112
+        ],
+        "target": [
+          292,
+          8,
+          62
+        ]
+      }
+    },
+    {
+      "id": "zone-boundary",
+      "path": ".context/ab/director-macro-cycle-4/v23/survey/canonical-zone-boundary.png",
+      "zone": "zone_boundary",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          -40,
+          1.7,
+          292
+        ],
+        "target": [
+          90,
+          6,
+          310
+        ]
+      }
+    },
+    {
+      "id": "route-south-retreat",
+      "path": ".context/ab/director-macro-cycle-4/v23/survey/canonical-route-south-retreat.png",
+      "zone": null,
+      "route": "route_south_retreat",
+      "requirement": null,
+      "camera": {
+        "position": [
+          100,
+          1.7,
+          -120
+        ],
+        "target": [
+          220,
+          4,
+          -160
+        ]
+      }
+    },
+    {
+      "id": "vertical-connector",
+      "path": ".context/ab/director-macro-cycle-4/v23/survey/canonical-vertical-connector.png",
+      "zone": null,
+      "route": null,
+      "requirement": "vertical connector",
+      "camera": {
+        "position": [
+          302,
+          1.7,
+          82
+        ],
+        "target": [
+          316,
+          5.2,
+          62
+        ]
+      }
+    }
+  ]
+}

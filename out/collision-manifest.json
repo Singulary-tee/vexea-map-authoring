@@ -1,11 +1,11 @@
 {
   "format": "vexea-collision/1",
-  "file": "blockout/blockout-full-v1.json",
+  "file": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/blockout/blockout-full-v1.json",
   "source": {
-    "path": "blockout/blockout-full-v1.json",
+    "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/blockout/blockout-full-v1.json",
     "revision": 3
   },
-  "generated": "2026-09-14",
+  "generated": "2026-09-18",
   "unit": "meters",
   "yUp": true,
   "boxFormat": [

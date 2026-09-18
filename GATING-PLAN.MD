@@ -59,7 +59,7 @@ Maintain a persistent state containing at minimum:
 - lighting state;
 - placement/contact state;
 - coverage state;
-- performance state;
+- post-acceptance delivery state;
 - evidence state.
 
 Each requirement must be explicitly "PASS", "FAIL", or "BLOCKED".
@@ -178,6 +178,21 @@ Positive visual references
   - gates;
   - grime;
   - practical lighting.
+
+- user-supplied industrial-campus reference board
+  (attachment SHA-256
+  `47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95`)
+  - governing macro composition and visual-density reference;
+  - distinct building families and readable campus hierarchy;
+  - wet, marked operational streets and service aprons;
+  - tanks, pipe racks, stairs, catwalks, loading activity, fencing, signs,
+    vehicles, and maintenance clutter;
+  - perimeter vegetation, terrain context, and layered silhouettes;
+  - concrete, corrugated steel, glass, puddle, grime, and practical-light
+    response.
+
+  This board governs visual properties, not literal coordinates, layout, or
+  asset copying. It must be attached to macro and zone reviews.
 
 Negative and review references
 
@@ -320,7 +335,26 @@ Generated evidence includes:
 
 A green structural report cannot overrule a failed full-campus visual state.
 
-3.5 Required trace fields
+3.5 Supplied remediation source
+
+- tracked remediation source `docs/REMEDIATION-PLAN.md` — remediation plan, SHA-256
+  `ae283feaec1f72427b3bed93055e537ec2a04d54f5f8ebb01c4544c5146c29db`.
+
+- user-supplied industrial-campus reference board
+  `references/inspiration/user-supplied-industrial-campus-board.png` — SHA-256
+  `47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95`.
+
+- current canonical comparison board
+  `.context/ab/director-macro-cycle-4/v32/build-a/survey/v32-reference-comparison.png` — SHA-256
+  `6d974146d62f378345f24f9530d0de91d1d660767ce31f10a44bbd6f752c11f8`;
+  diagnostic baseline only, never a visual authority.
+
+Its independent-audit, adversarial-fixture, reference-comparison,
+fail-closed, numeric-ledger, persistent-root-cause, and object-first rules
+are integrated into Sections 3.9, 4, 7, 12, 13, 14, 15, and 19. The
+attachment is source material for this plan, not a second competing gate.
+
+3.6 Required trace fields
 
 Every zone, route, family, placement, asset, material, camera, and evidence record must carry:
 
@@ -338,6 +372,105 @@ No owner → no placement.
 No evidence → no promotion.
 
 Traceability does not count as visual progress.
+
+3.7 Single-artifact evidence contract
+
+The build, semantic export, collision export, runtime bundle, audits, and visual captures must refer to the same generated artifact.
+
+For every candidate and retained build, record:
+
+- source commit;
+- source-register hashes;
+- deterministic seed/profile;
+- artifact SHA-256;
+- geometry/material/draw-item counts;
+- the exact report and capture set produced from that artifact.
+
+Do not compare a candidate report or screenshot against a retained build when their artifact identity differs. A generator may be split into pure deterministic modules, but orchestration must make the artifact identity explicit and must not allow a later export to silently replace the measured scene.
+
+3.8 Canonical survey and outlier review
+
+Every global observation uses the same survey packet:
+
+- top-down campus composition;
+- orbit context;
+- X-ray/interior coverage;
+- one fixed player-eye capture per zone;
+- one fixed transition capture per route family;
+- required objective, cover, tunnel, and vertical-connector views.
+
+The controller records outliers rather than relying on the most attractive screenshot. A candidate cannot advance because one view improved while a canonical zone, route, or player-late-frame view regressed or was omitted.
+
+3.9 Independent remediation controls
+
+The supplied remediation plan is part of this governing plan. It closes the
+repeating failure modes in which an internal report, an unanchored critic
+score, or a silent validator error was treated as evidence of progress.
+These controls are preconditions for authoring and review; they do not replace
+the global visual gate.
+
+Independent geometry audit
+
+Run `tools/audit-independent.mjs` against the raw source coordinate data,
+without reading or trusting any existing `checks`, `pass`, or report fields.
+The auditor must independently compute and record numeric findings for:
+
+- every pairwise segment-footprint AABB overlap, including overlap area and
+  both bounds;
+- every route-polyline intersection with a building or structural footprint,
+  including crossing points and chord length;
+- every stair, incline, or roll-down horizontal run and rise against the
+  maximum continuous-run cap of 15 m without a landing;
+- every route endpoint's connection to a named functional segment, with the
+  nearest segment and distance when it is not connected.
+
+Write the result to `out/independent-audit.json`. Any non-empty overlap or
+route-intersection array, any failed stair-run record, or any dead-end route
+blocks progression past the blockout audit. A failure must contain a number
+or coordinate pair, not only a boolean.
+
+Validator self-tests
+
+Every `.mjs` validator in `tools/` must have a paired deliberately broken
+fixture that violates the condition it claims to check. Run all fixtures with
+`node tools/audit-independent-self-test.mjs` in CI. A validator that passes its own
+broken fixture is not trusted and must be rewritten or removed. Existing
+`geometry-audit.json` and `build-report.json` checks require retroactive
+fixtures before their results can be used as acceptance evidence.
+
+Reference-anchored critic review
+
+Every reviewed camera and zone must name and attach its governing image from
+`references/inspiration/`. The verdict must name at least three concrete
+reference-derived properties—such as material response, object density, or
+silhouette variety—and classify each as present, degraded, or absent. A
+review without those named comparisons is invalid and must be rerun.
+
+Numeric evidence and persistent root causes
+
+The Global Progress Ledger in Section 13 is valid only when every requirement
+has an instance count, a failing-instance count, and a stated numeric
+threshold. Prose such as `PASS` or a score such as `7/10` is not evidence.
+When a stage fails, append one evidence-backed entry to
+`out/root-cause-log.md`. The file is append-only and must be read before a
+new explanation is written. A later entry may supersede an earlier one only
+by naming the earlier entry and the new evidence.
+
+Fail-closed execution
+
+Run gates through `scripts/run-vexea-authoring-gates.sh`. A validator that
+throws, times out, exits non-zero, emits no result, or has a missing output file
+is an automatic FAIL and halts the pipeline. It is never a skip, warning, or
+agent-discretion pass. Continuing requires explicit user acknowledgement.
+
+Object-first isolation
+
+No new object enters the shared map until it has been rendered alone on a
+neutral ground plane from at least two angles, compared with its governing
+reference, and passed the independent per-object geometry checks. Only then
+may it receive a placement coordinate; placement is independently checked
+against every already-placed object and every route, clearance, and gameplay
+volume.
 
 ---
 
@@ -375,6 +508,13 @@ Update the global recovery state.
 Identify every requirement that remains "FAIL".
 
 Do not rely on memory of what was previously failing.
+
+Use the canonical survey packet and artifact identity from Sections 3.7–3.8. If either is missing, mark the observation BLOCKED rather than treating a partial or mismatched result as progress.
+
+Before selecting production work, verify the independent audit, validator
+self-tests, and fail-closed gate runner from Section 3.9. A missing, stale,
+failed, or unverifiable control result is itself a BLOCKED/FAIL state and may
+not be worked around by generating more geometry or evidence.
 
 Step 3 — Select the highest-priority unresolved failure
 
@@ -568,25 +708,32 @@ A local façade or interior improvement cannot count as progress while the full-
 
 Create a fixed audit packet before changing geometry:
 
-1. top-down composition with zones/routes labeled;
-2. one broad context capture for each of eight zones;
-3. player-eye captures at:
+1. run `tools/audit-independent.mjs` against the raw source and preserve
+   `out/independent-audit.json`;
+2. run `node tools/audit-independent-self-test.mjs` against the independent
+   audit fixture;
+3. run `scripts/run-vexea-authoring-gates.sh` and fail closed on any error,
+   timeout, missing output, or non-zero result;
+
+4. top-down composition with zones/routes labeled;
+5. one broad context capture for each of eight zones;
+6. player-eye captures at:
    - spawn/gate;
    - warehouse/service yard;
    - plant yard;
    - bridge/overwatch;
    - core approach;
    - tunnel portal;
-4. placement registry for visible:
+7. placement registry for visible:
    - buildings;
    - vehicles;
    - trees;
    - prop clusters;
    - façade modules;
    - lights;
-5. overlap/floating/penetration/route-obstruction/scale report;
-6. material assignment report listing actual maps on dominant surfaces;
-7. camera metadata:
+8. overlap/floating/penetration/route-obstruction/scale report;
+9. material assignment report listing actual maps on dominant surfaces;
+10. camera metadata:
    - position;
    - look direction;
    - zone;
@@ -599,6 +746,10 @@ Reusing the same scene under a new filename is not coverage.
 The audit establishes the initial global state.
 
 It does not count as progress.
+
+No Phase B work may begin while the independent audit has any non-empty
+failure array or while validator self-tests and fail-closed gate execution do
+not pass.
 
 ---
 
@@ -651,6 +802,10 @@ Establish:
 - loading courts;
 - vegetation pockets;
 - vehicle/machinery staging.
+
+Apply object-first isolation from Section 3.9 to every newly introduced
+building, equipment family, vehicle, prop cluster, and façade module before
+integrating it into this phase's shared campus candidate.
 
 Every zone requires distinct silhouette and operational identity.
 
@@ -733,7 +888,7 @@ with:
 - dimensions;
 - material assignments;
 - collision policy;
-- LODs.
+- player-scale visual acceptance criteria.
 
 Place:
 
@@ -748,14 +903,10 @@ Place:
 
 where campus operation explains their presence.
 
-Use:
-
-- instancing;
-- batching;
-- occlusion;
-- useful LOD.
-
-LOD may not turn player or medium-distance views back into blockout geometry.
+Do not reduce, simplify, hide, or substitute any representation during this
+phase. Player and medium-distance views must remain faithful to the authored
+visual target; representation decisions are deferred until the final
+post-acceptance phase.
 
 Seeded randomness may vary a family.
 
@@ -835,7 +986,7 @@ Produce a material/lighting board from multiple campus locations.
 
 ---
 
-11. Phase E — Placement, Collision, Performance
+11. Phase E — Placement and Collision
 
 Create one canonical placement registry for generated and sourced objects.
 
@@ -873,25 +1024,6 @@ Verify:
 
 at actual placement.
 
-Measure:
-
-- draw calls;
-- triangles;
-- texture memory;
-- visible LOD behavior;
-- full-campus runtime behavior.
-
-Performance optimization must use:
-
-- hierarchy;
-- instancing;
-- visibility;
-- LOD;
-- batching;
-- paging
-
-rather than deleting required fidelity.
-
 ---
 
 12. Phase F — Full-Campus Adversarial Review
@@ -908,6 +1040,11 @@ The critic receives the complete campus packet:
 - camera metadata;
 - changed-file summary;
 - current global recovery state.
+
+For every reviewed camera and zone, attach the governing reference image and
+record at least three specific reference-derived properties as present,
+degraded, or absent. A review that only assigns a score or says that a view
+"looks industrial" is invalid.
 
 The critic must evaluate the campus as a whole.
 
@@ -933,30 +1070,38 @@ Any failed required zone blocks acceptance.
 
 13. Global Progress Ledger
 
-After every substantial work cycle, update:
+After every substantial work cycle, update `out/global-recovery-state.json`
+and the human-readable ledger using numeric evidence. Every requirement row
+must contain all three values:
+
+- instances checked;
+- instances failing;
+- the specific threshold used.
+
+`PASS / FAIL` without those counts is invalid evidence. A score such as
+`7/10` is also invalid.
 
 GLOBAL RECOVERY STATE
 
-Campus macro composition: PASS / FAIL
-Terrain and level variation: PASS / FAIL
-Zone 1: PASS / FAIL
-Zone 2: PASS / FAIL
-Zone 3: PASS / FAIL
-Zone 4: PASS / FAIL
-Zone 5: PASS / FAIL
-Zone 6: PASS / FAIL
-Zone 7: PASS / FAIL
-Zone 8: PASS / FAIL
+Campus macro composition: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Terrain and level variation: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Zone 1: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Zone 2: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Zone 3: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Zone 4: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Zone 5: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Zone 6: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Zone 7: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Zone 8: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
 
-Route network: PASS / FAIL
-Open-yard density: PASS / FAIL
-Industrial massing: PASS / FAIL
-Asset families: PASS / FAIL
-Materials: PASS / FAIL
-Lighting: PASS / FAIL
-Placement/contact: PASS / FAIL
-Campus coverage: PASS / FAIL
-Performance: PASS / FAIL
+Route network: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Open-yard density: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Industrial massing: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Asset families: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Materials: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Lighting: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Placement/contact: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
+Campus coverage: [STATUS] — checked: [N], failing: [N], threshold: [numeric rule]
 
 CURRENT HIGHEST-PRIORITY FAILURE:
 ...
@@ -979,6 +1124,15 @@ NEXT REQUIRED ACTION:
 The next action must follow from this state.
 
 The agent may not select a more convenient task simply because it is easier.
+
+Root-cause record
+
+When a stage fails, append one evidence-backed entry to
+`out/root-cause-log.md` containing the date, stage, affected requirement,
+numeric evidence, implicated strategy, and next test. Read the complete log
+before writing a new explanation. A later entry must explicitly supersede an
+earlier entry by identifier and new evidence; it may not silently replace or
+contradict the prior explanation.
 
 ---
 
@@ -1027,7 +1181,6 @@ After every substantial work cycle, check:
 - terrain continuity;
 - zone identity;
 - asset placement;
-- performance;
 - visual quality.
 
 If an iteration introduces a major regression:
@@ -1059,17 +1212,15 @@ The complete map must:
 - contain no required area that reads as a flat slab, sparse blockout, or coarse primitive kit;
 - have clean placement, overlap, clearance, grounding, and scale;
 - have full-campus evidence with unique coverage;
-- meet performance requirements without restoring blockout-quality LODs.
 
-Only after the full visual gate passes may:
+The visual definition of done ends at explicit user acceptance of the complete
+campus. It does not authorize runtime tuning or delivery claims.
 
-- deterministic validators;
-- traversal/PvE checks;
-- export checks;
-- runtime integration;
-- mobile checks
-
-be treated as final completion gates.
+Independent geometry auditing, validator self-tests, and fail-closed gate
+execution are preconditions throughout the pipeline, not late completion
+decorations. After the full visual gate passes and the user accepts the map,
+Phase G is the only remaining completion phase and owns downstream delivery
+checks. Those checks do not override the accepted visual result.
 
 Technical validity never overrides visual failure.
 
@@ -1123,7 +1274,8 @@ Continue through coherent work cycles.
 The agent should return control to the user only when:
 
 1. the full-campus visual gate is satisfied and the result is ready for user acceptance; or
-2. a genuine external blocker exists that cannot be resolved through further autonomous work.
+2. the user has accepted the visual map and the final delivery phase has been completed; or
+3. a genuine external blocker exists that cannot be resolved through further autonomous work.
 
 A failure of the current strategy is not an external blocker.
 
@@ -1131,7 +1283,63 @@ Change strategy and continue.
 
 ---
 
-19. Final Governing Rule
+19. Phase G — Performance and Delivery (last production phase)
+
+This phase is deliberately unavailable while any visual requirement is FAIL,
+while evidence is incomplete, or before the user accepts the map. No runtime
+optimization, frame-time tuning, LOD reduction, batching pass, paging pass,
+or presentation workaround may be used to justify or advance an earlier
+phase.
+
+Enter Phase G only when all of the following are true:
+
+- the complete campus passes the visual gate;
+- the user has accepted the map;
+- the artifact identity is locked;
+- the independent geometry audit has no blocking findings;
+- all validator self-tests pass;
+- the fail-closed gate runner completes with every required output;
+- there are no open visual regressions or evidence gaps.
+
+Then measure the accepted artifact across the required visible runtime paths:
+
+- top-down;
+- orbit;
+- X-ray/interior;
+- player-eye;
+- moving-route;
+- late-frame sampling.
+
+Record draw calls, triangles, texture memory, visible LOD behavior, and
+runtime results against the exact accepted artifact. If direct worker
+rendering completes but visible OffscreenCanvas, bitmap, 2D ImageData,
+scheduler, or reduced-resolution presentation probes stall, record the
+browser/SwiftShader compositor boundary as BLOCKED and stop presentation-only
+variants. A worker runtime may remain a reversible functional diagnostic, but
+it is not delivery evidence until the required visible paths complete.
+
+Any optimization must preserve the accepted map's geometry, route contracts,
+material evidence, silhouettes, density, and player-scale views. Use only:
+
+- hierarchy;
+- instancing;
+- visibility;
+- LOD that preserves required visual fidelity;
+- batching;
+- paging.
+
+Do not delete required fidelity, hide unresolved geometry, or change the map
+to satisfy a runtime number. After every delivery optimization, rerun the
+complete canonical survey and the relevant audits. A regression reopens the
+visual review and blocks delivery.
+
+Performance evidence is a final delivery gate, never a substitute for map
+approval. If this phase is blocked, report the exact runtime evidence and
+leave the accepted visual artifact unchanged.
+
+---
+
+20. Final Governing Rule
 
 Never confuse activity with progress.
 
