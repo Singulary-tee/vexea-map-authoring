@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "baseSource": "blockout/blockout-full-v1.json",
+  "baseSourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+  "status": "EXPLICIT_ADAPTATION",
+  "reason": "Preserve authored route coordinates while documenting intentional interior passage corridors and segmented incline landings.",
+  "routePassages": [
+    {
+      "route": "route_covered",
+      "segment": "bld-loading-hall",
+      "waypointIndex": 0,
+      "status": "ADAPTED",
+      "mode": "loading-hall-drive-through",
+      "crossingPoints": [[-102, 71], [-80, 60]],
+      "chordLengthM": 24.597,
+      "reason": "Source interior contract defines loading hall as drive-through with a clear aisle."
+    },
+    {
+      "route": "route_covered",
+      "segment": "bld-loading-hall",
+      "waypointIndex": 1,
+      "status": "ADAPTED",
+      "mode": "loading-hall-drive-through",
+      "crossingPoints": [[-80, 60], [-40, 40]],
+      "chordLengthM": 44.721,
+      "reason": "Source interior contract defines loading hall as drive-through with a clear aisle."
+    },
+    {
+      "route": "route_covered",
+      "segment": "bld-loading-hall",
+      "waypointIndex": 2,
+      "status": "ADAPTED",
+      "mode": "loading-hall-drive-through",
+      "crossingPoints": [[-40, 40], [-32, 34]],
+      "chordLengthM": 10,
+      "reason": "Source interior contract defines loading hall as drive-through with a clear aisle."
+    },
+    {
+      "route": "route_covered",
+      "segment": "bld-security-hall",
+      "waypointIndex": 5,
+      "status": "ADAPTED",
+      "mode": "security-hall-covered-corridor",
+      "crossingPoints": [[55.8, -121], [50, -150]],
+      "chordLengthM": 29.574,
+      "reason": "Source interior contract states covered route passes south through the security hall."
+    },
+    {
+      "route": "route_covered",
+      "segment": "bld-security-hall",
+      "waypointIndex": 6,
+      "status": "ADAPTED",
+      "mode": "security-hall-covered-corridor",
+      "crossingPoints": [[50, -150], [49.15, -167]],
+      "chordLengthM": 17.021,
+      "reason": "Source interior contract states covered route passes south through the security hall."
+    },
+    {
+      "route": "route_flank_backdoor",
+      "segment": "bld-core-service-wing",
+      "waypointIndex": 0,
+      "status": "ADAPTED",
+      "mode": "core-service-door-corridor",
+      "crossingPoints": [[148, -225], [148, -236]],
+      "chordLengthM": 11,
+      "reason": "Source interior contract defines service wing as an open flank-door corridor."
+    },
+    {
+      "route": "route_maintenance_loop",
+      "segment": "bld-north-shed",
+      "waypointIndex": 0,
+      "status": "ADAPTED",
+      "mode": "north-shed-maintenance-door",
+      "crossingPoints": [[-165.875, 101], [-143, 74.857]],
+      "chordLengthM": 34.738,
+      "reason": "Maintenance loop uses the shed's named service access rather than an exterior wall route."
+    },
+    {
+      "route": "route_maintenance_loop",
+      "segment": "bld-deployment-bays",
+      "waypointIndex": 3,
+      "status": "ADAPTED",
+      "mode": "deployment-bay-egress",
+      "crossingPoints": [[-122, -70], [-100, -70]],
+      "chordLengthM": 22,
+      "reason": "Source interior contract defines deployment bays with an egress through the bay doors."
+    }
+  ],
+  "verticalTransitions": [
+    {
+      "segmentId": "in-plant",
+      "status": "ADAPTED",
+      "continuousRunsM": [12, 12, 12, 12, 12, 12],
+      "landingCount": 5,
+      "landingDepthM": 3,
+      "reason": "The 72 m 1:12 plant incline is treated as six 12 m runs with five level landings."
+    }
+  ]
+}

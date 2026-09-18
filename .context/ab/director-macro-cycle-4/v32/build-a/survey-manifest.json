@@ -1,0 +1,417 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-18T12:03:08.491Z",
+  "sourceCommit": "b12c0af8c30b989fa709c95c2e7f1fd92b17c1ae",
+  "sourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+  "generatorSha256": "69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20",
+  "artifact": {
+    "path": ".context/ab/director-macro-cycle-4/v32/build-a/facility-built-v32.glb",
+    "sha256": "0b9ef3e4179bbc439cab690cd7127f4a198883860f2a0bc21198a1c7deaaf1bb",
+    "bytes": 64184268
+  },
+  "renderer": "standalone Playwright Chromium SwiftShader; direct WebGL canvas",
+  "views": [
+    {
+      "id": "top",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-top.png",
+      "zone": null,
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "kind": "orthographic",
+        "position": [
+          5,
+          900,
+          10
+        ],
+        "target": [
+          5,
+          0,
+          10
+        ]
+      }
+    },
+    {
+      "id": "orbit",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-orbit.png",
+      "zone": null,
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "kind": "perspective",
+        "position": [
+          -760,
+          470,
+          720
+        ],
+        "target": [
+          5,
+          0,
+          10
+        ]
+      }
+    },
+    {
+      "id": "xray",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-xray.png",
+      "zone": null,
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "kind": "orthographic",
+        "position": [
+          5,
+          900,
+          10
+        ],
+        "target": [
+          5,
+          0,
+          10
+        ]
+      }
+    },
+    {
+      "id": "zone-spawn",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-spawn.png",
+      "zone": "zone_spawn",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          -310,
+          1.7,
+          214
+        ],
+        "target": [
+          -236,
+          4.5,
+          176
+        ]
+      }
+    },
+    {
+      "id": "zone-courtyard",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-courtyard.png",
+      "zone": "zone_courtyard",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          -105,
+          1.7,
+          119
+        ],
+        "target": [
+          -64,
+          5,
+          82
+        ]
+      }
+    },
+    {
+      "id": "zone-warehouse",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-warehouse.png",
+      "zone": "zone_warehouse",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          -164,
+          1.7,
+          34
+        ],
+        "target": [
+          -118,
+          5,
+          -10
+        ]
+      }
+    },
+    {
+      "id": "zone-plant",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-plant.png",
+      "zone": "zone_plant",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          188,
+          1.7,
+          -92
+        ],
+        "target": [
+          238,
+          6,
+          -48
+        ]
+      }
+    },
+    {
+      "id": "zone-bridge",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-bridge.png",
+      "zone": "zone_bridge",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          250,
+          1.7,
+          112
+        ],
+        "target": [
+          292,
+          8,
+          62
+        ]
+      }
+    },
+    {
+      "id": "zone-tunnels",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-tunnels.png",
+      "zone": "zone_tunnels",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          72,
+          -11.9,
+          -198
+        ],
+        "target": [
+          160,
+          -11.2,
+          -201
+        ]
+      }
+    },
+    {
+      "id": "zone-core",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-core.png",
+      "zone": "zone_core",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          40,
+          1.7,
+          -190
+        ],
+        "target": [
+          48,
+          7,
+          -248
+        ]
+      }
+    },
+    {
+      "id": "zone-boundary",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-boundary.png",
+      "zone": "zone_boundary",
+      "route": null,
+      "requirement": null,
+      "camera": {
+        "position": [
+          -40,
+          1.7,
+          292
+        ],
+        "target": [
+          90,
+          6,
+          310
+        ]
+      }
+    },
+    {
+      "id": "route-main-surface",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-main-surface.png",
+      "zone": null,
+      "route": "route_main_surface",
+      "requirement": null,
+      "camera": {
+        "position": [
+          -242,
+          1.7,
+          160
+        ],
+        "target": [
+          -160,
+          3.2,
+          150
+        ]
+      }
+    },
+    {
+      "id": "route-covered",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-covered.png",
+      "zone": null,
+      "route": "route_covered",
+      "requirement": null,
+      "camera": {
+        "position": [
+          -102,
+          1.7,
+          70
+        ],
+        "target": [
+          -40,
+          3,
+          30
+        ]
+      }
+    },
+    {
+      "id": "route-rear-alley",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-rear-alley.png",
+      "zone": null,
+      "route": "route_rear_alley",
+      "requirement": null,
+      "camera": {
+        "position": [
+          -180,
+          1.7,
+          125
+        ],
+        "target": [
+          -100,
+          4,
+          110
+        ]
+      }
+    },
+    {
+      "id": "route-north-ring",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-north-ring.png",
+      "zone": null,
+      "route": "route_north_ring",
+      "requirement": null,
+      "camera": {
+        "position": [
+          100,
+          1.7,
+          105
+        ],
+        "target": [
+          158,
+          4,
+          70
+        ]
+      }
+    },
+    {
+      "id": "route-south-retreat",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-south-retreat.png",
+      "zone": null,
+      "route": "route_south_retreat",
+      "requirement": null,
+      "camera": {
+        "position": [
+          100,
+          1.7,
+          -120
+        ],
+        "target": [
+          220,
+          4,
+          -160
+        ]
+      }
+    },
+    {
+      "id": "route-flank-backdoor",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-flank-backdoor.png",
+      "zone": null,
+      "route": "route_flank_backdoor",
+      "requirement": null,
+      "camera": {
+        "position": [
+          148,
+          1.7,
+          -222
+        ],
+        "target": [
+          148,
+          4,
+          -245
+        ]
+      }
+    },
+    {
+      "id": "objective-core",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-objective-core.png",
+      "zone": null,
+      "route": null,
+      "requirement": "objective",
+      "camera": {
+        "position": [
+          40,
+          5.7,
+          -250
+        ],
+        "target": [
+          48,
+          5.7,
+          -258
+        ]
+      }
+    },
+    {
+      "id": "cover-courtyard",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-cover-courtyard.png",
+      "zone": null,
+      "route": null,
+      "requirement": "cover",
+      "camera": {
+        "position": [
+          -82,
+          1.7,
+          16
+        ],
+        "target": [
+          -48,
+          2,
+          12
+        ]
+      }
+    },
+    {
+      "id": "tunnel-portal",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-tunnel-portal.png",
+      "zone": null,
+      "route": null,
+      "requirement": "tunnel",
+      "camera": {
+        "position": [
+          44,
+          -11.2,
+          -196
+        ],
+        "target": [
+          90,
+          -10.7,
+          -198
+        ]
+      }
+    },
+    {
+      "id": "vertical-connector",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-vertical-connector.png",
+      "zone": null,
+      "route": null,
+      "requirement": "vertical connector",
+      "camera": {
+        "position": [
+          302,
+          1.7,
+          82
+        ],
+        "target": [
+          316,
+          5.2,
+          62
+        ]
+      }
+    }
+  ]
+}

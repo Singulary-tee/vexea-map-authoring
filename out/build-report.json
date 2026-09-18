@@ -1,9 +1,59 @@
 {
   "file": "blockout/blockout-full-v1.json",
-  "generated": "2026-09-15",
-  "materials": 75,
-  "triangles": 546291,
+  "sourceCommit": "b12c0af8c30b989fa709c95c2e7f1fd92b17c1ae",
+  "sourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+  "generatorSha256": "5fc69dab0dc62a874681966f0ed91fd38a91ae269726633a7a7cb708c20b8726",
+  "deterministicProfile": {
+    "random": "mulberry32",
+    "stableIdSeed": "string-hash-31",
+    "input": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+    "isolatedTransferOnly": false,
+    "campusSpineOnly": false,
+    "operationalStreetwallOnly": false,
+    "openCellNetworkOnly": false,
+    "openCellNetworkV2Only": false,
+    "openCellNetworkV3Only": false,
+    "directorMacroCycle2Only": false,
+    "directorMacroCycle3Only": false,
+    "directorMacroCycle4Only": false
+  },
+  "generated": "2026-09-17",
+  "materials": 78,
+  "triangles": 595729,
   "segments": 93,
+  "yardOperations": {
+    "pads": 13,
+    "edgeBands": 680,
+    "drains": 39,
+    "runoff": 19,
+    "islands": 19,
+    "skippedIslands": 5,
+    "modules": 24,
+    "skippedModules": 12
+  },
+  "transferNetwork": null,
+  "campusSpine": null,
+  "operationalStreetwall": null,
+  "openCellNetwork": null,
+  "macroCampusNetworkV3": null,
+  "directorMacroCycle2": null,
+  "directorMacroCycle3": null,
+  "directorMacroCycle4": null,
+  "directorMacroCycle4V20VisualCorrection": null,
+  "directorMacroCycle4V21VisualCorrection": null,
+  "artifact": {
+    "path": "editor/facility-built.glb",
+    "sha256": "1015ab60aa94d195567c052fd3b2178c4c160dba37e3dd8283aabd0790b466db",
+    "bytes": 67532976,
+    "identity": {
+      "materials": 78,
+      "meshes": 97,
+      "nodes": 123,
+      "images": 73,
+      "primitives": 97,
+      "indexedTriangles": 791256
+    }
+  },
   "checks": [
     {
       "n": "mountain mtn-nw sits on boundary band",
@@ -60,6 +110,151 @@
       "n": "depth: buildings render wall frame + roof + parapet (construction, not paper)",
       "p": true,
       "d": ""
+    },
+    {
+      "n": "transfer-network: three stable features carry source/reference/contract/evidence trace",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "transfer-network: supports and contact status recorded",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "campus-spine: distributed features carry source/reference/contract/evidence trace",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "campus-spine: placement, support, and contact status recorded",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "streetwall: route-bound features carry source/reference/contract/evidence trace",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "streetwall: placement, support, and contact status recorded",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "streetwall: triangle growth stays within 15 percent",
+      "p": true,
+      "d": "595729 <= 880216"
+    },
+    {
+      "n": "open-cell: stable features carry source/reference/contract/evidence trace",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "open-cell: placement, support, contact, and clearance status recorded",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "open-cell: paired relationships span required operational cells",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "open-cell: triangle growth stays within 15 percent",
+      "p": true,
+      "d": "595729 <= 880216"
+    },
+    {
+      "n": "director-cycle-2: distributed features carry source/reference/contract/evidence trace",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-2: placement, support, contact, and clearance status recorded",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-2: paired facility relationships are complete",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-2: distinct facility families are present",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-2: triangle growth stays within 15 percent",
+      "p": true,
+      "d": "595729 <= 881216"
+    },
+    {
+      "n": "director-cycle-3: connected features carry trace fields",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-3: placement and contact status recorded",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-3: paired compound relationships are complete",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-3: triangle growth stays within 15 percent",
+      "p": true,
+      "d": "595729 <= 881216"
+    },
+    {
+      "n": "director-cycle-4: continuous substrate is present",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-4: context features carry trace fields",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-4: placement, support, contact, and clearance status recorded",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-4: paired context relationships are complete",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-4-v20: visual correction carries trace fields",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-4-v20: visual correction placement and contact recorded",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-4-v21: production district carries trace fields",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-4-v21: production district placement and contact recorded",
+      "p": true,
+      "d": ""
+    },
+    {
+      "n": "director-cycle-4: triangle growth stays within 15 percent",
+      "p": true,
+      "d": "595729 <= 881216"
     }
   ]
 }

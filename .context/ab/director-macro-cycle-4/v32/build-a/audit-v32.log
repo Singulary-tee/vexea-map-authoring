@@ -1,0 +1,66 @@
+PASS source-hash -> d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d != d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d
+PASS source-contract-counts
+PASS report-source-binding
+PASS generator-binding -> .context/ab/director-macro-cycle-4/v32/gen-director-macro-cycle-4-v32.mjs / 69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20
+PASS artifact-report-binding
+PASS artifact-geometry-counts
+PASS authoritative-unchanged -> 1015ab60aa94d195567c052fd3b2178c4c160dba37e3dd8283aabd0790b466db != 1015ab60aa94d195567c052fd3b2178c4c160dba37e3dd8283aabd0790b466db
+PASS candidate-is-not-authoritative
+PASS explicit-v27-profile
+PASS internal-generator-checks
+PASS triangle-cap -> 812784/812784 <= 881216
+PASS v27-export-match
+PASS v27-schema
+PASS v27-stats -> {"frontageWalls":4,"loadingDoors":12,"wetOperationalSurfaces":13,"pipeTransferSpans":8,"processVessels":8,"vehicles":12,"fences":11,"trees":24,"controlRoomScreens":9}
+PASS v27-global-trace
+PASS v27-feature-identities
+PASS v27-feature-trace-fields
+PASS v27-feature-status-fields
+PASS v27-centers-finite
+PASS v27-camera-region-geometry -> []
+DIRECTOR MACRO CYCLE 4 V27 AUDIT: 20/20 checks passed; PASS
+PASS v28-export-match
+PASS v28-schema
+PASS v28-stats -> {"facadeDoors":8,"canopySpans":2,"serviceWalls":3,"transferBeams":12,"bridgeDeckFrames":16,"objectiveScreens":6,"stairFrames":12,"gateFrames":6,"boundaryFrames":10}
+PASS v28-feature-identities
+PASS v28-feature-trace-fields
+PASS v28-feature-status-fields
+PASS v28-centers-finite
+DIRECTOR MACRO CYCLE 4 V28 AUDIT: 27/27 checks passed; PASS
+PASS v29-export-match
+PASS v29-schema
+PASS v29-stats -> {"vehicles":4,"palletStacks":12,"puddles":18,"drains":8,"objectiveScreens":6,"fencePosts":8,"bridgeFrames":12,"serviceSigns":10}
+PASS v29-feature-identities
+PASS v29-feature-trace-fields
+PASS v29-feature-status-fields
+PASS v29-centers-finite
+PASS v29-triangle-cap -> 812784
+DIRECTOR MACRO CYCLE 4 V29 AUDIT: 35/35 checks passed; PASS
+PASS v30-export-match
+PASS v30-schema
+PASS v30-stats -> {"loadingBays":6,"controlRoomScreens":8,"serviceVehicles":6,"wetPatches":24,"markedDrains":12,"stairRuns":2,"perimeterGates":2,"utilityPlatforms":4}
+PASS v30-feature-identities
+PASS v30-feature-trace-fields
+PASS v30-feature-status-fields
+PASS v30-centers-finite
+PASS v30-source-contract-counts
+PASS v30-generator-binding -> .context/ab/director-macro-cycle-4/v32/gen-director-macro-cycle-4-v32.mjs / 69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20
+PASS v30-artifact-binding
+PASS v30-artifact-identity -> {"materials":79,"meshes":147,"nodes":209,"images":73,"primitives":147,"indexedTriangles":812784}
+PASS v30-triangle-cap -> 812784 <= 881216
+PASS v30-authoritative-immutability
+DIRECTOR MACRO CYCLE 4 V30 AUDIT: 48/48 checks passed; PASS
+PASS v32-export-match
+PASS v32-schema
+PASS v32-stats -> {"secondaryBuildings":10,"yardContainers":18,"palletStacks":53,"serviceVehicles":42,"perimeterTrees":31,"processTowers":14,"wetPatches":32,"catwalkFrames":18,"cameraVisibleVehicles":30,"dockDoors":24,"serviceSigns":22,"screenPanels":5,"fenceRuns":3}
+PASS v32-feature-identities
+PASS v32-feature-trace-fields
+PASS v32-feature-status-fields
+PASS v32-centers-finite
+PASS v32-source-contract-counts
+PASS v32-generator-binding -> .context/ab/director-macro-cycle-4/v32/gen-director-macro-cycle-4-v32.mjs / 69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20
+PASS v32-artifact-binding
+PASS v32-artifact-identity -> {"materials":79,"meshes":147,"nodes":209,"images":73,"primitives":147,"indexedTriangles":812784}
+PASS v32-triangle-cap -> 812784 <= 881216
+PASS v32-authoritative-immutability
+DIRECTOR MACRO CYCLE 4 V32 AUDIT: 61/61 checks passed; PASS

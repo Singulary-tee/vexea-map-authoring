@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-18T12:03:08.579Z",
+  "status": "BLOCKED",
+  "candidate": "v32",
+  "build": "build-a",
+  "artifact": {
+    "path": ".context/ab/director-macro-cycle-4/v32/build-a/facility-built-v32.glb",
+    "sha256": "0b9ef3e4179bbc439cab690cd7127f4a198883860f2a0bc21198a1c7deaaf1bb",
+    "bytes": 64184268,
+    "triangles": 812784,
+    "triangleCap": 881216,
+    "sourcePath": "blockout/blockout-full-v1.json",
+    "sourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+    "generatorPath": ".context/ab/director-macro-cycle-4/v32/gen-director-macro-cycle-4-v32.mjs",
+    "generatorSha256": "69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20"
+  },
+  "technical": {
+    "sourceValidation": "PASS",
+    "traversal": "PASS",
+    "collisionManifest": "PASS",
+    "semanticExport": "PASS",
+    "runtimeBundle": "PASS",
+    "geometryAudit": "PASS",
+    "v32StructuralAudit": "PASS",
+    "independentAudit": "PASS_WITH_ADAPTATIONS",
+    "adversarialIndependentAudit": "PASS_WITH_ADAPTATIONS",
+    "sourceAdaptations": [
+      "72 m in-plant incline represented as six 12 m runs with five landings; source unchanged.",
+      "Eight intentional route/building passages remain explicit numeric fail-closed adaptations; unadapted audit remains distinct."
+    ]
+  },
+  "survey": {
+    "manifestPath": ".context/ab/director-macro-cycle-4/v32/build-a/survey-manifest.json",
+    "integrityPath": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-integrity.json",
+    "analysisPath": ".context/ab/director-macro-cycle-4/v32/build-a/survey-png-analysis.json",
+    "status": "PASS",
+    "views": 21,
+    "contextLost": false,
+    "allPngsPass": true,
+    "directReadPixels": true
+  },
+  "presentation": {
+    "comparisonBoardPath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/v32-reference-comparison.png",
+    "candidateContactSheetPath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/candidate-contact-sheet.png",
+    "comparisonBoardSha256": "6d974146d62f378345f24f9530d0de91d1d660767ce31f10a44bbd6f752c11f8",
+    "candidateContactSheetSha256": "c1cf3ff17138946115f2d34c32c6c5db30d22119c6bc7e06e4fe2594acb5e8c3",
+    "referenceShownDirectlyBesideCandidate": true
+  },
+  "visualReview": {
+    "path": ".context/ab/director-macro-cycle-4/v32/build-a/v32-reference-anchored-visual-review.json",
+    "status": "FAIL",
+    "visualApproval": "FAIL",
+    "userApproval": "PENDING"
+  },
+  "identity": {
+    "authoritativeArtifactSha256": "1015ab60aa94d195567c052fd3b2178c4c160dba37e3dd8283aabd0790b466db",
+    "candidateIsAuthoritative": false,
+    "historicalIdentityDiscrepancy": "UNRESOLVED"
+  },
+  "decision": {
+    "visualApproval": "FAIL",
+    "userApproval": "PENDING",
+    "promotion": "BLOCKED",
+    "performanceWork": "DEFERRED"
+  },
+  "failClosed": [
+    "Candidate is not authoritative.",
+    "Visual approval is FAIL.",
+    "User map approval is PENDING.",
+    "Historical authoritative artifact identity is unresolved.",
+    "Independent audit PASS includes explicit source-bound adaptations; it is not a clean unadapted source audit."
+  ]
+}

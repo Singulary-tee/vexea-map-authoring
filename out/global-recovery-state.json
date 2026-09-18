@@ -1,0 +1,1069 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-09-17T05:38:13.257Z",
+  "status": "BLOCKED",
+  "sourceCommit": "b12c0af8c30b989fa709c95c2e7f1fd92b17c1ae",
+  "determinism": {
+    "profile": "mulberry32(idSeed(segment.id)); 1 m minor grid; 10 m major rhythm",
+    "canonicalSource": "blockout/blockout-full-v1.json",
+    "sourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+    "openQuestions": 0,
+    "resolvedDecisions": 10,
+    "authoredSourceUnchanged": true
+  },
+  "sourceRegister": {
+    "authoring": [
+      {
+        "path": "vexea-blockout-stage-prompt (2).md",
+        "sha256": "c315941f7a1dd5cd034f0f187e3814d4d8cced640102653ac0001e3b488914b9",
+        "consumedBy": "target and player-scale visual gate"
+      },
+      {
+        "path": "vexea-map-authoring (1).zip",
+        "sha256": "302133617609e95cb4b6b90e59613e555e47c6644cd045a040b13d89bb1772c2",
+        "consumedBy": "industrial grammar, contact, PvE, performance contracts"
+      }
+    ],
+    "contracts": [
+      {
+        "path": "README.md",
+        "sha256": "10a143bc284b817efae7dcdff1d1532a75ac53609ef7377001473b854c39c100"
+      },
+      {
+        "path": "HANDOFF-map-authoring.md",
+        "sha256": "0f58b2f0d06bae00628cc53a9081a46e9f7bcf49b1326a0ba2479e5cf1316e1d"
+      },
+      {
+        "path": "HANDOFF-LUNA.md",
+        "sha256": "accc0796b5271f078df0b68a6913cef1d6ee8a2423c0f805af45b9660962ed91"
+      },
+      {
+        "path": "docs/runbook.md",
+        "sha256": "9cb348f4c330687b3baf617ee1dfb694066791f072c8e43d605eb30e7e68831a"
+      },
+      {
+        "path": "spec/map-schema.md",
+        "sha256": "89f2c5876c871be8cbeea5118574b23ef8b23aa6ce388d7a007e4c7b1abecbce"
+      },
+      {
+        "path": "spec/calibration.md",
+        "sha256": "b1394cba0dbbbdd0aaa7a6d62e91d9cdbc82d40215d3070f80a5f181b0c400d5"
+      },
+      {
+        "path": "spec/style-profile.md",
+        "sha256": "d99a84e711fa02d6ee10c3315f2241cb3a3c173bca98da1fea439e3f7d48d3d2"
+      },
+      {
+        "path": "grammar/slice-cw-grammar.json",
+        "sha256": "acc7bfce765b8692be8f77e14741a0de06f30521e29d00e4ac354461945d4577"
+      },
+      {
+        "path": "assets/pbr/README.md",
+        "sha256": "d8edbebafc8d6b755e05822939e2b65415c99aa004b19a4b3795312fce65bee4"
+      }
+    ],
+    "knowledgeBase": [
+      {
+        "path": "kb/all_decision_rules.md",
+        "sha256": "169c50a5a6729f78ef89a2321c5fd99e44eb3b5f40f42658d2fde0115de5f65e"
+      },
+      {
+        "path": "kb/geometry_techniques.md",
+        "sha256": "496d7999e32d28642c865d04aeaa0ad03e387f73912821827af8080e099ad73f"
+      },
+      {
+        "path": "kb/instancing.md",
+        "sha256": "2c49e57a328a39868f9e4fde2f6e56bb96805c7c80bc4ba52f89648df28dc1fa"
+      },
+      {
+        "path": "kb/lighting.md",
+        "sha256": "1ef018dd9c55f5dc1faa18c2333ddb953c7b2676fa41cc5e0ffc21a64a41a713"
+      },
+      {
+        "path": "kb/ground_rules.md",
+        "sha256": "40408f5f3c16ad6c4235adf6d7a3f36112ea8e54f85944fbb8f2ef6c2b1986c8"
+      },
+      {
+        "path": "kb/spatial_research.md",
+        "sha256": "a6fc502aae499582422958156c536bc23382efcab3b7086318faf73478964098"
+      },
+      {
+        "path": "kb/tsl_patterns.md",
+        "sha256": "5c412a5309d0d6b32e06525921144e27692dd7fcc9fc7a329a41fea7574c7870"
+      }
+    ],
+    "blockout": [
+      {
+        "path": "blockout/blockout-full-v1.json",
+        "sha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d"
+      },
+      {
+        "path": "blockout/blockout-v2.json",
+        "sha256": "71ec46ad790acc7d4c96058cc3dbeb5f12cb7570a486e9f3697aa83407ce17e9"
+      },
+      {
+        "path": "blockout/blockout-v3.json",
+        "sha256": "75fef9a4833cbf326e2b612e6c097cfc37ce976c6801dbef65ebee703ca324df"
+      },
+      {
+        "path": "blockout/blockout-map-full.json",
+        "sha256": "c77d080088363eb6c05f33b4b37a160d53a9df7f6d020a9f3d806ed449bae6a1"
+      },
+      {
+        "path": "blockout/blockout-campus-coarse.json",
+        "sha256": "ab91825f4644b4f6da61453c97ee8196e95610d8fd2e895c775124b258ead9b2"
+      },
+      {
+        "path": "blockout/blockout-slice-cw.json",
+        "sha256": "7a59316271fa588cb4da330accdb17461ea0a7b01cac394d6703f99adfe876a3"
+      }
+    ],
+    "generatedControls": [
+      {
+        "path": "out/collision-manifest.json",
+        "sha256": "ddb5d03136207c5b6f1c3f63a4ce5531f245b49ec3d546259cabf7d3a031a153"
+      },
+      {
+        "path": "out/semantic-export.json",
+        "sha256": "0d919b4ffddc8ddd9d6cf13344950a1f62fab55134a516c09af90c708426d697"
+      },
+      {
+        "path": "out/runtime-map-bundle.json",
+        "sha256": "bffda017963d77c7f6549f32b42a9ce590c921203bd9238518569d27efdf4711"
+      },
+      {
+        "path": "out/traversal-report.json",
+        "sha256": "6cec497fbafbfd52e22cc3ee5564b0c6c2c911d37eb40ef74ac1ca8a9c090c10"
+      },
+      {
+        "path": "out/combat-space-matrix.json",
+        "sha256": "b2215158ba5f2f6e927d92bb7eccd6ee02c7aca837e2f9fa5bb9d1020d942971"
+      },
+      {
+        "path": "out/cover-bindings.json",
+        "sha256": "de4279dbf72c9122d58a6ffab9acf419a103305853ecfe705cdefcb7c848881d"
+      },
+      {
+        "path": "out/pve-reports.md",
+        "sha256": "cdb8288efbcfd450d2ebc4a4929920361fbf05795cccd15d7b47f2a8dcd8ffbc"
+      },
+      {
+        "path": "out/verticality-report.json",
+        "sha256": "de0eeb7d9adabc06ac97601e921cdc78cb817ba31738d1fbd0def33fd3ecc25f"
+      },
+      {
+        "path": "out/slice-contract.json",
+        "sha256": "3efa1006ee145f86b879e93764496982c0bd0f8e0167078491cf290bcc2c1c4d"
+      },
+      {
+        "path": "SHA256SUMS",
+        "sha256": "73df57de100000c6a5252c85977d5fcb239d403076f3897ef584cf4d7b52cdca"
+      },
+      {
+        "path": "out/geometry-audit.json",
+        "sha256": "b73d00184037df8d8d2bd1d32b175425dad274443da5cfa102bbdf7103d4a651",
+        "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+        "consumedBy": "current candidate structural audit"
+      },
+      {
+        "path": "out/build-report.json",
+        "sha256": "91d0f77d5a014fcd6c0a04d2a41da458e7603234cf648cde4b1971710c93290d",
+        "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+        "consumedBy": "current candidate build"
+      },
+      {
+        "path": "out/perf-report.json",
+        "sha256": "0acef2a7c6c9e1f50e624345e45e4cf16d1e84bf8fb2355417118b162ff313db",
+        "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+        "consumedBy": "current candidate performance gate"
+      },
+      {
+        "path": "out/visual-survey.json",
+        "sha256": "072e6a3a1775485d6661ff87b8e629dceb72465f6b106e09f369d02accc17e9c",
+        "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+        "consumedBy": "current candidate canonical survey"
+      }
+    ]
+  },
+  "artifact": {
+    "path": "editor/facility-built.glb",
+    "sha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+    "bytes": 65898396,
+    "generatorSha256": "c539790bc9199d81dc2cd94239f3fabd238cf6a2f745eba4ff5efa89936fa907",
+    "viewerSha256": "cb461c934e6142843506669a4a2f8084c64f421fa0535c188a5929c444a37906",
+    "renderWorkerSha256": "ab02679ba6b1e8c6f74582776bb44b0c6a03437aee42ec3acfe9c17b03aa932e",
+    "materials": 78,
+    "meshes": 97,
+    "nodes": 123,
+    "images": 73,
+    "primitives": 97,
+    "indexedTriangles": 766275,
+    "generatorReportedTriangles": 581497,
+    "triangleCountConventions": {
+      "generatorReported": "out/build-report.json materials/geometry estimate",
+      "glbIndexed": "sum of indexed accessor counts / 3 from GLB primitives"
+    },
+    "segments": 93
+  },
+  "rollback": {
+    "path": ".context/baseline/facility-built-current.glb",
+    "sha256": "5b3e4abadee2ec507e9370cb5504ee906030384237602fa82a2c3b684bd756a2",
+    "preservedSeparately": true
+  },
+  "counts": {
+    "sourceSegments": 93,
+    "routes": 14,
+    "zones": 8,
+    "coverSegments": 22,
+    "structuralSegments": 24,
+    "materials": 78,
+    "meshes": 97,
+    "nodes": 123,
+    "images": 73,
+    "primitives": 97,
+    "indexedTriangles": 766275,
+    "generatorTriangles": 581497
+  },
+  "globalState": {
+    "macroComposition": "FAIL",
+    "terrainAndLevelVariation": "PASS",
+    "zones": [
+      {
+        "id": "zone_spawn",
+        "name": "Spawn / Arrival",
+        "status": "PASS",
+        "evidenceView": "zone-spawn",
+        "note": "Player-scale render and arrival apron remain readable."
+      },
+      {
+        "id": "zone_courtyard",
+        "name": "Courtyard / Gate",
+        "status": "FAIL",
+        "evidenceView": "zone-courtyard",
+        "note": "v2 crosses the local courtyard threshold but independent review rejects campus-wide acceptance."
+      },
+      {
+        "id": "zone_warehouse",
+        "name": "Warehouse / Service",
+        "status": "PASS",
+        "evidenceView": "zone-warehouse",
+        "note": "Service-yard and hall modules are visible without structural regressions."
+      },
+      {
+        "id": "zone_plant",
+        "name": "Plant / Processing",
+        "status": "PASS",
+        "evidenceView": "zone-plant",
+        "note": "Processing, utility, storage, and service modules remain readable."
+      },
+      {
+        "id": "zone_bridge",
+        "name": "Bridge / Overwatch",
+        "status": "PASS",
+        "evidenceView": "zone-bridge",
+        "note": "Bridge/tower context and strengthened service massing are visible."
+      },
+      {
+        "id": "zone_tunnels",
+        "name": "Tunnels",
+        "status": "PASS",
+        "evidenceView": "zone-tunnels",
+        "note": "Below-grade route remains rendered and structurally verified."
+      },
+      {
+        "id": "zone_core",
+        "name": "Core",
+        "status": "FAIL",
+        "evidenceView": "zone-core",
+        "note": "v2 objective/core composition remains materially unchanged."
+      },
+      {
+        "id": "zone_boundary",
+        "name": "Perimeter / Boundary",
+        "status": "FAIL",
+        "evidenceView": "zone-boundary",
+        "note": "v2 boundary composition remains materially unchanged."
+      }
+    ],
+    "routeNetwork": "PASS",
+    "routes": [
+      {
+        "id": "route_main_surface",
+        "kind": "ground",
+        "status": "PASS",
+        "evidenceView": "route-main-surface"
+      },
+      {
+        "id": "route_covered",
+        "kind": "covered",
+        "status": "PASS",
+        "evidenceView": "route-covered",
+        "note": "Readable after final front-fill lock; remains a performance/visual watch area."
+      },
+      {
+        "id": "route_rear_alley",
+        "kind": "ground",
+        "status": "PASS",
+        "evidenceView": "route-rear-alley"
+      },
+      {
+        "id": "route_north_ring",
+        "kind": "ground",
+        "status": "PASS",
+        "evidenceView": "route-north-ring"
+      },
+      {
+        "id": "route_south_retreat",
+        "kind": "ground",
+        "status": "PASS",
+        "evidenceView": "route-south-retreat"
+      },
+      {
+        "id": "route_flank_backdoor",
+        "kind": "covered",
+        "status": "PASS",
+        "evidenceView": "route-flank-backdoor"
+      },
+      {
+        "id": "route_plant_spur",
+        "kind": "ground",
+        "status": "PASS",
+        "evidenceView": null,
+        "note": "Contract and clearance verified; no dedicated canonical capture."
+      },
+      {
+        "id": "route_ridgeline_exit",
+        "kind": "ground",
+        "status": "PASS",
+        "evidenceView": null,
+        "note": "Contract and grade verified; no dedicated canonical capture."
+      },
+      {
+        "id": "route_maintenance_loop",
+        "kind": "covered",
+        "status": "PASS",
+        "evidenceView": null,
+        "note": "Contract and clearance verified; no dedicated canonical capture."
+      },
+      {
+        "id": "route_tunnel",
+        "kind": "tunnel",
+        "status": "PASS",
+        "evidenceView": "tunnel-portal"
+      },
+      {
+        "id": "air-pressure-yard",
+        "kind": "air",
+        "status": "PASS",
+        "evidenceView": null,
+        "note": "Air-route contract preserved."
+      },
+      {
+        "id": "air-courtyard",
+        "kind": "air",
+        "status": "PASS",
+        "evidenceView": null,
+        "note": "Air-route contract preserved."
+      },
+      {
+        "id": "air-spawn-apron",
+        "kind": "air",
+        "status": "PASS",
+        "evidenceView": null,
+        "note": "Air-route contract preserved."
+      },
+      {
+        "id": "air-roof-reentry",
+        "kind": "air",
+        "status": "PASS",
+        "evidenceView": null,
+        "note": "Air-route contract preserved."
+      }
+    ],
+    "openYardDensity": "FAIL",
+    "industrialMassing": "FAIL",
+    "assetFamilies": "PASS",
+    "materials": "PASS",
+    "lighting": "PASS",
+    "placementContact": "PASS",
+    "campusCoverage": "PASS",
+    "performance": "BLOCKED",
+    "structuralContracts": "PASS",
+    "evidenceBinding": "PASS"
+  },
+  "yardOperations": {
+    "pads": 13,
+    "edgeBands": 680,
+    "drains": 39,
+    "runoff": 19,
+    "islands": 19,
+    "skippedIslands": 5,
+    "modules": 23,
+    "skippedModules": 10
+  },
+  "evidence": {
+    "canonicalSurvey": {
+      "status": "PASS",
+      "manifest": "out/visual-survey.json",
+      "manifestSha256": "ff3d70af46febbbfd4d2674a779d8321c1d259a1f40daf062f03984d009b71a6",
+      "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+      "viewport": "1400x900",
+      "renderer": "standalone Playwright Chromium SwiftShader; direct WebGL canvas",
+      "capturedViews": 21,
+      "expectedViews": 21,
+      "captures": {
+        "top": {
+          "path": "artifacts/canonical-top.png",
+          "sha256": "9973715edfca000998d177f1a68aa8925689dfdad3cbc22452a98dae712ed5df",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "orbit": {
+          "path": "artifacts/canonical-orbit.png",
+          "sha256": "11c77434fbae4a0f098c989e95d1229dd3f19c1a4747e368085efd09e7be4c71",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "xray": {
+          "path": "artifacts/canonical-xray.png",
+          "sha256": "9a9d39adfe5a3d0c92363e3061e301af5cc2bf62e53297c3a2fb4a09b46c84dd",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "zone-spawn": {
+          "path": "artifacts/canonical-zone-spawn.png",
+          "sha256": "021828c4045f30faaadcdd0d9f22fb7f80c1b0c14b5805f548cbc3eee0c7b637",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "zone-courtyard": {
+          "path": "artifacts/canonical-zone-courtyard.png",
+          "sha256": "a3fba11ea454438f7c236d1733842f77b210f18d7e9775144bb241e5aebbe9f7",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "zone-warehouse": {
+          "path": "artifacts/canonical-zone-warehouse.png",
+          "sha256": "0f4cdb00dcb729e48a63857f3e462398b3d9dc1363d1d802f56f94c351818cbb",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "zone-plant": {
+          "path": "artifacts/canonical-zone-plant.png",
+          "sha256": "fa63a26aa4d9d5d16b6b4d772aaf7bf5fe34fa63f6f27abc9683a8c15858bfe0",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "zone-bridge": {
+          "path": "artifacts/canonical-zone-bridge.png",
+          "sha256": "11b804dc75483a3a4732b3224394448eed8ac580e858675925ca53b0186503f7",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "zone-tunnels": {
+          "path": "artifacts/canonical-zone-tunnels.png",
+          "sha256": "99cf5705112431e2002cb01009249f53f29c5004b7eca05cf386d91decbe3c9b",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "zone-core": {
+          "path": "artifacts/canonical-zone-core.png",
+          "sha256": "d38620a94899fe957342eb07d4198ac5c8408c9d94be0cb92fc6996737728f69",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "zone-boundary": {
+          "path": "artifacts/canonical-zone-boundary.png",
+          "sha256": "6b13d90ea52938d52eefed7ec2c0f94c9dd6ba33883d234395607f451c2a20d3",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "route-main-surface": {
+          "path": "artifacts/canonical-route-main-surface.png",
+          "sha256": "2366d24269990ac603989f5fd5d4a3efda372dee231f74a517dfee3e3901a41e",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "route-covered": {
+          "path": "artifacts/canonical-route-covered.png",
+          "sha256": "bb1bf0f511aa11bb6c1702d570657cc7f810d87367c65df04bbc3b48206f87e3",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "route-rear-alley": {
+          "path": "artifacts/canonical-route-rear-alley.png",
+          "sha256": "daa4cd283dde10033fd83de88fa56fa3da493c8ad6ab85dcd8c399ed75af0ea3",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "route-north-ring": {
+          "path": "artifacts/canonical-route-north-ring.png",
+          "sha256": "1eba4533f9862cb3952f9275ec9c1344f43c6f9819c123a48a8b885ab66dd388",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "route-south-retreat": {
+          "path": "artifacts/canonical-route-south-retreat.png",
+          "sha256": "5a281557c485ab7c7f0fc053bcf89da3e139ce92a20a623dee4eec887af6b514",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "route-flank-backdoor": {
+          "path": "artifacts/canonical-route-flank-backdoor.png",
+          "sha256": "ff45f79d54d4717c3fbfca9eb21b506ea2e9fbc2c33ad43ef2cb2c3a373cde34",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "objective-core": {
+          "path": "artifacts/canonical-objective-core.png",
+          "sha256": "67d444ec7a278ede0e0235dcb00f470cfede37d6851b9232005b42ccdaf40e81",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "cover-courtyard": {
+          "path": "artifacts/canonical-cover-courtyard.png",
+          "sha256": "29b63d54da84af8c19a693ee521a4db1ca423f2594a97a8d9b1974000b6de446",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "tunnel-portal": {
+          "path": "artifacts/canonical-tunnel-portal.png",
+          "sha256": "22c4546c176931909a19af1093fcb1d5ae6a4404910ed48def50bda8b6329d8f",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        },
+        "vertical-connector": {
+          "path": "artifacts/canonical-vertical-connector.png",
+          "sha256": "316800b4c2a4634511a78aaed725d32905a337b7fbf3dd9e7fc4948c7749f396",
+          "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e"
+        }
+      }
+    },
+    "renderGate": {
+      "status": "PASS",
+      "analyzer": "tools/analyze_shot.py",
+      "analyzerSha256": "57fdd78312e7c89f58870bfc67c30aa2b7e8a4c1d92c3a9de298df0a7ec8740f",
+      "decodedColorType": "RGBA converted to RGB before classification",
+      "massCountsIncludeShadowedGeometry": true,
+      "passedViews": 21,
+      "failedViews": [],
+      "macroShadowViews": [
+        "top",
+        "orbit",
+        "xray"
+      ],
+      "note": "All 21 final candidate captures pass the corrected numeric render gate; this does not resolve the campus visual FAIL or performance BLOCKED state."
+    },
+    "ab": {
+      "status": "PASS",
+      "profile": "shadow-locked",
+      "beforeDir": ".context/ab/shadow-locked/before",
+      "afterDir": ".context/ab/shadow-locked/after",
+      "baselineArtifactSha256": "5b3e4abadee2ec507e9370cb5504ee906030384237602fa82a2c3b684bd756a2",
+      "candidateArtifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+      "viewport": "1400x900",
+      "viewCount": 21,
+      "sameCanonicalViews": true,
+      "sameRenderer": true,
+      "meanAllViews": 0.0005869009826152683,
+      "changedPixelsAtLeast5AllViews": 0.0029078231292517004,
+      "maximumViewMean": 0.003935649963689179,
+      "perView": {
+        "cover-courtyard": {
+          "meanAbsoluteRgb": 0.003936,
+          "changedPixelsAtLeast5": 0.00932
+        },
+        "objective-core": {
+          "meanAbsoluteRgb": 0,
+          "changedPixelsAtLeast5": 0
+        },
+        "orbit": {
+          "meanAbsoluteRgb": 0.00035,
+          "changedPixelsAtLeast5": 0.00315
+        },
+        "route-covered": {
+          "meanAbsoluteRgb": 0,
+          "changedPixelsAtLeast5": 0
+        },
+        "route-flank-backdoor": {
+          "meanAbsoluteRgb": 0,
+          "changedPixelsAtLeast5": 0
+        },
+        "route-main-surface": {
+          "meanAbsoluteRgb": 0.00022,
+          "changedPixelsAtLeast5": 0.0011899999999999999
+        },
+        "route-north-ring": {
+          "meanAbsoluteRgb": 0.001245,
+          "changedPixelsAtLeast5": 0.0034100000000000003
+        },
+        "route-rear-alley": {
+          "meanAbsoluteRgb": 0.000895,
+          "changedPixelsAtLeast5": 0.0032500000000000003
+        },
+        "route-south-retreat": {
+          "meanAbsoluteRgb": 0.000897,
+          "changedPixelsAtLeast5": 0.00244
+        },
+        "top": {
+          "meanAbsoluteRgb": 0.001187,
+          "changedPixelsAtLeast5": 0.010320000000000001
+        },
+        "tunnel-portal": {
+          "meanAbsoluteRgb": 0,
+          "changedPixelsAtLeast5": 0
+        },
+        "vertical-connector": {
+          "meanAbsoluteRgb": 0.000002,
+          "changedPixelsAtLeast5": 0.00001
+        },
+        "xray": {
+          "meanAbsoluteRgb": 0.000424,
+          "changedPixelsAtLeast5": 0.00716
+        },
+        "zone-boundary": {
+          "meanAbsoluteRgb": 0.000033,
+          "changedPixelsAtLeast5": 0.00008
+        },
+        "zone-bridge": {
+          "meanAbsoluteRgb": 0.002072,
+          "changedPixelsAtLeast5": 0.01126
+        },
+        "zone-core": {
+          "meanAbsoluteRgb": 0,
+          "changedPixelsAtLeast5": 0
+        },
+        "zone-courtyard": {
+          "meanAbsoluteRgb": 0.000003,
+          "changedPixelsAtLeast5": 0.00002
+        },
+        "zone-plant": {
+          "meanAbsoluteRgb": 0.000199,
+          "changedPixelsAtLeast5": 0.00293
+        },
+        "zone-spawn": {
+          "meanAbsoluteRgb": 0.000246,
+          "changedPixelsAtLeast5": 0.0018
+        },
+        "zone-tunnels": {
+          "meanAbsoluteRgb": 0.000001,
+          "changedPixelsAtLeast5": 0
+        },
+        "zone-warehouse": {
+          "meanAbsoluteRgb": 0.000617,
+          "changedPixelsAtLeast5": 0.004719999999999999
+        }
+      },
+      "interpretation": "The locked pair confirms measurable candidate changes, but unchanged/occluded areas prevent global visual acceptance.",
+      "campusSpine": {
+        "status": "PASS_BINDING_FAIL_ACCEPTANCE",
+        "strategy": "distributed-campus-operations-spine-v1",
+        "candidateArtifact": {
+          "path": ".context/ab/distributed-operations-spine/facility-built-campus-spine.glb",
+          "sha256": "73ec52fbc4f59075f475718e111792a9a6b820ac4105db6e0739bdd1b7504eab",
+          "bytes": 71253416
+        },
+        "baselineArtifact": {
+          "path": "editor/facility-built.glb",
+          "sha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+          "bytes": 65898396
+        },
+        "spineAudit": {
+          "path": ".context/ab/distributed-operations-spine/spine-audit.json",
+          "sha256": "11de896c0e36b6594fe69f8fcd9734aba925d1eb18918897713c4117227bf54a",
+          "status": "PASS",
+          "checks": "81/81"
+        },
+        "surveyManifest": {
+          "path": ".context/ab/distributed-operations-spine/visual-survey.json",
+          "sha256": "29c6ec26dcb33415fdb73ff3b1a79b7390825f63dc8e33a62252504a11013cf1",
+          "views": 21
+        },
+        "surveyAudit": {
+          "path": ".context/ab/distributed-operations-spine/full-survey-audit.json",
+          "sha256": "f74446c76391bb0a47b412fa184cad26ee214d5b71b48ec938842bdf12f98bc9",
+          "classification": "REJECTED_LOCAL_ONLY",
+          "validViews": 20,
+          "missingViews": 0,
+          "regressions": 0
+        },
+        "independentReview": {
+          "path": ".context/ab/distributed-operations-spine/independent-review.json",
+          "sha256": "5dfaefd1c982ef857f88db6dbb78c6454fed6e12954d0b377d2be60c8b3a8f26",
+          "verdict": "REJECT",
+          "acceptance": "NOT_ACCEPTED",
+          "promotionAllowed": false
+        },
+        "xray": "QUARANTINED_KNOWN_XRAY_HARNESS",
+        "interpretation": "Candidate changes are structurally valid and artifact-bound but do not produce broad player-scale campus improvement; keep isolated and change strategy."
+      }
+    },
+    "structuralAudit": {
+      "status": "PASS",
+      "report": "out/geometry-audit.json",
+      "reportSha256": "b73d00184037df8d8d2bd1d32b175425dad274443da5cfa102bbdf7103d4a651",
+      "passed": 17,
+      "failed": 0
+    },
+    "viewerVerification": {
+      "status": "PASS",
+      "command": "VERIFY_VIEWER_SKIP_SCREENSHOT=1 node tools/verify-viewer.mjs",
+      "errors": [],
+      "screenshotSkipped": true
+    },
+    "transferNetwork": {
+      "status": "REJECTED_GLOBAL_VISUAL_ACCEPTANCE",
+      "profile": "elevated-interior-transfer-network-v1",
+      "candidateArtifactSha256": "1a6786cacb9974ec4135da965cf17065a2b9eb78fdbc1bea3da148aa59f54678",
+      "candidateArtifactBytes": 66876348,
+      "candidateIdentity": {
+        "materials": 78,
+        "meshes": 98,
+        "nodes": 124,
+        "images": 73,
+        "primitives": 98,
+        "indexedTriangles": 779331
+      },
+      "baselineArtifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+      "baselineArtifactBytes": 65898396,
+      "sourceCommit": "b12c0af8c30b989fa709c95c2e7f1fd92b17c1ae",
+      "sourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+      "generatorSha256": "8bdf4c953be920c3766fce2fab8e0e463b915a0abf6e34adce6c7535cdcda81e",
+      "buildReport": {
+        "path": ".context/ab/transfer-network/build-report.json",
+        "sha256": "cc1768c770bf15f8e8322b78af4bcaba79464011e3604d3313197a872edfda57"
+      },
+      "geometryAudit": {
+        "path": ".context/ab/transfer-network/geometry-audit.json",
+        "sha256": "9a815102e418d5249ac9e393438c9c6f5d501620b6b4b81aba7cc7ec9b577776",
+        "passed": "17/17"
+      },
+      "transferAudit": {
+        "path": ".context/ab/transfer-network/transfer-audit.json",
+        "sha256": "aee087cf8a72a7a92c2eaf22e54fa750fca6b83ebd707338f8d5a29cf8b0638b",
+        "summary": {
+          "checks": 27,
+          "passed": 27,
+          "failed": 0
+        }
+      },
+      "baselineSurveyManifest": {
+        "path": "out/visual-survey.json",
+        "sha256": "ff3d70af46febbbfd4d2674a779d8321c1d259a1f40daf062f03984d009b71a6",
+        "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+        "views": 21
+      },
+      "candidateSurveyManifest": {
+        "path": ".context/ab/transfer-network/visual-survey.json",
+        "sha256": "54ccab73c28b9d48ee76be55dd1734650245d241836c6e14e53b43ede0b5c1e7",
+        "artifactSha256": "1a6786cacb9974ec4135da965cf17065a2b9eb78fdbc1bea3da148aa59f54678",
+        "views": 21
+      },
+      "visualAudit": {
+        "path": ".context/ab/transfer-network/full-survey-audit.json",
+        "sha256": "3792dba4a9c275e0ec3fe815c28d85ab0c3aa5e0083db7cc8b6c05428b5c8c69",
+        "classification": "GLOBAL_MACRO_IMPROVEMENT",
+        "globalVisualGate": "FAIL",
+        "summary": {
+          "requestedViews": 21,
+          "capturedViews": 21,
+          "missingViews": [],
+          "validViews": 20,
+          "renderFailures": [],
+          "regressions": [],
+          "macroChangedViews": [
+            "top",
+            "zone-core"
+          ],
+          "macroViewChanged": true,
+          "zoneViewChanged": true,
+          "materialThreshold": {
+            "meanRgbDelta": 0.0005,
+            "changedPixelsAt5": 0.005
+          }
+        },
+        "binding": {
+          "status": "PASS",
+          "errors": []
+        }
+      },
+      "independentReview": {
+        "path": ".context/ab/transfer-network/independent-review.json",
+        "sha256": "cd6ebc3bc056c46fe226cf3d59b7f3d65fa747d066a28d7a8e2144fa70a64812",
+        "verdict": "REJECT",
+        "acceptance": "NOT_ACCEPTED",
+        "promotionAllowed": false
+      },
+      "xray": "QUARANTINED_KNOWN_XRAY_HARNESS",
+      "interpretation": "The candidate produces measurable top/core A/B change with no audited structural or render regressions, but independent full-campus review rejects acceptance because required areas remain sparse/unchanged and the candidate X-ray is invalid."
+    },
+    "cameraFacingOpenCellV2": {
+      "status": "PASS_BINDING_FAIL_ACCEPTANCE",
+      "strategy": "camera-facing-open-cell-operations-v2",
+      "owner": "recovery-cycle-6",
+      "candidateArtifact": {
+        "path": ".context/ab/camera-facing-open-cell-v2/facility-built-camera-facing-open-cell-v2.glb",
+        "sha256": "a640791c51e2408541048682dac4834043ae436301489eb5b8e522f4dc90257f",
+        "bytes": 70281988
+      },
+      "baselineArtifact": {
+        "path": "editor/facility-built.glb",
+        "sha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+        "bytes": 65898396
+      },
+      "structuralAudit": {
+        "path": ".context/ab/camera-facing-open-cell-v2/open-cell-audit.json",
+        "sha256": "0eda1ae231543612db90606a0694a9a97bd50d6aa13aa5b7cdd3cdec4eb3e68a",
+        "passed": "97/97"
+      },
+      "deterministicRebuild": {
+        "report": ".context/ab/camera-facing-open-cell-v2/determinism/build-report.json",
+        "reportSha256": "aeaeac8243811fbe9fa2e0cd0bd08a645bf870d8b198d8255ef413ccbd788ba0",
+        "rebuiltArtifact": ".context/ab/camera-facing-open-cell-v2/determinism/facility-built-camera-facing-open-cell-v2-rebuild.glb",
+        "rebuiltSha256": "a640791c51e2408541048682dac4834043ae436301489eb5b8e522f4dc90257f",
+        "byteIdentical": true
+      },
+      "ordinaryModeExclusion": {
+        "path": ".context/ab/camera-facing-open-cell-v2/ordinary/build-report-final.json",
+        "reportSha256": "c6f3f3f19a0230a00b6bd335132ae31c0b55ed9692e94a9662ea58d372d3f0dd",
+        "artifact": ".context/ab/camera-facing-open-cell-v2/ordinary/facility-built-ordinary-final.glb",
+        "artifactSha256": "83acc0658c85f79fbc2535801d860658cc015e33a8d829d83254b0b2329a1e1b",
+        "passed": true
+      },
+      "baselineSurveyManifest": {
+        "path": ".context/ab/camera-facing-open-cell-v2/baseline-visual-survey.json",
+        "sha256": "4ce1d3ead9b43dde4420cddd49c970215336f522b9f9bc47d1875b597a3d2675",
+        "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+        "views": 21
+      },
+      "candidateSurveyManifest": {
+        "path": ".context/ab/camera-facing-open-cell-v2/candidate-visual-survey.json",
+        "sha256": "115cd463d62fd642069ec9eb5a74a38fb8b2a09e84a9a93490d03dc43404d8f7",
+        "artifactSha256": "a640791c51e2408541048682dac4834043ae436301489eb5b8e522f4dc90257f",
+        "views": 21
+      },
+      "visualAudit": {
+        "path": ".context/ab/camera-facing-open-cell-v2/full-survey-audit.json",
+        "sha256": "132e689d20873eed2f19b7919886051e782495883d2e5496b761301d4f36686e",
+        "classification": "REJECTED_LOCAL_ONLY",
+        "globalVisualGate": "FAIL",
+        "validViews": 20,
+        "requestedViews": 21,
+        "renderFailures": 0,
+        "regressions": 0,
+        "macroViewChanged": false,
+        "zoneViewChanged": true,
+        "quarantinedViews": [
+          "xray"
+        ]
+      },
+      "independentReview": {
+        "path": ".context/ab/camera-facing-open-cell-v2/independent-review.json",
+        "sha256": "5c695e2d0a55511cfc24c43911c678bf1cc7e0801948965c6570062c2b19bcb8",
+        "verdict": "REJECT",
+        "acceptance": "NOT_ACCEPTED",
+        "promotionAllowed": false
+      },
+      "sourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d"
+    },
+    "visualGate": {
+      "status": "FAIL",
+      "classification": "REJECTED_LOCAL_ONLY",
+      "audit": {
+        "path": ".context/ab/camera-facing-open-cell-v2/full-survey-audit.json",
+        "sha256": "132e689d20873eed2f19b7919886051e782495883d2e5496b761301d4f36686e",
+        "classification": "REJECTED_LOCAL_ONLY",
+        "globalVisualGate": "FAIL",
+        "validViews": 20,
+        "requestedViews": 21,
+        "renderFailures": 0,
+        "regressions": 0,
+        "macroViewChanged": false,
+        "zoneViewChanged": true,
+        "quarantinedViews": [
+          "xray"
+        ]
+      },
+      "independentReview": {
+        "path": ".context/ab/camera-facing-open-cell-v2/independent-review.json",
+        "sha256": "5c695e2d0a55511cfc24c43911c678bf1cc7e0801948965c6570062c2b19bcb8",
+        "verdict": "REJECT",
+        "acceptance": "NOT_ACCEPTED",
+        "promotionAllowed": false
+      }
+    },
+    "deterministicRebuild": {
+      "report": ".context/ab/camera-facing-open-cell-v2/determinism/build-report.json",
+      "reportSha256": "aeaeac8243811fbe9fa2e0cd0bd08a645bf870d8b198d8255ef413ccbd788ba0",
+      "rebuiltArtifact": ".context/ab/camera-facing-open-cell-v2/determinism/facility-built-camera-facing-open-cell-v2-rebuild.glb",
+      "rebuiltSha256": "a640791c51e2408541048682dac4834043ae436301489eb5b8e522f4dc90257f",
+      "byteIdentical": true
+    },
+    "ordinaryModeExclusion": {
+      "path": ".context/ab/camera-facing-open-cell-v2/ordinary/build-report-final.json",
+      "reportSha256": "c6f3f3f19a0230a00b6bd335132ae31c0b55ed9692e94a9662ea58d372d3f0dd",
+      "artifact": ".context/ab/camera-facing-open-cell-v2/ordinary/facility-built-ordinary-final.glb",
+      "artifactSha256": "83acc0658c85f79fbc2535801d860658cc015e33a8d829d83254b0b2329a1e1b",
+      "passed": true
+    }
+  },
+  "performance": {
+    "status": "BLOCKED",
+    "report": "out/perf-report.json",
+    "reportSha256": "0acef2a7c6c9e1f50e624345e45e4cf16d1e84bf8fb2355417118b162ff313db",
+    "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+    "renderer": "WebGL2 (swiftshader software GL, headless measurement)",
+    "blockedViews": [
+      {
+        "view": "top-ortho",
+        "status": "blocked",
+        "frames": 0,
+        "timeoutMs": 30000
+      }
+    ],
+    "rejectedStrategies": [
+      "explicit gl.finish",
+      "scheduler-only changes",
+      "no-warmup",
+      "compile-only",
+      "compileAsync",
+      "reduced raster",
+      "empty-scene isolation",
+      "preserve-drawing-buffer variants"
+    ],
+    "nextStrategy": "Use a materially different proven visible browser/runtime path that covers top, orbit, X-ray/interior, player, moving-route, and late-frame sampling; do not use presentation-only or precompile-only bypasses."
+  },
+  "reports": {
+    "visualSurvey": "out/visual-survey.json",
+    "geometryAudit": "out/geometry-audit.json",
+    "build": "out/build-report.json",
+    "performance": "out/perf-report.json",
+    "artifactIdentityRule": "Only reports and captures carrying the current artifact SHA-256 may be used for promotion.",
+    "artifactIdentity": {
+      "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+      "visualSurveySha256": "ff3d70af46febbbfd4d2674a779d8321c1d259a1f40daf062f03984d009b71a6",
+      "geometryAuditSha256": "b73d00184037df8d8d2bd1d32b175425dad274443da5cfa102bbdf7103d4a651",
+      "buildReportSha256": "47b418940da37874fa552d45f977640fb38c0c8a43c23c4d9bacc5c12fad7b59",
+      "performanceReportSha256": "0acef2a7c6c9e1f50e624345e45e4cf16d1e84bf8fb2355417118b162ff313db"
+    },
+    "hashes": {
+      "visualSurvey": "ff3d70af46febbbfd4d2674a779d8321c1d259a1f40daf062f03984d009b71a6",
+      "geometryAudit": "b73d00184037df8d8d2bd1d32b175425dad274443da5cfa102bbdf7103d4a651",
+      "build": "47b418940da37874fa552d45f977640fb38c0c8a43c23c4d9bacc5c12fad7b59",
+      "performance": "0acef2a7c6c9e1f50e624345e45e4cf16d1e84bf8fb2355417118b162ff313db"
+    },
+    "cameraFacingOpenCellV2": {
+      "buildReport": {
+        "path": ".context/ab/camera-facing-open-cell-v2/build-report.json",
+        "sha256": "485bc171c3a64d4cc99526793770dcaf37904670733e0d157295ffbc27cd68f9"
+      },
+      "structuralAudit": {
+        "path": ".context/ab/camera-facing-open-cell-v2/open-cell-audit.json",
+        "sha256": "0eda1ae231543612db90606a0694a9a97bd50d6aa13aa5b7cdd3cdec4eb3e68a",
+        "passed": "97/97"
+      },
+      "determinism": {
+        "report": ".context/ab/camera-facing-open-cell-v2/determinism/build-report.json",
+        "reportSha256": "aeaeac8243811fbe9fa2e0cd0bd08a645bf870d8b198d8255ef413ccbd788ba0",
+        "rebuiltArtifact": ".context/ab/camera-facing-open-cell-v2/determinism/facility-built-camera-facing-open-cell-v2-rebuild.glb",
+        "rebuiltSha256": "a640791c51e2408541048682dac4834043ae436301489eb5b8e522f4dc90257f",
+        "byteIdentical": true
+      },
+      "ordinaryMode": {
+        "path": ".context/ab/camera-facing-open-cell-v2/ordinary/build-report-final.json",
+        "reportSha256": "c6f3f3f19a0230a00b6bd335132ae31c0b55ed9692e94a9662ea58d372d3f0dd",
+        "artifact": ".context/ab/camera-facing-open-cell-v2/ordinary/facility-built-ordinary-final.glb",
+        "artifactSha256": "83acc0658c85f79fbc2535801d860658cc015e33a8d829d83254b0b2329a1e1b",
+        "passed": true
+      },
+      "visualAudit": {
+        "path": ".context/ab/camera-facing-open-cell-v2/full-survey-audit.json",
+        "sha256": "132e689d20873eed2f19b7919886051e782495883d2e5496b761301d4f36686e",
+        "classification": "REJECTED_LOCAL_ONLY",
+        "globalVisualGate": "FAIL",
+        "validViews": 20,
+        "requestedViews": 21,
+        "renderFailures": 0,
+        "regressions": 0,
+        "macroViewChanged": false,
+        "zoneViewChanged": true,
+        "quarantinedViews": [
+          "xray"
+        ]
+      }
+    }
+  },
+  "hashes": {
+    "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+    "rollbackArtifactSha256": "5b3e4abadee2ec507e9370cb5504ee906030384237602fa82a2c3b684bd756a2",
+    "canonicalSource": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+    "generator": "c539790bc9199d81dc2cd94239f3fabd238cf6a2f745eba4ff5efa89936fa907",
+    "viewer": "cb461c934e6142843506669a4a2f8084c64f421fa0535c188a5929c444a37906",
+    "renderWorker": "ab02679ba6b1e8c6f74582776bb44b0c6a03437aee42ec3acfe9c17b03aa932e",
+    "surveyCapture": "2860355bea26cc968438661d294058b74a54a7ac8aa769ea8701a0ae89b2cdfd",
+    "renderAnalyzer": "57fdd78312e7c89f58870bfc67c30aa2b7e8a4c1d92c3a9de298df0a7ec8740f",
+    "gatingPlan": "fde94e15a5357d45a5925ef4e3265ee7dea0e801fb0dff52784c8155393c07ec",
+    "visualSurvey": "ff3d70af46febbbfd4d2674a779d8321c1d259a1f40daf062f03984d009b71a6",
+    "geometryAudit": "b73d00184037df8d8d2bd1d32b175425dad274443da5cfa102bbdf7103d4a651",
+    "build": "47b418940da37874fa552d45f977640fb38c0c8a43c23c4d9bacc5c12fad7b59",
+    "performance": "0acef2a7c6c9e1f50e624345e45e4cf16d1e84bf8fb2355417118b162ff313db"
+  },
+  "failures": [
+    {
+      "id": "global-industrial-massing",
+      "status": "FAIL",
+      "scope": "campus-wide",
+      "evidence": [
+        "canonical-top",
+        "canonical-orbit",
+        "zone-courtyard",
+        "zone-boundary"
+      ],
+      "priority": "high",
+      "strategy": "Archive the rejected transfer-network candidate and select a different campus-scale composition strategy that changes unchanged required zones without touching authored contracts.",
+      "unsuccessfulIterations": 2
+    },
+    {
+      "id": "unchanged-required-areas",
+      "status": "FAIL",
+      "scope": [
+        "zone_courtyard",
+        "zone_core",
+        "zone_boundary"
+      ],
+      "evidence": [
+        "zone-courtyard",
+        "zone-core",
+        "zone-boundary",
+        "cover-courtyard"
+      ],
+      "priority": "high",
+      "strategy": "Replace the transfer-only strategy with a broader global composition test covering courtyard, core, boundary, and other unchanged required views.",
+      "unsuccessfulIterations": 2
+    },
+    {
+      "id": "visible-performance",
+      "status": "BLOCKED",
+      "scope": "full-campus SwiftShader measurement",
+      "evidence": [
+        "out/perf-report.json"
+      ],
+      "priority": "critical",
+      "strategy": "Investigate a materially different visible runtime path; preserve geometry fidelity and all required view classes.",
+      "unsuccessfulIterations": 8
+    }
+  ],
+  "currentHighestPriorityFailure": "Campus-wide visual acceptance remains FAIL: v2 is structurally valid and deterministic but materially changes only a local courtyard view; top/orbit/core/boundary composition and sustained visible performance remain unresolved.",
+  "currentStrategy": "Isolate a materially broader macro-compound campus strategy as BUILD_OPEN_CELL_NETWORK_V3_ONLY; preserve v2/source/authoritative GLB and require full 21-view A/B plus independent global acceptance before promotion.",
+  "iterationsAgainstCurrentStrategy": {
+    "unsuccessfulIterations": 11,
+    "rejectedPerformanceStrategies": 8,
+    "currentVisualCycle": 6
+  },
+  "globalStateChangeSinceLastCycle": [
+    "Reconciled all current report and artifact identities to d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e.",
+    "Locked a shadowed, reduced-fog, readable practical-light survey renderer; top/orbit/X-ray and all 21 corrected render gates pass.",
+    "Completed a same-resolution, same-renderer 21-view baseline/candidate A/B packet.",
+    "Structural, editor, viewer, placement, and route contracts remain green.",
+    "Performance remains BLOCKED and campus visual acceptance remains FAIL.",
+    "Reconciled the canonical survey manifest and capture hashes to the files currently preserved under artifacts/.",
+    "Completed the final transfer-network packet bound to 1a6786cacb9974ec4135da965cf17065a2b9eb78fdbc1bea3da148aa59f54678; geometry 17/17, transfer placement 27/27, and 21-view A/B capture completed.",
+    "Artifact-bound A/B evidence classified GLOBAL_MACRO_IMPROVEMENT with top and zone-core changes and no valid-view regressions.",
+    "Independent full-campus review rejected visual acceptance; candidate X-ray remains quarantined and promotion remains forbidden.",
+    "Generated isolated distributed-campus-operations-spine-v1 candidate with ten grounded compounds across spawn, gate, warehouse, courtyard, bridge, plant, checkpoint, core, east relay, and boundary pads.",
+    "Independent campus-spine audit passed 81/81 artifact, source, trace, placement, authored-clearance, route-clearance, air-lane, grounding, and identity checks.",
+    "Completed a complete 21-view, 1400x900 artifact-bound candidate survey with 20 valid views; the known X-ray harness failure remains quarantined.",
+    "A/B survey classification is REJECTED_LOCAL_ONLY: only the top qualifies as a macro-view change; courtyard and core remain unchanged, and broad route/objective/tunnel coverage remains unchanged or occluded.",
+    "Independent Phase-F review rejected campus-wide visual acceptance; candidate remains isolated and promotion remains forbidden.",
+    "Final camera-facing v2 packet is reconciled: structural audit 97/97 PASS, deterministic rebuild byte-identical PASS, ordinary-mode exclusion PASS.",
+    "The corrected 21-view v2 A/B packet has 20 valid views, no regressions, X-ray quarantined, and classification REJECTED_LOCAL_ONLY because macroViewChanged=false.",
+    "Independent v2 review is REJECT / NOT_ACCEPTED with promotionAllowed=false; authoritative source and GLB remain unchanged.",
+    "Performance remains BLOCKED; v3 visual work and performance investigation remain separate."
+  ],
+  "regressions": [],
+  "nextRequiredAction": "Implement only an isolated BUILD_OPEN_CELL_NETWORK_V3_ONLY macro-compound candidate that changes top/orbit plus multiple route, zone, and objective views; run placement/clearance/triangle checks first, then preserve complete artifact-bound A/B evidence and independent review. Do not promote v2 or overwrite the authoritative GLB.",
+  "promotion": {
+    "allowed": false,
+    "reason": "Independent v2 review rejected local-only visual change; authoritative artifact remains protected."
+  }
+}

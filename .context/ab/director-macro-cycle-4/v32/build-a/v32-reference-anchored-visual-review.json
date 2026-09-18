@@ -1,0 +1,809 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-18T12:03:08.567Z",
+  "sourceCommit": "b12c0af8c30b989fa709c95c2e7f1fd92b17c1ae",
+  "sourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+  "generatorSha256": "69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20",
+  "artifact": {
+    "path": ".context/ab/director-macro-cycle-4/v32/build-a/facility-built-v32.glb",
+    "sha256": "0b9ef3e4179bbc439cab690cd7127f4a198883860f2a0bc21198a1c7deaaf1bb",
+    "bytes": 64184268
+  },
+  "method": "Fresh exact-artifact-bound 1400x900 standalone Chromium SwiftShader readPixels captures reviewed beside supplied many-small-views reference board; technical PASS fields were not used as visual evidence.",
+  "referenceRegister": [
+    {
+      "id": "industrial-frontage",
+      "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+    },
+    {
+      "id": "processing-yard",
+      "path": "references/inspiration/Screenshot_20260825_013725_Chrome.png"
+    },
+    {
+      "id": "below-grade-corridor",
+      "path": "references/inspiration/Screenshot_20260825_013737_Chrome.png"
+    },
+    {
+      "id": "user-industrial-campus-board",
+      "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+      "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+    }
+  ],
+  "presentation": {
+    "comparisonBoardPath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/v32-reference-comparison.png",
+    "candidateContactSheetPath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/candidate-contact-sheet.png",
+    "comparisonBoardSha256": "6d974146d62f378345f24f9530d0de91d1d660767ce31f10a44bbd6f752c11f8",
+    "candidateContactSheetSha256": "c1cf3ff17138946115f2d34c32c6c5db30d22119c6bc7e06e4fe2594acb5e8c3",
+    "referenceShownDirectlyBesideCandidate": true
+  },
+  "summary": {
+    "status": "FAIL",
+    "checkedViews": 21,
+    "failingViews": 21,
+    "propertiesChecked": 63,
+    "present": 14,
+    "degraded": 29,
+    "absent": 20,
+    "requiredViewsChecked": 4,
+    "requiredViewsFailing": 4,
+    "zonesChecked": 8,
+    "zonesFailing": 8,
+    "routesChecked": 6,
+    "routesFailing": 6
+  },
+  "highestLevelRemainingFailure": "Campus has more camera-visible contacts, but still fails supplied reference density, layered perimeter context, and consistently operational yards.",
+  "failureClasses": {
+    "macroTerrain": "FAIL",
+    "density": "FAIL",
+    "industrialMassing": "DEGRADED",
+    "assetFamilies": "FAIL",
+    "materials": "DEGRADED",
+    "lighting": "DEGRADED",
+    "operationalYards": "FAIL",
+    "requiredViews": "FAIL"
+  },
+  "evidenceGaps": [
+    "No visual approval.",
+    "No explicit user map approval.",
+    "Historical authoritative artifact identity discrepancy remains unresolved.",
+    "Reference board remains attachment-bound; it is shown directly beside candidate in comparison evidence but not copied into repository source."
+  ],
+  "decision": {
+    "visualApproval": "FAIL",
+    "userApproval": "PENDING",
+    "promotion": "BLOCKED",
+    "performanceWork": "DEFERRED"
+  },
+  "views": [
+    {
+      "id": "top",
+      "family": "global",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-top.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "connected industrial families",
+          "status": "degraded",
+          "observation": "Campus footprint connects, but low slabs still dominate broad composition."
+        },
+        {
+          "property": "layered industrial silhouettes",
+          "status": "degraded",
+          "observation": "Process frames and tanks register, but perimeter skyline remains flat."
+        },
+        {
+          "property": "campus-wide operational yards",
+          "status": "absent",
+          "observation": "Vehicles, staging, wet aprons, and maintenance activity do not read from above."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "orbit",
+      "family": "global",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-orbit.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "connected industrial massing",
+          "status": "degraded",
+          "observation": "Distributed families read as one compound, but outboard volumes remain low-information."
+        },
+        {
+          "property": "processing hierarchy and layered elevations",
+          "status": "degraded",
+          "observation": "Tanks, pipe frames, and a taller core exist, but hierarchy stays weak."
+        },
+        {
+          "property": "perimeter vegetation and service clutter",
+          "status": "absent",
+          "observation": "No convincing vegetation band or distributed yard clutter reads at campus scale."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "xray",
+      "family": "global",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-xray.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "below-grade-corridor",
+          "path": "references/inspiration/Screenshot_20260825_013737_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "macro hierarchy",
+          "status": "degraded",
+          "observation": "Routes and footprint are legible, but added operations do not resolve sparse top-level reading."
+        },
+        {
+          "property": "below-grade route coverage",
+          "status": "present",
+          "observation": "Continuous lit corridor and parallel utility runs read clearly."
+        },
+        {
+          "property": "terrain and perimeter context",
+          "status": "absent",
+          "observation": "No readable terrain transition, fence context, or vegetation layer appears."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "zone-spawn",
+      "family": "zone",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-spawn.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "covered industrial frontage",
+          "status": "degraded",
+          "observation": "Canopy and overhead utility frame create frontage, but wall families remain sparse."
+        },
+        {
+          "property": "shared operational yard",
+          "status": "absent",
+          "observation": "Spawn apron lacks loading vehicles, pallets, forklifts, and maintenance staging."
+        },
+        {
+          "property": "wet marked street response",
+          "status": "degraded",
+          "observation": "Road edge and marking exist, but puddle and grime response is weak."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "zone-courtyard",
+      "family": "zone",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-courtyard.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "pipe rack and access structure",
+          "status": "present",
+          "observation": "Rack, stairs, rails, and covered service edge read as industrial access."
+        },
+        {
+          "property": "operational yard density",
+          "status": "degraded",
+          "observation": "Open yard remains mostly empty, with few meaningful contacts or props."
+        },
+        {
+          "property": "material and wetness response",
+          "status": "degraded",
+          "observation": "Concrete and dark pavement read, but reference wetness and grime are limited."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "zone-warehouse",
+      "family": "zone",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-warehouse.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        },
+        {
+          "id": "processing-yard",
+          "path": "references/inspiration/Screenshot_20260825_013725_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "warehouse frontage",
+          "status": "degraded",
+          "observation": "Large mass and canopy read, but façade is mostly blank and repetitive."
+        },
+        {
+          "property": "loading identity",
+          "status": "absent",
+          "observation": "No convincing dock doors, active loading, vehicle, or pallet relationship reads."
+        },
+        {
+          "property": "corrugated and glass material variety",
+          "status": "degraded",
+          "observation": "Pressed panels are visible, but windows and façade articulation remain limited."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "zone-plant",
+      "family": "zone",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-plant.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "processing-yard",
+          "path": "references/inspiration/Screenshot_20260825_013725_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "tanks and process utilities",
+          "status": "present",
+          "observation": "Two tall vessels and overhead pipes establish process identity."
+        },
+        {
+          "property": "vertical service hierarchy",
+          "status": "degraded",
+          "observation": "Utility posts and frames exist, but stairs, valves, and catwalk layers are thin."
+        },
+        {
+          "property": "facility-edge vegetation and terrain",
+          "status": "absent",
+          "observation": "Plant edge has no controlled vegetation band or layered terrain silhouette."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "zone-bridge",
+      "family": "zone",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-bridge.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "processing-yard",
+          "path": "references/inspiration/Screenshot_20260825_013725_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "bridge pipe transfer",
+          "status": "present",
+          "observation": "Elevated pipe frame and yellow handrails establish a transfer crossing."
+        },
+        {
+          "property": "layered industrial background",
+          "status": "degraded",
+          "observation": "A few walls and frames layer, but the horizon remains mostly blank."
+        },
+        {
+          "property": "shared yard activity",
+          "status": "absent",
+          "observation": "No vehicles, containers, pallets, or maintenance contacts populate the yard."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "zone-tunnels",
+      "family": "zone",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-tunnels.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "below-grade-corridor",
+          "path": "references/inspiration/Screenshot_20260825_013737_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "below-grade corridor enclosure",
+          "status": "present",
+          "observation": "Long enclosed corridor, practical lights, and parallel pipes read strongly."
+        },
+        {
+          "property": "portal transition",
+          "status": "degraded",
+          "observation": "Interior identity is clear, but exterior portal and terrain transition are not visible."
+        },
+        {
+          "property": "surface grime and service detail",
+          "status": "degraded",
+          "observation": "Dark walls and utilities read, but reference grime and service clutter are limited."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "zone-core",
+      "family": "zone",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-core.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "tall core massing",
+          "status": "present",
+          "observation": "Tall pressed-metal block creates a stronger campus anchor."
+        },
+        {
+          "property": "objective control-room identity",
+          "status": "absent",
+          "observation": "Objective view reads as a dark blank box, not a visible control room or screen bank."
+        },
+        {
+          "property": "street-level operational contact",
+          "status": "degraded",
+          "observation": "Fence, lights, and lane edge exist, but activity and loading relationships are sparse."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "zone-boundary",
+      "family": "zone",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-boundary.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "perimeter streetwall",
+          "status": "degraded",
+          "observation": "Long wall and process silhouettes create an edge, but boundary remains thin."
+        },
+        {
+          "property": "fence and gate identity",
+          "status": "absent",
+          "observation": "Chain-link, gate hardware, signs, and controlled edge do not read convincingly."
+        },
+        {
+          "property": "vegetation and layered terrain",
+          "status": "absent",
+          "observation": "No perimeter vegetation band or terrain transition is visible."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "route-main-surface",
+      "family": "route",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-main-surface.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        },
+        {
+          "id": "processing-yard",
+          "path": "references/inspiration/Screenshot_20260825_013725_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "marked service street",
+          "status": "present",
+          "observation": "Lane marking, curb, light poles, and connected street frontage read."
+        },
+        {
+          "property": "wet operational surface",
+          "status": "degraded",
+          "observation": "Dark asphalt reads, but puddles, drains, and reflective wet response remain weak."
+        },
+        {
+          "property": "loading and service activity",
+          "status": "absent",
+          "observation": "No convincing vehicles, loading doors, pallets, or maintenance clutter appear."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "route-covered",
+      "family": "route",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-covered.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        },
+        {
+          "id": "processing-yard",
+          "path": "references/inspiration/Screenshot_20260825_013725_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "covered route utility frame",
+          "status": "present",
+          "observation": "Roof, overhead pipes, posts, and practical lights define covered passage."
+        },
+        {
+          "property": "player-scale service contact",
+          "status": "degraded",
+          "observation": "Route is traversable, but bins, cabinets, vehicles, and work clutter are scarce."
+        },
+        {
+          "property": "wet marked ground",
+          "status": "degraded",
+          "observation": "Ground is dark and lane-marked, but reference puddle and grime layering is limited."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "route-rear-alley",
+      "family": "route",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-rear-alley.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "rear service alley",
+          "status": "present",
+          "observation": "Curb, lane, light pole, and streetwall establish a connected alley."
+        },
+        {
+          "property": "maintenance clutter",
+          "status": "absent",
+          "observation": "No dumpsters, pallets, cabinets, signs, or service vehicles create rear-alley activity."
+        },
+        {
+          "property": "layered edge silhouette",
+          "status": "degraded",
+          "observation": "Buildings layer along the road, but background terrain and vegetation are absent."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "route-north-ring",
+      "family": "route",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-north-ring.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "ring-road connection",
+          "status": "present",
+          "observation": "Road, curb, building wall, and utility edge form a readable route segment."
+        },
+        {
+          "property": "operational frontage",
+          "status": "degraded",
+          "observation": "Some pipe and canopy elements appear, but loading relationships are weak."
+        },
+        {
+          "property": "campus edge context",
+          "status": "absent",
+          "observation": "No fence, vegetation, terrain, or layered perimeter silhouette reads."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "route-south-retreat",
+      "family": "route",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-south-retreat.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "retreat route cover",
+          "status": "present",
+          "observation": "Covered edge, road marking, and connected building frontage read."
+        },
+        {
+          "property": "yard activity and service access",
+          "status": "absent",
+          "observation": "No vehicle, container, pallet, sign, or maintenance relationship populates route."
+        },
+        {
+          "property": "wet material response",
+          "status": "degraded",
+          "observation": "Asphalt and concrete separate, but wetness, drains, and grime are limited."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "route-flank-backdoor",
+      "family": "route",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-flank-backdoor.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "backdoor access",
+          "status": "degraded",
+          "observation": "Door, small canopy, and step provide a service access cue."
+        },
+        {
+          "property": "industrial façade specificity",
+          "status": "absent",
+          "observation": "Blank corrugated wall lacks readable loading, cabinets, signs, or utility contacts."
+        },
+        {
+          "property": "route context",
+          "status": "degraded",
+          "observation": "Tight passage is navigable, but no wider yard or layered boundary context reads."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "objective-core",
+      "family": "required",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-objective-core.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        }
+      ],
+      "properties": [
+        {
+          "property": "objective visibility",
+          "status": "absent",
+          "observation": "Camera sees a dark mass and canopy rather than a readable objective room."
+        },
+        {
+          "property": "control-room reference properties",
+          "status": "absent",
+          "observation": "No screen bank, glazing, consoles, or operational control identity is visible."
+        },
+        {
+          "property": "security and service contact",
+          "status": "degraded",
+          "observation": "Lights and fencing hint at access control, but signs and active equipment are absent."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "cover-courtyard",
+      "family": "required",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-cover-courtyard.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "industrial-frontage",
+          "path": "references/inspiration/17e96510-a0e6-11f1-bf60-039a9cb896aa.webp"
+        },
+        {
+          "id": "processing-yard",
+          "path": "references/inspiration/Screenshot_20260825_013725_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "cover relationship",
+          "status": "present",
+          "observation": "Concrete cover blocks and lane markings provide playable courtyard cover."
+        },
+        {
+          "property": "shared operational courtyard",
+          "status": "absent",
+          "observation": "Courtyard lacks vehicles, pallets, containers, and maintenance activity."
+        },
+        {
+          "property": "wet yard material response",
+          "status": "degraded",
+          "observation": "Dark hardstand and markings read, but puddles, drains, and grime are weak."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "tunnel-portal",
+      "family": "required",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-tunnel-portal.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "below-grade-corridor",
+          "path": "references/inspiration/Screenshot_20260825_013737_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "below-grade utility corridor",
+          "status": "present",
+          "observation": "Pipes, lights, enclosure, and long sightline match corridor intent."
+        },
+        {
+          "property": "portal and terrain transition",
+          "status": "absent",
+          "observation": "View contains interior tunnel only; no grounded portal or terrain transition reads."
+        },
+        {
+          "property": "service grime and practical detail",
+          "status": "degraded",
+          "observation": "Utility density is strong, but grime, gates, and service clutter are limited."
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "vertical-connector",
+      "family": "required",
+      "capturePath": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-vertical-connector.png",
+      "governingReferences": [
+        {
+          "id": "user-industrial-campus-board",
+          "attachmentPath": ".hoplite/attachments/art_upload_cc637941124a451fb2d465383074988c/file_000000006cc881f4b3d7a548874225ce.png",
+          "sha256": "47bdaad9d8e9c2c6b75395a90f2dd81378c84ffd484677e36c8d5cbc168ddb95"
+        },
+        {
+          "id": "processing-yard",
+          "path": "references/inspiration/Screenshot_20260825_013725_Chrome.png"
+        }
+      ],
+      "properties": [
+        {
+          "property": "vertical connector structure",
+          "status": "present",
+          "observation": "Yellow rails, posts, and elevated frame establish a climbable connector cue."
+        },
+        {
+          "property": "landings and layered elevation",
+          "status": "degraded",
+          "observation": "Vertical frame reads, but landings and surrounding multi-level hierarchy are thin."
+        },
+        {
+          "property": "industrial contact and safety signage",
+          "status": "absent",
+          "observation": "No readable stair signage, cabinets, gates, or maintenance contacts appear."
+        }
+      ],
+      "status": "FAIL"
+    }
+  ]
+}

@@ -1,0 +1,983 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-18T12:02:56.231Z",
+  "expected": {
+    "width": 1400,
+    "height": 900,
+    "background": [
+      168,
+      189,
+      210
+    ],
+    "backgroundTolerance": 8
+  },
+  "status": "PASS",
+  "images": [
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-cover-courtyard.png",
+      "bytes": 782559,
+      "sha256": "c1712d3d926d4e1997bce72968930838025b44ba3fa67eb77a348f55e3fe9619",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            4,
+            3,
+            3,
+            255
+          ],
+          "max": [
+            245,
+            227,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 370455,
+          "ratio": 0.294012
+        },
+        "nonBackground": {
+          "pixels": 889545,
+          "ratio": 0.705988
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-objective-core.png",
+      "bytes": 775510,
+      "sha256": "e249cbb966dad3c642a05d78a798a1859197886fba6c04cffc24c8866a4517d6",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            2,
+            3,
+            2,
+            255
+          ],
+          "max": [
+            226,
+            189,
+            101,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 0,
+          "ratio": 0
+        },
+        "nonBackground": {
+          "pixels": 1260000,
+          "ratio": 1
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-orbit.png",
+      "bytes": 269997,
+      "sha256": "a851d196cffa85ebf629d7dc136f3efec7ecf845cdff7e04bcc5b6586bbe7209",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            16,
+            19,
+            19,
+            255
+          ],
+          "max": [
+            240,
+            226,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 1022028,
+          "ratio": 0.811133
+        },
+        "nonBackground": {
+          "pixels": 237972,
+          "ratio": 0.188867
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-covered.png",
+      "bytes": 764141,
+      "sha256": "0189884f5a5ac2a7885f337ed869d0769914cb41191218d3146e6cdaaf13a0d6",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            3,
+            3,
+            2,
+            255
+          ],
+          "max": [
+            211,
+            178,
+            128,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 0,
+          "ratio": 0
+        },
+        "nonBackground": {
+          "pixels": 1260000,
+          "ratio": 1
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-flank-backdoor.png",
+      "bytes": 1649291,
+      "sha256": "0847179b22f92b81eebb667bea32447f660d08013cd0821156a161eb4ce4c5c5",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            3,
+            3,
+            2,
+            255
+          ],
+          "max": [
+            238,
+            215,
+            173,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 0,
+          "ratio": 0
+        },
+        "nonBackground": {
+          "pixels": 1260000,
+          "ratio": 1
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-main-surface.png",
+      "bytes": 1111019,
+      "sha256": "0edee9f2bc33672394b91d1ea18329dca2ec3fa6a097e8566c981595a3855837",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            5,
+            6,
+            5,
+            255
+          ],
+          "max": [
+            245,
+            228,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 377364,
+          "ratio": 0.299495
+        },
+        "nonBackground": {
+          "pixels": 882636,
+          "ratio": 0.700505
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-north-ring.png",
+      "bytes": 1429064,
+      "sha256": "64f3d2ea6d253f49d96795613cf558565b736f68f23a5795ca18d274fcec005f",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            3,
+            4,
+            3,
+            255
+          ],
+          "max": [
+            245,
+            227,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 182227,
+          "ratio": 0.144625
+        },
+        "nonBackground": {
+          "pixels": 1077773,
+          "ratio": 0.855375
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-rear-alley.png",
+      "bytes": 1126792,
+      "sha256": "670a3f577d3ec74d73b0c6d8903176d7ec648d4fd0a06bf032fd18c7a6d9cee5",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            2,
+            2,
+            1,
+            255
+          ],
+          "max": [
+            255,
+            247,
+            227,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 488095,
+          "ratio": 0.387377
+        },
+        "nonBackground": {
+          "pixels": 771905,
+          "ratio": 0.612623
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-south-retreat.png",
+      "bytes": 1234684,
+      "sha256": "77f55a8e15dd2bf82cb0f4d52f06df0af4d655d57c2c157054a0225c673a0240",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "max": [
+            245,
+            228,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 221589,
+          "ratio": 0.175864
+        },
+        "nonBackground": {
+          "pixels": 1038411,
+          "ratio": 0.824136
+        },
+        "black": {
+          "pixels": 2,
+          "ratio": 0.000002
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-top.png",
+      "bytes": 860925,
+      "sha256": "b54d5e1b915b931eaec3a33a6ac8d9340deda0d69aef13f1a8adba662d0ffed0",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            20,
+            23,
+            24,
+            255
+          ],
+          "max": [
+            242,
+            243,
+            240,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 286231,
+          "ratio": 0.227167
+        },
+        "nonBackground": {
+          "pixels": 973769,
+          "ratio": 0.772833
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-tunnel-portal.png",
+      "bytes": 838271,
+      "sha256": "a3065bfd174e846c7f031653b58f1a9c73c513de89e11e41e844db6b7d7c31d9",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            5,
+            6,
+            4,
+            255
+          ],
+          "max": [
+            238,
+            209,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 296,
+          "ratio": 0.000235
+        },
+        "nonBackground": {
+          "pixels": 1259704,
+          "ratio": 0.999765
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-vertical-connector.png",
+      "bytes": 1148835,
+      "sha256": "b594976d353bf6974b6b977a271c1807fa3ee7e11a1d944bd669750c619c826e",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            1,
+            1,
+            1,
+            255
+          ],
+          "max": [
+            240,
+            215,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 28652,
+          "ratio": 0.02274
+        },
+        "nonBackground": {
+          "pixels": 1231348,
+          "ratio": 0.97726
+        },
+        "black": {
+          "pixels": 100,
+          "ratio": 0.000079
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-xray.png",
+      "bytes": 863370,
+      "sha256": "22deab7e6d6c6f60ac7a5640bf387b1e889bb5d0b6823a043793f9701106234f",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            18,
+            35,
+            37,
+            255
+          ],
+          "max": [
+            244,
+            246,
+            248,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 286231,
+          "ratio": 0.227167
+        },
+        "nonBackground": {
+          "pixels": 973769,
+          "ratio": 0.772833
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-boundary.png",
+      "bytes": 732893,
+      "sha256": "caf4248c2f511190b211a2b3b002f75cd9d6aa2f5fdcd75297d9162d08da098f",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            1,
+            1,
+            1,
+            255
+          ],
+          "max": [
+            238,
+            210,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 319833,
+          "ratio": 0.253836
+        },
+        "nonBackground": {
+          "pixels": 940167,
+          "ratio": 0.746164
+        },
+        "black": {
+          "pixels": 49,
+          "ratio": 0.000039
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-bridge.png",
+      "bytes": 1042420,
+      "sha256": "6e1e4b09f28d088ee6369478746d1515dfa5a1320fab61f5bdaed482bc9a4547",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            2,
+            2,
+            2,
+            255
+          ],
+          "max": [
+            237,
+            215,
+            142,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 0,
+          "ratio": 0
+        },
+        "nonBackground": {
+          "pixels": 1260000,
+          "ratio": 1
+        },
+        "black": {
+          "pixels": 6,
+          "ratio": 0.000005
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-core.png",
+      "bytes": 1629631,
+      "sha256": "24f42bc330470b9bf0ea44a2db3e543efd0eac014f8dc5efbd0ef3c5dc0ba308",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            5,
+            3,
+            2,
+            255
+          ],
+          "max": [
+            244,
+            226,
+            190,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 0,
+          "ratio": 0
+        },
+        "nonBackground": {
+          "pixels": 1260000,
+          "ratio": 1
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-courtyard.png",
+      "bytes": 1422496,
+      "sha256": "678d871d72e8b79a1484d8097cfb0af4327f0312e86e9c7bdf2a687b4b38236d",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            1,
+            2,
+            1,
+            255
+          ],
+          "max": [
+            255,
+            245,
+            220,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 115146,
+          "ratio": 0.091386
+        },
+        "nonBackground": {
+          "pixels": 1144854,
+          "ratio": 0.908614
+        },
+        "black": {
+          "pixels": 588,
+          "ratio": 0.000467
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-plant.png",
+      "bytes": 1194195,
+      "sha256": "3a84479a2a9650814325da3004c8ef99af5cbb1e4086a3ef153e66759c0c5e27",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "max": [
+            225,
+            197,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 53908,
+          "ratio": 0.042784
+        },
+        "nonBackground": {
+          "pixels": 1206092,
+          "ratio": 0.957216
+        },
+        "black": {
+          "pixels": 149,
+          "ratio": 0.000118
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-spawn.png",
+      "bytes": 903657,
+      "sha256": "cadca98ad3a0757e9f579846ad7f8b0c8ac01a30231b2af1f694ac4a1175f82b",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            3,
+            5,
+            4,
+            255
+          ],
+          "max": [
+            236,
+            214,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 458649,
+          "ratio": 0.364007
+        },
+        "nonBackground": {
+          "pixels": 801351,
+          "ratio": 0.635993
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-tunnels.png",
+      "bytes": 707058,
+      "sha256": "fd5743acd5e6bf7fe32a6533ab80df85fd59b5357b06d101db5215b00fe26e2e",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            2,
+            2,
+            2,
+            255
+          ],
+          "max": [
+            171,
+            189,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 212,
+          "ratio": 0.000168
+        },
+        "nonBackground": {
+          "pixels": 1259788,
+          "ratio": 0.999832
+        },
+        "black": {
+          "pixels": 22,
+          "ratio": 0.000017
+        }
+      },
+      "failures": []
+    },
+    {
+      "path": "/tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-warehouse.png",
+      "bytes": 985925,
+      "sha256": "204d1d562151c282127da74ebb72d2ac617c61490cf02854462c9558c2fb8a35",
+      "status": "PASS",
+      "image": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "channels": {
+          "min": [
+            6,
+            6,
+            5,
+            255
+          ],
+          "max": [
+            245,
+            227,
+            210,
+            255
+          ],
+          "opaque": 1260000,
+          "transparent": 0
+        },
+        "background": {
+          "rgb": [
+            168,
+            189,
+            210
+          ],
+          "tolerance": 8,
+          "matchingPixels": 49260,
+          "ratio": 0.039095
+        },
+        "nonBackground": {
+          "pixels": 1210740,
+          "ratio": 0.960905
+        },
+        "black": {
+          "pixels": 0,
+          "ratio": 0
+        }
+      },
+      "failures": []
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+PASS  mountain mtn-nw sits on boundary band
+PASS  mountain mtn-ne sits on boundary band
+PASS  fence fence-w on boundary band
+PASS  fence fence-s on boundary band
+PASS  contact: non-displaceable volumes grounded on ground segments
+PASS  architecture depth: every entrance binds to a constructed building
+PASS  interiors: every enterable building has a construction plan
+PASS  interiors: multi-floor buildings have stairwells
+PASS  interiors: core objective room defined on a level >= 2
+PASS  interiors: tunnel walking surface defined
+PASS  overlap: no unexplained non-displaceable AABB overlap (>5m)
+PASS  depth: buildings render wall frame + roof + parapet (construction, not paper)
+PASS  transfer-network: three stable features carry source/reference/contract/evidence trace
+PASS  transfer-network: supports and contact status recorded
+PASS  campus-spine: distributed features carry source/reference/contract/evidence trace
+PASS  campus-spine: placement, support, and contact status recorded
+PASS  streetwall: route-bound features carry source/reference/contract/evidence trace
+PASS  streetwall: placement, support, and contact status recorded
+PASS  streetwall: triangle growth stays within 15 percent  ->  812784 <= 880216
+PASS  open-cell: stable features carry source/reference/contract/evidence trace
+PASS  open-cell: placement, support, contact, and clearance status recorded
+PASS  open-cell: paired relationships span required operational cells
+PASS  open-cell: triangle growth stays within 15 percent  ->  812784 <= 880216
+PASS  director-cycle-2: distributed features carry source/reference/contract/evidence trace
+PASS  director-cycle-2: placement, support, contact, and clearance status recorded
+PASS  director-cycle-2: paired facility relationships are complete
+PASS  director-cycle-2: distinct facility families are present
+PASS  director-cycle-2: triangle growth stays within 15 percent  ->  812784 <= 881216
+PASS  director-cycle-3: connected features carry trace fields
+PASS  director-cycle-3: placement and contact status recorded
+PASS  director-cycle-3: paired compound relationships are complete
+PASS  director-cycle-3: triangle growth stays within 15 percent  ->  812784 <= 881216
+PASS  director-cycle-4: continuous substrate is present
+PASS  director-cycle-4: context features carry trace fields
+PASS  director-cycle-4: placement, support, contact, and clearance status recorded
+PASS  director-cycle-4: paired context relationships are complete
+PASS  director-cycle-4-v20: visual correction carries trace fields
+PASS  director-cycle-4-v20: visual correction placement and contact recorded
+PASS  director-cycle-4-v22: connected service frontage carries trace fields
+PASS  director-cycle-4-v22: connected service frontage placement and contact recorded
+PASS  director-cycle-4-v24: authored-pad massing carries trace fields
+PASS  director-cycle-4-v24: authored-pad placement status recorded
+PASS  director-cycle-4-v25: operational detail carries trace fields
+PASS  director-cycle-4-v25: operational detail placement recorded
+PASS  director-cycle-4: triangle growth stays within 15 percent  ->  812784 <= 881216
+BUILD: 79 materials, 812784 tris, 0 failing check(s); yard operations 19/24 islands
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+THREE.GLTFExporter: Merged metalnessMap and roughnessMap textures.
+wrote /tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v31/.runtime-build-58525/facility-built-runtime.glb 64160856 bytes; report /tmp/hoplite/workspaces/thr-fdc066291d6041aab9a8d5d98f8fed5d/.context/ab/director-macro-cycle-4/v31/.runtime-build-58525/build-report.json

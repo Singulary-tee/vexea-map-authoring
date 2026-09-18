@@ -1,0 +1,479 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "candidate": {
+    "artifactPath": ".context/ab/director-macro-cycle-4/v32/build-a/facility-built-v32.glb",
+    "reportPath": ".context/ab/director-macro-cycle-4/v32/build-a/director-macro-cycle-4-v32-report.json",
+    "generatorPath": ".context/ab/director-macro-cycle-4/v32/gen-director-macro-cycle-4-v32.mjs",
+    "artifactSha256": "0b9ef3e4179bbc439cab690cd7127f4a198883860f2a0bc21198a1c7deaaf1bb",
+    "bytes": 64184268,
+    "identity": {
+      "materials": 79,
+      "meshes": 147,
+      "nodes": 209,
+      "images": 73,
+      "primitives": 147,
+      "indexedTriangles": 812784
+    }
+  },
+  "authoritative": {
+    "path": "editor/facility-built.glb",
+    "sha256": "1015ab60aa94d195567c052fd3b2178c4c160dba37e3dd8283aabd0790b466db",
+    "identity": {
+      "materials": 78,
+      "meshes": 97,
+      "nodes": 123,
+      "images": 73,
+      "primitives": 97,
+      "indexedTriangles": 791256
+    }
+  },
+  "source": {
+    "path": "blockout/blockout-full-v1.json",
+    "sha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d"
+  },
+  "summary": {
+    "checks": 61,
+    "passed": 61,
+    "failed": 0
+  },
+  "metrics": {
+    "worldSpaceVertices": 1620360,
+    "indexedTriangles": 812784
+  },
+  "featureGeometry": [
+    {
+      "id": "v27-spawn-frontage",
+      "center": [
+        -296,
+        163
+      ],
+      "nearbyVerticesWithin40m": 10451,
+      "pass": true
+    },
+    {
+      "id": "v27-loading-yard",
+      "center": [
+        -66,
+        103
+      ],
+      "nearbyVerticesWithin40m": 185861,
+      "pass": true
+    },
+    {
+      "id": "v27-maintenance-frontage",
+      "center": [
+        -184,
+        12
+      ],
+      "nearbyVerticesWithin40m": 7969,
+      "pass": true
+    },
+    {
+      "id": "v27-process-frontage",
+      "center": [
+        226,
+        -76
+      ],
+      "nearbyVerticesWithin40m": 114891,
+      "pass": true
+    },
+    {
+      "id": "v27-transfer-bridge",
+      "center": [
+        302,
+        82
+      ],
+      "nearbyVerticesWithin40m": 46444,
+      "pass": true
+    },
+    {
+      "id": "v27-core-frontage",
+      "center": [
+        48,
+        -231
+      ],
+      "nearbyVerticesWithin40m": 64588,
+      "pass": true
+    },
+    {
+      "id": "v27-objective-room",
+      "center": [
+        48,
+        -258
+      ],
+      "nearbyVerticesWithin40m": 48850,
+      "pass": true
+    },
+    {
+      "id": "v27-tunnel-portal",
+      "center": [
+        48,
+        -201
+      ],
+      "nearbyVerticesWithin40m": 52183,
+      "pass": true
+    },
+    {
+      "id": "v27-boundary-gate",
+      "center": [
+        72,
+        305
+      ],
+      "nearbyVerticesWithin40m": 9753,
+      "pass": true
+    },
+    {
+      "id": "v27-covered-service-run",
+      "center": [
+        -70,
+        54
+      ],
+      "nearbyVerticesWithin40m": 83348,
+      "pass": true
+    },
+    {
+      "id": "v27-north-ring-operations",
+      "center": [
+        132,
+        86
+      ],
+      "nearbyVerticesWithin40m": 21691,
+      "pass": true
+    },
+    {
+      "id": "v27-south-retreat-operations",
+      "center": [
+        188,
+        -145
+      ],
+      "nearbyVerticesWithin40m": 8229,
+      "pass": true
+    },
+    {
+      "id": "v27-flank-service-door",
+      "center": [
+        148,
+        -240
+      ],
+      "nearbyVerticesWithin40m": 20770,
+      "pass": true
+    },
+    {
+      "id": "v27-perimeter-silhouette",
+      "center": [
+        150,
+        330
+      ],
+      "nearbyVerticesWithin40m": 5248,
+      "pass": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "source-hash",
+      "pass": true,
+      "details": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d != d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d"
+    },
+    {
+      "name": "source-contract-counts",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "report-source-binding",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "generator-binding",
+      "pass": true,
+      "details": ".context/ab/director-macro-cycle-4/v32/gen-director-macro-cycle-4-v32.mjs / 69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20"
+    },
+    {
+      "name": "artifact-report-binding",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "artifact-geometry-counts",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "authoritative-unchanged",
+      "pass": true,
+      "details": "1015ab60aa94d195567c052fd3b2178c4c160dba37e3dd8283aabd0790b466db != 1015ab60aa94d195567c052fd3b2178c4c160dba37e3dd8283aabd0790b466db"
+    },
+    {
+      "name": "candidate-is-not-authoritative",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "explicit-v27-profile",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "internal-generator-checks",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "triangle-cap",
+      "pass": true,
+      "details": "812784/812784 <= 881216"
+    },
+    {
+      "name": "v27-export-match",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v27-schema",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v27-stats",
+      "pass": true,
+      "details": "{\"frontageWalls\":4,\"loadingDoors\":12,\"wetOperationalSurfaces\":13,\"pipeTransferSpans\":8,\"processVessels\":8,\"vehicles\":12,\"fences\":11,\"trees\":24,\"controlRoomScreens\":9}"
+    },
+    {
+      "name": "v27-global-trace",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v27-feature-identities",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v27-feature-trace-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v27-feature-status-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v27-centers-finite",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v27-camera-region-geometry",
+      "pass": true,
+      "details": "[]"
+    },
+    {
+      "name": "v28-export-match",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v28-schema",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v28-stats",
+      "pass": true,
+      "details": "{\"facadeDoors\":8,\"canopySpans\":2,\"serviceWalls\":3,\"transferBeams\":12,\"bridgeDeckFrames\":16,\"objectiveScreens\":6,\"stairFrames\":12,\"gateFrames\":6,\"boundaryFrames\":10}"
+    },
+    {
+      "name": "v28-feature-identities",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v28-feature-trace-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v28-feature-status-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v28-centers-finite",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v29-export-match",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v29-schema",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v29-stats",
+      "pass": true,
+      "details": "{\"vehicles\":4,\"palletStacks\":12,\"puddles\":18,\"drains\":8,\"objectiveScreens\":6,\"fencePosts\":8,\"bridgeFrames\":12,\"serviceSigns\":10}"
+    },
+    {
+      "name": "v29-feature-identities",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v29-feature-trace-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v29-feature-status-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v29-centers-finite",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v29-triangle-cap",
+      "pass": true,
+      "details": "812784"
+    },
+    {
+      "name": "v30-export-match",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v30-schema",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v30-stats",
+      "pass": true,
+      "details": "{\"loadingBays\":6,\"controlRoomScreens\":8,\"serviceVehicles\":6,\"wetPatches\":24,\"markedDrains\":12,\"stairRuns\":2,\"perimeterGates\":2,\"utilityPlatforms\":4}"
+    },
+    {
+      "name": "v30-feature-identities",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v30-feature-trace-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v30-feature-status-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v30-centers-finite",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v30-source-contract-counts",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v30-generator-binding",
+      "pass": true,
+      "details": ".context/ab/director-macro-cycle-4/v32/gen-director-macro-cycle-4-v32.mjs / 69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20"
+    },
+    {
+      "name": "v30-artifact-binding",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v30-artifact-identity",
+      "pass": true,
+      "details": "{\"materials\":79,\"meshes\":147,\"nodes\":209,\"images\":73,\"primitives\":147,\"indexedTriangles\":812784}"
+    },
+    {
+      "name": "v30-triangle-cap",
+      "pass": true,
+      "details": "812784 <= 881216"
+    },
+    {
+      "name": "v30-authoritative-immutability",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v32-export-match",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v32-schema",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v32-stats",
+      "pass": true,
+      "details": "{\"secondaryBuildings\":10,\"yardContainers\":18,\"palletStacks\":53,\"serviceVehicles\":42,\"perimeterTrees\":31,\"processTowers\":14,\"wetPatches\":32,\"catwalkFrames\":18,\"cameraVisibleVehicles\":30,\"dockDoors\":24,\"serviceSigns\":22,\"screenPanels\":5,\"fenceRuns\":3}"
+    },
+    {
+      "name": "v32-feature-identities",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v32-feature-trace-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v32-feature-status-fields",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v32-centers-finite",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v32-source-contract-counts",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v32-generator-binding",
+      "pass": true,
+      "details": ".context/ab/director-macro-cycle-4/v32/gen-director-macro-cycle-4-v32.mjs / 69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20"
+    },
+    {
+      "name": "v32-artifact-binding",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "v32-artifact-identity",
+      "pass": true,
+      "details": "{\"materials\":79,\"meshes\":147,\"nodes\":209,\"images\":73,\"primitives\":147,\"indexedTriangles\":812784}"
+    },
+    {
+      "name": "v32-triangle-cap",
+      "pass": true,
+      "details": "812784 <= 881216"
+    },
+    {
+      "name": "v32-authoritative-immutability",
+      "pass": true,
+      "details": ""
+    }
+  ]
+}

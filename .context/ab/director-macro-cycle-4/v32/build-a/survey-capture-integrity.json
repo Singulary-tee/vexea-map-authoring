@@ -1,0 +1,587 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-18T12:03:08.566Z",
+  "sourceCommit": "b12c0af8c30b989fa709c95c2e7f1fd92b17c1ae",
+  "sourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+  "generatorSha256": "69f65414fedc88af0f448e4b9bc0efa7a7c790802400072b4ef7d3a081af9c20",
+  "artifact": {
+    "path": ".context/ab/director-macro-cycle-4/v32/build-a/facility-built-v32.glb",
+    "sha256": "0b9ef3e4179bbc439cab690cd7127f4a198883860f2a0bc21198a1c7deaaf1bb",
+    "bytes": 64184268
+  },
+  "renderer": "standalone Playwright Chromium SwiftShader; direct WebGL canvas",
+  "viewport": {
+    "width": 1400,
+    "height": 900
+  },
+  "status": "PASS",
+  "views": [
+    {
+      "id": "top",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-top.png",
+      "bytes": 860925,
+      "sha256": "b54d5e1b915b931eaec3a33a6ac8d9340deda0d69aef13f1a8adba662d0ffed0",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        168,
+        189,
+        210,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 147,
+      "triangles": 812784,
+      "captureGroup": "a",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-a.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "orbit",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-orbit.png",
+      "bytes": 269997,
+      "sha256": "a851d196cffa85ebf629d7dc136f3efec7ecf845cdff7e04bcc5b6586bbe7209",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        168,
+        189,
+        210,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 147,
+      "triangles": 812784,
+      "captureGroup": "a",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-a.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "xray",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-xray.png",
+      "bytes": 863370,
+      "sha256": "22deab7e6d6c6f60ac7a5640bf387b1e889bb5d0b6823a043793f9701106234f",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        168,
+        189,
+        210,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 147,
+      "triangles": 812784,
+      "captureGroup": "a",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-a.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "zone-spawn",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-spawn.png",
+      "bytes": 903657,
+      "sha256": "cadca98ad3a0757e9f579846ad7f8b0c8ac01a30231b2af1f694ac4a1175f82b",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        191,
+        175,
+        154,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 137,
+      "triangles": 812376,
+      "captureGroup": "a",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-a.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "zone-courtyard",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-courtyard.png",
+      "bytes": 1422496,
+      "sha256": "678d871d72e8b79a1484d8097cfb0af4327f0312e86e9c7bdf2a687b4b38236d",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        183,
+        167,
+        142,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 127,
+      "triangles": 811980,
+      "captureGroup": "a",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-a.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "zone-warehouse",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-warehouse.png",
+      "bytes": 985925,
+      "sha256": "204d1d562151c282127da74ebb72d2ac617c61490cf02854462c9558c2fb8a35",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        124,
+        100,
+        74,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 119,
+      "triangles": 791856,
+      "captureGroup": "a",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-a.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "zone-plant",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-plant.png",
+      "bytes": 1194195,
+      "sha256": "3a84479a2a9650814325da3004c8ef99af5cbb1e4086a3ef153e66759c0c5e27",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        58,
+        56,
+        54,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 106,
+      "triangles": 789768,
+      "captureGroup": "a",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-a.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "zone-bridge",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-bridge.png",
+      "bytes": 1042420,
+      "sha256": "6e1e4b09f28d088ee6369478746d1515dfa5a1320fab61f5bdaed482bc9a4547",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        68,
+        63,
+        50,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 106,
+      "triangles": 783856,
+      "captureGroup": "b",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-b.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "zone-tunnels",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-tunnels.png",
+      "bytes": 707058,
+      "sha256": "fd5743acd5e6bf7fe32a6533ab80df85fd59b5357b06d101db5215b00fe26e2e",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        42,
+        39,
+        31,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 109,
+      "triangles": 789228,
+      "captureGroup": "b",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-b.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "zone-core",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-core.png",
+      "bytes": 1629631,
+      "sha256": "24f42bc330470b9bf0ea44a2db3e543efd0eac014f8dc5efbd0ef3c5dc0ba308",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        83,
+        74,
+        59,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 100,
+      "triangles": 782712,
+      "captureGroup": "b",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-b.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "zone-boundary",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-zone-boundary.png",
+      "bytes": 732893,
+      "sha256": "caf4248c2f511190b211a2b3b002f75cd9d6aa2f5fdcd75297d9162d08da098f",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        44,
+        41,
+        39,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 93,
+      "triangles": 774216,
+      "captureGroup": "b",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-b.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "route-main-surface",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-main-surface.png",
+      "bytes": 1111019,
+      "sha256": "0edee9f2bc33672394b91d1ea18329dca2ec3fa6a097e8566c981595a3855837",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        52,
+        48,
+        41,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 131,
+      "triangles": 812004,
+      "captureGroup": "b",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-b.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "route-covered",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-covered.png",
+      "bytes": 764141,
+      "sha256": "0189884f5a5ac2a7885f337ed869d0769914cb41191218d3146e6cdaaf13a0d6",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        50,
+        47,
+        38,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 121,
+      "triangles": 798792,
+      "captureGroup": "b",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-b.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "route-rear-alley",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-rear-alley.png",
+      "bytes": 1126792,
+      "sha256": "670a3f577d3ec74d73b0c6d8903176d7ec648d4fd0a06bf032fd18c7a6d9cee5",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        74,
+        68,
+        61,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 131,
+      "triangles": 812004,
+      "captureGroup": "b",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-b.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "route-north-ring",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-north-ring.png",
+      "bytes": 1429064,
+      "sha256": "64f3d2ea6d253f49d96795613cf558565b736f68f23a5795ca18d274fcec005f",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        135,
+        94,
+        67,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 112,
+      "triangles": 790032,
+      "captureGroup": "c",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-c.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "route-south-retreat",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-south-retreat.png",
+      "bytes": 1234684,
+      "sha256": "77f55a8e15dd2bf82cb0f4d52f06df0af4d655d57c2c157054a0225c673a0240",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        73,
+        68,
+        62,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 108,
+      "triangles": 788808,
+      "captureGroup": "c",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-c.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "route-flank-backdoor",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-route-flank-backdoor.png",
+      "bytes": 1649291,
+      "sha256": "0847179b22f92b81eebb667bea32447f660d08013cd0821156a161eb4ce4c5c5",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        146,
+        131,
+        110,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 93,
+      "triangles": 777856,
+      "captureGroup": "c",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-c.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "objective-core",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-objective-core.png",
+      "bytes": 775510,
+      "sha256": "e249cbb966dad3c642a05d78a798a1859197886fba6c04cffc24c8866a4517d6",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        49,
+        47,
+        37,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 94,
+      "triangles": 777268,
+      "captureGroup": "c",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-c.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "cover-courtyard",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-cover-courtyard.png",
+      "bytes": 782559,
+      "sha256": "c1712d3d926d4e1997bce72968930838025b44ba3fa67eb77a348f55e3fe9619",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        60,
+        56,
+        44,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 120,
+      "triangles": 791580,
+      "captureGroup": "c",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-c.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "tunnel-portal",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-tunnel-portal.png",
+      "bytes": 838271,
+      "sha256": "a3065bfd174e846c7f031653b58f1a9c73c513de89e11e41e844db6b7d7c31d9",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        100,
+        92,
+        78,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 109,
+      "triangles": 789228,
+      "captureGroup": "c",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-c.log",
+      "artifactBindingStatus": "PASS"
+    },
+    {
+      "id": "vertical-connector",
+      "path": ".context/ab/director-macro-cycle-4/v32/build-a/survey/canonical-vertical-connector.png",
+      "bytes": 1148835,
+      "sha256": "b594976d353bf6974b6b977a271c1807fa3ee7e11a1d944bd669750c619c826e",
+      "width": 1400,
+      "height": 900,
+      "method": "readPixels",
+      "sample": [
+        84,
+        78,
+        72,
+        255
+      ],
+      "clear": [
+        0.6588280200958252,
+        0.7411800622940063,
+        0.823531985282898,
+        1
+      ],
+      "contextLost": false,
+      "calls": 98,
+      "triangles": 773896,
+      "captureGroup": "c",
+      "captureLog": ".context/ab/director-macro-cycle-4/v32/build-a/survey-capture-c.log",
+      "artifactBindingStatus": "PASS"
+    }
+  ]
+}

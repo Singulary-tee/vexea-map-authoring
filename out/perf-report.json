@@ -1,28 +1,29 @@
 {
+  "schemaVersion": 3,
+  "status": "BLOCKED",
+  "sourceCommit": "b12c0af8c30b989fa709c95c2e7f1fd92b17c1ae",
   "renderer": "WebGL2 (swiftshader software GL, headless measurement)",
-  "materials": 32,
-  "triangles": 27097,
-  "drawItems": 32,
+  "artifactSha256": "d6476c5e6e95ebebcacd70843787376cd2f61d19c4f0e346408c5cea16e4694e",
+  "materials": 78,
+  "triangles": 581497,
+  "drawItems": 97,
   "segments": 93,
-  "glbBytes": 2873964,
-  "blockoutLayerBytes": 202904,
+  "glbBytes": 65898396,
+  "blockoutLayerBytes": 413520,
+  "artifactGeometry": {
+    "meshes": 97,
+    "nodes": 123,
+    "materials": 78,
+    "images": 73,
+    "indexedTriangles": 766275
+  },
   "views": [
     {
       "view": "top-ortho",
-      "avgFrameMs": 243.73
-    },
-    {
-      "view": "orbit-persp",
-      "avgFrameMs": 235.71
-    },
-    {
-      "view": "xray-top",
-      "avgFrameMs": 291.84
-    },
-    {
-      "view": "player-route",
-      "avgFrameMs": 478.17
+      "status": "blocked",
+      "frames": 0,
+      "timeoutMs": 30000
     }
   ],
-  "note": "software-GL frame times are a lower bound on GPU-class hardware; draw items = merged per-material meshes"
+  "note": "Each sample forces a renderer invalidation; software-GL frame times are a lower bound on GPU-class hardware."
 }

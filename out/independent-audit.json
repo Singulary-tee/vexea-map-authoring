@@ -1,0 +1,596 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "source": {
+    "path": "blockout/blockout-full-v1.json",
+    "sha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d"
+  },
+  "adaptation": {
+    "path": ".context/ab/director-macro-cycle-4/v28/source-audit-adaptation.json",
+    "baseSourceSha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d",
+    "sha256": "fdfe396ecabb58d344e6d8b81c77112a32a5f33aba29ecce7b547c286a1af85c"
+  },
+  "scope": {
+    "footprintCategories": [
+      "building-enterable",
+      "warehouse-enterable",
+      "facade-non-enterable",
+      "tower",
+      "wall-blocking",
+      "bridge"
+    ],
+    "endpointCategories": [
+      "building-enterable",
+      "warehouse-enterable",
+      "facade-non-enterable",
+      "tower",
+      "wall-blocking",
+      "bridge",
+      "ground-surface-type",
+      "tunnel-passage",
+      "stair",
+      "incline",
+      "roll-down",
+      "cover",
+      "overhead-cover",
+      "spawn"
+    ],
+    "endpointToleranceM": 5,
+    "continuousRunCapM": 15
+  },
+  "overlaps": [],
+  "routeBuildingIntersections": [],
+  "adaptedRouteBuildingIntersections": [
+    {
+      "route": "route_covered",
+      "segment": "bld-loading-hall",
+      "waypointIndex": 0,
+      "crossingPoints": [
+        [
+          -102,
+          71
+        ],
+        [
+          -80,
+          60
+        ]
+      ],
+      "chordLengthM": 24.597,
+      "adaptation": {
+        "mode": "loading-hall-drive-through",
+        "reason": "Source interior contract defines loading hall as drive-through with a clear aisle."
+      }
+    },
+    {
+      "route": "route_covered",
+      "segment": "bld-loading-hall",
+      "waypointIndex": 1,
+      "crossingPoints": [
+        [
+          -80,
+          60
+        ],
+        [
+          -40,
+          40
+        ]
+      ],
+      "chordLengthM": 44.721,
+      "adaptation": {
+        "mode": "loading-hall-drive-through",
+        "reason": "Source interior contract defines loading hall as drive-through with a clear aisle."
+      }
+    },
+    {
+      "route": "route_covered",
+      "segment": "bld-loading-hall",
+      "waypointIndex": 2,
+      "crossingPoints": [
+        [
+          -40,
+          40
+        ],
+        [
+          -32,
+          34
+        ]
+      ],
+      "chordLengthM": 10,
+      "adaptation": {
+        "mode": "loading-hall-drive-through",
+        "reason": "Source interior contract defines loading hall as drive-through with a clear aisle."
+      }
+    },
+    {
+      "route": "route_covered",
+      "segment": "bld-security-hall",
+      "waypointIndex": 5,
+      "crossingPoints": [
+        [
+          55.8,
+          -121
+        ],
+        [
+          50,
+          -150
+        ]
+      ],
+      "chordLengthM": 29.574,
+      "adaptation": {
+        "mode": "security-hall-covered-corridor",
+        "reason": "Source interior contract states covered route passes south through the security hall."
+      }
+    },
+    {
+      "route": "route_covered",
+      "segment": "bld-security-hall",
+      "waypointIndex": 6,
+      "crossingPoints": [
+        [
+          50,
+          -150
+        ],
+        [
+          49.15,
+          -167
+        ]
+      ],
+      "chordLengthM": 17.021,
+      "adaptation": {
+        "mode": "security-hall-covered-corridor",
+        "reason": "Source interior contract states covered route passes south through the security hall."
+      }
+    },
+    {
+      "route": "route_flank_backdoor",
+      "segment": "bld-core-service-wing",
+      "waypointIndex": 0,
+      "crossingPoints": [
+        [
+          148,
+          -225
+        ],
+        [
+          148,
+          -236
+        ]
+      ],
+      "chordLengthM": 11,
+      "adaptation": {
+        "mode": "core-service-door-corridor",
+        "reason": "Source interior contract defines service wing as an open flank-door corridor."
+      }
+    },
+    {
+      "route": "route_maintenance_loop",
+      "segment": "bld-north-shed",
+      "waypointIndex": 0,
+      "crossingPoints": [
+        [
+          -165.875,
+          101
+        ],
+        [
+          -143,
+          74.857
+        ]
+      ],
+      "chordLengthM": 34.738,
+      "adaptation": {
+        "mode": "north-shed-maintenance-door",
+        "reason": "Maintenance loop uses the shed's named service access rather than an exterior wall route."
+      }
+    },
+    {
+      "route": "route_maintenance_loop",
+      "segment": "bld-deployment-bays",
+      "waypointIndex": 3,
+      "crossingPoints": [
+        [
+          -122,
+          -70
+        ],
+        [
+          -100,
+          -70
+        ]
+      ],
+      "chordLengthM": 22,
+      "adaptation": {
+        "mode": "deployment-bay-egress",
+        "reason": "Source interior contract defines deployment bays with an egress through the bay doors."
+      }
+    }
+  ],
+  "adaptationErrors": [],
+  "stairRuns": [
+    {
+      "id": "rd-deploy",
+      "category": "roll-down",
+      "horizontalRunM": 0,
+      "riseM": 0,
+      "capM": 15,
+      "continuousRunsM": [
+        0
+      ],
+      "maxContinuousRunM": 0,
+      "status": "PASS",
+      "adaptation": null
+    },
+    {
+      "id": "rd-loading",
+      "category": "roll-down",
+      "horizontalRunM": 0,
+      "riseM": 0,
+      "capM": 15,
+      "continuousRunsM": [
+        0
+      ],
+      "maxContinuousRunM": 0,
+      "status": "PASS",
+      "adaptation": null
+    },
+    {
+      "id": "s-sec-threshold",
+      "category": "stair",
+      "horizontalRunM": 2.6999999999999997,
+      "riseM": 1.53,
+      "capM": 15,
+      "continuousRunsM": [
+        2.6999999999999997
+      ],
+      "maxContinuousRunM": 2.6999999999999997,
+      "status": "PASS",
+      "adaptation": null
+    },
+    {
+      "id": "in-plant",
+      "category": "incline",
+      "horizontalRunM": 72,
+      "riseM": 6,
+      "capM": 15,
+      "continuousRunsM": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "maxContinuousRunM": 12,
+      "status": "PASS",
+      "adaptation": {
+        "landingCount": 5,
+        "landingDepthM": 3
+      }
+    },
+    {
+      "id": "st-catwalk-e",
+      "category": "stair",
+      "horizontalRunM": 10.5,
+      "riseM": 5.95,
+      "capM": 15,
+      "continuousRunsM": [
+        10.5
+      ],
+      "maxContinuousRunM": 10.5,
+      "status": "PASS",
+      "adaptation": null
+    }
+  ],
+  "endpointLinks": [
+    {
+      "route": "route_main_surface",
+      "endpoint": "start",
+      "point": [
+        -292,
+        170
+      ],
+      "connected": true,
+      "nearestSegment": "g-spawn-apron",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        -300,
+        225
+      ]
+    },
+    {
+      "route": "route_main_surface",
+      "endpoint": "end",
+      "point": [
+        20,
+        -228
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-core-n",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        40,
+        -210
+      ]
+    },
+    {
+      "route": "route_covered",
+      "endpoint": "start",
+      "point": [
+        -120,
+        80
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-west",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        -170,
+        0
+      ]
+    },
+    {
+      "route": "route_covered",
+      "endpoint": "end",
+      "point": [
+        48,
+        -190
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-core-n",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        40,
+        -210
+      ]
+    },
+    {
+      "route": "route_rear_alley",
+      "endpoint": "start",
+      "point": [
+        -200,
+        140
+      ],
+      "connected": true,
+      "nearestSegment": "g-gate-square",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        -280,
+        125
+      ]
+    },
+    {
+      "route": "route_rear_alley",
+      "endpoint": "end",
+      "point": [
+        -4,
+        110
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-rear",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        -132,
+        136.5
+      ]
+    },
+    {
+      "route": "route_north_ring",
+      "endpoint": "start",
+      "point": [
+        60,
+        120
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-pressure",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        80,
+        142.5
+      ]
+    },
+    {
+      "route": "route_north_ring",
+      "endpoint": "end",
+      "point": [
+        150,
+        -120
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-e",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        250,
+        0
+      ]
+    },
+    {
+      "route": "route_south_retreat",
+      "endpoint": "start",
+      "point": [
+        -40,
+        -60
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-hub",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        10,
+        17.5
+      ]
+    },
+    {
+      "route": "route_south_retreat",
+      "endpoint": "end",
+      "point": [
+        300,
+        -210
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-east-ridge",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        270,
+        -215
+      ]
+    },
+    {
+      "route": "route_flank_backdoor",
+      "endpoint": "start",
+      "point": [
+        148,
+        -210
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-core-n",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        40,
+        -210
+      ]
+    },
+    {
+      "route": "route_flank_backdoor",
+      "endpoint": "end",
+      "point": [
+        148,
+        -236
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-core-n",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        40,
+        -210
+      ]
+    },
+    {
+      "route": "route_plant_spur",
+      "endpoint": "start",
+      "point": [
+        140,
+        -100
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-e",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        250,
+        0
+      ]
+    },
+    {
+      "route": "route_plant_spur",
+      "endpoint": "end",
+      "point": [
+        214,
+        -70
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-e",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        250,
+        0
+      ]
+    },
+    {
+      "route": "route_ridgeline_exit",
+      "endpoint": "start",
+      "point": [
+        -290,
+        230
+      ],
+      "connected": true,
+      "nearestSegment": "g-spawn-apron",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        -300,
+        225
+      ]
+    },
+    {
+      "route": "route_ridgeline_exit",
+      "endpoint": "end",
+      "point": [
+        -240,
+        330
+      ],
+      "connected": true,
+      "nearestSegment": "g-ridgeline-exit",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        -230,
+        315
+      ]
+    },
+    {
+      "route": "route_maintenance_loop",
+      "endpoint": "start",
+      "point": [
+        -200,
+        140
+      ],
+      "connected": true,
+      "nearestSegment": "g-gate-square",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        -280,
+        125
+      ]
+    },
+    {
+      "route": "route_maintenance_loop",
+      "endpoint": "end",
+      "point": [
+        -100,
+        -70
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-west",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        -170,
+        0
+      ]
+    },
+    {
+      "route": "route_tunnel",
+      "endpoint": "start",
+      "point": [
+        48,
+        -196
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-core-n",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        40,
+        -210
+      ]
+    },
+    {
+      "route": "route_tunnel",
+      "endpoint": "end",
+      "point": [
+        300,
+        -210
+      ],
+      "connected": true,
+      "nearestSegment": "g-yrd-east-ridge",
+      "nearestDistanceM": 0,
+      "nearestCenter": [
+        270,
+        -215
+      ]
+    }
+  ],
+  "deadEndRoutes": [],
+  "summary": {
+    "footprintCount": 24,
+    "overlapCount": 0,
+    "routeCount": 14,
+    "routeBuildingIntersectionCount": 0,
+    "adaptedRouteBuildingIntersectionCount": 8,
+    "verticalTransitionCount": 5,
+    "failedVerticalTransitionCount": 0,
+    "nonAirEndpointCount": 20,
+    "deadEndRouteCount": 0,
+    "adaptationErrorCount": 0
+  }
+}

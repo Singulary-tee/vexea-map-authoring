@@ -1,0 +1,8 @@
+captured zone-bridge via readPixels sample=68,63,50,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=106 triangles=783856
+captured zone-tunnels via readPixels sample=42,39,31,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=109 triangles=789228
+captured zone-core via readPixels sample=83,74,59,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=100 triangles=782712
+captured zone-boundary via readPixels sample=44,41,39,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=93 triangles=774216
+captured route-main-surface via readPixels sample=52,48,41,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=131 triangles=812004
+captured route-covered via readPixels sample=50,47,38,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=121 triangles=798792
+captured route-rear-alley via readPixels sample=74,68,61,255 clear=0.6588280200958252,0.7411800622940063,0.823531985282898,1 contextLost=false calls=131 triangles=812004
+SURVEY PASS: 7/21 views; artifact 0b9ef3e4179bbc439cab690cd7127f4a198883860f2a0bc21198a1c7deaaf1bb
