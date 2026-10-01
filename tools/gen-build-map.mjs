@@ -4519,12 +4519,20 @@ merged.name = 'facility-built-v1';
 const objectOverlay = process.env.BUILD_OBJECT_OVERLAY === '1' && fs.existsSync('authoring/scene-state.json')
   ? JSON.parse(fs.readFileSync('authoring/scene-state.json', 'utf8')) : null;
 if (objectOverlay) {
+  const textured = (hex, opt, set, strength) => {
+    const m = mat(hex, opt);
+    useTexture(m, set, strength);
+    return m;
+  };
   const OVERLAY_MATS = {
-    'painted-steel': () => mat(0x7d8a96, { roughness: 0.55, metalness: 0.6 }),
-    'steel-dark': () => mat(0x4c565f, { roughness: 0.6, metalness: 0.7 }),
+    'painted-steel': () => textured(0x7d8a96, { roughness: 0.55, metalness: 0.6 }, textures.panel, 0.35),
+    'steel-dark': () => textured(0x4c565f, { roughness: 0.6, metalness: 0.7 }, textures.panel, 0.4),
     'glass': () => mat(0x9fc4cf, { roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.42 }),
-    'concrete': () => mat(0x847f77),
-    'roof': () => mat(0x4b5350, { roughness: 0.9, metalness: 0.2 }),
+    'concrete': () => textured(0x847f77, {}, textures.concrete, 0.25),
+    'roof': () => textured(0x4b5350, { roughness: 0.9, metalness: 0.2 }, textures.panel, 0.3),
+    'safety-yellow': () => mat(0xc79a12, { roughness: 0.55 }),
+    'wood': () => mat(0x8a6b42, { roughness: 0.92 }),
+    'lamp-head': () => mat(0xd8dee4, { roughness: 0.4, emissive: 0xfff2cc, emissiveIntensity: 1.6 }),
   };
   const loadOverlayObject = id => JSON.parse(fs.readFileSync(`authoring/objects/${id}.json`, 'utf8'));
   const overlayStats = { instances: 0, meshes: 0, issues: [] };

@@ -1,0 +1,191 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "obj_prop_pallet_stack",
+  "type": "prop",
+  "name": "pallet stack, yard storage",
+  "status": "authored",
+  "revision": 2,
+  "construction": {
+    "size": [
+      1.2,
+      1.15,
+      1
+    ],
+    "origin": "center-bottom",
+    "parts": [
+      {
+        "kind": "deck",
+        "size": [
+          1.2,
+          0.14,
+          1
+        ],
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "mat": "wood"
+      },
+      {
+        "kind": "crate-a",
+        "size": [
+          1.05,
+          0.48,
+          0.85
+        ],
+        "offset": [
+          0,
+          0.16,
+          0
+        ],
+        "mat": "wood"
+      },
+      {
+        "kind": "crate-b",
+        "size": [
+          0.95,
+          0.44,
+          0.8
+        ],
+        "offset": [
+          0.06,
+          0.66,
+          0.04
+        ],
+        "mat": "wood"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.55
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1,
+        "note": "top crate collapsed"
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "minClearanceM": 0.5,
+    "overlap": "disallow"
+  },
+  "references": [
+    "blockout/blockout-full-v1.json#segments",
+    "spec/calibration.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-01",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_pallet_stack-front-near.png",
+        "sha256": "afd8e8d67baf2ac294a0111af8a4e19d4600ec9502f4065cb797fcd8cc08ae5e"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_pallet_stack-front-mid.png",
+        "sha256": "7aa367051454023b257d1fddfc29aa3a6c1cb6c75f6eaad40ac4fe5969b14597"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_pallet_stack-front-far.png",
+        "sha256": "68d1e380dd0efd564a5dcb3aa0597c6585fa4fcb087a7a066407c5c736e8db11"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_pallet_stack-side-near.png",
+        "sha256": "8dbd7e8d3dba304b4f7c1fe4288dfcc28dca095696dfda3c8e8869488f2e0440"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_pallet_stack-side-mid.png",
+        "sha256": "d60d2df0ef32b2e432a845b59babb59a35115b3516737424c0cd00a5bda573ce"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_pallet_stack-side-far.png",
+        "sha256": "3d209301ac9593b44e2af64afa148018497cdfc4ed2a25d293ba13bf2217dbdd"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_pallet_stack-rear-near.png",
+        "sha256": "c63ca7da83dbd57e0cd0e9f640f2b8e64b1953d811d693285bdd76a45bc8b207"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_pallet_stack-rear-mid.png",
+        "sha256": "f6cbbe7f7eca2414f9d8c5d3b4369e82c9be42be3bb32f911c5c768eca51cb5f"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_pallet_stack-rear-far.png",
+        "sha256": "b959ef7d086d70a73509c65ee93eaf2c45ec8de768df5a90b74618d1d58d3830"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_pallet_stack-iso-near.png",
+        "sha256": "8ad9f11ab31b84db5fa009d59a2bef061a77a27ba07a15481c89dfdfb5668105"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_pallet_stack-iso-mid.png",
+        "sha256": "990ca74f455436f023991b2b103a0726b15177bb3aa8cf7dc728fcd598cbb080"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_pallet_stack-iso-far.png",
+        "sha256": "f47a32b8f6a9ea58ac73f80d65d424fdd470501a860d0a2011befbd184d0978c"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_prop_pallet_stack-variant-clean.png",
+        "sha256": "990ca74f455436f023991b2b103a0726b15177bb3aa8cf7dc728fcd598cbb080"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_prop_pallet_stack-variant-dusty.png",
+        "sha256": "a1738654bc20a63b66b04333662e3067e4c59d464c4df4a590bac04c8d7fea1f"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_prop_pallet_stack-variant-broken.png",
+        "sha256": "241453bcde51c610c345cc3dafa37a0eadb026336b67a3f7094d5b7fe0755398"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

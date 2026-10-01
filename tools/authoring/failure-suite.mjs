@@ -108,6 +108,19 @@ fs.writeFileSync(`${scratch}/objects/obj_prop_service_pod.json`, JSON.stringify(
 const v = call('validate_world');
 check('object edited after integration flagged stale', issueCodes(v).includes('instance_stale_object'), JSON.stringify(v.issues || []).slice(0, 200));
 
+// 11b. rebind: object grew so large it no longer fits -> rebind rejected; unrelated instance rebinds fine
+podObj.construction.size = [400, 200, 300];
+fs.writeFileSync(`${scratch}/objects/obj_prop_service_pod.json`, JSON.stringify(podObj, null, 2));
+const rbBad = call('rebind_instance', { instance_id: pod.instance.id });
+check('rebind rejected when updated object no longer fits', code(rbBad) === 'contract_violation', JSON.stringify(rbBad.error || {}).slice(0, 160));
+podObj.construction.size = [3, 2.6, 2.5];
+podObj.revision += 1;
+fs.writeFileSync(`${scratch}/objects/obj_prop_service_pod.json`, JSON.stringify(podObj, null, 2));
+const rbOk = call('rebind_instance', { instance_id: pod.instance.id });
+check('rebind accepted when updated object fits', rbOk.ok === true, JSON.stringify(rbOk.error || {}).slice(0, 160));
+const rbIdem = call('rebind_instance', { instance_id: pod.instance.id });
+check('rebind idempotent when already bound', rbIdem.ok === true && /already bound/.test(rbIdem.summary || ''), JSON.stringify(rbIdem).slice(0, 160));
+
 // 12. a repair loop repeatedly applies the same ineffective mutation
 call('checkpoint', { name: 'suite' });
 const loop1 = call('move_object', { instance_id: winId, pos: [-169, 4, 59.08] });

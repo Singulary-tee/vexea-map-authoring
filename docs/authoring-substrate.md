@@ -183,7 +183,24 @@ the world, and reports actual resulting geometry in every result.
    `artifacts/survey-objects-final.png` (3×3 object/variant grid) and
    `artifacts/survey-scene-final.png` (reference tile + 6 rendered views),
    captured via `tools/capture-scene-survey.mjs` + `tools/compose-survey.mjs`.
-6. **Next increments** (deliberately out of scope here):
+6. **Target approach (zone warehouse)** — the canonical survey pose
+   `[-164,1.7,34] -> [-118,5,-10]` (the camera behind the predecessor's `zone warehouse`
+   reference tile) was captured before/after: committed GLB → +20 substrate instances
+   (2 pipe runs, 3 bollards, 3 pallets, pole light, 3 stripes, pod) → +7 more (dock-face
+   pipe + bollards on `bld-deployment-bays`, pallet row, lane stripes). Rejections during
+   authoring were real catches: a stripe placed on `g-yrd-hub` (raised pad, y=0) instead
+   of the yard (y=-0.6), an op-id reuse with changed input, a pod in the ambiguous
+   west/hub overlap band. New objects: bollard, pallet stack, 9m light pole, marking
+   stripe — all contracted, multiview-gated. Overlay materials upgraded to the repo's
+   PBR texture sets (panel/concrete) so authored objects blend with the built map.
+   New op `rebind_instance` closes the object-evolution loop (stale → re-inspect →
+   re-bind; failure-suite covers reject/accept/idempotent, 24/24).
+   Surveys: `artifacts/survey-target-approach.png` (reference vs before vs pass1 vs
+   pass2, same camera), `artifacts/survey-objects-final.png`.
+   Remaining gap to the reference is building-level (dock-door rhythm, signage,
+   forklift) — forklift stays blocked by the sourced-GLB constraint; facade openings
+   are the next substrate increment (opening registry on host walls).
+7. **Next increments** (deliberately out of scope here):
    - parametric wall edges (Alza `t`-fraction hosting) if walls become first-class edges;
    - per-object damage/variant pipelines driven by the multiview evidence loop;
    - application of the substrate to the blocked visual-recovery requirements in

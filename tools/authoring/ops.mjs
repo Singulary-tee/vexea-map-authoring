@@ -192,6 +192,39 @@ export function integrateObject(args, { statePath = statePathEnv() } = {}) {
   return res;
 }
 
+// re-bind an instance to the current content of its object after re-inspection
+// (object files evolve: variants, damage, evidence; the stale flag is the signal to rebind)
+export function rebindInstance(args, { statePath = statePathEnv() } = {}) {
+  const state = requireState(statePath);
+  const guard = guardMutation(state, args);
+  if (guard) return guard;
+  const replay = replayCheck(state, 'rebind_instance', args);
+  if (replay) return replay.result;
+  const inst = findInstance(state, args.instance_id);
+  if (!inst) return err('instance_unknown', `No instance matches ${args.instance_id}.`);
+  const object = loadObject(inst.objectId);
+  if (!object) return err('object_unknown', `Unknown object ${inst.objectId}.`);
+  if (inst.objectSha === objectContentSha(object)) {
+    return ok({ instance: inst.id, objectSha: inst.objectSha }, { summary: `Instance ${inst.id} already bound to current content of ${object.id}; nothing to do.` });
+  }
+  const segs = segments();
+  const check = checkInstance(state, segs, inst, object);
+  const errors = check.issues.filter(i => i.severity === 'error');
+  if (errors.length) {
+    return err('contract_violation', `Rebind rejected: the updated object no longer fits its placement. ${errors.map(i => i.message).join(' ')}`, { issues: errors, instance: inst.id });
+  }
+  pushUndo(state);
+  inst.objectSha = objectContentSha(object);
+  inst.objectRevision = object.revision;
+  if (args.variant && (object.variants || []).some(v => v.id === args.variant)) inst.variant = args.variant;
+  inst.hostId = check.host?.id || null;
+  state.revision += 1;
+  const res = ok({ revision: state.revision, instance: deriveEcho(inst, object, segs) },
+    { summary: `Rebound ${inst.id} to current content of ${object.id} (object rev ${object.revision}); contract PASS.` });
+  recordOp(state, 'rebind_instance', args, res, { changed: true, statePath });
+  return res;
+}
+
 function findInstance(state, idOrPartial) {
   return state.instances.find(i => i.id === idOrPartial) ||
     state.instances.find(i => i.id.includes(idOrPartial)) ||

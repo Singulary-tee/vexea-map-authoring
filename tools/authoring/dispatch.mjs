@@ -9,6 +9,7 @@ export function opsCommand(command, args) {
     move_object: () => ops.moveObject(args),
     rotate_object: () => ops.rotateObject(args),
     resize_object: () => ops.resizeObject(args),
+    rebind_instance: () => ops.rebindInstance(args),
     place_relative: () => ops.placeRelative(args),
     inspect_object: () => ops.inspectObject(args),
     inspect_region: () => ops.inspectRegion(args),

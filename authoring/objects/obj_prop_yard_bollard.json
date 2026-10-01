@@ -1,0 +1,193 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "obj_prop_yard_bollard",
+  "type": "prop",
+  "name": "yard bollard, dock protection",
+  "status": "authored",
+  "revision": 2,
+  "construction": {
+    "size": [
+      0.34,
+      1.1,
+      0.34
+    ],
+    "origin": "center-bottom",
+    "parts": [
+      {
+        "kind": "post",
+        "size": [
+          0.34,
+          1.1,
+          0.34
+        ],
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "mat": "safety-yellow"
+      },
+      {
+        "kind": "band",
+        "size": [
+          0.36,
+          0.22,
+          0.36
+        ],
+        "offset": [
+          0,
+          0.72,
+          0
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "cap",
+        "size": [
+          0.38,
+          0.06,
+          0.38
+        ],
+        "offset": [
+          0,
+          1.06,
+          0
+        ],
+        "mat": "steel-dark"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1,
+        "note": "bent post"
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type",
+        "building-enterable",
+        "warehouse-enterable"
+      ],
+      "mode": "surface"
+    },
+    "minClearanceM": 0.5,
+    "overlap": "disallow"
+  },
+  "references": [
+    "blockout/blockout-full-v1.json#segments",
+    "spec/calibration.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-01",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_yard_bollard-front-near.png",
+        "sha256": "5639353e3805061ebb49d89e7148cd1cba697a60c477caca23ae06a4a372b920"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_yard_bollard-front-mid.png",
+        "sha256": "d81ae6661f271945d147423fd42ea09a086577ceccc4d27a5351171a03fe4df4"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_yard_bollard-front-far.png",
+        "sha256": "6ce7851cb19cabaae4ca2c88cc86595609274e25a5c6abe0191b29278654bf4f"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_yard_bollard-side-near.png",
+        "sha256": "5acbbef9c81992e2525f66c5e9fa59aff224a5bdc15cd83cc980aff60016e67b"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_yard_bollard-side-mid.png",
+        "sha256": "d505356efb3842b8126fec18afc2bf243d4df32e038d95738c08dbf3d44cf28a"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_yard_bollard-side-far.png",
+        "sha256": "2a1048a7e0ef9cc8f1d3d483b6470574cffa8921d52eb4e39c866b25a978a286"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_yard_bollard-rear-near.png",
+        "sha256": "640dbc3cf6dca6f2d4e05e7b8e7c315eb33dd91c72fcff6bcdec622ef09328b3"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_yard_bollard-rear-mid.png",
+        "sha256": "5973a6847d4235110d08368540a861ca238ba7c0826d7a7a15cb99fca220abf1"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_yard_bollard-rear-far.png",
+        "sha256": "5d394a6c81b8424afd6b31237483d81e7976982b2cac2da95ae93c8a994a26fa"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_yard_bollard-iso-near.png",
+        "sha256": "b3aeda34539718dfc614b119d15b847ff7010e7c0279638948c6d7df75ed1d53"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_yard_bollard-iso-mid.png",
+        "sha256": "90ca61c94d08a379284d70059b426dfe77acf7a89e62df080fa634d5a2814c91"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_yard_bollard-iso-far.png",
+        "sha256": "0f082236f4cb90a4cda4d5ab1dc891a15e77ba1bd6795cfbd3784191bdfc625c"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_prop_yard_bollard-variant-clean.png",
+        "sha256": "90ca61c94d08a379284d70059b426dfe77acf7a89e62df080fa634d5a2814c91"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_prop_yard_bollard-variant-dusty.png",
+        "sha256": "c31aee681f873fce456124e0075e6ae492fc2ef63d84125e36fa207c03bed1c2"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_prop_yard_bollard-variant-broken.png",
+        "sha256": "db387b81074b163f917b6d7268562a7ee406bc374175d9ed373ce58e5816065f"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}
