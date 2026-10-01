@@ -173,7 +173,17 @@ the world, and reports actual resulting geometry in every result.
 4. **Generator overlay** — done, env-gated. Verify: default build byte-identical to
    pristine HEAD output (`83acc0658c85f79f…`); overlay build renders all instances and
    passes its two checks.
-5. **Next increments** (deliberately out of scope here):
+5. **Slice demo (one scene, end to end)** — done. Target: the reference survey's
+   `zone warehouse` view. Authored through the substrate: 4 windows on the
+   `bld-north-shed` south facade (clean/clean/dusty/broken) + 2 service pods grounded
+   on `g-yrd-west`, with one deliberate failed attempt (window floated 2 m off the
+   wall → `host_missing` rejection → corrected) and one operation-id conflict
+   demonstration. `validate_world` → valid at revision 6; `BUILD_OBJECT_OVERLAY=1`
+   renders 6 instances / 17 meshes, both overlay checks PASS. Surveys:
+   `artifacts/survey-objects-final.png` (3×3 object/variant grid) and
+   `artifacts/survey-scene-final.png` (reference tile + 6 rendered views),
+   captured via `tools/capture-scene-survey.mjs` + `tools/compose-survey.mjs`.
+6. **Next increments** (deliberately out of scope here):
    - parametric wall edges (Alza `t`-fraction hosting) if walls become first-class edges;
    - per-object damage/variant pipelines driven by the multiview evidence loop;
    - application of the substrate to the blocked visual-recovery requirements in
