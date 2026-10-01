@@ -1,0 +1,149 @@
+{
+  "format": "vexea-authoring/state-0.1",
+  "base": {
+    "path": "blockout/blockout-full-v1.json",
+    "sha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d"
+  },
+  "revision": 2,
+  "instances": [
+    {
+      "id": "inst-0001-377i",
+      "objectId": "obj_window_industrial_window_centered_large",
+      "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326",
+      "objectRevision": 4,
+      "pos": [
+        -176,
+        4,
+        59
+      ],
+      "rotY": 0,
+      "variant": "clean",
+      "status": "integrated",
+      "hostId": "bld-north-shed"
+    },
+    {
+      "id": "inst-0002-g3pm",
+      "objectId": "obj_prop_service_pod",
+      "objectSha": "77281cdb38aa9d9bb338ef04e936198817a532ecec9e9deeebf311b243dc74da",
+      "objectRevision": 2,
+      "pos": [
+        -176,
+        0,
+        124
+      ],
+      "rotY": 0,
+      "variant": "clean",
+      "status": "integrated",
+      "hostId": "g-yrd-rear"
+    }
+  ],
+  "oplog": [
+    {
+      "op": "integrate_object",
+      "operation_id": "demo-window-01",
+      "revision": 1,
+      "inputKey": "integrate_object:3a3b2496dfc917cff60b31851ab0cc497e138e6bfddcb4fbd8bdf35969b0b20e",
+      "result": {
+        "ok": true,
+        "summary": "Integrated obj_window_industrial_window_centered_large as inst-0001-377i on host bld-north-shed at [-176,4,59] rotY=0. Run validate_world; then re-check visually.",
+        "revision": 1,
+        "instance": {
+          "id": "inst-0001-377i",
+          "pos": [
+            -176,
+            4,
+            59
+          ],
+          "rotY": 0,
+          "size": [
+            2.4,
+            1.8,
+            0.16
+          ],
+          "footprint": {
+            "minX": -177.2,
+            "maxX": -174.8,
+            "minZ": 58.92,
+            "maxZ": 59.08
+          },
+          "host": {
+            "id": "bld-north-shed",
+            "category": "facade-non-enterable",
+            "surfaceY": 0
+          },
+          "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326"
+        },
+        "adjustments": [
+          "pos snapped to 1m grid: [-176,4,59.08] -> [-176,4,59]"
+        ]
+      },
+      "changed": true
+    },
+    {
+      "op": "integrate_object",
+      "operation_id": "demo-pod-01",
+      "revision": 2,
+      "inputKey": "integrate_object:5fe4091d0b217de1c327feeddf1dcab4aca938ac57959e9c9ce4ff082e9fcbc1",
+      "result": {
+        "ok": true,
+        "summary": "Integrated obj_prop_service_pod as inst-0002-g3pm on host g-yrd-rear at [-176,0,124] rotY=0. Run validate_world; then re-check visually.",
+        "revision": 2,
+        "instance": {
+          "id": "inst-0002-g3pm",
+          "pos": [
+            -176,
+            0,
+            124
+          ],
+          "rotY": 0,
+          "size": [
+            3,
+            2.6,
+            2
+          ],
+          "footprint": {
+            "minX": -177.5,
+            "maxX": -174.5,
+            "minZ": 123,
+            "maxZ": 125
+          },
+          "host": {
+            "id": "g-yrd-rear",
+            "category": "ground-surface-type",
+            "surfaceY": 0.2
+          },
+          "objectSha": "77281cdb38aa9d9bb338ef04e936198817a532ecec9e9deeebf311b243dc74da"
+        },
+        "adjustments": []
+      },
+      "changed": true
+    }
+  ],
+  "checkpoints": {},
+  "undoStack": [
+    {
+      "revision": 0,
+      "instances": []
+    },
+    {
+      "revision": 1,
+      "instances": [
+        {
+          "id": "inst-0001-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326",
+          "objectRevision": 4,
+          "pos": [
+            -176,
+            4,
+            59
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "bld-north-shed"
+        }
+      ]
+    }
+  ]
+}

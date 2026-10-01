@@ -1,0 +1,68 @@
+<!-- Isolated object multiview inspector: renders one authored object from
+     authoring/objects/<id>.json with rotation/distance variants and damage states.
+     Query: ?obj=<objectId>&variant=<variantId>&view=front|side|rear|iso&dist=near|far|mid -->
+<!doctype html><html><head><meta charset="utf-8"><title>VEXEA object inspector</title>
+<style>html,body{margin:0;height:100%;background:#1b2229;overflow:hidden}#info{position:fixed;top:8px;left:8px;color:#b8c4d0;font:11px monospace;background:#0c1116cc;padding:4px 8px;border-radius:3px}</style>
+</head><body><div id="info"></div>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+const params = new URLSearchParams(location.search);
+const objId = params.get('obj');
+const variantId = params.get('variant') || 'clean';
+const view = params.get('view') || 'iso';
+const dist = params.get('dist') || 'mid';
+document.getElementById('info').textContent = `${objId} · ${variantId} · ${view}/${dist}`;
+const res = await fetch(`/authoring/objects/${objId}.json`);
+const obj = await res.json();
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x2a343d);
+const key = new THREE.DirectionalLight(0xffffff, 2.6); key.position.set(4, 8, 6); scene.add(key);
+const fill = new THREE.DirectionalLight(0xa8bdd2, 1.1); fill.position.set(-6, 3, -4); scene.add(fill);
+scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+const grid = new THREE.GridHelper(20, 20, 0x44525e, 0x36424c); grid.position.y = -0.001; scene.add(grid);
+
+const MATS = {
+  'painted-steel': () => new THREE.MeshStandardMaterial({ color: 0x7d8a96, roughness: 0.55, metalness: 0.6 }),
+  'steel-dark': () => new THREE.MeshStandardMaterial({ color: 0x4c565f, roughness: 0.6, metalness: 0.7 }),
+  'glass': () => new THREE.MeshStandardMaterial({ color: 0x9fc4cf, roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.42 }),
+  'concrete': () => new THREE.MeshStandardMaterial({ color: 0x847f77, roughness: 0.95 }),
+  'roof': () => new THREE.MeshStandardMaterial({ color: 0x4b5350, roughness: 0.9, metalness: 0.2 }),
+};
+const variant = obj.variants.find(v => v.id === variantId) || obj.variants[0];
+const weather = variant?.modifier === 'weathering' ? (variant.params?.wear ?? 0.4) : 0;
+const broken = variant?.modifier === 'damage';
+const [W, H, D] = obj.construction.size || [1, 1, 1];
+const group = new THREE.Group();
+for (const part of obj.construction.parts || []) {
+  if (broken && part.kind === 'glass' && (variant.params?.level ?? 1) >= 2) continue; // shattered glass is missing
+  const size = part.size || [W, H, D];
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(...size), (MATS[part.mat] || MATS['painted-steel'])());
+  mesh.position.set((part.offset?.[0] ?? 0), (part.offset?.[1] ?? 0) + (size[1] / 2) - (H / 2) + H / 2, (part.offset?.[2] ?? 0));
+  if (weather) { mesh.material.color.multiplyScalar(1 - weather * 0.45); mesh.material.roughness = Math.min(1, mesh.material.roughness + weather * 0.4); }
+  if (broken && part.kind === 'frame' && (variant.params?.level ?? 1) >= 2) mesh.rotation.z = 0.06;
+  group.add(mesh);
+}
+// center-bottom anchor: sit the object on the grid
+const bb = new THREE.Box3().setFromObject(group);
+group.position.y -= bb.min.y;
+scene.add(group);
+
+const span = Math.max(W, H, D);
+const R = { near: span * 1.6, mid: span * 2.6, far: span * 4.5 }[dist] || span * 2.6;
+const center = new THREE.Vector3(0, H / 2, 0);
+const DIRS = {
+  front: [0, 0.12, 1], rear: [0, 0.18, -1], side: [1, 0.1, 0],
+  iso: [0.85, 0.65, 0.85], top: [0.01, 1, 0.35], low: [0.2, -0.05, 1],
+};
+const dir = new THREE.Vector3(...(DIRS[view] || DIRS.iso)).normalize();
+const cam = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.01, 2000);
+cam.position.copy(center).addScaledVector(dir, R);
+cam.lookAt(center);
+renderer.render(scene, cam);
+window.__inspectorReady = true;
+</script></body></html>

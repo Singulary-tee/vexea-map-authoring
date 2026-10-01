@@ -4512,6 +4512,55 @@ for (const { m, geos } of byMat.values()) {
   }
 }
 merged.name = 'facility-built-v1';
+
+// -------- authored object overlay (opt-in; default OFF keeps the artifact byte-identical) --------
+// Renders integrated instances from authoring/scene-state.json. Every instance was
+// contract-validated at integration time; here we render + re-verify presence only.
+const objectOverlay = process.env.BUILD_OBJECT_OVERLAY === '1' && fs.existsSync('authoring/scene-state.json')
+  ? JSON.parse(fs.readFileSync('authoring/scene-state.json', 'utf8')) : null;
+if (objectOverlay) {
+  const OVERLAY_MATS = {
+    'painted-steel': () => mat(0x7d8a96, { roughness: 0.55, metalness: 0.6 }),
+    'steel-dark': () => mat(0x4c565f, { roughness: 0.6, metalness: 0.7 }),
+    'glass': () => mat(0x9fc4cf, { roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.42 }),
+    'concrete': () => mat(0x847f77),
+    'roof': () => mat(0x4b5350, { roughness: 0.9, metalness: 0.2 }),
+  };
+  const loadOverlayObject = id => JSON.parse(fs.readFileSync(`authoring/objects/${id}.json`, 'utf8'));
+  const overlayStats = { instances: 0, meshes: 0, issues: [] };
+  for (const inst of objectOverlay.instances || []) {
+    try {
+      const obj = loadOverlayObject(inst.objectId);
+      const variant = (obj.variants || []).find(v => v.id === inst.variant) || (obj.variants || [])[0] || { id: 'clean' };
+      const weather = variant.modifier === 'weathering' ? (variant.params?.wear ?? 0.4) : 0;
+      const broken = variant.modifier === 'damage';
+      const [w, , d] = obj.construction.size;
+      const swapped = ((Math.round((inst.rotY || 0) / 90) * 90) % 360 + 360) % 360 === 90 || ((Math.round((inst.rotY || 0) / 90) * 90) % 360 + 360) % 360 === 270;
+      const rot = ((inst.rotY || 0) * Math.PI) / 180;
+      const instGroup = new Group();
+      for (const part of obj.construction.parts || []) {
+        if (broken && part.kind === 'glass' && (variant.params?.level ?? 1) >= 2) continue;
+        const [pw, ph, pd] = part.size || [w, 1, d];
+        const m = (OVERLAY_MATS[part.mat] || OVERLAY_MATS['painted-steel'])();
+        if (weather) { m.color.multiplyScalar(1 - weather * 0.45); m.roughness = Math.min(1, m.roughness + weather * 0.4); }
+        const px = (swapped ? (part.offset?.[2] ?? 0) : (part.offset?.[0] ?? 0));
+        const pz = (swapped ? (part.offset?.[0] ?? 0) : (part.offset?.[2] ?? 0));
+        const mesh = new Mesh(new BoxGeometry(swapped ? pd : pw, ph, swapped ? pw : pd), m);
+        mesh.position.set(inst.pos[0] + px, inst.pos[1] + (part.offset?.[1] ?? 0) + ph / 2, inst.pos[2] + pz);
+        mesh.rotation.y = rot;
+        instGroup.add(mesh);
+        overlayStats.meshes++;
+      }
+      instGroup.name = `object-overlay:${inst.id}:${obj.id}`;
+      merged.add(instGroup);
+      overlayStats.instances++;
+    } catch (e) {
+      overlayStats.issues.push(`${inst.id}: ${e.message}`);
+    }
+  }
+  merged.userData.objectOverlay = overlayStats;
+}
+
 if (isolatedTransferOnly) merged.userData.transferNetwork = transferNetwork;
 if (campusSpineOnly) merged.userData.campusSpine = campusSpine;
 if (operationalStreetwallOnly) merged.userData.operationalStreetwall = operationalStreetwall;
@@ -4596,6 +4645,12 @@ const report = {
   checks: [],
 };
 const c = (n, p, d = '') => report.checks.push({ n, p, d });
+if (objectOverlay) {
+  const overlayStats = merged.userData.objectOverlay || { instances: 0, meshes: 0, issues: [] };
+  report.objectOverlay = overlayStats;
+  c('object-overlay: every integrated instance rendered from its authored object', overlayStats.instances === (objectOverlay.instances || []).length && overlayStats.issues.length === 0, overlayStats.issues.join('; '));
+  c('object-overlay: instances carry object content trace', (objectOverlay.instances || []).every(inst => Boolean(inst.objectId) && Boolean(inst.objectSha)));
+}
 const segBoxes = segs.map(s => ({ id: s.id, cat: s.category, minX: s.bounds[0], minZ: s.bounds[1], maxX: s.bounds[2], maxZ: s.bounds[3] }));
 // contact: every non-ground segment with height >= 0.6 has its own ground beneath or is below-grade/elevated with support
 const nonDisp = ['building-enterable', 'warehouse-enterable', 'facade-non-enterable', 'tower', 'wall-blocking', 'bridge', 'mountain-boundary'];

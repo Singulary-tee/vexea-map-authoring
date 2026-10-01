@@ -1,0 +1,195 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "obj_window_industrial_window_centered_large",
+  "type": "window",
+  "name": "industrial window, centered, large",
+  "status": "authored",
+  "revision": 4,
+  "construction": {
+    "size": [
+      2.4,
+      1.8,
+      0.16
+    ],
+    "origin": "center-bottom",
+    "parts": [
+      {
+        "kind": "frame",
+        "size": [
+          2.4,
+          1.8,
+          0.16
+        ],
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "mat": "painted-steel"
+      },
+      {
+        "kind": "glass",
+        "size": [
+          2.1,
+          1.5,
+          0.02
+        ],
+        "offset": [
+          0,
+          0.15,
+          0.09
+        ],
+        "mat": "glass"
+      },
+      {
+        "kind": "mullion-v",
+        "size": [
+          0.06,
+          1.5,
+          0.03
+        ],
+        "offset": [
+          0,
+          0.15,
+          0.1
+        ],
+        "mat": "painted-steel"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.4
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 2,
+        "note": "variant of obj_window_industrial_window_centered_large"
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "building-enterable",
+        "warehouse-enterable",
+        "facade-non-enterable",
+        "tower"
+      ],
+      "mode": "attach-edge"
+    },
+    "flushTolerance": 0.35,
+    "minClearanceM": 1,
+    "overlap": "disallow"
+  },
+  "references": [
+    "blockout/blockout-full-v1.json#segments",
+    "spec/calibration.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-01",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-front-near.png",
+        "sha256": "c0588457ac809f8d48f399b5d829926ea548859c45916694e0ae22bf4de1447b"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-front-mid.png",
+        "sha256": "d67f1b9adcd296898271a953b4ed44a4846e7e4a84f6709365dda6f50160f0a3"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-front-far.png",
+        "sha256": "df41faed53afac1cd556ea9150ca6e9810120343c66a6be5f7af0a7b9b10e811"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-side-near.png",
+        "sha256": "f884c2e8f9d0ed66c9e07065e0b59f69990299d93eb4d93560b44557d8018687"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-side-mid.png",
+        "sha256": "ea323bde2368abb97ca200ff961c8c511e1d1f6ef062c48b5efcb76702903628"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-side-far.png",
+        "sha256": "07712fa8f713edd2cd775473352e02f20a7172c23907af8d24ea03c2e6ea7d2f"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-rear-near.png",
+        "sha256": "27356a860e1866c38439ce4925eaf10fc3f2ab4a9ecda1aaadc44b25f186cdac"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-rear-mid.png",
+        "sha256": "77499d6c1c1d8197ee4007923007492b1065ea4c77c533f923f342870136e1ca"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-rear-far.png",
+        "sha256": "880658275b9a63d85f17c2f4d46c5c78a76a16974efe01c5ba00df844d636151"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-iso-near.png",
+        "sha256": "2273f02cf25b197081a5943f6037acb5f77f1c70af1e92ea1acb14006e395e30"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-iso-mid.png",
+        "sha256": "f10fbba708e8402ecff6cc466b581ff338f01e328120ebae2084720d95e477b7"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-iso-far.png",
+        "sha256": "670700e28f8679d5606f5f66dae7666fd358804c9d36f927764455814ded3c9d"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-variant-clean.png",
+        "sha256": "f10fbba708e8402ecff6cc466b581ff338f01e328120ebae2084720d95e477b7"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-variant-dusty.png",
+        "sha256": "d977766f25f75ffcc3cf4f5cdfb82210453f48286564d103186ed54686312dcf"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_window_industrial_window_centered_large-variant-broken.png",
+        "sha256": "beb74d5b35d11a18e842d84f7a2c28c7dc739ec50701e667b784e7c241654f58"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}
