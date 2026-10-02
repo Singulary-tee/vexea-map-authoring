@@ -214,7 +214,25 @@ the world, and reports actual resulting geometry in every result.
    Verified: failure suite 33/33 (incl. overflow clamp, sibling overlap, feature
    collision, bypass refusal, low-poly rejection), basics 12/12, blockout gates ALL PASS,
    default GLB byte-identical to pristine baseline.
-7. **Next increments** (deliberately out of scope here):7. **Next increments** (deliberately out of scope here):
+7. **External research — incorporated** (IfcOpenShell, FreeCAD BIM, SweetHome3D,
+   ranjian0/building_tools, Unity Asset-Store Validator, MSFT_lod, Kenney kits,
+   Geo-Nodes-Edge-Wear, mesh-saliency; all verified in source by subagent reads):
+   - **Adopted**: openings as typed children of derived wall records (IfcOpenShell
+     RelVoids/RelFills pattern, simplified); re-derived host binding — nothing stale is
+     stored, the registry re-derives from the canonical hash (FreeCAD InList /
+     SweetHome3D `boundToWall` pattern); oversize-cut-margin convention documented for
+     future non-axis-aligned walls (IfcOpenShell `add_feature`, FreeCAD `getSubVolume`
+     +100 mm); MeshQA-style **upper** tri budgets added beside the lower quality bar
+     (`object_over_budget`: 2.5k/5k/25k by size class) — gates now bound from both sides;
+     hard-block promotion pattern (Asset-Store Validator) already embodied by
+     `author_object` refusal codes.
+   - Negative results recorded: no off-the-shelf box-grammar "boxiness" detector exists
+     (mesh-saliency implementations target tessellated meshes); building_tools has no
+     persistent wall/opening relation (generation-time coupling desyncs on wall move) —
+     the reason the substrate keeps relations as data instead of baking them.
+   - Known strictness debt: five early warehouse objects (stripe, pallets, pods at 1–3
+     parts) predate the promotion gate — integrated but not re-promotable until enriched.
+8. **Next increments** (deliberately out of scope here):
    - parametric wall edges (Alza `t`-fraction hosting) if walls become first-class edges;
    - per-object damage/variant pipelines driven by the multiview evidence loop;
    - application of the substrate to the blocked visual-recovery requirements in
