@@ -157,6 +157,11 @@ export function checkObjectQuality(object) {
   if (tri < minTris) {
     push('object_below_quality', `${object.id} estimated at ${tri} tris; >= ${minTris} required for a ${maxDim.toFixed(1)}m ${object.type}.`);
   }
+  // MeshQA-style upper budgets: per-platform classes reject runaway geometry too
+  const maxTris = maxDim >= 5 ? 25000 : maxDim >= 2 ? 5000 : 2500;
+  if (tri > maxTris) {
+    push('object_over_budget', `${object.id} estimated at ${tri} tris; max ${maxTris} for a ${maxDim.toFixed(1)}m ${object.type} (MeshQA budget class).`);
+  }
   // single rectangular prism silhouette: every part identical footprint at same center
   const footprints = new Set(parts.map(p => JSON.stringify((p.size || c.size || [1, 1, 1]).map(v => Math.round(v * 2) / 2))));
   if (!insertLike && parts.length > 0 && footprints.size === 1 && maxDim >= 1) {

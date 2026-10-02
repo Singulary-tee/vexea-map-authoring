@@ -9,6 +9,12 @@ export const WALLS_PATH = 'authoring/walls.json';
 export const FEATURES_PATH = 'authoring/facade-features.json';
 export const WALL_THICKNESS = 0.6;
 
+// IfcOpenShell convention (add_feature): the cut volume is deliberately thicker than the
+// wall so coincident-face booleans never produce slivers. With axis-aligned box walls the
+// subtraction is exact, so no margin is needed; kept here as the documented reason fills
+// may use frame depth < wall thickness without seam risk.
+// Host binding is re-derived, never stored (FreeCAD InList / SweetHome3D boundToWall
+// pattern): walls come from the canonical hash; a base change invalidates the registry.
 // derive the four walls of every building from canonical bounds
 export function deriveWalls() {
   const { sha256: baseSha, segments } = canonicalBase();
