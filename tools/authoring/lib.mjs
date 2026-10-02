@@ -13,6 +13,8 @@ export const WORLD_LIMIT = 768;
 
 // test isolation: point the working doc and object workspace at scratch dirs
 export const statePathEnv = () => process.env.VEXEA_AUTHORING_STATE || STATE_PATH;
+export const wallsPathEnv = () => process.env.VEXEA_AUTHORING_WALLS || 'authoring/walls.json';
+export const featuresPathEnv = () => process.env.VEXEA_AUTHORING_FEATURES || 'authoring/facade-features.json';
 export const objectsDirEnv = () => process.env.VEXEA_AUTHORING_OBJECTS || OBJECTS_DIR;
 
 const sha256 = v => createHash('sha256').update(v).digest('hex');
@@ -123,6 +125,45 @@ export function newObject({ type, name, contract = null, construction = null }) 
 }
 
 export const objectContentSha = obj => sha256(JSON.stringify({ construction: obj.construction, contract: obj.contract, variants: obj.variants, status: obj.status }));
+
+// ---------- anti-low-poly quality gate (decisions in code, not notes) ----------
+// A primitive placeholder must not be promotable: the editor refuses to forward it.
+const TRI_EST = { box: 12, cylinder: 60, wedge: 8 };
+export function estimateTriangles(construction) {
+  let tri = 0;
+  for (const part of construction?.parts || []) tri += TRI_EST[part.kind || 'box'] ?? 12;
+  return tri;
+}
+
+export function checkObjectQuality(object) {
+  const issues = [];
+  const push = (code, message) => issues.push({ severity: 'error', code, message, refs: [object.id] });
+  const c = object.construction || {};
+  const parts = c.parts || [];
+  const size = c.size || [0, 0, 0];
+  const maxDim = Math.max(...size);
+  // fixtures that fill wall openings are thin inserts, not silhouettes
+  const insertLike = ['window', 'door', 'pipe'].includes(object.type);
+  const minParts = insertLike ? 3 : maxDim >= 2 ? 5 : 4;
+  const minTris = insertLike ? 24 : maxDim >= 5 ? 72 : 40;
+  if (parts.length < minParts) {
+    push('object_below_quality', `${object.id} has ${parts.length} part(s); ${object.type} requires >= ${minParts} to leave placeholder territory.`);
+  }
+  const mats = new Set(parts.map(p => p.mat));
+  if (mats.size < 2) {
+    push('object_below_quality', `${object.id} uses ${mats.size} material(s); >= 2 required (a single-surface prop reads as untextured blockout).`);
+  }
+  const tri = estimateTriangles(c);
+  if (tri < minTris) {
+    push('object_below_quality', `${object.id} estimated at ${tri} tris; >= ${minTris} required for a ${maxDim.toFixed(1)}m ${object.type}.`);
+  }
+  // single rectangular prism silhouette: every part identical footprint at same center
+  const footprints = new Set(parts.map(p => JSON.stringify((p.size || c.size || [1, 1, 1]).map(v => Math.round(v * 2) / 2))));
+  if (!insertLike && parts.length > 0 && footprints.size === 1 && maxDim >= 1) {
+    push('object_below_quality', `${object.id} silhouette is a single rectangular prism; add differentiated parts (setbacks, caps, attachments).`);
+  }
+  return issues;
+}
 
 // ---------- host derivation ----------
 export const BUILDING_CATS = ['building-enterable', 'warehouse-enterable', 'facade-non-enterable', 'tower'];
@@ -238,11 +279,35 @@ export function validateWorld(state, segments, objectsById) {
   const issues = [];
   const drift = baseDrift(state);
   if (drift) issues.push({ severity: 'error', code: 'world_drift', message: `Canonical base changed (${state.base.sha256} -> ${drift}); refresh working state.`, refs: [CANONICAL_PATH] });
+  let regCache = null;
+  const reg = () => {
+    if (regCache !== null) return regCache;
+      const p = wallsPathEnv();
+    regCache = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : false;
+    return regCache;
+  };
   for (const inst of state.instances) {
     const object = objectsById.get(inst.objectId);
     if (!object) { issues.push({ severity: 'error', code: 'object_unknown', message: `Instance ${inst.id} references unknown object ${inst.objectId}.`, refs: [inst.id] }); continue; }
     if (object.status !== 'authored') issues.push({ severity: 'error', code: 'object_not_authored', message: `Instance ${inst.id} holds object ${object.id} with status "${object.status}"; only authored objects may be integrated.`, refs: [inst.id, object.id] });
     if (inst.objectSha && inst.objectSha !== objectContentSha(object)) issues.push({ severity: 'error', code: 'instance_stale_object', message: `Instance ${inst.id} was integrated against an older revision of ${object.id}; re-inspect and re-integrate.`, refs: [inst.id, object.id] });
+    if (inst.openingId) {
+      // opening children validate through the wall registry (extent + siblings), not AABB hosts
+      const r = reg();
+      const opening = r && r.openings?.find(o => o.id === inst.openingId);
+      if (!r || !opening) { issues.push({ severity: 'error', code: 'opening_unknown', message: `Instance ${inst.id} references missing opening ${inst.openingId}.`, refs: [inst.id] }); continue; }
+      const wall = r.walls.find(w => w.id === opening.wallId);
+      if (!wall) { issues.push({ severity: 'error', code: 'wall_unknown', message: `Opening ${opening.id} wall ${opening.wallId} missing.`, refs: [inst.id] }); continue; }
+      const len = wall.hi - wall.lo, center = wall.lo + opening.t * len;
+      const a = center - opening.width / 2, c = center + opening.width / 2;
+      if (a < wall.lo + 0.04 || c > wall.hi - 0.04) issues.push({ severity: 'error', code: 'opening_overflow', message: `Opening ${opening.id} span [${a.toFixed(2)},${c.toFixed(2)}] exits wall ${wall.id}.`, refs: [inst.id, wall.id] });
+      for (const sib of r.openings.filter(o => o.wallId === wall.id && o.id !== opening.id)) {
+        const sl = wall.hi - wall.lo, sc = wall.lo + sib.t * sl;
+        const sa2 = sc - sib.width / 2, sc2 = sc + sib.width / 2;
+        if (a < sc2 - 0.04 && sa2 < c - 0.04) issues.push({ severity: 'error', code: 'openings_overlap', message: `Openings ${opening.id} and ${sib.id} overlap on ${wall.id}.`, refs: [inst.id, sib.id] });
+      }
+      continue;
+    }
     issues.push(...checkInstance(state, segments, inst, object).issues);
   }
   // pairwise instance overlap (construction seams tolerate 5 m^2, matching generator gate tolerance)

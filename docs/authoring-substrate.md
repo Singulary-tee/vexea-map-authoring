@@ -200,7 +200,21 @@ the world, and reports actual resulting geometry in every result.
    Remaining gap to the reference is building-level (dock-door rhythm, signage,
    forklift) — forklift stays blocked by the sourced-GLB constraint; facade openings
    are the next substrate increment (opening registry on host walls).
-7. **Next increments** (deliberately out of scope here):
+6. **Machinery graft (walls-as-data, hard gates)** — done. Walls are records with
+   thickness/extent (`tools/authoring/walls.mjs`, derived from canonical, hash-anchored);
+   windows are opening children (`install_opening` with Alza-style `clampOpeningT`),
+   validated against wall extent + sibling openings + a generator-recorded facade-feature
+   registry (ribs/sheets/bands/vents/lights — 278 features). The generator cuts real
+   holes for openings (scanline subtraction; legacy path untouched — default build proven
+   byte-identical) and renders frames + glass centered in the wall. Raw-coordinate
+   integration of opening-type objects is refused (`not_opening_type`): the bypass is
+   unrepresentable. Anti-low-poly gate in `author_object` (parts/materials/tri-estimate/
+   silhouette rules) — a 1-part streetlight is rejected, a 6-part one forwards.
+   New ops: `install_opening`, `move_opening`, `remove_instance`, `walls_list`.
+   Verified: failure suite 33/33 (incl. overflow clamp, sibling overlap, feature
+   collision, bypass refusal, low-poly rejection), basics 12/12, blockout gates ALL PASS,
+   default GLB byte-identical to pristine baseline.
+7. **Next increments** (deliberately out of scope here):7. **Next increments** (deliberately out of scope here):
    - parametric wall edges (Alza `t`-fraction hosting) if walls become first-class edges;
    - per-object damage/variant pipelines driven by the multiview evidence loop;
    - application of the substrate to the blocked visual-recovery requirements in

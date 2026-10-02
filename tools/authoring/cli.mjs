@@ -23,14 +23,13 @@ Every mutation requires expected_revision (optimistic concurrency) and accepts o
   process.exit(command ? 0 : 2);
 }
 
-const jsonArg = (() => {
-  const i = rest.indexOf('--json');
-  return i >= 0 ? JSON.parse(rest[i + 1]) : {};
-})();
+const jsonIndex = rest.indexOf('--json');
+const jsonArg = jsonIndex >= 0 ? JSON.parse(rest[jsonIndex + 1]) : {};
 
 const args = { ...jsonArg };
 for (const kv of rest) {
-  if (kv === '--json' || kv === rest[rest.indexOf('--json') + 1]) continue;
+  // skip the --json flag and its payload only when the flag is actually present
+  if (jsonIndex >= 0 && (kv === '--json' || kv === rest[jsonIndex + 1])) continue;
   const m = kv.match(/^([a-z_]+)=(.*)$/);
   if (m) args[m[1]] = parseScalar(m[2]);
 }

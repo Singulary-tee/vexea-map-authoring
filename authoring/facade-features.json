@@ -1,0 +1,2785 @@
+{
+  "format": "vexea-facade-features/0.1",
+  "features": [
+    {
+      "kind": "hero-door-bay",
+      "side": "s",
+      "a": -70.4,
+      "c": -61.6,
+      "y0": 0.2,
+      "y1": 4.7,
+      "wall": 34,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "dock-door",
+      "side": "s",
+      "a": -70.4,
+      "c": -61.6,
+      "y0": 0.2,
+      "y1": 4.7,
+      "wall": 34,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "n",
+      "a": -101.5,
+      "c": -80.6,
+      "y0": 0.2,
+      "y1": 12.2,
+      "wall": 90.42,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "n",
+      "a": -71.4,
+      "c": -64.6,
+      "y0": 0.2,
+      "y1": 12.2,
+      "wall": 90.42,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "n",
+      "a": -55.4,
+      "c": -48.6,
+      "y0": 0.2,
+      "y1": 12.2,
+      "wall": 90.42,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "n",
+      "a": -39.4,
+      "c": -30.5,
+      "y0": 0.2,
+      "y1": 12.2,
+      "wall": 90.42,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": -95.35,
+      "c": -94.65,
+      "y0": 5.6499999999999995,
+      "y1": 7.05,
+      "wall": 90.58,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": -84.35,
+      "c": -83.65,
+      "y0": 5.6499999999999995,
+      "y1": 7.05,
+      "wall": 90.58,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": -68.35,
+      "c": -67.65,
+      "y0": 5.6499999999999995,
+      "y1": 7.05,
+      "wall": 90.58,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": -52.35,
+      "c": -51.65,
+      "y0": 5.6499999999999995,
+      "y1": 7.05,
+      "wall": 90.58,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": -37.35,
+      "c": -36.65,
+      "y0": 5.6499999999999995,
+      "y1": 7.05,
+      "wall": 90.58,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": -98,
+      "c": -34,
+      "y0": 0.2,
+      "y1": 12.2,
+      "wall": 33.7,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": -98,
+      "c": -36,
+      "y0": 6.9,
+      "y1": 7.5,
+      "wall": 34,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -96.05,
+      "c": -88.95,
+      "y0": 8.700000000000001,
+      "y1": 9.9,
+      "wall": 34,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -85.05,
+      "c": -77.95,
+      "y0": 8.700000000000001,
+      "y1": 9.9,
+      "wall": 34,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -54.05,
+      "c": -46.95,
+      "y0": 8.700000000000001,
+      "y1": 9.9,
+      "wall": 34,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -43.05,
+      "c": -35.95,
+      "y0": 8.700000000000001,
+      "y1": 9.9,
+      "wall": 34,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "s",
+      "a": -98,
+      "c": -76,
+      "y0": 5.1,
+      "y1": 6.1,
+      "wall": 34,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "s",
+      "a": -56,
+      "c": -34,
+      "y0": 5.1,
+      "y1": 6.1,
+      "wall": 34,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -92.35,
+      "c": -91.65,
+      "y0": 4.7,
+      "y1": 6.1000000000000005,
+      "wall": 33.55,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -74.35,
+      "c": -73.65,
+      "y0": 4.7,
+      "y1": 6.1000000000000005,
+      "wall": 33.55,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -54.35,
+      "c": -53.65,
+      "y0": 4.7,
+      "y1": 6.1000000000000005,
+      "wall": 33.55,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -38.35,
+      "c": -37.65,
+      "y0": 4.7,
+      "y1": 6.1000000000000005,
+      "wall": 33.55,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "w",
+      "a": -44.699999999999996,
+      "c": -41.300000000000004,
+      "y0": 6.8,
+      "y1": 9.2,
+      "wall": 162,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "dock-door",
+      "side": "w",
+      "a": -44.699999999999996,
+      "c": -41.300000000000004,
+      "y0": 6.8,
+      "y1": 9.2,
+      "wall": 162,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "s",
+      "a": 210.29999999999998,
+      "c": 213.70000000000002,
+      "y0": 6.8,
+      "y1": 9.2,
+      "wall": -63,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "dock-door",
+      "side": "s",
+      "a": 210.29999999999998,
+      "c": 213.70000000000002,
+      "y0": 6.8,
+      "y1": 9.2,
+      "wall": -63,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "w",
+      "a": -59,
+      "c": -48,
+      "y0": 6.8,
+      "y1": 32.8,
+      "wall": 161.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "w",
+      "a": -37,
+      "c": 4,
+      "y0": 6.8,
+      "y1": 32.8,
+      "wall": 161.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 166,
+      "c": 202,
+      "y0": 6.8,
+      "y1": 32.8,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 222,
+      "c": 262,
+      "y0": 6.8,
+      "y1": 32.8,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "w",
+      "a": -56,
+      "c": -38,
+      "y0": 20.5,
+      "y1": 21.5,
+      "wall": 162,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "s",
+      "a": 224,
+      "c": 262,
+      "y0": 19.5,
+      "y1": 20.5,
+      "wall": -63,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 175.65,
+      "c": 176.35,
+      "y0": 6.5,
+      "y1": 7.9,
+      "wall": -63.35,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 194.65,
+      "c": 195.35,
+      "y0": 6.5,
+      "y1": 7.9,
+      "wall": -63.35,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 211.65,
+      "c": 212.35,
+      "y0": 6.5,
+      "y1": 7.9,
+      "wall": -63.35,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 229.65,
+      "c": 230.35,
+      "y0": 6.5,
+      "y1": 7.9,
+      "wall": -63.35,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 249.65,
+      "c": 250.35,
+      "y0": 6.5,
+      "y1": 7.9,
+      "wall": -63.35,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "s",
+      "a": -169.70000000000002,
+      "c": -166.29999999999998,
+      "y0": -0.6,
+      "y1": 1.7999999999999998,
+      "wall": -51,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "dock-door",
+      "side": "s",
+      "a": -169.70000000000002,
+      "c": -166.29999999999998,
+      "y0": -0.6,
+      "y1": 1.7999999999999998,
+      "wall": -51,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": -216,
+      "c": -178,
+      "y0": -0.6,
+      "y1": 11.4,
+      "wall": -51.34,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": -158,
+      "c": -148,
+      "y0": -0.6,
+      "y1": 11.4,
+      "wall": -51.34,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "s",
+      "a": -216,
+      "c": -150,
+      "y0": 4.6,
+      "y1": 5.6,
+      "wall": -51,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "s",
+      "a": 41.300000000000004,
+      "c": 44.699999999999996,
+      "y0": -0.9,
+      "y1": 1.5,
+      "wall": -167,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "dock-door",
+      "side": "s",
+      "a": 41.300000000000004,
+      "c": 44.699999999999996,
+      "y0": -0.9,
+      "y1": 1.5,
+      "wall": -167,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 4,
+      "c": 32,
+      "y0": -0.9,
+      "y1": 13.1,
+      "wall": -167.42,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 54,
+      "c": 72,
+      "y0": -0.9,
+      "y1": 13.1,
+      "wall": -167.42,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 6.506666666666666,
+      "c": 12.16,
+      "y0": 8,
+      "y1": 9.2,
+      "wall": -167,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 15.173333333333332,
+      "c": 20.826666666666668,
+      "y0": 8,
+      "y1": 9.2,
+      "wall": -167,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 23.839999999999996,
+      "c": 29.493333333333332,
+      "y0": 8,
+      "y1": 9.2,
+      "wall": -167,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 56.38,
+      "c": 61.62,
+      "y0": 8,
+      "y1": 9.2,
+      "wall": -167,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 64.38,
+      "c": 69.62,
+      "y0": 8,
+      "y1": 9.2,
+      "wall": -167,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": 6,
+      "c": 70,
+      "y0": 5.1000000000000005,
+      "y1": 5.7,
+      "wall": -167,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 9.65,
+      "c": 10.35,
+      "y0": 3.8999999999999995,
+      "y1": 5.3,
+      "wall": -167.55,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 27.65,
+      "c": 28.35,
+      "y0": 3.8999999999999995,
+      "y1": 5.3,
+      "wall": -167.55,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 55.65,
+      "c": 56.35,
+      "y0": 3.8999999999999995,
+      "y1": 5.3,
+      "wall": -167.55,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 69.65,
+      "c": 70.35,
+      "y0": 3.8999999999999995,
+      "y1": 5.3,
+      "wall": -167.55,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "n",
+      "a": 30.3,
+      "c": 33.699999999999996,
+      "y0": -1.2,
+      "y1": 1.4000000000000001,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "dock-door",
+      "side": "n",
+      "a": 30.3,
+      "c": 33.699999999999996,
+      "y0": -1.2,
+      "y1": 1.4000000000000001,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "n",
+      "a": 6,
+      "c": 24,
+      "y0": -1.2,
+      "y1": 32.8,
+      "wall": -232.42,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "n",
+      "a": 40,
+      "c": 90,
+      "y0": -1.2,
+      "y1": 32.8,
+      "wall": -232.42,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 7.000000000000001,
+      "c": 11,
+      "y0": 8.6,
+      "y1": 9.799999999999999,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 13,
+      "c": 17,
+      "y0": 8.6,
+      "y1": 9.799999999999999,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 19,
+      "c": 23,
+      "y0": 8.6,
+      "y1": 9.799999999999999,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 41.44333333333333,
+      "c": 46.89,
+      "y0": 8.6,
+      "y1": 9.799999999999999,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 49.776666666666664,
+      "c": 55.223333333333336,
+      "y0": 8.6,
+      "y1": 9.799999999999999,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 58.11,
+      "c": 63.55666666666667,
+      "y0": 8.6,
+      "y1": 9.799999999999999,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 66.44333333333334,
+      "c": 71.89,
+      "y0": 8.6,
+      "y1": 9.799999999999999,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 74.77666666666667,
+      "c": 80.22333333333333,
+      "y0": 8.6,
+      "y1": 9.799999999999999,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 83.11000000000001,
+      "c": 88.55666666666667,
+      "y0": 8.6,
+      "y1": 9.799999999999999,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 7.000000000000001,
+      "c": 11,
+      "y0": 16.599999999999998,
+      "y1": 17.8,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 13,
+      "c": 17,
+      "y0": 16.599999999999998,
+      "y1": 17.8,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 19,
+      "c": 23,
+      "y0": 16.599999999999998,
+      "y1": 17.8,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 41.44333333333333,
+      "c": 46.89,
+      "y0": 16.599999999999998,
+      "y1": 17.8,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 49.776666666666664,
+      "c": 55.223333333333336,
+      "y0": 16.599999999999998,
+      "y1": 17.8,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 58.11,
+      "c": 63.55666666666667,
+      "y0": 16.599999999999998,
+      "y1": 17.8,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 66.44333333333334,
+      "c": 71.89,
+      "y0": 16.599999999999998,
+      "y1": 17.8,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 74.77666666666667,
+      "c": 80.22333333333333,
+      "y0": 16.599999999999998,
+      "y1": 17.8,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 83.11000000000001,
+      "c": 88.55666666666667,
+      "y0": 16.599999999999998,
+      "y1": 17.8,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "n",
+      "a": 8,
+      "c": 88,
+      "y0": 12,
+      "y1": 12.600000000000001,
+      "wall": -232,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 9.65,
+      "c": 10.35,
+      "y0": 5.5,
+      "y1": 6.9,
+      "wall": -232.55,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 23.65,
+      "c": 24.35,
+      "y0": 5.5,
+      "y1": 6.9,
+      "wall": -232.55,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 45.65,
+      "c": 46.35,
+      "y0": 5.5,
+      "y1": 6.9,
+      "wall": -232.55,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 65.65,
+      "c": 66.35,
+      "y0": 5.5,
+      "y1": 6.9,
+      "wall": -232.55,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 85.65,
+      "c": 86.35,
+      "y0": 5.5,
+      "y1": 6.9,
+      "wall": -232.55,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "s",
+      "a": 6,
+      "c": 12,
+      "y0": 0.4,
+      "y1": 4.6000000000000005,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "dock-door",
+      "side": "s",
+      "a": 6,
+      "c": 12,
+      "y0": 0.4,
+      "y1": 4.6000000000000005,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "s",
+      "a": 23,
+      "c": 29,
+      "y0": 0.4,
+      "y1": 4.6000000000000005,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "dock-door",
+      "side": "s",
+      "a": 23,
+      "c": 29,
+      "y0": 0.4,
+      "y1": 4.6000000000000005,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "s",
+      "a": 40,
+      "c": 46,
+      "y0": 0.4,
+      "y1": 4.6000000000000005,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "dock-door",
+      "side": "s",
+      "a": 40,
+      "c": 46,
+      "y0": 0.4,
+      "y1": 4.6000000000000005,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 4,
+      "c": 6.2,
+      "y0": 0.4,
+      "y1": 9.4,
+      "wall": 119.7,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 11.8,
+      "c": 23.2,
+      "y0": 0.4,
+      "y1": 9.4,
+      "wall": 119.7,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 28.8,
+      "c": 40.2,
+      "y0": 0.4,
+      "y1": 9.4,
+      "wall": 119.7,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 45.8,
+      "c": 48,
+      "y0": 0.4,
+      "y1": 9.4,
+      "wall": 119.7,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 6.646666666666666,
+      "c": 16.02,
+      "y0": 5.9,
+      "y1": 7.1,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 21.313333333333333,
+      "c": 30.686666666666667,
+      "y0": 5.9,
+      "y1": 7.1,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 35.98,
+      "c": 45.35333333333333,
+      "y0": 5.9,
+      "y1": 7.1,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": 4,
+      "c": 48,
+      "y0": 4.1000000000000005,
+      "y1": 4.7,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "s",
+      "a": 4,
+      "c": 48,
+      "y0": 2,
+      "y1": 3,
+      "wall": 120,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 7.65,
+      "c": 8.35,
+      "y0": 5,
+      "y1": 6.4,
+      "wall": 119.52,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 25.65,
+      "c": 26.35,
+      "y0": 5,
+      "y1": 6.4,
+      "wall": 119.52,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 43.65,
+      "c": 44.35,
+      "y0": 5,
+      "y1": 6.4,
+      "wall": 119.52,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": 178,
+      "c": 316,
+      "y0": 5.9,
+      "y1": 6.5,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "s",
+      "a": 179.2,
+      "c": 184.8,
+      "y0": 6.8,
+      "y1": 10.899999999999999,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "dock-door",
+      "side": "s",
+      "a": 179.2,
+      "c": 184.8,
+      "y0": 6.8,
+      "y1": 10.899999999999999,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "hero-door-bay",
+      "side": "s",
+      "a": 241.2,
+      "c": 246.8,
+      "y0": 6.8,
+      "y1": 10.899999999999999,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "dock-door",
+      "side": "s",
+      "a": 241.2,
+      "c": 246.8,
+      "y0": 6.8,
+      "y1": 10.899999999999999,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 170.01333333333335,
+      "c": 177.31999999999996,
+      "y0": 10.9,
+      "y1": 12.1,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 181.3466666666667,
+      "c": 188.6533333333333,
+      "y0": 10.9,
+      "y1": 12.1,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 192.68000000000004,
+      "c": 199.98666666666665,
+      "y0": 10.9,
+      "y1": 12.1,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 224.39333333333335,
+      "c": 232.93999999999997,
+      "y0": 10.9,
+      "y1": 12.1,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 237.7266666666667,
+      "c": 246.2733333333333,
+      "y0": 10.9,
+      "y1": 12.1,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 251.06000000000003,
+      "c": 259.6066666666667,
+      "y0": 10.9,
+      "y1": 12.1,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 181.65,
+      "c": 182.35,
+      "y0": 10.65,
+      "y1": 12.049999999999999,
+      "wall": -63.48,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 211.65,
+      "c": 212.35,
+      "y0": 10.65,
+      "y1": 12.049999999999999,
+      "wall": -63.48,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 243.65,
+      "c": 244.35,
+      "y0": 10.65,
+      "y1": 12.049999999999999,
+      "wall": -63.48,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "w",
+      "a": -56,
+      "c": 4,
+      "y0": 10.2,
+      "y1": 10.8,
+      "wall": 161.35,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "w",
+      "a": -44,
+      "c": 2,
+      "y0": 17.2,
+      "y1": 17.8,
+      "wall": 161.35,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": -53.86,
+      "c": -46.14,
+      "y0": 7.700000000000001,
+      "y1": 8.9,
+      "wall": 161.28,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": -41.86,
+      "c": -34.14,
+      "y0": 7.700000000000001,
+      "y1": 8.9,
+      "wall": 161.28,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": -29.86,
+      "c": -22.14,
+      "y0": 7.700000000000001,
+      "y1": 8.9,
+      "wall": 161.28,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": -17.86,
+      "c": -10.14,
+      "y0": 7.700000000000001,
+      "y1": 8.9,
+      "wall": 161.28,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": -5.859999999999999,
+      "c": 1.8599999999999999,
+      "y0": 7.700000000000001,
+      "y1": 8.9,
+      "wall": 161.28,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": -51.480000000000004,
+      "c": -42.519999999999996,
+      "y0": 13.4,
+      "y1": 14.6,
+      "wall": 161.28,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": -37.480000000000004,
+      "c": -28.52,
+      "y0": 13.4,
+      "y1": 14.6,
+      "wall": 161.28,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": -23.48,
+      "c": -14.52,
+      "y0": 13.4,
+      "y1": 14.6,
+      "wall": 161.28,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": -9.48,
+      "c": -0.5200000000000001,
+      "y0": 13.4,
+      "y1": 14.6,
+      "wall": 161.28,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": -48.35,
+      "c": -47.65,
+      "y0": 5.8999999999999995,
+      "y1": 7.3,
+      "wall": 161.25,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": -26.35,
+      "c": -25.65,
+      "y0": 5.8999999999999995,
+      "y1": 7.3,
+      "wall": 161.25,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": -4.35,
+      "c": -3.65,
+      "y0": 5.8999999999999995,
+      "y1": 7.3,
+      "wall": 161.25,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "n",
+      "a": -96,
+      "c": -36,
+      "y0": 6.9,
+      "y1": 7.5,
+      "wall": 90.65,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": -93.29,
+      "c": -83.71,
+      "y0": 9,
+      "y1": 10.2,
+      "wall": 90.58,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": -78.29,
+      "c": -68.71,
+      "y0": 9,
+      "y1": 10.2,
+      "wall": 90.58,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": -63.29,
+      "c": -53.71,
+      "y0": 9,
+      "y1": 10.2,
+      "wall": 90.58,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": -48.29,
+      "c": -38.71,
+      "y0": 9,
+      "y1": 10.2,
+      "wall": 90.58,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": -88.35,
+      "c": -87.65,
+      "y0": 5.2,
+      "y1": 6.6000000000000005,
+      "wall": 90.55,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": -68.35,
+      "c": -67.65,
+      "y0": 5.2,
+      "y1": 6.6000000000000005,
+      "wall": 90.55,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": -48.35,
+      "c": -47.65,
+      "y0": 5.2,
+      "y1": 6.6000000000000005,
+      "wall": 90.55,
+      "buildingId": "bld-loading-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": -216,
+      "c": -150,
+      "y0": 5.3,
+      "y1": 5.8999999999999995,
+      "wall": -51.65,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -213.005,
+      "c": -202.495,
+      "y0": 8.200000000000001,
+      "y1": 9.4,
+      "wall": -51.58,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -196.505,
+      "c": -185.995,
+      "y0": 8.200000000000001,
+      "y1": 9.4,
+      "wall": -51.58,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -180.005,
+      "c": -169.495,
+      "y0": 8.200000000000001,
+      "y1": 9.4,
+      "wall": -51.58,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -163.505,
+      "c": -152.995,
+      "y0": 8.200000000000001,
+      "y1": 9.4,
+      "wall": -51.58,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -202.35,
+      "c": -201.65,
+      "y0": 3.7,
+      "y1": 5.1000000000000005,
+      "wall": -51.55,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -176.35,
+      "c": -175.65,
+      "y0": 3.7,
+      "y1": 5.1000000000000005,
+      "wall": -51.55,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -154.35,
+      "c": -153.65,
+      "y0": 3.7,
+      "y1": 5.1000000000000005,
+      "wall": -51.55,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": -310.8,
+      "c": -273.2,
+      "y0": 0,
+      "y1": 9.65,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": -310.8,
+      "c": -273.2,
+      "y0": 4.9,
+      "y1": 5.5,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -309.51120000000003,
+      "c": -304.5688,
+      "y0": 5.800000000000001,
+      "y1": 7,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -301.9912,
+      "c": -297.04879999999997,
+      "y0": 5.800000000000001,
+      "y1": 7,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -294.4712,
+      "c": -289.5288,
+      "y0": 5.800000000000001,
+      "y1": 7,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -286.95120000000003,
+      "c": -282.0088,
+      "y0": 5.800000000000001,
+      "y1": 7,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -279.4312,
+      "c": -274.48879999999997,
+      "y0": 5.800000000000001,
+      "y1": 7,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -303.63000000000005,
+      "c": -302.93,
+      "y0": 3.5,
+      "y1": 4.9,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -292.35,
+      "c": -291.65,
+      "y0": 3.5,
+      "y1": 4.9,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -281.07,
+      "c": -280.36999999999995,
+      "y0": 3.5,
+      "y1": 4.9,
+      "wall": 122,
+      "buildingId": "bld-gatehouse"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": -206.8,
+      "c": -145.2,
+      "y0": -0.6,
+      "y1": 8.05,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": -206.8,
+      "c": -145.2,
+      "y0": 3.7800000000000002,
+      "y1": 4.38,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -204.5992,
+      "c": -196.68080000000003,
+      "y0": 4.5600000000000005,
+      "y1": 5.76,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -192.27919999999997,
+      "c": -184.3608,
+      "y0": 4.5600000000000005,
+      "y1": 5.76,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -179.95919999999998,
+      "c": -172.04080000000002,
+      "y0": 4.5600000000000005,
+      "y1": 5.76,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -167.6392,
+      "c": -159.72080000000003,
+      "y0": 4.5600000000000005,
+      "y1": 5.76,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": -155.31919999999997,
+      "c": -147.4008,
+      "y0": 4.5600000000000005,
+      "y1": 5.76,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -194.83,
+      "c": -194.13000000000002,
+      "y0": 2.4799999999999995,
+      "y1": 3.88,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -176.35,
+      "c": -175.65,
+      "y0": 2.4799999999999995,
+      "y1": 3.88,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -157.86999999999998,
+      "c": -157.17,
+      "y0": 2.4799999999999995,
+      "y1": 3.88,
+      "wall": 59,
+      "buildingId": "bld-north-shed"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "w",
+      "a": 67.2,
+      "c": 88.8,
+      "y0": 0.8,
+      "y1": 18.45,
+      "wall": 113,
+      "buildingId": "bld-yard-utility"
+    },
+    {
+      "kind": "service-run",
+      "side": "w",
+      "a": 67.2,
+      "c": 88.8,
+      "y0": 5.9,
+      "y1": 6.5,
+      "wall": 113,
+      "buildingId": "bld-yard-utility"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": 68.428,
+      "c": 73.172,
+      "y0": 11.72,
+      "y1": 12.92,
+      "wall": 113,
+      "buildingId": "bld-yard-utility"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": 75.628,
+      "c": 80.372,
+      "y0": 11.72,
+      "y1": 12.92,
+      "wall": 113,
+      "buildingId": "bld-yard-utility"
+    },
+    {
+      "kind": "window-band",
+      "side": "w",
+      "a": 82.828,
+      "c": 87.572,
+      "y0": 11.72,
+      "y1": 12.92,
+      "wall": 113,
+      "buildingId": "bld-yard-utility"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": 71.17,
+      "c": 71.86999999999999,
+      "y0": 5.3,
+      "y1": 6.7,
+      "wall": 113,
+      "buildingId": "bld-yard-utility"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": 77.65,
+      "c": 78.35,
+      "y0": 5.3,
+      "y1": 6.7,
+      "wall": 113,
+      "buildingId": "bld-yard-utility"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": 84.13000000000001,
+      "c": 84.83,
+      "y0": 5.3,
+      "y1": 6.7,
+      "wall": 113,
+      "buildingId": "bld-yard-utility"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 245.2,
+      "c": 253.1,
+      "y0": 0.8,
+      "y1": 30.45,
+      "wall": 33,
+      "buildingId": "bld-service-tower"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 258.9,
+      "c": 270.8,
+      "y0": 0.8,
+      "y1": 30.45,
+      "wall": 33,
+      "buildingId": "bld-service-tower"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": 258.9,
+      "c": 270.8,
+      "y0": 5.9,
+      "y1": 6.5,
+      "wall": 33,
+      "buildingId": "bld-service-tower"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "s",
+      "a": 258.9,
+      "c": 270.8,
+      "y0": 19.5,
+      "y1": 20.5,
+      "wall": 33,
+      "buildingId": "bld-service-tower"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 262.11999999999995,
+      "c": 262.82,
+      "y0": 5.3,
+      "y1": 6.7,
+      "wall": 33,
+      "buildingId": "bld-service-tower"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 266.88,
+      "c": 267.58000000000004,
+      "y0": 5.3,
+      "y1": 6.7,
+      "wall": 33,
+      "buildingId": "bld-service-tower"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 312.2,
+      "c": 347.8,
+      "y0": 0.8,
+      "y1": 8.450000000000001,
+      "wall": 25,
+      "buildingId": "bld-substation"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": 312.2,
+      "c": 347.8,
+      "y0": 4.66,
+      "y1": 5.26,
+      "wall": 25,
+      "buildingId": "bld-substation"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 313.751,
+      "c": 319.549,
+      "y0": 5.32,
+      "y1": 6.52,
+      "wall": 25,
+      "buildingId": "bld-substation"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 322.651,
+      "c": 328.449,
+      "y0": 5.32,
+      "y1": 6.52,
+      "wall": 25,
+      "buildingId": "bld-substation"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 331.551,
+      "c": 337.349,
+      "y0": 5.32,
+      "y1": 6.52,
+      "wall": 25,
+      "buildingId": "bld-substation"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 340.451,
+      "c": 346.249,
+      "y0": 5.32,
+      "y1": 6.52,
+      "wall": 25,
+      "buildingId": "bld-substation"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 318.96999999999997,
+      "c": 319.67,
+      "y0": 3.46,
+      "y1": 4.86,
+      "wall": 25,
+      "buildingId": "bld-substation"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 329.65,
+      "c": 330.35,
+      "y0": 3.46,
+      "y1": 4.86,
+      "wall": 25,
+      "buildingId": "bld-substation"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 340.33,
+      "c": 341.03000000000003,
+      "y0": 3.46,
+      "y1": 4.86,
+      "wall": 25,
+      "buildingId": "bld-substation"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 271.2,
+      "c": 336.8,
+      "y0": -1,
+      "y1": 14.65,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": 271.2,
+      "c": 336.8,
+      "y0": 4.1000000000000005,
+      "y1": 4.7,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 273.5528,
+      "c": 281.9672,
+      "y0": 8.64,
+      "y1": 9.84,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 286.6728,
+      "c": 295.0872,
+      "y0": 8.64,
+      "y1": 9.84,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 299.7928,
+      "c": 308.2072,
+      "y0": 8.64,
+      "y1": 9.84,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 312.9128,
+      "c": 321.3272,
+      "y0": 8.64,
+      "y1": 9.84,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 326.0328,
+      "c": 334.4472,
+      "y0": 8.64,
+      "y1": 9.84,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 283.96999999999997,
+      "c": 284.67,
+      "y0": 3.5,
+      "y1": 4.9,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 303.65,
+      "c": 304.35,
+      "y0": 3.5,
+      "y1": 4.9,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 323.33,
+      "c": 324.03000000000003,
+      "y0": 3.5,
+      "y1": 4.9,
+      "wall": -122,
+      "buildingId": "bld-plant-annex"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "e",
+      "a": -48.8,
+      "c": 8.8,
+      "y0": -0.6,
+      "y1": 11.05,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "service-run",
+      "side": "e",
+      "a": -48.8,
+      "c": 8.8,
+      "y0": 4.500000000000001,
+      "y1": 5.1000000000000005,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "window-band",
+      "side": "e",
+      "a": -46.7512,
+      "c": -39.3288,
+      "y0": 6.48,
+      "y1": 7.68,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "window-band",
+      "side": "e",
+      "a": -35.231199999999994,
+      "c": -27.808799999999994,
+      "y0": 6.48,
+      "y1": 7.68,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "window-band",
+      "side": "e",
+      "a": -23.7112,
+      "c": -16.2888,
+      "y0": 6.48,
+      "y1": 7.68,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "window-band",
+      "side": "e",
+      "a": -12.191199999999997,
+      "c": -4.768799999999998,
+      "y0": 6.48,
+      "y1": 7.68,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "window-band",
+      "side": "e",
+      "a": -0.6712000000000006,
+      "c": 6.751199999999998,
+      "y0": 6.48,
+      "y1": 7.68,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "wall-light",
+      "side": "e",
+      "a": -37.63,
+      "c": -36.93,
+      "y0": 3.74,
+      "y1": 5.140000000000001,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "wall-light",
+      "side": "e",
+      "a": -20.35,
+      "c": -19.65,
+      "y0": 3.74,
+      "y1": 5.140000000000001,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "wall-light",
+      "side": "e",
+      "a": -3.069999999999999,
+      "c": -2.3699999999999988,
+      "y0": 3.74,
+      "y1": 5.140000000000001,
+      "wall": -143,
+      "buildingId": "bld-maintenance"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "e",
+      "a": -80.8,
+      "c": -74.9,
+      "y0": -0.6,
+      "y1": 7.050000000000001,
+      "wall": -78,
+      "buildingId": "bld-deployment-bays"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "e",
+      "a": -65.1,
+      "c": -59.2,
+      "y0": -0.6,
+      "y1": 7.050000000000001,
+      "wall": -78,
+      "buildingId": "bld-deployment-bays"
+    },
+    {
+      "kind": "service-run",
+      "side": "e",
+      "a": -80.8,
+      "c": -74.9,
+      "y0": 3.2600000000000002,
+      "y1": 3.86,
+      "wall": -78,
+      "buildingId": "bld-deployment-bays"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "e",
+      "a": -80.8,
+      "c": -74.9,
+      "y0": 4.0200000000000005,
+      "y1": 5.0200000000000005,
+      "wall": -78,
+      "buildingId": "bld-deployment-bays"
+    },
+    {
+      "kind": "wall-light",
+      "side": "e",
+      "a": -79.38,
+      "c": -78.68,
+      "y0": 2.0599999999999996,
+      "y1": 3.46,
+      "wall": -78,
+      "buildingId": "bld-deployment-bays"
+    },
+    {
+      "kind": "wall-light",
+      "side": "e",
+      "a": -77.02,
+      "c": -76.32000000000001,
+      "y0": 2.0599999999999996,
+      "y1": 3.46,
+      "wall": -78,
+      "buildingId": "bld-deployment-bays"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": -86.8,
+      "c": -45.2,
+      "y0": -1.2,
+      "y1": 5.45,
+      "wall": -248,
+      "buildingId": "bld-core-yard-shelter"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": -86.8,
+      "c": -45.2,
+      "y0": 2.1400000000000006,
+      "y1": 2.74,
+      "wall": -248,
+      "buildingId": "bld-core-yard-shelter"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "s",
+      "a": -86.8,
+      "c": -45.2,
+      "y0": 2.7800000000000002,
+      "y1": 3.7800000000000002,
+      "wall": -248,
+      "buildingId": "bld-core-yard-shelter"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -78.83,
+      "c": -78.13000000000001,
+      "y0": 1.04,
+      "y1": 2.44,
+      "wall": -248,
+      "buildingId": "bld-core-yard-shelter"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -66.35,
+      "c": -65.65,
+      "y0": 1.04,
+      "y1": 2.44,
+      "wall": -248,
+      "buildingId": "bld-core-yard-shelter"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": -53.870000000000005,
+      "c": -53.17,
+      "y0": 1.04,
+      "y1": 2.44,
+      "wall": -248,
+      "buildingId": "bld-core-yard-shelter"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "n",
+      "a": 124.2,
+      "c": 141.1,
+      "y0": -1.2,
+      "y1": 7.45,
+      "wall": -225,
+      "buildingId": "bld-core-service-wing"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "n",
+      "a": 150.9,
+      "c": 171.8,
+      "y0": -1.2,
+      "y1": 7.45,
+      "wall": -225,
+      "buildingId": "bld-core-service-wing"
+    },
+    {
+      "kind": "service-run",
+      "side": "n",
+      "a": 150.9,
+      "c": 171.8,
+      "y0": 3.1799999999999997,
+      "y1": 3.7799999999999994,
+      "wall": -225,
+      "buildingId": "bld-core-service-wing"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 152.08366666666666,
+      "c": 156.683,
+      "y0": 3.9599999999999995,
+      "y1": 5.159999999999999,
+      "wall": -225,
+      "buildingId": "bld-core-service-wing"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 159.05033333333336,
+      "c": 163.6496666666667,
+      "y0": 3.9599999999999995,
+      "y1": 5.159999999999999,
+      "wall": -225,
+      "buildingId": "bld-core-service-wing"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 166.017,
+      "c": 170.61633333333333,
+      "y0": 3.9599999999999995,
+      "y1": 5.159999999999999,
+      "wall": -225,
+      "buildingId": "bld-core-service-wing"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 154.73000000000002,
+      "c": 155.43,
+      "y0": 1.8800000000000001,
+      "y1": 3.2800000000000002,
+      "wall": -225,
+      "buildingId": "bld-core-service-wing"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 161.00000000000003,
+      "c": 161.70000000000002,
+      "y0": 1.8800000000000001,
+      "y1": 3.2800000000000002,
+      "wall": -225,
+      "buildingId": "bld-core-service-wing"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 167.27,
+      "c": 167.97,
+      "y0": 1.8800000000000001,
+      "y1": 3.2800000000000002,
+      "wall": -225,
+      "buildingId": "bld-core-service-wing"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "w",
+      "a": -253.8,
+      "c": -248.9,
+      "y0": -1.2,
+      "y1": 7.45,
+      "wall": 94,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "w",
+      "a": -243.1,
+      "c": -232.2,
+      "y0": -1.2,
+      "y1": 7.45,
+      "wall": 94,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "w",
+      "a": -243.1,
+      "c": -232.2,
+      "y0": 3.1799999999999997,
+      "y1": 3.7799999999999994,
+      "wall": 94,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "w",
+      "a": -243.1,
+      "c": -232.2,
+      "y0": 4.06,
+      "y1": 5.06,
+      "wall": 94,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": -240.17999999999998,
+      "c": -239.48,
+      "y0": 1.8800000000000001,
+      "y1": 3.2800000000000002,
+      "wall": 94,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": -235.82,
+      "c": -235.12,
+      "y0": 1.8800000000000001,
+      "y1": 3.2800000000000002,
+      "wall": 94,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "e",
+      "a": -89.8,
+      "c": -74.2,
+      "y0": 0.8,
+      "y1": 6.45,
+      "wall": 160,
+      "buildingId": "bld-east-storage-a"
+    },
+    {
+      "kind": "service-run",
+      "side": "e",
+      "a": -89.8,
+      "c": -74.2,
+      "y0": 3.9000000000000004,
+      "y1": 4.5,
+      "wall": 160,
+      "buildingId": "bld-east-storage-a"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "e",
+      "a": -89.8,
+      "c": -74.2,
+      "y0": 4.14,
+      "y1": 5.14,
+      "wall": 160,
+      "buildingId": "bld-east-storage-a"
+    },
+    {
+      "kind": "wall-light",
+      "side": "e",
+      "a": -85.47,
+      "c": -84.77000000000001,
+      "y0": 2.8,
+      "y1": 4.2,
+      "wall": 160,
+      "buildingId": "bld-east-storage-a"
+    },
+    {
+      "kind": "wall-light",
+      "side": "e",
+      "a": -79.22999999999999,
+      "c": -78.53,
+      "y0": 2.8,
+      "y1": 4.2,
+      "wall": 160,
+      "buildingId": "bld-east-storage-a"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 182.2,
+      "c": 197.8,
+      "y0": 0.8,
+      "y1": 6.45,
+      "wall": 50,
+      "buildingId": "bld-east-storage-b"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": 182.2,
+      "c": 197.8,
+      "y0": 3.9000000000000004,
+      "y1": 4.5,
+      "wall": 50,
+      "buildingId": "bld-east-storage-b"
+    },
+    {
+      "kind": "vent-bank",
+      "side": "s",
+      "a": 182.2,
+      "c": 197.8,
+      "y0": 4.14,
+      "y1": 5.14,
+      "wall": 50,
+      "buildingId": "bld-east-storage-b"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 186.53,
+      "c": 187.23,
+      "y0": 2.8,
+      "y1": 4.2,
+      "wall": 50,
+      "buildingId": "bld-east-storage-b"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 192.77,
+      "c": 193.47,
+      "y0": 2.8,
+      "y1": 4.2,
+      "wall": 50,
+      "buildingId": "bld-east-storage-b"
+    },
+    {
+      "kind": "ribbed-sheet",
+      "side": "s",
+      "a": 122.2,
+      "c": 137.8,
+      "y0": -1,
+      "y1": 6.65,
+      "wall": -150,
+      "buildingId": "bld-tank-farm"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": 122.2,
+      "c": 137.8,
+      "y0": 2.8600000000000003,
+      "y1": 3.46,
+      "wall": -150,
+      "buildingId": "bld-tank-farm"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 123.542,
+      "c": 128.658,
+      "y0": 3.52,
+      "y1": 4.72,
+      "wall": -150,
+      "buildingId": "bld-tank-farm"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 131.342,
+      "c": 136.458,
+      "y0": 3.52,
+      "y1": 4.72,
+      "wall": -150,
+      "buildingId": "bld-tank-farm"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 126.53000000000002,
+      "c": 127.23,
+      "y0": 1.66,
+      "y1": 3.0599999999999996,
+      "wall": -150,
+      "buildingId": "bld-tank-farm"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 132.77,
+      "c": 133.47,
+      "y0": 1.66,
+      "y1": 3.0599999999999996,
+      "wall": -150,
+      "buildingId": "bld-tank-farm"
+    },
+    {
+      "kind": "service-run",
+      "side": "e",
+      "a": -160,
+      "c": -128,
+      "y0": 6.1000000000000005,
+      "y1": 6.7,
+      "wall": 74.65,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "e",
+      "a": -158.11333333333332,
+      "c": -151.22,
+      "y0": 8.4,
+      "y1": 9.6,
+      "wall": 74.58,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "e",
+      "a": -147.44666666666666,
+      "c": -140.55333333333334,
+      "y0": 8.4,
+      "y1": 9.6,
+      "wall": 74.58,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "e",
+      "a": -136.78,
+      "c": -129.88666666666668,
+      "y0": 8.4,
+      "y1": 9.6,
+      "wall": 74.58,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "e",
+      "a": -154.35,
+      "c": -153.65,
+      "y0": 3.8,
+      "y1": 5.2,
+      "wall": 74.55,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "e",
+      "a": -136.35,
+      "c": -135.65,
+      "y0": 3.8,
+      "y1": 5.2,
+      "wall": 74.55,
+      "buildingId": "bld-security-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "s",
+      "a": 4,
+      "c": 48,
+      "y0": 5.2,
+      "y1": 5.8,
+      "wall": 119.55,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 9.65,
+      "c": 10.35,
+      "y0": 3.8,
+      "y1": 5.2,
+      "wall": 119.45,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 29.65,
+      "c": 30.35,
+      "y0": 3.8,
+      "y1": 5.2,
+      "wall": 119.45,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "wall-light",
+      "side": "s",
+      "a": 45.65,
+      "c": 46.35,
+      "y0": 3.8,
+      "y1": 5.2,
+      "wall": 119.45,
+      "buildingId": "bld-pressure-store"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": -84.35,
+      "c": -83.65,
+      "y0": 10.3,
+      "y1": 11.7,
+      "wall": 161.2,
+      "buildingId": "bld-east-storage-a"
+    },
+    {
+      "kind": "wall-light",
+      "side": "w",
+      "a": -18.35,
+      "c": -17.65,
+      "y0": 10.3,
+      "y1": 11.7,
+      "wall": 161.2,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "service-run",
+      "side": "n",
+      "a": 12,
+      "c": 84,
+      "y0": 7,
+      "y1": 7.6,
+      "wall": -231.55,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 14.595999999999998,
+      "c": 23.804000000000002,
+      "y0": 3.6999999999999997,
+      "y1": 4.8999999999999995,
+      "wall": -231.48,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 28.996000000000002,
+      "c": 38.204,
+      "y0": 3.6999999999999997,
+      "y1": 4.8999999999999995,
+      "wall": -231.48,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 43.396,
+      "c": 52.604,
+      "y0": 3.6999999999999997,
+      "y1": 4.8999999999999995,
+      "wall": -231.48,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 57.796,
+      "c": 67.004,
+      "y0": 3.6999999999999997,
+      "y1": 4.8999999999999995,
+      "wall": -231.48,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "n",
+      "a": 72.196,
+      "c": 81.404,
+      "y0": 3.6999999999999997,
+      "y1": 4.8999999999999995,
+      "wall": -231.48,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 17.65,
+      "c": 18.35,
+      "y0": 3.3,
+      "y1": 4.7,
+      "wall": -231.45,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 47.65,
+      "c": 48.35,
+      "y0": 3.3,
+      "y1": 4.7,
+      "wall": -231.45,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "wall-light",
+      "side": "n",
+      "a": 77.65,
+      "c": 78.35,
+      "y0": 3.3,
+      "y1": 4.7,
+      "wall": -231.45,
+      "buildingId": "bld-core-ops-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 169.85000000000002,
+      "c": 183.14999999999998,
+      "y0": 17.849999999999998,
+      "y1": 19.05,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 190.85000000000002,
+      "c": 204.14999999999998,
+      "y0": 17.849999999999998,
+      "y1": 19.05,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 222.04000000000002,
+      "c": 235.95999999999998,
+      "y0": 17.849999999999998,
+      "y1": 19.05,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    },
+    {
+      "kind": "window-band",
+      "side": "s",
+      "a": 244.04000000000002,
+      "c": 257.96,
+      "y0": 17.849999999999998,
+      "y1": 19.05,
+      "wall": -63.34,
+      "buildingId": "bld-processing-hall"
+    }
+  ]
+}

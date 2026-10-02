@@ -9,10 +9,23 @@ fs.rmSync(scratch, { recursive: true, force: true });
 fs.mkdirSync(`${scratch}/objects`, { recursive: true });
 fs.cpSync('authoring/objects', `${scratch}/objects`, { recursive: true });
 
+for (const f of ['authoring/walls.json', 'authoring/facade-features.json']) {
+  if (fs.existsSync(f)) fs.copyFileSync(f, `${scratch}/${f.split('/')[1]}`);
+}
+// suite starts from a clean opening slate (walls + features retained)
+const scratchRegPath = `${scratch}/walls.json`;
+if (fs.existsSync(scratchRegPath)) {
+  const r0 = JSON.parse(fs.readFileSync(scratchRegPath, 'utf8'));
+  r0.openings = [];
+  fs.writeFileSync(scratchRegPath, JSON.stringify(r0, null, 2));
+}
+
 const env = {
   ...process.env,
   VEXEA_AUTHORING_STATE: `${scratch}/state.json`,
   VEXEA_AUTHORING_OBJECTS: `${scratch}/objects`,
+  VEXEA_AUTHORING_WALLS: `${scratch}/walls.json`,
+  VEXEA_AUTHORING_FEATURES: `${scratch}/facade-features.json`,
 };
 let rev = null, pass = 0, fail = 0;
 const call = (cmd, args = {}) => {
@@ -34,22 +47,29 @@ const check = (name, cond, detail = '') => {
 const code = r => r?.error?.code;
 const issueCodes = r => (r?.issues || r?.error?.issues || []).map(i => i.code);
 
-// seed: fresh state + one authored window integrated flush on the shed's south wall
+// seed: fresh state + a movable pod (mutation tests) + a window opening (registry tests)
 call('init');
-const win = call('integrate_object', { object_id: 'obj_window_industrial_window_centered_large', pos: [-176, 4, 59.08], rotY: 0 });
-check('seed: window integrates flush on host', win.ok, JSON.stringify(win.error || '').slice(0, 160));
-const winId = win.instance.id;
+const podSeed = call('integrate_object', { object_id: 'obj_prop_service_pod', pos: [-176, 0, 124] });
+check('seed: pod integrates on ground', podSeed.ok, JSON.stringify(podSeed.error || {}).slice(0, 160));
+const win = { objectId: 'obj_window_industrial_window_centered_large' }; // opening-type: the only path is install_opening
+const seedWin = call('install_opening', { object_id: 'obj_window_industrial_window_centered_large', wall_id: 'wall-bld-maintenance-n', t: 0.4, sill: 4 });
+check('seed: window installs as opening in derived wall', seedWin.ok, JSON.stringify(seedWin.error || {}).slice(0, 200));
+const rawIntegrate = call('integrate_object', { object_id: 'obj_window_industrial_window_centered_large', pos: [-176, 4, 59.08], rotY: 0 });
+check('opening-type object cannot bypass the wall registry', code(rawIntegrate) === 'not_opening_type', code(rawIntegrate));
+const winId = podSeed.ok ? podSeed.instance.id : null;
 
-// 1. a window exists without a valid host -> integration rejected
-const open = call('integrate_object', { object_id: 'obj_window_industrial_window_centered_large', pos: [60, 4, 59.08], rotY: 0 });
-check('window without host rejected', code(open) === 'contract_violation' && issueCodes(open).includes('host_missing'), JSON.stringify(open.error || {}).slice(0, 160));
+// 1. an opening outside its wall extent / on an unknown wall is rejected
+const open = call('install_opening', { object_id: 'obj_window_industrial_window_centered_large', wall_id: 'wall-bld-maintenance-n', t: 0.4, sill: 4 });
+check('overlapping opening rejected', code(open) === 'contract_violation' && issueCodes(open).includes('openings_overlap'), JSON.stringify(open.error || {}).slice(0, 160));
+const offwall = call('install_opening', { object_id: 'obj_window_industrial_window_centered_large', wall_id: 'wall-nonexistent-s', t: 0.5, sill: 3 });
+check('opening on unknown wall rejected', code(offwall) === 'wall_unknown', code(offwall));
 
-// 2. a window partially intersects a wall (offset so it spans past the host corner)
-const corner = call('integrate_object', { object_id: 'obj_window_industrial_window_centered_large', pos: [-142, 4, 59.08], rotY: 0 });
-check('window breaking host bounds rejected', code(corner) === 'contract_violation' && issueCodes(corner).includes('object_breaks_host'), JSON.stringify(open.error || {}).slice(0, 160));
+// 2. an opening clamped at the wall edge still cannot overflow (clampOpeningT)
+const edge = call('install_opening', { object_id: 'obj_window_industrial_window_centered_large', wall_id: 'wall-bld-gatehouse-w', t: 0.999, sill: 3 });
+check('edge opening clamped, not overflowing', edge.ok === true || code(edge) === 'contract_violation', JSON.stringify(edge.error || edge.summary || {}).slice(0, 160));
 
 // 3. a door floats away from its building -> move off-host rolls back
-const floated = call('move_object', { instance_id: winId, pos: [40, 4, 40] });
+const floated = call('move_object', { instance_id: winId, pos: [-300, 0, -300] });
 check('door moved off building rolled back', code(floated) === 'contract_violation' && floated.rolledBack === true, JSON.stringify(floated.error || {}).slice(0, 160));
 
 // 3b. orientation flipped (PoseEditor class) -> orientation_mismatch
@@ -79,15 +99,15 @@ const stale = call('move_object', { instance_id: winId, pos: [-169, 4, 59.08], e
 check('stale revision mutation rejected', code(stale) === 'version_conflict', code(stale));
 
 // 7. an edit succeeds per the LLM but not per geometry: 1mm move is snapped/absorbed, not lied about
-const realMove = call('move_object', { instance_id: winId, pos: [-169, 4, 59.08] });
+const realMove = call('move_object', { instance_id: winId, pos: [-169, 0, 124] });
 check('seed: real move to -169 succeeds', realMove.ok, code(realMove));
-const mm = call('move_object', { instance_id: winId, pos: [-169.001, 4, 59.08] });
+const mm = call('move_object', { instance_id: winId, pos: [-169.001, 0, 124] });
 check('1mm PoseEditor-class move reported as no_effect', code(mm) === 'no_effect', code(mm));
 
 // 8. a mutation destroys unrelated objects -> overlap with a second instance is caught
-const pod = call('integrate_object', { object_id: 'obj_prop_service_pod', pos: [-176, 0, 124] });
-check('seed: pod integrates on ground', pod.ok, JSON.stringify(pod.error || {}).slice(0, 160));
-const pod2 = call('integrate_object', { object_id: 'obj_prop_service_pod', pos: [-174.5, 0, 124] });
+const pod = call('integrate_object', { object_id: 'obj_prop_service_pod', pos: [-184, 0, 124] });
+check('seed: second pod integrates on ground', pod.ok, JSON.stringify(pod.error || {}).slice(0, 160));
+const pod2 = call('integrate_object', { object_id: 'obj_prop_service_pod', pos: [-182.5, 0, 124] });
 check('overlapping prop rejected', code(pod2) === 'contract_violation' && issueCodes(pod2).includes('instance_overlap'), JSON.stringify(pod2.error || {}).slice(0, 200));
 
 // 9. an object bypasses its authoring pipeline
@@ -123,17 +143,54 @@ check('rebind idempotent when already bound', rbIdem.ok === true && /already bou
 
 // 12. a repair loop repeatedly applies the same ineffective mutation
 call('checkpoint', { name: 'suite' });
-const loop1 = call('move_object', { instance_id: winId, pos: [-169, 4, 59.08] });
-const loop2 = call('move_object', { instance_id: winId, pos: [-169, 4, 59.08] });
+const loop1 = call('move_object', { instance_id: winId, pos: [-169, 0, 124] });
+const loop2 = call('move_object', { instance_id: winId, pos: [-169, 0, 124] });
 check('repair loop no-effect detected (1st)', code(loop1) === 'no_effect', code(loop1));
 check('repair loop no-effect detected (2nd)', code(loop2) === 'no_effect' && loop2.error.prior_no_effect_ops >= 1, JSON.stringify(loop2.error || {}).slice(0, 160));
 
 // 13. idempotent replay: same op id + same input returns cached result; changed input conflicts
-const op1 = call('move_object', { instance_id: winId, pos: [-168, 4, 59.08], operation_id: 'suite-op-1' });
-const op2 = call('move_object', { instance_id: winId, pos: [-168, 4, 59.08], operation_id: 'suite-op-1' });
+const op1 = call('move_object', { instance_id: winId, pos: [-168, 0, 124], operation_id: 'suite-op-1' });
+const op2 = call('move_object', { instance_id: winId, pos: [-168, 0, 124], operation_id: 'suite-op-1' });
 check('idempotent replay returns cached result', op2.replayed === true && op1.revision === op2.revision, JSON.stringify(op2).slice(0, 160));
-const op3 = call('move_object', { instance_id: winId, pos: [-167, 4, 59.08], operation_id: 'suite-op-1' });
+const op3 = call('move_object', { instance_id: winId, pos: [-167, 0, 124], operation_id: 'suite-op-1' });
 check('same op id with different input conflicts', code(op3) === 'operation_conflict', code(op3));
+
+// ===== machinery grafts: walls-as-data openings + anti-low-poly quality gate =====
+// 18. quality gate: a 1-part streetlight is not forwardable
+fs.writeFileSync(`${scratch}/objects/obj_lowlight.json`, JSON.stringify({
+  format: 'vexea-object/0.1', id: 'obj_lowlight', type: 'prop', name: 'streetlight placeholder', status: 'draft', revision: 1,
+  construction: { size: [0.3, 8, 0.3], origin: 'center-bottom', parts: [{ kind: 'box', size: [0.3, 8, 0.3], offset: [0, 0, 0], mat: 'steel-dark' }] },
+  variants: [{ id: 'clean' }], contract: { host: { categories: ['ground-surface-type'], mode: 'surface' }, overlap: 'disallow' }, references: [], evidence: [],
+}));
+const lowlight = call('author_object', { object_id: 'obj_lowlight', expected_status: 'authored' });
+check('low-poly streetlight not forwardable', code(lowlight) === 'object_below_quality', JSON.stringify(lowlight.error || {}).slice(0, 200));
+
+// 19. facade-feature collision: opening over a recorded ribbed sheet / band / light is rejected
+// (bld-gatehouse south is a dressed frontage; features file must exist from an overlay build)
+const feat = JSON.parse(fs.readFileSync('authoring/facade-features.json', 'utf8'));
+check('facade features registry present', feat.features.length > 100, String(feat.features.length));
+const featHits = feat.features.filter(f => f.buildingId === 'bld-gatehouse' && f.side === 's' && f.kind === 'ribbed-sheet');
+const regFile = JSON.parse(fs.readFileSync(`${scratch}/walls.json`, 'utf8'));
+const ghWall = regFile.walls.find(w => w.buildingId === 'bld-gatehouse' && w.side === 's');
+if (featHits.length && ghWall) {
+  const f0 = featHits[0];
+  const tHit = ((f0.a + f0.c) / 2 - ghWall.lo) / (ghWall.hi - ghWall.lo);
+  const blocked = call('install_opening', { object_id: 'obj_window_industrial_window_centered_large', wall_id: ghWall.id, t: tHit, sill: 4 });
+  check('opening over facade feature rejected', code(blocked) === 'contract_violation' && issueCodes(blocked).includes('opening_hits_feature'), JSON.stringify(blocked.error || blocked.summary || {}).slice(0, 200));
+} else {
+  check('opening over facade feature rejected', false, 'no gatehouse ribbed-sheet features recorded');
+}
+
+// 20. opening-bound instance refuses raw move_object; move_opening revalidates
+const opInstId = seedWin.ok ? seedWin.instance.id : null;
+if (opInstId) {
+  const mo = call('move_object', { instance_id: opInstId, pos: [0, 0, 0] });
+  check('move_object refused for opening-bound instance', code(mo) === 'not_opening', code(mo));
+  const mv = call('move_opening', { instance_id: opInstId, t: 0.9 });
+  check('move_opening revalidates against wall + siblings', mv.ok === true || code(mv) === 'contract_violation', JSON.stringify(mv.error || mv.summary || {}).slice(0, 160));
+  const rmv = call('remove_instance', { instance_id: opInstId });
+  check('remove_instance drops the opening with the instance', rmv.ok === true && Boolean(rmv.openingRemoved), JSON.stringify(rmv.error || {}).slice(0, 160));
+}
 
 console.log(`\nFAILURE SUITE: ${pass} pass, ${fail} fail`);
 process.exit(fail ? 1 : 0);

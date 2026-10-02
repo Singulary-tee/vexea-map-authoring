@@ -2,8 +2,10 @@
 // Every mutation: schema-checked args -> expected_revision guard -> idempotent op-id replay
 // -> deterministic derivation (snap + echo) -> post-op contract validation with rollback.
 import fs from 'node:fs';
+import { WALLS_PATH, ensureRegistry, openingIssues, openingPlacement, clampOpeningT, openingSpan, loadRegistry, saveRegistry } from './walls.mjs';
+import { checkVariantSchema } from './quality-schema.mjs';
 import {
-  STATE_PATH, OBJECTS_DIR, CANONICAL_PATH, statePathEnv, EPS, snap, nearly,
+  STATE_PATH, CANONICAL_PATH, statePathEnv, objectsDirEnv, checkObjectQuality, EPS, snap, nearly,
   loadState, saveState, canonicalBase, baseDrift, loadObject, listObjects, newObject,
   objectContentSha, sizeOf, footprintAABB, deriveHost, checkInstance, validateWorld, aabbOverlapArea,
   budget, rotYForNormal, nearestEdge, segBox, aabbContains, sha256, idSeed,
@@ -118,8 +120,9 @@ export function createObject(args) {
   if (!args.type) return err('missing_args', 'create_object requires { type, name? }.');
   const obj = newObject({ type: args.type, name: args.name });
   if (loadObject(obj.id)) return err('object_exists', `Object ${obj.id} already exists.`);
-  fs.mkdirSync(OBJECTS_DIR, { recursive: true });
-  fs.writeFileSync(`${OBJECTS_DIR}/${obj.id}.json`, JSON.stringify(obj, null, 2) + '\n');
+  const dir = objectsDirEnv();
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(`${dir}/${obj.id}.json`, JSON.stringify(obj, null, 2) + '\n');
   return ok({ object: obj }, { summary: `Created draft object ${obj.id}; fill construction + contract, then author it before integration.` });
 }
 
@@ -135,9 +138,17 @@ export function authorObject(args) {
   if (problems.length) {
     return err('object_not_authorable', `Object ${obj.id} cannot be promoted to authored: ${problems.join('; ')}.`, { problems });
   }
+  const quality = checkObjectQuality(obj);
+  if (quality.length) {
+    return err('object_below_quality', `Object ${obj.id} is not forwardable: ${quality.map(i => i.message).join(' ')}`, { issues: quality });
+  }
+  const schema = checkVariantSchema(obj);
+  if (schema.length) {
+    return err('variant_schema_violation', `Object ${obj.id} is not forwardable: ${schema.map(i => i.message).join(' ')}`, { issues: schema });
+  }
   obj.status = 'authored';
   obj.revision += 1;
-  fs.writeFileSync(`${OBJECTS_DIR}/${obj.id}.json`, JSON.stringify(obj, null, 2) + '\n');
+  fs.writeFileSync(`${objectsDirEnv()}/${obj.id}.json`, JSON.stringify(obj, null, 2) + '\n');
   return ok({ object: { id: obj.id, status: obj.status, revision: obj.revision } }, { summary: `Object ${obj.id} promoted to authored (revision ${obj.revision}); instances may now integrate against it.` });
 }
 
@@ -150,6 +161,9 @@ export function integrateObject(args, { statePath = statePathEnv() } = {}) {
   const object = loadObject(args.object_id);
   if (!object) return err('object_unknown', `Unknown object ${args.object_id}.`);
   if (object.status !== 'authored') return err('object_not_authored', `Object ${object.id} has status "${object.status}". Construct, inspect, and author it before integration.`);
+  if (object.contract?.host?.mode === 'opening') {
+    return err('not_opening_type', `${object.id} is an opening-type object; raw-coordinate integration is not representable. Use install_opening into a wall record.`);
+  }
   for (const k of ['pos']) if (!Array.isArray(args[k]) || args[k].length !== 3) return err('missing_args', `integrate_object requires ${k}:[x,y,z] in meters.`);
   pushUndo(state);
   const segs = segments();
@@ -225,6 +239,131 @@ export function rebindInstance(args, { statePath = statePathEnv() } = {}) {
   return res;
 }
 
+// remove an instance (guarded, undo-able); opening-bound removal also drops the opening
+export function removeInstance(args, { statePath = statePathEnv() } = {}) {
+  const state = requireState(statePath);
+  const guard = guardMutation(state, args);
+  if (guard) return guard;
+  const replay = replayCheck(state, 'remove_instance', args);
+  if (replay) return replay.result;
+  const idx = state.instances.findIndex(i => i.id === args.instance_id);
+  if (idx < 0) return err('instance_unknown', `No instance ${args.instance_id}.`);
+  pushUndo(state);
+  const [inst] = state.instances.splice(idx, 1);
+  let openingRemoved = null;
+  if (inst.openingId) {
+    const reg = loadRegistry();
+    if (reg) {
+      const oi = reg.openings.findIndex(o => o.id === inst.openingId);
+      if (oi >= 0) { openingRemoved = reg.openings.splice(oi, 1)[0].id; saveRegistry(reg); }
+    }
+  }
+  state.revision += 1;
+  const res = ok({ revision: state.revision, removed: inst.id, openingRemoved },
+    { summary: `Removed instance ${inst.id}${openingRemoved ? ` and its opening ${openingRemoved}` : ''}; revision ${state.revision}.` });
+  recordOp(state, 'remove_instance', args, res, { changed: true, statePath });
+  return res;
+}
+
+// install an opening-type object INTO a wall record: the only path a window/door exists by
+export function installOpening(args, { statePath = statePathEnv() } = {}) {
+  const state = requireState(statePath);
+  const guard = guardMutation(state, args);
+  if (guard) return guard;
+  const replay = replayCheck(state, 'install_opening', args);
+  if (replay) return replay.result;
+  const object = loadObject(args.object_id);
+  if (!object) return err('object_unknown', `Unknown object ${args.object_id}.`);
+  if (object.status !== 'authored') return err('object_not_authored', `Object ${object.id} has status "${object.status}".`);
+  if (object.contract?.host?.mode !== 'opening') {
+    return err('not_opening_type', `${object.id} is not an opening-type object (contract.host.mode = "${object.contract?.host?.mode}"). Use integrate_object for surface/attach-edge props.`);
+  }
+  const reg = ensureRegistry();
+  const wall = reg.walls.find(w => w.id === args.wall_id);
+  if (!wall) return err('wall_unknown', `Unknown wall ${args.wall_id}. Walls are derived; run walls_list to see ids.`);
+  const width = object.construction.size[0];
+  const height = object.construction.size[1];
+  let t = Number.isFinite(args.t) ? args.t : null;
+  if (t === null) return err('missing_args', 'install_opening requires t in [0..1] (center along the wall).');
+  const clamped = clampOpeningT(wall, width, t);
+  if (clamped === null) return err('opening_too_wide', `Opening width ${width}m does not fit wall ${wall.id} (length ${(wall.hi - wall.lo).toFixed(1)}m).`);
+  const adjustments = [];
+  if (Math.abs(clamped - t) > 1e-6) { adjustments.push(`t clamped ${t.toFixed(3)} -> ${clamped.toFixed(3)} to fit wall extent`); t = clamped; }
+  const sill = args.sill ?? object.contract.host?.defaultSill ?? 1.0;
+  const opening = {
+    id: `op-${object.id}-${reg.openings.length + 1}`.replace(/obj_/g, ''),
+    objectId: object.id, wallId: wall.id, kind: object.type,
+    t: +t.toFixed(4), width, sill, height,
+    objectSha: objectContentSha(object),
+  };
+  const issues = openingIssues(reg, opening);
+  if (issues.length) {
+    return err('contract_violation', `Opening rejected. ${issues.map(i => i.message).join(' ')}`, { issues });
+  }
+  pushUndo(state);
+  reg.openings.push(opening);
+  const place = openingPlacement(reg, opening);
+  const inst = {
+    id: `opinst-${String(state.instances.length + 1).padStart(4, '0')}-${(idSeed(object.id) >>> 0).toString(36).slice(0, 4)}`,
+    objectId: object.id, objectSha: objectContentSha(object), objectRevision: object.revision,
+    pos: place.pos, rotY: place.rotY, variant: args.variant || 'clean',
+    status: 'integrated', hostId: wall.id, openingId: opening.id,
+  };
+  state.instances.push(inst);
+  state.revision += 1;
+  saveRegistry(reg);
+  const res = ok({
+    revision: state.revision, opening, instance: { ...deriveEcho(inst, object, segments()), wall: wall.id, openingId: opening.id },
+    adjustments,
+  }, { summary: `Installed ${object.id} as opening ${opening.id} in ${wall.id} at t=${opening.t} (sill ${sill}m); the wall will be cut at build time.` });
+  recordOp(state, 'install_opening', args, res, { changed: true, statePath });
+  return res;
+}
+
+// move an opening along its wall (t); full revalidation
+export function moveOpening(args, { statePath = statePathEnv() } = {}) {
+  const state = requireState(statePath);
+  const guard = guardMutation(state, args);
+  if (guard) return guard;
+  const replay = replayCheck(state, 'move_opening', args);
+  if (replay) return replay.result;
+  const inst = findInstance(state, args.instance_id);
+  if (!inst) return err('instance_unknown', `No instance matches ${args.instance_id}.`);
+  if (!inst.openingId) return err('not_opening', `${inst.id} is not opening-bound; use move_object.`);
+  if (!Number.isFinite(args.t)) return err('missing_args', 'move_opening requires t in [0..1].');
+  const reg = ensureRegistry();
+  const opening = reg.openings.find(o => o.id === inst.openingId);
+  if (!opening) return err('opening_unknown', `Opening ${inst.openingId} missing from registry.`);
+  const wall = reg.walls.find(w => w.id === opening.wallId);
+  const clamped = clampOpeningT(wall, opening.width, args.t);
+  if (clamped === null) return err('opening_too_wide', 'Opening does not fit at any position.');
+  const before = opening.t;
+  opening.t = +clamped.toFixed(4);
+  const issues = openingIssues(reg, opening);
+  if (issues.length) {
+    opening.t = before;
+    return err('contract_violation', `Move rejected. ${issues.map(i => i.message).join(' ')}`, { issues });
+  }
+  pushUndo(state);
+  const place = openingPlacement(reg, opening);
+  inst.pos = place.pos; inst.rotY = place.rotY;
+  state.revision += 1;
+  saveRegistry(reg);
+  const res = ok({ revision: state.revision, opening: { id: opening.id, t: opening.t }, instance: deriveEcho(inst, loadObject(inst.objectId), segments()) },
+    { summary: `Moved opening ${opening.id} t ${before.toFixed(3)} -> ${opening.t.toFixed(3)} on ${wall.id}; contract PASS.` });
+  recordOp(state, 'move_opening', args, res, { changed: true, statePath });
+  return res;
+}
+
+export function wallsList() {
+  const reg = ensureRegistry();
+  return budget(ok({
+    walls: reg.walls.map(w => ({ id: w.id, buildingId: w.buildingId, side: w.side, extent: [w.lo, w.hi], at: w.at, thickness: w.thickness, height: w.height, openings: reg.openings.filter(o => o.wallId === w.id).length, doors: reg.doors.filter(d => d.buildingId === w.buildingId && d.side === w.side).length })),
+    openings: reg.openings,
+    featuresFile: fs.existsSync('authoring/facade-features.json') ? 'authoring/facade-features.json' : null,
+  }, { summary: `${reg.walls.length} walls derived; ${reg.openings.length} openings authored.` }));
+}
+
 function findInstance(state, idOrPartial) {
   return state.instances.find(i => i.id === idOrPartial) ||
     state.instances.find(i => i.id.includes(idOrPartial)) ||
@@ -239,6 +378,7 @@ function mutatePlacement(opName, apply, args, { statePath = statePathEnv() } = {
   if (replay) return replay.result;
   const inst = findInstance(state, args.instance_id);
   if (!inst) return err('instance_unknown', `No instance matches ${args.instance_id}. Use inspect_region or list instances.`);
+  if (inst.openingId) return err('not_opening', `${inst.id} is opening-bound; use move_opening (its position is derived from the wall record).`);
   const object = loadObject(inst.objectId);
   pushUndo(state);
   const before = deriveEcho(inst, object, segments());

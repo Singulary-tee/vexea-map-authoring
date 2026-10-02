@@ -4,7 +4,7 @@
   "type": "window",
   "name": "industrial window, centered, large",
   "status": "authored",
-  "revision": 4,
+  "revision": 5,
   "construction": {
     "size": [
       2.4,
@@ -79,13 +79,8 @@
   ],
   "contract": {
     "host": {
-      "categories": [
-        "building-enterable",
-        "warehouse-enterable",
-        "facade-non-enterable",
-        "tower"
-      ],
-      "mode": "attach-edge"
+      "mode": "opening",
+      "defaultSill": 4.0
     },
     "flushTolerance": 0.35,
     "minClearanceM": 1,

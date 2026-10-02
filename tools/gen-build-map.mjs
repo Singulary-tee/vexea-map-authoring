@@ -98,6 +98,10 @@ const operationalStreetwallOnly = process.env.BUILD_OPERATIONAL_STREETWALL === '
 const openCellNetworkOnly = process.env.BUILD_OPEN_CELL_NETWORK_ONLY === '1';
 const openCellNetworkV2Only = process.env.BUILD_OPEN_CELL_NETWORK_V2_ONLY === '1';
 const openCellNetworkV3Only = process.env.BUILD_OPEN_CELL_NETWORK_V3_ONLY === '1';
+// wall/opening registry + facade feature recorder (overlay mode only; default build untouched)
+const objectOverlayReg = process.env.BUILD_OBJECT_OVERLAY === '1' && fs.existsSync('authoring/walls.json') ? JSON.parse(fs.readFileSync('authoring/walls.json', 'utf8')) : null;
+const facadeFeatures = [];
+const recordFeature = (kind, side, a, c, y0, y1, wall) => facadeFeatures.push({ kind, side, a: Math.min(a, c), c: Math.max(a, c), y0: Math.min(y0, y1), y1: Math.max(y0, y1), wall });
 const openCellBuildOnly = openCellNetworkOnly || openCellNetworkV2Only || openCellNetworkV3Only;
 const b = JSON.parse(fs.readFileSync(file, 'utf8'));
 const sourceSha256 = createHash('sha256').update(fs.readFileSync(file)).digest('hex');
@@ -691,6 +695,26 @@ for (const d of segs) {
   }
 }
 const wallPiece = (w, h, t, x, y, z, m, ry = 0) => group.add(box(w, h, t, x, y, z, m, ry));
+// unified wall subtraction: full boxes minus door/window rects (scanline bands)
+const wallBoxes = (lo, hi, base, h, subs) => {
+  const xs = [lo, hi, ...subs.flatMap(r => [r.a, r.c])].filter(v => v >= lo - 1e-6 && v <= hi + 1e-6).sort((a, b) => a - b);
+  const out = [];
+  const covered = (a, c, y0, y1) => subs.some(r => r.a <= a + 1e-6 && r.c >= c - 1e-6 && r.y0 <= y0 + 1e-6 && r.y1 >= y1 - 1e-6);
+  for (let i = 0; i < xs.length - 1; i++) {
+    const xa = Math.max(lo, xs[i]), xb = Math.min(hi, xs[i + 1]);
+    if (xb - xa < 0.02) continue;
+    const ys = [base, base + h, ...subs.filter(r => r.a <= xa + 1e-6 && r.c >= xb - 1e-6).flatMap(r => [r.y0, r.y1])]
+      .filter(v => v >= base - 1e-6 && v <= base + h + 1e-6).sort((a, b) => a - b);
+    for (let j = 0; j < ys.length - 1; j++) {
+      const ya = Math.max(base, ys[j]), yb = Math.min(base + h, ys[j + 1]);
+      if (yb - ya < 0.02) continue;
+      if (!covered(xa, xb, ya, yb)) out.push([xb - xa, yb - ya, (xa + xb) / 2, (ya + yb) / 2]);
+    }
+  }
+  return out;
+};
+const overlayOpeningsFor = (s, side) => objectOverlayReg ? objectOverlayReg.openings.filter(o => o.wallId === `wall-${s.id}-${side}`) : [];
+
 function building(s) {
   const [x1, z1, x2, z2] = s.bounds;
   const w = x2 - x1, d = z2 - z1, h = s.height, base = raisedBase(s);
@@ -728,7 +752,17 @@ function building(s) {
     if (cur < hi) pieces.push([cur, hi]);
     return pieces;
   };
+  const doorSubs = side => opensOn(side).map(door => ({ a: door.axis - door.w / 2, c: door.axis + door.w / 2, y0: base, y1: base + Math.min(h - 0.15, door.h) }));
+  const winSubs = (side, lo, hi) => overlayOpeningsFor(s, side).map(o => {
+    const len = hi - lo, ctr = lo + o.t * len;
+    return { a: ctr - o.width / 2, c: ctr + o.width / 2, y0: base + o.sill, y1: base + o.sill + o.height };
+  });
   const addWallX = (x, side, m) => {
+    const wins = winSubs(side, z1, z2);
+    if (wins.length) {
+      for (const [bw, bh, ca, cy] of wallBoxes(z1, z2, base, h, [...doorSubs(side), ...wins])) group.add(box(WT, bh, bw, x, cy, ca, m));
+      return;
+    }
     for (const [a, c] of cut(z1, z2, side)) group.add(box(WT, h, c - a, x, base + h / 2, (a + c) / 2, m));
     for (const door of opensOn(side)) {
       const doorH = Math.min(h - 0.15, door.h), topH = h - doorH;
@@ -737,6 +771,11 @@ function building(s) {
     }
   };
   const addWallZ = (z, side, m) => {
+    const wins = winSubs(side, x1, x2);
+    if (wins.length) {
+      for (const [bw, bh, ca, cy] of wallBoxes(x1, x2, base, h, [...doorSubs(side), ...wins])) group.add(box(bw, bh, WT, ca, cy, z, m));
+      return;
+    }
     for (const [a, c] of cut(x1, x2, side)) group.add(box(c - a, h, WT, (a + c) / 2, base + h / 2, z, m));
     for (const door of opensOn(side)) {
       const doorH = Math.min(h - 0.15, door.h), topH = h - doorH;
@@ -1055,6 +1094,7 @@ const facadeConduit = (ax, az, bx, bz, y, radius = 0.14) => {
   return frame;
 };
 const wallServiceRun = (side, start, end, wall, y, drops = 3) => {
+  recordFeature('service-run', side, start, end, y - 0.3, y + 0.3, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   const point = axis => side === 'n' || side === 's' ? [axis, y, wall + outward * 0.42] : [wall + outward * 0.42, y, axis];
   group.add(addBeam(point(start), point(end), 0.16, M.pipeDark));
@@ -1068,6 +1108,7 @@ const wallServiceRun = (side, start, end, wall, y, drops = 3) => {
   }
 };
 const wallLight = (side, axis, wall, y) => {
+  recordFeature('wall-light', side, axis - 0.35, axis + 0.35, y - 0.7, y + 0.7, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   if (side === 'n' || side === 's') {
     group.add(box(1.3, 0.12, 0.18, axis, y, wall + outward * 0.12, M.light));
@@ -1093,6 +1134,7 @@ const wallWindowBand = (side, start, end, wall, y, count = 5) => {
   const span = (end - start) / count;
   for (let i = 0; i < count; i++) {
     const axis = start + span * (i + 0.5), width = Math.max(2.4, span * 0.62);
+    recordFeature('window-band', side, axis - width / 2 - 0.14, axis + width / 2 + 0.14, y - 0.6, y + 0.6, wall);
     const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
     if (side === 'n' || side === 's') {
       group.add(edgeBox(width, 0.92, 0.16, axis, y, wall + outward * 0.24, M.glass, 0, 0.025));
@@ -1110,6 +1152,7 @@ const wallWindowBand = (side, start, end, wall, y, count = 5) => {
   }
 };
 const facadeVentBank = (side, start, end, wall, y, count = 3) => {
+  recordFeature('vent-bank', side, start, end, y - 0.5, y + 0.5, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   const span = (end - start) / count;
   for (let i = 0; i < count; i++) {
@@ -1161,6 +1204,7 @@ const facadePanelRibs = (side, start, end, wall, base, height, step = 4.8, mater
   };
   for (const y of [base + 1.1, base + height * 0.5, base + height - 0.42])
     face((start + end) / 2, y, Math.max(1, end - start), 0.09, 0.1, M.trim);
+  recordFeature('ribbed-sheet', side, start, end, base, base + height, wall);
   for (let axis = start + step; axis < end - 0.01; axis += step * 2)
     face(axis, base + height / 2, 0.075, Math.max(1, height - 0.7), 0.09, M.trim);
 };
@@ -1189,6 +1233,7 @@ const facadeWeathering = (side, start, end, wall, base, height, seed, count = 9)
   }
 };
 const dockDoorKit = (side, axis, wall, base, width, height, variant = 'dock') => {
+  recordFeature('dock-door', side, axis - width / 2 - 0.4, axis + width / 2 + 0.4, base, base + height, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   const alongX = side === 'n' || side === 's';
   const px = alongX ? axis : wall + outward * 1.0, pz = alongX ? wall + outward * 1.0 : axis;
@@ -1210,6 +1255,7 @@ const dockDoorKit = (side, axis, wall, base, width, height, variant = 'dock') =>
   }
 };
 const heroDoorBay = (side, axis, wall, base, width, height, variant = 'dock') => {
+  recordFeature('hero-door-bay', side, axis - width / 2 - 0.4, axis + width / 2 + 0.4, base, base + height, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   const alongX = side === 'n' || side === 's';
   const panelY = base + height / 2;
@@ -4553,7 +4599,9 @@ if (objectOverlay) {
         if (weather) { m.color.multiplyScalar(1 - weather * 0.45); m.roughness = Math.min(1, m.roughness + weather * 0.4); }
         const px = (swapped ? (part.offset?.[2] ?? 0) : (part.offset?.[0] ?? 0));
         const pz = (swapped ? (part.offset?.[0] ?? 0) : (part.offset?.[2] ?? 0));
-        const mesh = new Mesh(new BoxGeometry(swapped ? pd : pw, ph, swapped ? pw : pd), m);
+        let mesh;
+        if (part.kind === 'cylinder') mesh = new Mesh(new CylinderGeometry(pw / 2, pw / 2, ph, 14), m);
+        else mesh = new Mesh(new BoxGeometry(swapped ? pd : pw, ph, swapped ? pw : pd), m);
         mesh.position.set(inst.pos[0] + px, inst.pos[1] + (part.offset?.[1] ?? 0) + ph / 2, inst.pos[2] + pz);
         mesh.rotation.y = rot;
         instGroup.add(mesh);
@@ -4565,6 +4613,35 @@ if (objectOverlay) {
     } catch (e) {
       overlayStats.issues.push(`${inst.id}: ${e.message}`);
     }
+  }
+  // opening fills: window frames + glass centered in the cut wall thickness
+  for (const opening of (objectOverlayReg?.openings || [])) {
+    const wall = objectOverlayReg.walls.find(wl => wl.id === opening.wallId);
+    if (!wall) continue;
+    const len = wall.hi - wall.lo, ctr = wall.lo + opening.t * len;
+    const a = ctr - opening.width / 2, c = ctr + opening.width / 2;
+    const y0 = wall.base + opening.sill, y1 = y0 + opening.height;
+    const yC = (y0 + y1) / 2, wC = ctr;
+    const fm = OVERLAY_MATS['painted-steel'](), gm = OVERLAY_MATS['glass']();
+    const fill = new Group();
+    const alongX = wall.axis === 'z'; // wall runs along x
+    const put = (bw, bh, bd, ox, oy) => {
+      const mesh = new Mesh(new BoxGeometry(alongX ? bw : bd, bh, alongX ? bd : bw), fm);
+      mesh.position.set(alongX ? wC + ox : wall.at, oy, alongX ? wall.at : wC + ox);
+      fill.add(mesh);
+    };
+    put(opening.width + 0.16, 0.1, 0.2, 0, y1 + 0.02);          // head
+    put(opening.width + 0.16, 0.1, 0.2, 0, y0 - 0.02);          // sill
+    put(0.1, opening.height + 0.12, 0.2, -(opening.width / 2 + 0.03), yC);
+    put(0.1, opening.height + 0.12, 0.2, opening.width / 2 + 0.03, yC);
+    put(0.06, opening.height - 0.1, 0.12, 0, yC);               // mullion
+    const glass = new Mesh(new BoxGeometry(alongX ? opening.width - 0.1 : 0.05, opening.height - 0.1, alongX ? 0.05 : opening.width - 0.1), gm);
+    glass.position.set(alongX ? wC : wall.at, yC, alongX ? wall.at : wC);
+    fill.add(glass);
+    fill.name = `opening-fill:${opening.id}`;
+    merged.add(fill);
+    overlayStats.meshes += 6;
+    overlayStats.openings = (overlayStats.openings || 0) + 1;
   }
   merged.userData.objectOverlay = overlayStats;
 }
@@ -4718,6 +4795,17 @@ c('campus-spine: placement, support, and contact status recorded', !campusSpineO
   c('open-cell: placement, support, contact, and clearance status recorded', !openCellBuildOnly || activeOpenCellNetwork.features.every(feature => feature.placementStatus === 'PASS' && feature.supportStatus === 'PASS' && feature.contactStatus === 'PASS' && feature.clearance.pad === 'PASS' && feature.clearance.minimumBuildingMargin >= 2 && feature.clearance.minimumRouteMargin >= 2 && feature.clearance.minimumAirLaneMargin >= 2 && feature.clearance.minimumGameplayMargin >= 2));
   c('open-cell: paired relationships span required operational cells', !openCellBuildOnly || activeOpenCellNetwork.features.every(feature => feature.pairedWith && feature.relationship));
   c('open-cell: triangle growth stays within 15 percent', !openCellBuildOnly || Math.round(triCount) <= (openCellNetworkV3Only ? 881216 : 880216), `${Math.round(triCount)} <= ${openCellNetworkV3Only ? 881216 : 880216}`);
+if (objectOverlay) {
+  const attributed = facadeFeatures.map(f => {
+    const alongX = f.side === 'n' || f.side === 's';
+    const b = segs.find(seg => ['building-enterable', 'warehouse-enterable', 'facade-non-enterable', 'tower'].includes(seg.category) && (alongX
+      ? (f.wall >= seg.bounds[1] - 2 && f.wall <= seg.bounds[3] + 2 && f.a <= seg.bounds[2] && f.c >= seg.bounds[0])
+      : (f.wall >= seg.bounds[0] - 2 && f.wall <= seg.bounds[2] + 2 && f.a <= seg.bounds[3] && f.c >= seg.bounds[1])));
+    return { ...f, buildingId: b?.id || null };
+  }).filter(f => f.buildingId);
+  fs.mkdirSync('authoring', { recursive: true });
+  fs.writeFileSync('authoring/facade-features.json', JSON.stringify({ format: 'vexea-facade-features/0.1', features: attributed }, null, 2) + '\n');
+}
 fs.mkdirSync(dirname(reportPath), { recursive: true });
 fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
 let fails = report.checks.filter(x => !x.p).length;
