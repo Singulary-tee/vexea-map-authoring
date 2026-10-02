@@ -72,9 +72,27 @@ export function deriveWalls() {
   };
 }
 
+// wall ids are DERIVED from buildingId+side; any stored id that disagrees is repaired
+// (id strings in files are not trusted — they are recomputed on every load)
+export function repairWallIds(reg) {
+  let changed = false;
+  for (const w of reg.walls || []) {
+    const canonical = `wall-${w.buildingId}-${w.side}`;
+    if (w.id !== canonical) { w.id = canonical; changed = true; }
+  }
+  // re-point openings whose stored wallId no longer resolves: match by (buildingId, side) kept on the opening
+  for (const o of reg.openings || []) {
+    if (!reg.walls.some(w => w.id === o.wallId) && o.buildingId && o.side) {
+      const w = reg.walls.find(x => x.buildingId === o.buildingId && x.side === o.side);
+      if (w) { o.wallId = w.id; changed = true; }
+    }
+  }
+  return { reg, changed };
+}
+
 export function loadRegistry(path = wallsPathEnv()) {
   if (!fs.existsSync(path)) return null;
-  return JSON.parse(fs.readFileSync(path, 'utf8'));
+  return repairWallIds(JSON.parse(fs.readFileSync(path, 'utf8'))).reg;
 }
 
 export function saveRegistry(reg, path = wallsPathEnv()) {
@@ -87,7 +105,9 @@ export function ensureRegistry({ refresh = false } = {}) {
   if (reg && !refresh && reg.base?.sha256 === fresh.sha256) {
     reg.openings = reg.openings || [];
     reg.doors = reg.doors || [];
-    return reg;
+    const fixed = repairWallIds(reg);
+    if (fixed.changed) saveRegistry(fixed.reg);
+    return fixed.reg;
   }
   const derived = deriveWalls();
   if (reg && reg.base?.sha256 === fresh.sha256) derived.openings = reg.openings || [];

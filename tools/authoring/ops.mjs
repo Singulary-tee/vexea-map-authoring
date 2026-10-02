@@ -292,7 +292,7 @@ export function installOpening(args, { statePath = statePathEnv() } = {}) {
   const sill = args.sill ?? object.contract.host?.defaultSill ?? 1.0;
   const opening = {
     id: `op-${object.id}-${reg.openings.length + 1}`.replace(/obj_/g, ''),
-    objectId: object.id, wallId: wall.id, kind: object.type,
+    objectId: object.id, wallId: wall.id, buildingId: wall.buildingId, side: wall.side, kind: object.type,
     t: +t.toFixed(4), width, sill, height,
     objectSha: objectContentSha(object),
   };

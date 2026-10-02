@@ -713,7 +713,13 @@ const wallBoxes = (lo, hi, base, h, subs) => {
   }
   return out;
 };
-const overlayOpeningsFor = (s, side) => objectOverlayReg ? objectOverlayReg.openings.filter(o => o.wallId === `wall-${s.id}-${side}`) : [];
+// openings matched structurally (building + side), never by reconstructed id strings
+const overlayOpeningsFor = (s, side) => {
+  if (!objectOverlayReg) return [];
+  const walls = objectOverlayReg.walls.filter(w => w.buildingId === s.id && w.side === side);
+  const ids = new Set(walls.map(w => w.id));
+  return (objectOverlayReg.openings || []).filter(o => ids.has(o.wallId));
+};
 
 function building(s) {
   const [x1, z1, x2, z2] = s.bounds;
@@ -4614,6 +4620,8 @@ if (objectOverlay) {
       overlayStats.issues.push(`${inst.id}: ${e.message}`);
     }
   }
+  const fills = [];
+  const fillCenters = [];
   // opening fills: window frames + glass centered in the cut wall thickness
   for (const opening of (objectOverlayReg?.openings || [])) {
     const wall = objectOverlayReg.walls.find(wl => wl.id === opening.wallId);
@@ -4625,12 +4633,15 @@ if (objectOverlay) {
     const fm = OVERLAY_MATS['painted-steel'](), gm = OVERLAY_MATS['glass']();
     const fill = new Group();
     const alongX = wall.axis === 'z'; // wall runs along x
+    // Archipack/Archimesh rule: the frame's cut depth is derived from the host wall
+    // thickness with a small overshoot, so the frame fills the reveal it sits in.
+    const fd = wall.thickness + 0.12;
     const put = (bw, bh, bd, ox, oy) => {
       const mesh = new Mesh(new BoxGeometry(alongX ? bw : bd, bh, alongX ? bd : bw), fm);
       mesh.position.set(alongX ? wC + ox : wall.at, oy, alongX ? wall.at : wC + ox);
       fill.add(mesh);
     };
-    put(opening.width + 0.16, 0.1, 0.2, 0, y1 + 0.02);          // head
+    put(opening.width + 0.16, 0.1, fd, 0, y1 + 0.02);           // head
     put(opening.width + 0.16, 0.1, 0.2, 0, y0 - 0.02);          // sill
     put(0.1, opening.height + 0.12, 0.2, -(opening.width / 2 + 0.03), yC);
     put(0.1, opening.height + 0.12, 0.2, opening.width / 2 + 0.03, yC);
@@ -4640,9 +4651,25 @@ if (objectOverlay) {
     fill.add(glass);
     fill.name = `opening-fill:${opening.id}`;
     merged.add(fill);
+    fillCenters.push({ id: opening.id, expected: alongX ? [wC, yC, wall.at] : [wall.at, yC, wC] });
     overlayStats.meshes += 6;
     overlayStats.openings = (overlayStats.openings || 0) + 1;
   }
+  // coherence: every structurally-matched cut must have a fill at the same world position
+  const cutWithoutFill = [];
+  for (const s of segs.filter(x => ['building-enterable', 'warehouse-enterable', 'facade-non-enterable', 'tower'].includes(x.category))) {
+    for (const side of ['s', 'n', 'w', 'e']) {
+      for (const o of overlayOpeningsFor(s, side)) {
+        const wall = objectOverlayReg.walls.find(wl => wl.id === o.wallId);
+        if (!wall) continue;
+        const len = wall.hi - wall.lo, ctr = wall.lo + o.t * len;
+        const expected = wall.axis === 'z' ? [ctr, wall.base + o.sill + o.height / 2, wall.at] : [wall.at, wall.base + o.sill + o.height / 2, ctr];
+        const hit = fillCenters.some(fc => fc.expected.every((v, i) => Math.abs(v - expected[i]) < 0.05));
+        if (!hit) cutWithoutFill.push(o.id);
+      }
+    }
+  }
+  overlayStats.cutsWithoutFill = cutWithoutFill;
   merged.userData.objectOverlay = overlayStats;
 }
 
@@ -4735,6 +4762,7 @@ if (objectOverlay) {
   report.objectOverlay = overlayStats;
   c('object-overlay: every integrated instance rendered from its authored object', overlayStats.instances === (objectOverlay.instances || []).length && overlayStats.issues.length === 0, overlayStats.issues.join('; '));
   c('object-overlay: instances carry object content trace', (objectOverlay.instances || []).every(inst => Boolean(inst.objectId) && Boolean(inst.objectSha)));
+  c('object-overlay: every cut opening has a co-located fill', !objectOverlay || (report.objectOverlay?.cutsWithoutFill || []).length === 0, (report.objectOverlay?.cutsWithoutFill || []).join(','));
 }
 const segBoxes = segs.map(s => ({ id: s.id, cat: s.category, minX: s.bounds[0], minZ: s.bounds[1], maxX: s.bounds[2], maxZ: s.bounds[3] }));
 // contact: every non-ground segment with height >= 0.6 has its own ground beneath or is below-grade/elevated with support
