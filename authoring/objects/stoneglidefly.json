@@ -4,7 +4,7 @@
   "type": "apron",
   "name": "wet asphalt apron, 34x18m",
   "status": "authored",
-  "revision": 6,
+  "revision": 8,
   "construction": {
     "size": [
       32.4,
@@ -192,7 +192,10 @@
         "ground.contact@base-contact",
         "puddle.submersion@footprint",
         "route.crossing@footprint",
-        "building.contact@footprint"
+        "building.contact@footprint",
+        "dockbollardnew.contact@footprint",
+        "brickstarwind.contact@footprint",
+        "prop.standing@footprint"
       ]
     },
     "routeClearanceM": 0,

@@ -4,7 +4,7 @@
   "type": "bollard",
   "name": "dock bollard, yellow",
   "status": "authored",
-  "revision": 8,
+  "revision": 10,
   "construction": {
     "size": [
       0.42,
@@ -181,7 +181,9 @@
     "interactions": {
       "allow": [
         "ground.contact@base-contact",
-        "puddle.submersion@footprint"
+        "puddle.submersion@footprint",
+        "apron.standing@footprint",
+        "prop.standing@footprint"
       ]
     },
     "routeClearanceM": 1,

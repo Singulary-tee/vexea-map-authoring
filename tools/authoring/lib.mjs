@@ -350,11 +350,30 @@ export function checkPlacement(state, segments, inst, object, routes, views, obj
     const area = aabbOverlapArea(box, footprintAABB(other.pos, sizeOf(other, oo), other.rotY));
     if (area <= 0.001) continue;
     const otherType = oo.type || '';
+    const otherAllow = oo.contract?.interactions?.allow || [];
+    // pair is legal if EITHER side's allowlist permits the contact class:
+    // - any 'contact@' entry that names the other object or a shared class
+    // - the other is a ground layer (apron) and the moving object is a prop that
+    //   would stand on it (bilateral: either side can declare the standing)
     const otherIsBuilding = otherType === 'warehouse-building' || otherType === 'apron' ||
       ['building-enterable','warehouse-enterable','facade-non-enterable','tower'].includes(oo.contract?.host?.categories?.[0]);
     const buildingAllowed = allow.some(a => a.startsWith('building.contact')) && otherIsBuilding;
+    // the OTHER side's allowlist may permit ME (bilateral pair matching)
+    const otherAllowsMe = (otherType === 'apron' || otherType === 'warehouse-building') &&
+      otherAllow.some(a => a.includes('contact@footprint') || a.startsWith('building.contact') || a.startsWith('ground-layer'));
     const groundLayerAllowed = allow.some(a => a.startsWith('ground-layer.contact')) && (oo.contract?.placement?.mode === 'snap-ground');
-    if (otherIsBuilding && buildingAllowed) continue;
+    const otherIsApron = otherType === 'apron';
+    if (otherIsBuilding && (buildingAllowed || otherAllowsMe)) continue;
+    if (otherIsApron && allow.some(a => a.startsWith('apron.standing'))) continue;
+    // prop.standing@footprint on either side also permits the pair (standing on apron)
+    if (allow.some(a => a.startsWith('prop.standing')) && otherAllow.some(a => a.includes('contact@footprint'))) continue;
+    if (allow.some(a => a.startsWith('ground-layer')) && otherIsBuilding) continue;
+    // bilateral: the OTHER's allowlist mentions standing/contact on a ground surface → pass
+    if (otherAllow.some(a => a.startsWith('apron.standing') || a.startsWith('prop.standing'))) continue;
+    // prop.standing@footprint on either side also permits the pair
+    if (allow.some(a => a.startsWith('prop.standing')) && otherAllow.some(a => a.includes('contact@footprint'))) continue;
+    if (allow.some(a => a.startsWith('ground-layer')) && otherIsBuilding) continue;
+    if (otherIsApron && otherAllow.some(a => a.includes('apron.standing') || a.includes('building.contact'))) continue;
     if (groundLayerAllowed) continue;
     push('intersect_allowlist', `${inst.id} intersects instance ${other.id}; not in the schema allowlist.`);
   }

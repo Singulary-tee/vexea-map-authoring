@@ -4595,11 +4595,11 @@ if (objectOverlay) {
     'drum-blue': () => mat(0x2a5d8f, { roughness: 0.45, metalness: 0.5 }),
     'drum-rust': () => textured(0x7a4a2a, { roughness: 0.8, metalness: 0.3 }, textures.rust ? textures.rust : textures.interior, 0.5),
     'drum-rib': () => mat(0x3d6b99, { roughness: 0.5, metalness: 0.55 }),
-    'wet-asphalt': () => usePbr(mat(0x2e3236, { roughness: 0.15, metalness: 0.4 }), photoAsphalt, 0.5),
+    'wet-asphalt': () => mat(0x23272c, { roughness: 0.18, metalness: 0.35 }),  // flat dark — GLB export drops photoAsphalt textures, keep base color dark
     'wet-sheen': () => mat(0x1d2126, { roughness: 0.08, metalness: 0.6, transparent: true, opacity: 0.85 }),
     'wet-film': () => mat(0x14171b, { roughness: 0.05, metalness: 0.75, transparent: true, opacity: 0.9 }),
     'wet-rim': () => mat(0x3a4148, { roughness: 0.4 }),
-    'barrier-concrete': () => usePbr(mat(0xffffff), photoConcrete, 0.45),
+    'barrier-concrete': () => mat(0x8a8a86, { roughness: 0.85 }),  // flat — GLB export drops textures
     'chainlink': () => mat(0x6e767d, { roughness: 0.4, metalness: 0.8, transparent: true, opacity: 0.4, side: THREE.DoubleSide, wireframe: true }),
     'fork-yellow': () => mat(0xc79012, { roughness: 0.45, metalness: 0.35 }),
     'paint-dark': () => mat(0x353b41, { roughness: 0.5, metalness: 0.5 }),
