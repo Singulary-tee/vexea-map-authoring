@@ -59,3 +59,24 @@ No building before the execution plan is complete. No building before the checkl
 - Bringing intermediate object-level results for approval (spelling-check behavior).
 - Declaring anything done from textual claims or green gates without geometry evidence.
 - "I froze X" / scope excuses. Everything is my responsibility.
+
+## CRITIC ROUND 6 VERDICT (2026-10-03, final): DO NOT SERVE
+- B2 facade: bay is a see-through hole (sky visible), not a dark recess — the bay
+  interior box exists in the doc but renders behind the opening plane; must be rebuilt
+  so the interior is visible from the canonical camera (dark box aligned to the bay
+  opening, not floating behind it).
+- White apron quad in-scene: the apron's wet-asphalt material renders WHITE in the
+  canonical path — material key mismatch or texture load failure at scene scale.
+  The inspector path renders it dark; the scene path does not. Split-brain NOT fully
+  closed for the apron materials.
+- Puddle white halos persist in-scene (object-board renders are dark) — same class:
+  scene-side material resolution for puddle sub-parts.
+- B2 glyphs, personnel door leaves, bollards, dumpsters, guard rail, conifers: present
+  in scene-state but NOT VISIBLE in the canonical capture — either out of frame, behind
+  the facade, or culled. Verify placement frames vs camera frustum before next capture.
+- Honest status: NOT SERVED. Suites green (12/12, 33/33, blockout ALL PASS) prove the
+  pipeline; the pixel evidence says the visual target is not met.
+- NEXT SESSION WORK ORDER (from critic rounds 4-6): (1) verify scene-side material
+  resolution for apron/puddles in the GLB, (2) confirm glyph/door/bollard visibility
+  from the canonical camera, (3) bay interior depth fix, (4) overcast lighting + contact
+  shadows in the canonical path, (5) forklift silhouette pass, (6) ground material.
