@@ -1,0 +1,198 @@
+You are receiving a Reference-Constrained Spatial State Plan.
+
+This is the representation specification for the map you are about to build from a visual map reference. It is not the execution plan and it does not contain every implementation step. Your job is to translate this representation into a complete, concrete execution plan and then execute that plan.
+
+The pipeline is mandatory:
+
+Map Reference → Reference-Constrained Spatial State Plan → Execution Plan → Checklist → Build → Verification → Serve
+
+The Reference-Constrained Spatial State Plan defines everything the resulting map must represent. Your responsibility is to derive the concrete execution required to realize it.
+
+The representation is exhaustive.
+
+Anything visible in the reference that contributes to the resulting map must be explicitly extracted and defined. Nothing visually relevant may remain implicit.
+
+Do not substitute semantic labels for actual state.
+
+“Building with windows” is not sufficient.
+
+“Add some pipes” is not sufficient.
+
+“Place doors along the wall” is not sufficient.
+
+A door can differ in number, position, dimensions, shape, depth, orientation, host, leaf count, open/closed state, inset, projection, and surrounding geometry. Therefore those properties must be explicitly represented whenever they are visible or materially determine the reference.
+
+The same principle applies to every other element.
+
+1. Create the Execution Plan
+
+Before changing the scene, derive a complete execution plan from the Reference-Constrained Spatial State Plan.
+
+The execution plan must explicitly enumerate the concrete map state you intend to create, including:
+
+- every visible structure, object, surface, region, opening, void, and spatial feature;
+- exact counts of repeated elements;
+- exact position, rotation, orientation, dimensions, scale, and depth where applicable;
+- parent/child and host relationships;
+- reference frame used for every spatial value;
+- every required contact, attachment, containment, intersection, and support relationship;
+- every required separation/non-contact relationship;
+- reference-relative spatial relationships;
+- internal component relationships;
+- object shape and geometric configuration;
+- openings, holes, recesses, cavities, cutouts, and penetrations;
+- protrusions, intrusions, overhangs, projections, and embedded elements;
+- doors, including count, type, dimensions, depth, orientation, host, leaf configuration, and open/closed state;
+- windows, including count, type, dimensions, depth, orientation, host, recess/projection, and placement;
+- pipes, conduits, cables, rails, ducts, and similar linear elements, including count, routing, diameter/section, elevation, attachment, termination, and visible bends;
+- covers, caps, grates, panels, hatches, lids, and similar elements, including their exact placement and state;
+- fences, walls, barriers, gates, poles, signs, and boundary elements;
+- roads, paths, curbs, sidewalks, drainage, markings, and other circulation/surface features;
+- terrain changes, slopes, platforms, steps, ramps, embankments, and elevation transitions;
+- water, puddles, wet regions, channels, and other visible environmental features;
+- vegetation, including visible instances or explicitly defined repeated arrangements;
+- vehicles, machinery, containers, equipment, furniture, debris, and other visible props;
+- foreground, middle-ground, and background elements that materially contribute to the reference;
+- occlusion and depth relationships;
+- visible material/surface distinctions where they contribute materially to the reference;
+- reference viewpoints and camera-relative composition;
+- target values separately from their acceptance tolerances;
+- dependencies and execution order;
+- how every required state will be measured;
+- how every requirement will be verified after construction.
+
+Do not replace a required target with a broad “acceptable” range when the reference-derived target can be established.
+
+Do not invent additional visible scene components.
+
+Do not omit a component because it appears secondary, repetitive, inconvenient, or difficult to construct.
+
+Do not collapse distinct visible elements into a vague category when their individual state matters.
+
+If the reference contains five windows, represent five windows.
+
+If those five windows differ, represent those differences.
+
+If a structure contains three doors, represent three doors.
+
+If one door is open and another is closed, represent that distinction.
+
+If a pipe passes behind a wall, emerges through an opening, bends, and continues along another surface, represent that routing and each relevant relationship.
+
+If an object protrudes from or is recessed into another object, represent that relationship explicitly.
+
+If a visible hole or opening exists, represent the hole or opening itself rather than merely describing the object as “having an opening.”
+
+If a visible empty region materially defines the composition, represent that negative space explicitly.
+
+Do not ask me to identify defects, choose transformations, or supply missing corrections. Derive them from the reference and the Reference-Constrained Spatial State Plan.
+
+2. Checklist the Execution Plan
+
+Before building, inspect the execution plan against the entire Reference-Constrained Spatial State Plan.
+
+For every requirement, explicitly establish:
+
+Representation requirement → execution-plan element → measurable verification
+
+Check that:
+
+- every visible component is represented;
+- every visible repeated component has an explicit count;
+- every component has its required complete state;
+- every relevant geometric property is represented;
+- every relevant component has reference-relative placement/orientation;
+- every internal relationship is represented;
+- every host relationship is represented;
+- every reference relationship is represented;
+- every opening, hole, recess, intrusion, and extrusion is represented;
+- contact relationships are explicitly defined;
+- separation relationships are explicitly defined;
+- occlusion/depth relationships are explicitly defined where relevant;
+- negative-space requirements are represented;
+- target values are distinguished from tolerances;
+- no required relationship depends on an unstated assumption;
+- no component's shape, size, placement, or state is left to execution-time interpretation;
+- execution order preserves dependencies;
+- every requirement has an objective verification method.
+
+Do not begin building until this checklist is complete.
+
+3. Build
+
+Execute the checked execution plan.
+
+Do not reinterpret the reference during construction.
+
+Do not make aesthetic decisions that were supposed to have been resolved by the Reference-Constrained Spatial State Plan.
+
+Do not add unspecified objects because they “would make the scene look better.”
+
+Do not omit specified objects because they appear difficult or inconvenient.
+
+After each meaningful stage, measure the resulting state against the corresponding execution-plan target.
+
+If a measured result does not satisfy its target, derive the required correction from the execution plan, apply it, and re-measure.
+
+Do not silently redefine the target to accommodate the result.
+
+Do not replace a failed geometric requirement with a proxy measurement when the requirement concerns visible mesh geometry.
+
+Do not use a screenshot as permission to declare an objectively incorrect state acceptable.
+
+4. Final Verification
+
+Once construction is complete, run the complete verification checklist again against the resulting map.
+
+Verify:
+
+- component count;
+- component identity;
+- component geometry;
+- position;
+- rotation;
+- orientation;
+- scale;
+- dimensions;
+- depth;
+- host relationships;
+- parent/child relationships;
+- contact relationships;
+- separation relationships;
+- containment;
+- intersections;
+- openings and penetrations;
+- intrusions and extrusions;
+- structural and spatial relationships;
+- reference-relative placement;
+- circulation and connectivity;
+- terrain and elevation relationships;
+- water and vegetation placement;
+- foreground/middle-ground/background composition;
+- occlusion and depth relationships;
+- visibility;
+- material/surface state where specified;
+- reference-view composition;
+- remote-view consistency;
+- visible mesh intersections/contact;
+- all other requirements in the Reference-Constrained Spatial State Plan.
+
+Verification must evaluate the actual resulting geometry/state, not the model's description of what it believes it built.
+
+The map is not complete until every requirement passes.
+
+5. Serve
+
+Only after the complete verification passes, serve the resulting map and provide the screenshot.
+
+Do not serve an intermediate, partially verified, or merely plausible result.
+
+Do not serve a result containing known spatial, geometric, compositional, or representation failures.
+
+The screenshot is the final observable output of the entire pipeline.
+
+The objective is not to produce a map that sounds like the reference.
+
+The objective is to produce the explicitly represented spatial state of the reference.
+
+Nothing visually relevant is implicit.

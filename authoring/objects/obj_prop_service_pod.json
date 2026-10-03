@@ -1,0 +1,193 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "obj_prop_service_pod",
+  "type": "prop",
+  "name": "service pod, yard equipment shelter",
+  "status": "authored",
+  "revision": 2,
+  "construction": {
+    "size": [
+      3,
+      2.6,
+      2
+    ],
+    "origin": "center-bottom",
+    "parts": [
+      {
+        "kind": "shell",
+        "size": [
+          3,
+          2.6,
+          2
+        ],
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "mat": "concrete"
+      },
+      {
+        "kind": "roof",
+        "size": [
+          3.2,
+          0.12,
+          2.2
+        ],
+        "offset": [
+          0,
+          2.6,
+          0
+        ],
+        "mat": "roof"
+      },
+      {
+        "kind": "door-bay",
+        "size": [
+          1.2,
+          2.1,
+          0.05
+        ],
+        "offset": [
+          0.6,
+          0,
+          1.01
+        ],
+        "mat": "painted-steel"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.2
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1,
+        "note": "variant of obj_prop_service_pod"
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type",
+        "building-enterable",
+        "warehouse-enterable"
+      ],
+      "mode": "surface"
+    },
+    "minClearanceM": 1,
+    "overlap": "disallow"
+  },
+  "references": [
+    "blockout/blockout-full-v1.json#segments",
+    "spec/calibration.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-01",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_service_pod-front-near.png",
+        "sha256": "0e8e9adddeee2c3ddf9d6a1fbb75d4cb7de0db57e7e4e7a3b1d9165e89483e0a"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_service_pod-front-mid.png",
+        "sha256": "f356144dca5062a6af1b634a82775d366466193600fec17d0f82b00df9f9702b"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_service_pod-front-far.png",
+        "sha256": "56cd4984d6dda7455a06b77e0170508ede8a7c15a65611e0cf0f8d34be2feaf2"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_service_pod-side-near.png",
+        "sha256": "8c6a221a5d1f1752d6aa192a9ab41083d98502816c297c04b6d1a58bedbeb182"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_service_pod-side-mid.png",
+        "sha256": "eb0021efdc8b6f7048dce4d5d77eb268c7f9e2ad69a6b2d78f6c22276167c86c"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_service_pod-side-far.png",
+        "sha256": "70e53a3636ef13f8972cbc1e4dd3449ab28ef157db7fb6b489f789919805321c"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_service_pod-rear-near.png",
+        "sha256": "a6fec600c04db24a47b9899960518b3ad9da3c8da83ce6c83af604a59a14a3e4"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_service_pod-rear-mid.png",
+        "sha256": "ea2ce37069941b6ce42a132201c96a060a1edbe358e15ef5323b3e4792aaaab1"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_service_pod-rear-far.png",
+        "sha256": "83de19d1fedd00e0322a5db46d1c11b538861e563f8ea6dc783b56bf06571bb8"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/obj_prop_service_pod-iso-near.png",
+        "sha256": "33eab67bc8096e19cb69238702075ac188871855e9b91f78647d4b5c6a51c135"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_prop_service_pod-iso-mid.png",
+        "sha256": "fbe0c4dacd76b3bee426bdd6415dc802859d12ab3c627af73a4f946d1b7767ab"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/obj_prop_service_pod-iso-far.png",
+        "sha256": "8376cf8ab6639178fe33600609cdfb5a336f48b82f194877ece3836bc490aa63"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_prop_service_pod-variant-clean.png",
+        "sha256": "fbe0c4dacd76b3bee426bdd6415dc802859d12ab3c627af73a4f946d1b7767ab"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_prop_service_pod-variant-dusty.png",
+        "sha256": "fc742b7a6b0655770cb782f31e53e712a981c1f18cbd5cb315e031aaa80a2506"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_prop_service_pod-variant-broken.png",
+        "sha256": "6cad0414d2b05c04d6e20d616bcf9ce27dd5c4697f9679f402ac0d3f1e3b9f95"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

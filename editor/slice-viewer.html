@@ -1,0 +1,47 @@
+<!-- Parametric single-view scene viewer for survey captures.
+     ?glb=<path>&pos=x,y,z&look=x,y,z&fov=deg&bground=0x... -->
+<!doctype html><html><head><meta charset="utf-8"><title>VEXEA slice viewer</title>
+<style>html,body{margin:0;height:100%;background:#10151b;overflow:hidden}</style>
+</head><body>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+const q = new URLSearchParams(location.search);
+const SKY = new THREE.Color(Number(q.get('bground') || 0xa8bdd2));
+const scene = new THREE.Scene();
+scene.background = SKY;
+scene.fog = new THREE.FogExp2(SKY.getHex(), Number(q.get('fog') ?? 0.0007));
+const cam = new THREE.PerspectiveCamera(Number(q.get('fov') || 50), innerWidth / innerHeight, 0.5, 4000);
+const pos = (q.get('pos') || '-340,170,380').split(',').map(Number);
+const look = (q.get('look') || '0,0,0').split(',').map(Number);
+cam.position.set(...pos);
+cam.lookAt(...look);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.06;
+document.body.appendChild(renderer.domElement);
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.add(new THREE.HemisphereLight(0xcfe0ee, 0x3a4046, 0.55));
+const sun = new THREE.DirectionalLight(0xfff2dd, 2.2);
+sun.position.set(-300, 260, 180);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.left = -160; sun.shadow.camera.right = 160;
+sun.shadow.camera.top = 120; sun.shadow.camera.bottom = -120;
+sun.shadow.camera.far = 900;
+sun.target.position.set(-170, 0, 0);
+sun.shadow.bias = -0.0006;
+scene.add(sun); scene.add(sun.target);
+new GLTFLoader().load(q.get('glb') || 'editor/facility-built.glb', gltf => {
+  gltf.scene.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+  scene.add(gltf.scene);
+  renderer.render(scene, cam);
+  window.__sliceReady = true;
+});
+</script></body></html>

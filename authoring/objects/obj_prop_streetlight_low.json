@@ -1,0 +1,19 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "obj_prop_streetlight_low",
+  "type": "prop",
+  "name": "streetlight (placeholder)",
+  "status": "draft",
+  "revision": 1,
+  "construction": {
+    "size": [0.3, 8, 0.3],
+    "origin": "center-bottom",
+    "parts": [
+      { "kind": "box", "size": [0.3, 8, 0.3], "offset": [0, 0, 0], "mat": "steel-dark" }
+    ]
+  },
+  "variants": [ { "id": "clean" } ],
+  "contract": { "host": { "categories": ["ground-surface-type"], "mode": "surface" }, "overlap": "disallow" },
+  "references": ["blockout/blockout-full-v1.json#segments"],
+  "evidence": []
+}

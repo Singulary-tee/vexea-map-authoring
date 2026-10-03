@@ -1,0 +1,388 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "railbandlay",
+  "type": "guard-rail",
+  "name": "guard rail run, 8m yellow",
+  "status": "authored",
+  "revision": 4,
+  "construction": {
+    "size": [
+      8.2,
+      1.2,
+      0.2
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "lathe",
+        "name": "rail-post-0",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.05,
+            0
+          ],
+          [
+            0.03,
+            1.05
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "pos": [
+          -4,
+          0,
+          0
+        ],
+        "mat": "safety-yellow"
+      },
+      {
+        "kind": "lathe",
+        "name": "rail-post-1",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.05,
+            0
+          ],
+          [
+            0.03,
+            1.05
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "pos": [
+          -2,
+          0,
+          0
+        ],
+        "mat": "safety-yellow"
+      },
+      {
+        "kind": "lathe",
+        "name": "rail-post-2",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.05,
+            0
+          ],
+          [
+            0.03,
+            1.05
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "safety-yellow"
+      },
+      {
+        "kind": "lathe",
+        "name": "rail-post-3",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.05,
+            0
+          ],
+          [
+            0.03,
+            1.05
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "pos": [
+          2,
+          0,
+          0
+        ],
+        "mat": "safety-yellow"
+      },
+      {
+        "kind": "lathe",
+        "name": "rail-post-4",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.05,
+            0
+          ],
+          [
+            0.03,
+            1.05
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "pos": [
+          4,
+          0,
+          0
+        ],
+        "mat": "safety-yellow"
+      },
+      {
+        "kind": "sweep",
+        "name": "rail-top",
+        "path": [
+          [
+            -4.05,
+            1,
+            0
+          ],
+          [
+            -2,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            4.05,
+            1,
+            0
+          ]
+        ],
+        "radius": 0.035,
+        "mat": "safety-yellow"
+      },
+      {
+        "kind": "sweep",
+        "name": "rail-mid",
+        "path": [
+          [
+            -4,
+            0.55,
+            0
+          ],
+          [
+            0,
+            0.55,
+            0
+          ],
+          [
+            4,
+            0.5,
+            0
+          ]
+        ],
+        "radius": 0.025,
+        "mat": "safety-yellow"
+      },
+      {
+        "kind": "lathe",
+        "name": "rail-baseplate",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.09,
+            0
+          ],
+          [
+            0.075,
+            0.03
+          ],
+          [
+            0,
+            0.035
+          ]
+        ],
+        "pos": [
+          -2,
+          0,
+          0.02
+        ],
+        "mat": "steel-dark"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact"
+      ]
+    },
+    "routeClearanceM": 0,
+    "quality": {
+      "minParts": 4,
+      "minMats": 2,
+      "minTris": 32,
+      "maxTris": 5000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/plans/warehouse-execution-plan.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/railbandlay-front-near.png",
+        "sha256": "9fd04dd1588f615b803105a1e76c11a6fea08c7503ce5e68413c15e03c7ac9dd"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/railbandlay-front-mid.png",
+        "sha256": "707ad4f3bcd15f1c4afa25d5f59368f492281586c14f62133c8f47babf9af5a8"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/railbandlay-front-far.png",
+        "sha256": "540e2eedfc9d5b98574f14b0481b908eeb5dd94e002f52ea8ffb42d1d852f7f8"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/railbandlay-side-near.png",
+        "sha256": "07a171026378f2a42281637d3674e003d6080122690e22136170aca98cbb17c4"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/railbandlay-side-mid.png",
+        "sha256": "cdb7834e8c65657bfb5c2356e9a3a6ab156e5c6bf377518544253431b2df1d4a"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/railbandlay-side-far.png",
+        "sha256": "37ea96d5f46c8e80062f64c894f6870c4304d24b75d46f7b708a851f8342bcb1"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/railbandlay-rear-near.png",
+        "sha256": "da39387950bf8ea2436316d9a86488b377aa96af1e3a3f4b7c374d461d5c4735"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/railbandlay-rear-mid.png",
+        "sha256": "b3847d7131769a6709ec7eaef57f6da3535539c46ba339f4fcdc55fb90918ce3"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/railbandlay-rear-far.png",
+        "sha256": "75edce077dcdfda45b0ac09dbdb76e54a8b9a33df56acceb29b7e8767739faa9"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/railbandlay-iso-near.png",
+        "sha256": "d55d10eb30a277ab87d1c2ddfe5365e5f2dbf1efa7ffe4cdcf20b6d3036afc76"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/railbandlay-iso-mid.png",
+        "sha256": "574264214b286fe705e33b8e0e78d116e9ae48b33857a24135a90053cb2605cb"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/railbandlay-iso-far.png",
+        "sha256": "fea47a3f8f5fdaf2572cf4afaac54ca08bd8c67e593e15e52b5a607278ae2e84"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/railbandlay-variant-clean.png",
+        "sha256": "574264214b286fe705e33b8e0e78d116e9ae48b33857a24135a90053cb2605cb"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/railbandlay-variant-dusty.png",
+        "sha256": "a3ac9ad02fbc1d27e73f6932333387df696dd0554a6c81de2452f29fc6ac02dc"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/railbandlay-variant-broken.png",
+        "sha256": "d63f6a585b9d66cc9212a7ecbe58c4d121732bdd4c5db2de15a7115c9bebe4a5"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

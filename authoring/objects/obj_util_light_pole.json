@@ -1,0 +1,177 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "obj_util_light_pole",
+  "type": "prop",
+  "name": "yard light pole, 9m",
+  "status": "authored",
+  "revision": 2,
+  "construction": {
+    "size": [
+      0.24,
+      9,
+      0.24
+    ],
+    "origin": "center-bottom",
+    "parts": [
+      {
+        "kind": "base",
+        "size": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "mat": "concrete"
+      },
+      {
+        "kind": "pole",
+        "size": [
+          0.22,
+          8.5,
+          0.22
+        ],
+        "offset": [
+          0,
+          0.5,
+          0
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "head",
+        "size": [
+          0.9,
+          0.18,
+          0.45
+        ],
+        "offset": [
+          0,
+          8.9,
+          0.2
+        ],
+        "mat": "lamp-head"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.4
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "minClearanceM": 1.5,
+    "overlap": "disallow"
+  },
+  "references": [
+    "blockout/blockout-full-v1.json#segments",
+    "spec/calibration.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-01",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/obj_util_light_pole-front-near.png",
+        "sha256": "6bb3f6ac364ef89f727a28749bab33977042b4b0ca2747b051abbc5e9db0d97d"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_util_light_pole-front-mid.png",
+        "sha256": "4410d9f0b45b6e462d561acf4883596f4598dc6b3acb53238972867df18dbe7a"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/obj_util_light_pole-front-far.png",
+        "sha256": "a7acd204eb96ae9420e71ce2ca11d10db5b658507b43a33959da6d2c463317b7"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/obj_util_light_pole-side-near.png",
+        "sha256": "b67741806aca5f6e8eea5bc12d67f10235187bd0477cc55c66c1a1c6804eb7a8"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_util_light_pole-side-mid.png",
+        "sha256": "0995e3b8cb8e88a3dcb9c0fafdb42a5902560968c588ba9b3733f10795715e22"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/obj_util_light_pole-side-far.png",
+        "sha256": "875fd205331909c1e5e9f73fc98b61b99434f3f250f80970661c06fba61109c8"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/obj_util_light_pole-rear-near.png",
+        "sha256": "fc382f458152354877cd860980fb910c6c2afa2c5474526c4e5448dcaa0847cf"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_util_light_pole-rear-mid.png",
+        "sha256": "706589348b3b753cb03904a397bd9da10ec4fabc7b803a8cde1cfac64399bd8b"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/obj_util_light_pole-rear-far.png",
+        "sha256": "754481cac98730e7384f03e9d138c71367190666ec07641d7a6dbcb8a84c1f65"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/obj_util_light_pole-iso-near.png",
+        "sha256": "3d82ad40e0de16d887e14bf009208ebccb059373a1517ca4c1fdd78220418606"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_util_light_pole-iso-mid.png",
+        "sha256": "5881c6922a9e3e030901ffda23625dd5fa9775d0c07fa0ea3ff347e2767b5a5f"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/obj_util_light_pole-iso-far.png",
+        "sha256": "3562986e1bdf9a62f343565c0ddc47eac924642e7972cf013a22abdfa15499a6"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_util_light_pole-variant-clean.png",
+        "sha256": "5881c6922a9e3e030901ffda23625dd5fa9775d0c07fa0ea3ff347e2767b5a5f"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_util_light_pole-variant-dusty.png",
+        "sha256": "e13c730a9b6562326ef7c2dbb2b410a7b8bfe57f345c51278895992f6566cea9"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

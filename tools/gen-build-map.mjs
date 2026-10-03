@@ -8,6 +8,7 @@
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname } from 'node:path';
+import { buildPartDef, silhouetteRuns, findDisconnected } from './authoring/parts.mjs';
 import { execFileSync } from 'node:child_process';
 import { deflateSync, inflateSync } from 'node:zlib';
 globalThis.FileReader = class {
@@ -98,6 +99,10 @@ const operationalStreetwallOnly = process.env.BUILD_OPERATIONAL_STREETWALL === '
 const openCellNetworkOnly = process.env.BUILD_OPEN_CELL_NETWORK_ONLY === '1';
 const openCellNetworkV2Only = process.env.BUILD_OPEN_CELL_NETWORK_V2_ONLY === '1';
 const openCellNetworkV3Only = process.env.BUILD_OPEN_CELL_NETWORK_V3_ONLY === '1';
+// wall/opening registry + facade feature recorder (overlay mode only; default build untouched)
+const objectOverlayReg = process.env.BUILD_OBJECT_OVERLAY === '1' && fs.existsSync('authoring/walls.json') ? JSON.parse(fs.readFileSync('authoring/walls.json', 'utf8')) : null;
+const facadeFeatures = [];
+const recordFeature = (kind, side, a, c, y0, y1, wall) => facadeFeatures.push({ kind, side, a: Math.min(a, c), c: Math.max(a, c), y0: Math.min(y0, y1), y1: Math.max(y0, y1), wall });
 const openCellBuildOnly = openCellNetworkOnly || openCellNetworkV2Only || openCellNetworkV3Only;
 const b = JSON.parse(fs.readFileSync(file, 'utf8'));
 const sourceSha256 = createHash('sha256').update(fs.readFileSync(file)).digest('hex');
@@ -691,6 +696,32 @@ for (const d of segs) {
   }
 }
 const wallPiece = (w, h, t, x, y, z, m, ry = 0) => group.add(box(w, h, t, x, y, z, m, ry));
+// unified wall subtraction: full boxes minus door/window rects (scanline bands)
+const wallBoxes = (lo, hi, base, h, subs) => {
+  const xs = [lo, hi, ...subs.flatMap(r => [r.a, r.c])].filter(v => v >= lo - 1e-6 && v <= hi + 1e-6).sort((a, b) => a - b);
+  const out = [];
+  const covered = (a, c, y0, y1) => subs.some(r => r.a <= a + 1e-6 && r.c >= c - 1e-6 && r.y0 <= y0 + 1e-6 && r.y1 >= y1 - 1e-6);
+  for (let i = 0; i < xs.length - 1; i++) {
+    const xa = Math.max(lo, xs[i]), xb = Math.min(hi, xs[i + 1]);
+    if (xb - xa < 0.02) continue;
+    const ys = [base, base + h, ...subs.filter(r => r.a <= xa + 1e-6 && r.c >= xb - 1e-6).flatMap(r => [r.y0, r.y1])]
+      .filter(v => v >= base - 1e-6 && v <= base + h + 1e-6).sort((a, b) => a - b);
+    for (let j = 0; j < ys.length - 1; j++) {
+      const ya = Math.max(base, ys[j]), yb = Math.min(base + h, ys[j + 1]);
+      if (yb - ya < 0.02) continue;
+      if (!covered(xa, xb, ya, yb)) out.push([xb - xa, yb - ya, (xa + xb) / 2, (ya + yb) / 2]);
+    }
+  }
+  return out;
+};
+// openings matched structurally (building + side), never by reconstructed id strings
+const overlayOpeningsFor = (s, side) => {
+  if (!objectOverlayReg) return [];
+  const walls = objectOverlayReg.walls.filter(w => w.buildingId === s.id && w.side === side);
+  const ids = new Set(walls.map(w => w.id));
+  return (objectOverlayReg.openings || []).filter(o => ids.has(o.wallId));
+};
+
 function building(s) {
   const [x1, z1, x2, z2] = s.bounds;
   const w = x2 - x1, d = z2 - z1, h = s.height, base = raisedBase(s);
@@ -728,7 +759,17 @@ function building(s) {
     if (cur < hi) pieces.push([cur, hi]);
     return pieces;
   };
+  const doorSubs = side => opensOn(side).map(door => ({ a: door.axis - door.w / 2, c: door.axis + door.w / 2, y0: base, y1: base + Math.min(h - 0.15, door.h) }));
+  const winSubs = (side, lo, hi) => overlayOpeningsFor(s, side).map(o => {
+    const len = hi - lo, ctr = lo + o.t * len;
+    return { a: ctr - o.width / 2, c: ctr + o.width / 2, y0: base + o.sill, y1: base + o.sill + o.height };
+  });
   const addWallX = (x, side, m) => {
+    const wins = winSubs(side, z1, z2);
+    if (wins.length) {
+      for (const [bw, bh, ca, cy] of wallBoxes(z1, z2, base, h, [...doorSubs(side), ...wins])) group.add(box(WT, bh, bw, x, cy, ca, m));
+      return;
+    }
     for (const [a, c] of cut(z1, z2, side)) group.add(box(WT, h, c - a, x, base + h / 2, (a + c) / 2, m));
     for (const door of opensOn(side)) {
       const doorH = Math.min(h - 0.15, door.h), topH = h - doorH;
@@ -737,6 +778,11 @@ function building(s) {
     }
   };
   const addWallZ = (z, side, m) => {
+    const wins = winSubs(side, x1, x2);
+    if (wins.length) {
+      for (const [bw, bh, ca, cy] of wallBoxes(x1, x2, base, h, [...doorSubs(side), ...wins])) group.add(box(bw, bh, WT, ca, cy, z, m));
+      return;
+    }
     for (const [a, c] of cut(x1, x2, side)) group.add(box(c - a, h, WT, (a + c) / 2, base + h / 2, z, m));
     for (const door of opensOn(side)) {
       const doorH = Math.min(h - 0.15, door.h), topH = h - doorH;
@@ -1055,6 +1101,7 @@ const facadeConduit = (ax, az, bx, bz, y, radius = 0.14) => {
   return frame;
 };
 const wallServiceRun = (side, start, end, wall, y, drops = 3) => {
+  recordFeature('service-run', side, start, end, y - 0.3, y + 0.3, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   const point = axis => side === 'n' || side === 's' ? [axis, y, wall + outward * 0.42] : [wall + outward * 0.42, y, axis];
   group.add(addBeam(point(start), point(end), 0.16, M.pipeDark));
@@ -1068,6 +1115,7 @@ const wallServiceRun = (side, start, end, wall, y, drops = 3) => {
   }
 };
 const wallLight = (side, axis, wall, y) => {
+  recordFeature('wall-light', side, axis - 0.35, axis + 0.35, y - 0.7, y + 0.7, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   if (side === 'n' || side === 's') {
     group.add(box(1.3, 0.12, 0.18, axis, y, wall + outward * 0.12, M.light));
@@ -1093,6 +1141,7 @@ const wallWindowBand = (side, start, end, wall, y, count = 5) => {
   const span = (end - start) / count;
   for (let i = 0; i < count; i++) {
     const axis = start + span * (i + 0.5), width = Math.max(2.4, span * 0.62);
+    recordFeature('window-band', side, axis - width / 2 - 0.14, axis + width / 2 + 0.14, y - 0.6, y + 0.6, wall);
     const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
     if (side === 'n' || side === 's') {
       group.add(edgeBox(width, 0.92, 0.16, axis, y, wall + outward * 0.24, M.glass, 0, 0.025));
@@ -1110,6 +1159,7 @@ const wallWindowBand = (side, start, end, wall, y, count = 5) => {
   }
 };
 const facadeVentBank = (side, start, end, wall, y, count = 3) => {
+  recordFeature('vent-bank', side, start, end, y - 0.5, y + 0.5, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   const span = (end - start) / count;
   for (let i = 0; i < count; i++) {
@@ -1161,6 +1211,7 @@ const facadePanelRibs = (side, start, end, wall, base, height, step = 4.8, mater
   };
   for (const y of [base + 1.1, base + height * 0.5, base + height - 0.42])
     face((start + end) / 2, y, Math.max(1, end - start), 0.09, 0.1, M.trim);
+  recordFeature('ribbed-sheet', side, start, end, base, base + height, wall);
   for (let axis = start + step; axis < end - 0.01; axis += step * 2)
     face(axis, base + height / 2, 0.075, Math.max(1, height - 0.7), 0.09, M.trim);
 };
@@ -1189,6 +1240,7 @@ const facadeWeathering = (side, start, end, wall, base, height, seed, count = 9)
   }
 };
 const dockDoorKit = (side, axis, wall, base, width, height, variant = 'dock') => {
+  recordFeature('dock-door', side, axis - width / 2 - 0.4, axis + width / 2 + 0.4, base, base + height, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   const alongX = side === 'n' || side === 's';
   const px = alongX ? axis : wall + outward * 1.0, pz = alongX ? wall + outward * 1.0 : axis;
@@ -1210,6 +1262,7 @@ const dockDoorKit = (side, axis, wall, base, width, height, variant = 'dock') =>
   }
 };
 const heroDoorBay = (side, axis, wall, base, width, height, variant = 'dock') => {
+  recordFeature('hero-door-bay', side, axis - width / 2 - 0.4, axis + width / 2 + 0.4, base, base + height, wall);
   const outward = side === 'n' ? 1 : side === 's' ? -1 : side === 'e' ? 1 : -1;
   const alongX = side === 'n' || side === 's';
   const panelY = base + height / 2;
@@ -4512,6 +4565,190 @@ for (const { m, geos } of byMat.values()) {
   }
 }
 merged.name = 'facility-built-v1';
+
+// -------- authored object overlay (opt-in; default OFF keeps the artifact byte-identical) --------
+// Renders integrated instances from authoring/scene-state.json. Every instance was
+// contract-validated at integration time; here we render + re-verify presence only.
+const objectOverlay = process.env.BUILD_OBJECT_OVERLAY === '1' && fs.existsSync('authoring/scene-state.json')
+  ? JSON.parse(fs.readFileSync('authoring/scene-state.json', 'utf8')) : null;
+if (objectOverlay) {
+  const textured = (hex, opt, set, strength) => {
+    const m = mat(hex, opt);
+    useTexture(m, set, strength);
+    return m;
+  };
+  const OVERLAY_MATS = {
+    'painted-steel': () => textured(0x7d8a96, { roughness: 0.55, metalness: 0.6 }, textures.panel, 0.35),
+    'steel-dark': () => textured(0x4c565f, { roughness: 0.6, metalness: 0.7 }, textures.panel, 0.4),
+    'glass': () => mat(0x9fc4cf, { roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.42 }),
+    'concrete': () => textured(0x847f77, {}, textures.concrete, 0.25),
+    'roof': () => textured(0x4b5350, { roughness: 0.9, metalness: 0.2 }, textures.panel, 0.3),
+    'safety-yellow': () => mat(0xc79a12, { roughness: 0.55 }),
+    'wood': () => mat(0x8a6b42, { roughness: 0.92 }),
+    'lamp-head': () => mat(0xd8dee4, { roughness: 0.4, emissive: 0xfff2cc, emissiveIntensity: 1.6 }),
+    'galvanized': () => textured(0x9aa5ad, { roughness: 0.5, metalness: 0.75 }, textures.panel, 0.25),
+    'aluminum': () => textured(0xb7bdc2, { roughness: 0.35, metalness: 0.85 }, textures.metal, 0.2),
+    'pmma': () => mat(0xcfd8dc, { roughness: 0.15, metalness: 0.0, transparent: true, opacity: 0.45 }),
+    'grey': () => mat(0x6e767d, { roughness: 0.7 }),
+    'interior-dark': () => mat(0x0a0d10, { roughness: 0.95, side: THREE.DoubleSide }),
+    'interior-floor': () => mat(0x1a1e22, { roughness: 0.7, side: THREE.DoubleSide }),
+    'safety-white': () => mat(0xd8dce0, { roughness: 0.5 }),
+    'wood': () => textured(0x8a6b42, { roughness: 0.9 }, textures.interior, 0.3),
+    'drum-blue': () => mat(0x2a5d8f, { roughness: 0.45, metalness: 0.5 }),
+    'drum-rust': () => textured(0x7a4a2a, { roughness: 0.8, metalness: 0.3 }, textures.rust ? textures.rust : textures.interior, 0.5),
+    'drum-rib': () => mat(0x3d6b99, { roughness: 0.5, metalness: 0.55 }),
+    'wet-asphalt': () => mat(0x23272c, { roughness: 0.18, metalness: 0.35 }),  // flat dark — GLB export drops photoAsphalt textures, keep base color dark
+    'wet-sheen': () => mat(0x1d2126, { roughness: 0.08, metalness: 0.6, transparent: true, opacity: 0.85 }),
+    'wet-film': () => mat(0x14171b, { roughness: 0.05, metalness: 0.75, transparent: true, opacity: 0.9 }),
+    'wet-rim': () => mat(0x3a4148, { roughness: 0.4 }),
+    'barrier-concrete': () => mat(0x8a8a86, { roughness: 0.85 }),  // flat — GLB export drops textures
+    'chainlink': () => mat(0x6e767d, { roughness: 0.4, metalness: 0.8, transparent: true, opacity: 0.4, side: THREE.DoubleSide, wireframe: true }),
+    'fork-yellow': () => mat(0xc79012, { roughness: 0.45, metalness: 0.35 }),
+    'paint-dark': () => mat(0x353b41, { roughness: 0.5, metalness: 0.5 }),
+    'rubber': () => mat(0x1c1e20, { roughness: 0.95 }),
+    'chrome': () => mat(0xc8cdd2, { roughness: 0.2, metalness: 0.95 }),
+    'sign-plate': () => mat(0x39424b, { roughness: 0.55, metalness: 0.4 }),
+    'sign-white': () => mat(0xdde2e6, { roughness: 0.5 })
+  };
+  const loadOverlayObject = id => JSON.parse(fs.readFileSync(`authoring/objects/${id}.json`, 'utf8'));
+  const overlayStats = { instances: 0, meshes: 0, issues: [], connectivity: [], connectivityIssues: [] };
+  for (const inst of objectOverlay.instances || []) {
+    try {
+      const obj = loadOverlayObject(inst.objectId);
+      const variant = (obj.variants || []).find(v => v.id === inst.variant) || (obj.variants || [])[0] || { id: 'clean' };
+      const weather = variant.modifier === 'weathering' ? (variant.params?.wear ?? 0.4) : 0;
+      const broken = variant.modifier === 'damage';
+      const [w, , d] = obj.construction.size;
+      const swapped = ((Math.round((inst.rotY || 0) / 90) * 90) % 360 + 360) % 360 === 90 || ((Math.round((inst.rotY || 0) / 90) * 90) % 360 + 360) % 360 === 270;
+      const rot = ((inst.rotY || 0) * Math.PI) / 180;
+      const instGroup = new Group();
+      const SPLINE_KINDS = ['lathe', 'sweep', 'extrude'];
+      if ((obj.construction.parts || []).length && (obj.construction.parts || []).every(p => SPLINE_KINDS.includes(p.kind))) {
+        // collapse-function path: spline vocabulary, anchor-relative, group-transformed
+        instGroup.position.set(inst.pos[0], inst.pos[1], inst.pos[2]);
+        instGroup.rotation.y = rot;
+        for (const part of obj.construction.parts || []) {
+          if (broken && part.damageDrop) continue;
+          if (!broken && part.damageOnly) continue;
+          const def = buildPartDef(part);
+          const m = (OVERLAY_MATS[part.mat] || OVERLAY_MATS['painted-steel'])();
+          if (weather) { m.color.multiplyScalar(1 - weather * 0.45); m.roughness = Math.min(1, m.roughness + weather * 0.4); }
+          const mesh = new Mesh(def.geometry, m);
+          mesh.position.set(part.pos?.[0] ?? 0, part.pos?.[1] ?? 0, part.pos?.[2] ?? 0);
+          if (part.rotY) mesh.rotation.y = part.rotY;
+          if (part.rotZ) mesh.rotation.z = part.rotZ;
+          if (part.rotX) mesh.rotation.x = part.rotX;
+          instGroup.add(mesh);
+          overlayStats.meshes++;
+        }
+      } else for (const part of obj.construction.parts || []) {
+        if (broken && part.kind === 'glass' && (variant.params?.level ?? 1) >= 2) continue;
+        const [pw, ph, pd] = part.size || [w, 1, d];
+        const m = (OVERLAY_MATS[part.mat] || OVERLAY_MATS['painted-steel'])();
+        if (weather) { m.color.multiplyScalar(1 - weather * 0.45); m.roughness = Math.min(1, m.roughness + weather * 0.4); }
+        const px = (swapped ? (part.offset?.[2] ?? 0) : (part.offset?.[0] ?? 0));
+        const pz = (swapped ? (part.offset?.[0] ?? 0) : (part.offset?.[2] ?? 0));
+        let mesh;
+        if (part.kind === 'cylinder') mesh = new Mesh(new CylinderGeometry(part.topR ?? pw / 2, pw / 2, ph, 24), m);
+        else if (part.kind === 'arc') mesh = new Mesh(new TorusGeometry(part.radius ?? pw / 2, part.tube ?? 0.05, 10, 22, part.arc ?? Math.PI / 2), m);
+        else if (part.kind === 'disc') mesh = new Mesh(new CylinderGeometry(pw / 2, pw / 2, ph, 24), m);
+        else mesh = new Mesh(new BoxGeometry(swapped ? pd : pw, ph, swapped ? pw : pd), m);
+        mesh.position.set(inst.pos[0] + px, inst.pos[1] + (part.offset?.[1] ?? 0) + ph / 2, inst.pos[2] + pz);
+        mesh.rotation.y = rot;
+        if (part.rz) mesh.rotation.z = part.rz;
+        if (part.kind === 'arc') mesh.scale.x = part.flipX ? -1 : 1;
+        instGroup.add(mesh);
+        overlayStats.meshes++;
+      }
+      instGroup.name = `object-overlay:${inst.id}:${obj.id}`;
+      merged.add(instGroup);
+      // part-chain connectivity: every part must reach the anchor through contact;
+      // a floating part (like the delivered head) is a build failure, not a note
+      instGroup.updateMatrixWorld(true);
+      const parts_aabb = [];
+      instGroup.children.forEach(m => {
+        if (!m.geometry) return;
+        m.geometry.computeBoundingBox();
+        const bb = m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld);
+        parts_aabb.push({ name: m.name || m.userData?.name || `part-${instGroup.children.indexOf(m)}`, min: bb.min.toArray(), max: bb.max.toArray() });
+      });
+      // connectivity gate: spline-vocabulary objects only (legacy box path retires
+      // object-by-object through schemas; its offset conventions are incompatible)
+      const isSplineInst = (obj.contract?.quality?.splineVocabulary) === true;
+      const disconnected = isSplineInst
+        ? findDisconnected(parts_aabb, { anchorName: obj.construction.parts?.[0]?.name || 'part-0' })
+        : [];
+      for (const f of disconnected) overlayStats.connectivityIssues.push(`${inst.id}/${f.name}`);
+      overlayStats.connectivity.push({ instance: inst.id, disconnected });
+      overlayStats.instances++;
+    } catch (e) {
+      overlayStats.issues.push(`${inst.id}: ${e.message}`);
+    }
+  }
+    const fills = [];
+  const fillCenters = [];
+  // silhouette rule check for spline-schema objects (schema streetlamp §2/§7)
+  overlayStats.silhouettes = [];
+  for (const inst of objectOverlay.instances || []) {
+    const objDoc = (() => { try { return JSON.parse(fs.readFileSync(`authoring/objects/${inst.objectId}.json`, 'utf8')); } catch { return null; } })();
+    if (!objDoc?.contract?.quality?.splineVocabulary || !objDoc?.contract?.silhouette) continue; // rule applies only where the schema declares it
+    const g = merged.children.find(ch => ch.name === `object-overlay:${inst.id}:${inst.objectId}`);
+    if (!g) continue;
+    const runs = silhouetteRuns(g, { exempt: objDoc.contract.silhouette.exempt || {}, limit: objDoc.contract.silhouette.maxRunM || 0.6 });
+    const bad = Object.entries(runs).filter(([, r]) => r.violation);
+    overlayStats.silhouettes.push({ instance: inst.id, runs, violation: bad.length ? bad.map(b => b[0]) : null });
+  }
+  // opening fills: window frames + glass centered in the cut wall thickness
+  for (const opening of (objectOverlayReg?.openings || [])) {
+    const wall = objectOverlayReg.walls.find(wl => wl.id === opening.wallId);
+    if (!wall) continue;
+    const len = wall.hi - wall.lo, ctr = wall.lo + opening.t * len;
+    const a = ctr - opening.width / 2, c = ctr + opening.width / 2;
+    const y0 = wall.base + opening.sill, y1 = y0 + opening.height;
+    const yC = (y0 + y1) / 2, wC = ctr;
+    const fm = OVERLAY_MATS['painted-steel'](), gm = OVERLAY_MATS['glass']();
+    const fill = new Group();
+    const alongX = wall.axis === 'z'; // wall runs along x
+    // Archipack/Archimesh rule: the frame's cut depth is derived from the host wall
+    // thickness with a small overshoot, so the frame fills the reveal it sits in.
+    const fd = wall.thickness + 0.12;
+    const put = (bw, bh, bd, ox, oy) => {
+      const mesh = new Mesh(new BoxGeometry(alongX ? bw : bd, bh, alongX ? bd : bw), fm);
+      mesh.position.set(alongX ? wC + ox : wall.at, oy, alongX ? wall.at : wC + ox);
+      fill.add(mesh);
+    };
+    put(opening.width + 0.16, 0.1, fd, 0, y1 + 0.02);           // head
+    put(opening.width + 0.16, 0.1, 0.2, 0, y0 - 0.02);          // sill
+    put(0.1, opening.height + 0.12, 0.2, -(opening.width / 2 + 0.03), yC);
+    put(0.1, opening.height + 0.12, 0.2, opening.width / 2 + 0.03, yC);
+    put(0.06, opening.height - 0.1, 0.12, 0, yC);               // mullion
+    const glass = new Mesh(new BoxGeometry(alongX ? opening.width - 0.1 : 0.05, opening.height - 0.1, alongX ? 0.05 : opening.width - 0.1), gm);
+    glass.position.set(alongX ? wC : wall.at, yC, alongX ? wall.at : wC);
+    fill.add(glass);
+    fill.name = `opening-fill:${opening.id}`;
+    merged.add(fill);
+    fillCenters.push({ id: opening.id, expected: alongX ? [wC, yC, wall.at] : [wall.at, yC, wC] });
+    overlayStats.meshes += 6;
+    overlayStats.openings = (overlayStats.openings || 0) + 1;
+  }
+  // coherence: every structurally-matched cut must have a fill at the same world position
+  const cutWithoutFill = [];
+  for (const s of segs.filter(x => ['building-enterable', 'warehouse-enterable', 'facade-non-enterable', 'tower'].includes(x.category))) {
+    for (const side of ['s', 'n', 'w', 'e']) {
+      for (const o of overlayOpeningsFor(s, side)) {
+        const wall = objectOverlayReg.walls.find(wl => wl.id === o.wallId);
+        if (!wall) continue;
+        const len = wall.hi - wall.lo, ctr = wall.lo + o.t * len;
+        const expected = wall.axis === 'z' ? [ctr, wall.base + o.sill + o.height / 2, wall.at] : [wall.at, wall.base + o.sill + o.height / 2, ctr];
+        const hit = fillCenters.some(fc => fc.expected.every((v, i) => Math.abs(v - expected[i]) < 0.05));
+        if (!hit) cutWithoutFill.push(o.id);
+      }
+    }
+  }
+  overlayStats.cutsWithoutFill = cutWithoutFill;
+  merged.userData.objectOverlay = overlayStats;
+}
+
 if (isolatedTransferOnly) merged.userData.transferNetwork = transferNetwork;
 if (campusSpineOnly) merged.userData.campusSpine = campusSpine;
 if (operationalStreetwallOnly) merged.userData.operationalStreetwall = operationalStreetwall;
@@ -4596,6 +4833,15 @@ const report = {
   checks: [],
 };
 const c = (n, p, d = '') => report.checks.push({ n, p, d });
+if (objectOverlay) {
+  const overlayStats = merged.userData.objectOverlay || { instances: 0, meshes: 0, issues: [] };
+  report.objectOverlay = overlayStats;
+  c('object-overlay: every integrated instance rendered from its authored object', overlayStats.instances === (objectOverlay.instances || []).length && overlayStats.issues.length === 0, overlayStats.issues.join('; '));
+  c('object-overlay: instances carry object content trace', (objectOverlay.instances || []).every(inst => Boolean(inst.objectId) && Boolean(inst.objectSha)));
+  c('object-overlay: every cut opening has a co-located fill', !objectOverlay || (report.objectOverlay?.cutsWithoutFill || []).length === 0, (report.objectOverlay?.cutsWithoutFill || []).join(','));
+  c('object-overlay: silhouette straight-run limits (spline objects)', !objectOverlay || (report.objectOverlay?.silhouettes || []).every(x => !x.violation), JSON.stringify((report.objectOverlay?.silhouettes || []).filter(x => x.violation)));
+  c('object-overlay: part-chain connectivity (no floating parts)', !objectOverlay || (overlayStats.connectivityIssues || []).length === 0, (overlayStats.connectivityIssues || []).join('; '));
+}
 const segBoxes = segs.map(s => ({ id: s.id, cat: s.category, minX: s.bounds[0], minZ: s.bounds[1], maxX: s.bounds[2], maxZ: s.bounds[3] }));
 // contact: every non-ground segment with height >= 0.6 has its own ground beneath or is below-grade/elevated with support
 const nonDisp = ['building-enterable', 'warehouse-enterable', 'facade-non-enterable', 'tower', 'wall-blocking', 'bridge', 'mountain-boundary'];
@@ -4655,6 +4901,17 @@ c('campus-spine: placement, support, and contact status recorded', !campusSpineO
   c('open-cell: placement, support, contact, and clearance status recorded', !openCellBuildOnly || activeOpenCellNetwork.features.every(feature => feature.placementStatus === 'PASS' && feature.supportStatus === 'PASS' && feature.contactStatus === 'PASS' && feature.clearance.pad === 'PASS' && feature.clearance.minimumBuildingMargin >= 2 && feature.clearance.minimumRouteMargin >= 2 && feature.clearance.minimumAirLaneMargin >= 2 && feature.clearance.minimumGameplayMargin >= 2));
   c('open-cell: paired relationships span required operational cells', !openCellBuildOnly || activeOpenCellNetwork.features.every(feature => feature.pairedWith && feature.relationship));
   c('open-cell: triangle growth stays within 15 percent', !openCellBuildOnly || Math.round(triCount) <= (openCellNetworkV3Only ? 881216 : 880216), `${Math.round(triCount)} <= ${openCellNetworkV3Only ? 881216 : 880216}`);
+if (objectOverlay) {
+  const attributed = facadeFeatures.map(f => {
+    const alongX = f.side === 'n' || f.side === 's';
+    const b = segs.find(seg => ['building-enterable', 'warehouse-enterable', 'facade-non-enterable', 'tower'].includes(seg.category) && (alongX
+      ? (f.wall >= seg.bounds[1] - 2 && f.wall <= seg.bounds[3] + 2 && f.a <= seg.bounds[2] && f.c >= seg.bounds[0])
+      : (f.wall >= seg.bounds[0] - 2 && f.wall <= seg.bounds[2] + 2 && f.a <= seg.bounds[3] && f.c >= seg.bounds[1])));
+    return { ...f, buildingId: b?.id || null };
+  }).filter(f => f.buildingId);
+  fs.mkdirSync('authoring', { recursive: true });
+  fs.writeFileSync('authoring/facade-features.json', JSON.stringify({ format: 'vexea-facade-features/0.1', features: attributed }, null, 2) + '\n');
+}
 fs.mkdirSync(dirname(reportPath), { recursive: true });
 fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
 let fails = report.checks.filter(x => !x.p).length;

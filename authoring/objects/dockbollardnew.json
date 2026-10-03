@@ -1,0 +1,299 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "dockbollardnew",
+  "type": "bollard",
+  "name": "dock bollard, yellow",
+  "status": "authored",
+  "revision": 10,
+  "construction": {
+    "size": [
+      0.42,
+      1.08,
+      0.4
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "lathe",
+        "name": "bollard-body",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.24,
+            0
+          ],
+          [
+            0.26,
+            0.1
+          ],
+          [
+            0.25,
+            0.6
+          ],
+          [
+            0.21,
+            0.9
+          ],
+          [
+            0.235,
+            0.96
+          ],
+          [
+            0.24,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "safety-yellow"
+      },
+      {
+        "kind": "lathe",
+        "name": "base-flange",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.29,
+            0
+          ],
+          [
+            0.28,
+            0.035
+          ],
+          [
+            0,
+            0.035
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "reflect-band",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.255,
+            0
+          ],
+          [
+            0.255,
+            0.14
+          ],
+          [
+            0,
+            0.14
+          ]
+        ],
+        "pos": [
+          0,
+          0.55,
+          0
+        ],
+        "mat": "safety-white"
+      },
+      {
+        "kind": "lathe",
+        "name": "cap-ring",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.2,
+            0
+          ],
+          [
+            0.24,
+            0.06
+          ],
+          [
+            0.235,
+            0.1
+          ],
+          [
+            0,
+            0.1
+          ]
+        ],
+        "pos": [
+          0,
+          0.9,
+          0
+        ],
+        "mat": "steel-dark"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact",
+        "puddle.submersion@footprint",
+        "apron.standing@footprint",
+        "prop.standing@footprint"
+      ]
+    },
+    "routeClearanceM": 1,
+    "quality": {
+      "minParts": 3,
+      "minMats": 2,
+      "minTris": 24,
+      "maxTris": 6000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/schemas/warehouse-family.schema.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/dockbollardnew-front-near.png",
+        "sha256": "4ab292d4a9cd128586862bb5f0c1be97ffbe55ea219ccae850f9f291a6a1eaec"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/dockbollardnew-front-mid.png",
+        "sha256": "42e26b38963533dbbe6ca82a119f1b118de5a390b911ba9a36c2fd678ff1df99"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/dockbollardnew-front-far.png",
+        "sha256": "888df1abd215d2b18c543a9fcc7bb81c0a80aff183322969e09d10384243425a"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/dockbollardnew-side-near.png",
+        "sha256": "117ad5548473cd0f19c2502e9d7d0cba59550912faabecee178442ecd852e917"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/dockbollardnew-side-mid.png",
+        "sha256": "2f9d65012033c596c0545f808b7d32291a50b90edf58461c6dac627f2b7482b2"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/dockbollardnew-side-far.png",
+        "sha256": "011fc57804775010a8fec64e437910905ea204da462f7284ac877a94b2786d33"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/dockbollardnew-rear-near.png",
+        "sha256": "23907cb3ef86aa94635c0de67b96c431f459dba08d6109c2c53a4409717e3c12"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/dockbollardnew-rear-mid.png",
+        "sha256": "0a07e13618525afca0a2ea5caf3ff668df4d54c040a46e689d3ea7db9d4c6c84"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/dockbollardnew-rear-far.png",
+        "sha256": "7ba132f3af41221e97a430a7c3f2fd4eebe2cb30fd6085d1e6195f0aa35c2b51"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/dockbollardnew-iso-near.png",
+        "sha256": "bba5eaf75a809dd0b3da42b35cb39b6f78c82e04325e5fdf340f1b652a54ed5f"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/dockbollardnew-iso-mid.png",
+        "sha256": "abf5badfdaaa414c2148ff6dae4ed775b376f12c54ef25677fc1e6f46a9637d5"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/dockbollardnew-iso-far.png",
+        "sha256": "4f1b7f71c7fe999b996a04878ad0653889e672e1209bffa79408620ca0571837"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/dockbollardnew-variant-clean.png",
+        "sha256": "abf5badfdaaa414c2148ff6dae4ed775b376f12c54ef25677fc1e6f46a9637d5"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/dockbollardnew-variant-dusty.png",
+        "sha256": "4ed99c81293b37dbef39dc96030a250e6978f4a65e5ef9738c1d0f1780bb7bbf"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/dockbollardnew-variant-broken.png",
+        "sha256": "4da232238d3c6a779e50e9e4ab56f53fb4a91fec3689879ae58406eb17cc7ec2"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

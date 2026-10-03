@@ -1,0 +1,149 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "obj_marking_yard_stripe",
+  "type": "prop",
+  "name": "yard marking stripe, 4m",
+  "status": "authored",
+  "revision": 2,
+  "construction": {
+    "size": [
+      4,
+      0.04,
+      0.35
+    ],
+    "origin": "center-bottom",
+    "parts": [
+      {
+        "kind": "stripe",
+        "size": [
+          4,
+          0.04,
+          0.35
+        ],
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "mat": "safety-yellow"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.6
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "minClearanceM": 0,
+    "overlap": "disallow"
+  },
+  "references": [
+    "blockout/blockout-full-v1.json#segments",
+    "spec/calibration.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-01",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/obj_marking_yard_stripe-front-near.png",
+        "sha256": "1c596496ce9581f87f9439c7fea17c5f462e179b153cd0d68ab36ebfbd8c6c45"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_marking_yard_stripe-front-mid.png",
+        "sha256": "6dae8e244fe5e2c9d84a4af09d2941a83aa148083fceb8919cb607f09abb4e85"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/obj_marking_yard_stripe-front-far.png",
+        "sha256": "5d25aaa0286a81b62f2caf36c5b99b8aea2a65bbbfe8b2923cb5e7796792e98a"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/obj_marking_yard_stripe-side-near.png",
+        "sha256": "04fa79e8b02f715105a1df3c8fcaf5381f41f2fa3a87494b792ccf8e674d87c2"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_marking_yard_stripe-side-mid.png",
+        "sha256": "96044cabca6389b1f3ad2dcee6091e06940af85452e3d4fa1196108ebd77f7f4"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/obj_marking_yard_stripe-side-far.png",
+        "sha256": "9d60ca8e80f3ab0a3e32550410a6ed69947e3b07614796014191b06ec1c62a40"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/obj_marking_yard_stripe-rear-near.png",
+        "sha256": "799c9cddf8a6a58f385d7e13521dbeec9ba756da90c5d8248da97a7f46667285"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_marking_yard_stripe-rear-mid.png",
+        "sha256": "a6762b1a977f2ed5c01bd1635c9dc6308e18dd8b62a1af61c476febaed64fb71"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/obj_marking_yard_stripe-rear-far.png",
+        "sha256": "8d3b6000931ccd630c270a5da516451d27d290fbfc8492cf2ae53f6872544c85"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/obj_marking_yard_stripe-iso-near.png",
+        "sha256": "a1164b7d482f35744696f44b146ee3cd163c98f11f19c4995f955965c23ecb4c"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_marking_yard_stripe-iso-mid.png",
+        "sha256": "1b7f58468d134df003e276c71a8ed80d5c9b00b9cef208456de8d49928ebb2de"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/obj_marking_yard_stripe-iso-far.png",
+        "sha256": "ed2e6c630d9687f42d6c8d6dda3dab1df53f8fb8e3e71539e865f2311e332c98"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_marking_yard_stripe-variant-clean.png",
+        "sha256": "1b7f58468d134df003e276c71a8ed80d5c9b00b9cef208456de8d49928ebb2de"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_marking_yard_stripe-variant-dusty.png",
+        "sha256": "ca17c904b0a598c4261bd706a8ce71b66ae2688d19f0604213aab0308b7c7658"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

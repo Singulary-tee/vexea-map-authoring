@@ -1,0 +1,342 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "dumpsterage",
+  "type": "dumpster",
+  "name": "green dumpster, 1.8m",
+  "status": "authored",
+  "revision": 4,
+  "construction": {
+    "size": [
+      1.9,
+      1.3,
+      1.2
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "extrude",
+        "name": "dumpster-body",
+        "shape": [
+          [
+            -0.9,
+            -0.55
+          ],
+          [
+            0.9,
+            -0.55
+          ],
+          [
+            0.9,
+            0.62
+          ],
+          [
+            -0.9,
+            0.62
+          ]
+        ],
+        "depth": 1.5,
+        "bevel": 0.02,
+        "pos": [
+          0,
+          0.12,
+          0
+        ],
+        "rotX": 1.5708,
+        "mat": "dumpster-green"
+      },
+      {
+        "kind": "extrude",
+        "name": "dumpster-lid",
+        "shape": [
+          [
+            -0.92,
+            -0.57
+          ],
+          [
+            0.92,
+            -0.57
+          ],
+          [
+            0.92,
+            0.66
+          ],
+          [
+            -0.92,
+            0.66
+          ]
+        ],
+        "depth": 0.06,
+        "bevel": 0.01,
+        "pos": [
+          0,
+          0.66,
+          0.28
+        ],
+        "rotX": -0.35,
+        "mat": "dumpster-lid"
+      },
+      {
+        "kind": "lathe",
+        "name": "dumpster-wheel-fl",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.12,
+            0
+          ],
+          [
+            0.12,
+            0.08
+          ],
+          [
+            0,
+            0.08
+          ]
+        ],
+        "pos": [
+          -0.7,
+          0.18,
+          0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "rubber"
+      },
+      {
+        "kind": "lathe",
+        "name": "dumpster-wheel-fr",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.17,
+            0
+          ],
+          [
+            0.15,
+            0.2
+          ],
+          [
+            0,
+            0.2
+          ]
+        ],
+        "pos": [
+          0.7,
+          0.18,
+          0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "rubber"
+      },
+      {
+        "kind": "lathe",
+        "name": "dumpster-rl",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.17,
+            0
+          ],
+          [
+            0.17,
+            0.24
+          ],
+          [
+            0,
+            0.24
+          ]
+        ],
+        "pos": [
+          -0.7,
+          0.18,
+          -0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "rubber"
+      },
+      {
+        "kind": "lathe",
+        "name": "dumpster-rr",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.17,
+            0
+          ],
+          [
+            0.17,
+            0.24
+          ],
+          [
+            0,
+            0.24
+          ]
+        ],
+        "pos": [
+          0.7,
+          0.18,
+          -0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "chrome"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact"
+      ]
+    },
+    "routeClearanceM": 0,
+    "quality": {
+      "minParts": 4,
+      "minMats": 2,
+      "minTris": 32,
+      "maxTris": 9000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/plans/warehouse-execution-plan.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/dumpsterage-front-near.png",
+        "sha256": "62e219dc38d9d4c9ffb170cb9fa4046a141ce33ffacec98e6c69e0c26bb6e95b"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/dumpsterage-front-mid.png",
+        "sha256": "135c04f3ac543e1220fe003de6310a8a155520d9d505eaaa5d35034f8a39195b"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/dumpsterage-front-far.png",
+        "sha256": "8c18cc93a301360e4f56346d561eb0c020e2e422ee502b9e3bd710c2e61329c0"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/dumpsterage-side-near.png",
+        "sha256": "0b619c86201574d9475253aa5ed7721d4a5e6ee8329898ffed4fa9c4489be40b"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/dumpsterage-side-mid.png",
+        "sha256": "6718bc3c6caa3f77812996abf2f518dc4207cb08d896f9503e1f4031199e09c0"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/dumpsterage-side-far.png",
+        "sha256": "ca77abc517ee4bee4a47fccc3a599b1190788b1c2bd7e2d4012574e55ab5e105"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/dumpsterage-rear-near.png",
+        "sha256": "e9a259810cf195ea80e73668a486c4d7289dff5181036a4539bb70516c7d79d5"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/dumpsterage-rear-mid.png",
+        "sha256": "e10b687712f677e754cc493870f6d458d589bd82a3ff66045e79f8b8f59ef06e"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/dumpsterage-rear-far.png",
+        "sha256": "8bef507f97816ed1febe4931014c4cde102e9049d71bee79c1459f5c130861f1"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/dumpsterage-iso-near.png",
+        "sha256": "dc2ad9ba885e508d719a1527c5970d7084d4d1877bcdb267b7d00530c67ec2f2"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/dumpsterage-iso-mid.png",
+        "sha256": "f1770f4f811d5810a91a20b47075cd5b9722c1c8a3e189873834b173506836f9"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/dumpsterage-iso-far.png",
+        "sha256": "bf79d4eaf7c6140a155f76fea605f46bedf96f6e1afaa7fd9eb21fa00f635fba"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/dumpsterage-variant-clean.png",
+        "sha256": "f1770f4f811d5810a91a20b47075cd5b9722c1c8a3e189873834b173506836f9"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/dumpsterage-variant-dusty.png",
+        "sha256": "c6d0cb477a8ce9811574e200405b5998fe777ca715b02c511a4a79d3a14a0b2f"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/dumpsterage-variant-broken.png",
+        "sha256": "81aee40e27eb993068d5ad76059c63f25ed72416800e59556deb399375b87334"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}
