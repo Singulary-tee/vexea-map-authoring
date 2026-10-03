@@ -80,3 +80,29 @@ No building before the execution plan is complete. No building before the checkl
   resolution for apron/puddles in the GLB, (2) confirm glyph/door/bollard visibility
   from the canonical camera, (3) bay interior depth fix, (4) overcast lighting + contact
   shadows in the canonical path, (5) forklift silhouette pass, (6) ground material.
+
+## CRITIC ROUND 7 VERDICT (2026-10-03): DO NOT SERVE — 3 PASS / 6 FAIL
+PASSES: bollards (in frame, correct), pallets (read correctly), drums (recognizable).
+FAILS: bay not dark at canonical distance (sky visible through opening), apron light gray
+not dark (hot specular), B2 sign absent from all faces, warehouse reads as two masses,
+puddles on sand not on apron, forklift at wrong position (half-cropped, not at bay).
+SCORE: 3/10 resemblance. Key insight: the two load-bearing anchors (deep dark bay + wet
+dark apron) are the two that still fail. Everything else is improving.
+
+### Round 8 work order (from round 7, ordered by impact):
+1. BAY SCALE: the bay opening is door-sized (~5m) but the reference has ~60% facade
+   width as bay (approx 15m of 24m). Enlarge bay to ~15m wide x 5.5m high.
+2. BAY DARKNESS: the interior surfaces ARE in the doc but render bright at canonical
+   distance — the camera sees PAST them because the bay is too shallow (8m deep vs
+   the facade height 11.4m; the camera at z=34 is 19m away, so it sees through).
+   Fix: deeper bay (16m+) OR add a dark back wall closer to the facade.
+3. APRON: flatten to flat dark (0x23272c) — done but renders light gray in the
+   canonical path. Verify the GLB material actually carries the color (not the
+   photoAsphalt texture that exports as white).
+4. B2 SIGN: verify glyph visibility from the canonical camera — they may be too small
+   or facing the wrong way. Enlarge if needed.
+5. GROUND: replace the tan/sand ground segments with dark asphalt (the whole yard
+   base, not just the apron). This is a ground-segment material change, not a prop.
+6. FORKLIFT: move to (-152,26) — currently at (-137,26) which is right of frame.
+7. VERIFICATION FIXES: bay-interior-check.png and yard-forklift.png were misframed —
+   the check cameras need to point at the actual bay/forklift positions.
