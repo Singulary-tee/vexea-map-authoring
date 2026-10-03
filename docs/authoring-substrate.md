@@ -245,6 +245,13 @@ the world, and reports actual resulting geometry in every result.
      never have separate code paths.
    - **Adopted**: frame cut-depth derived from the wall record (Archipack `hole_margin` /
      Archimesh cutter = wall + overshoot) so frames fill their reveal.
+   - **Also grafted (final pass)**: pipe flanges per bruchansky numbers (flange disc
+     r = 1.6x pipe, thin ring; tapered couplings), part-level `rz` rotation for
+     axis-aligned fittings, ring density raised to 24 segments (Extra Objects `div=32`
+     rule scaled to overlay budget). Recorded-not-grafted: Cell Fracture size-relative
+     noise + per-cell margin (for the future damage pipeline), Archimesh hole-controller
+     slack (+0.45) for non-axis walls, Archipack 2D polygon pre-filter before boolean
+     (N/A while cuts are scanline-exact).
    - **Recorded for next increments**: Archipack swept-profile frames + Subsurf-4 handles
      (the real anti-low-poly window look — my flat-box frames are the known gap); Archimesh
      hole-controller pattern (wall_thickness + 0.45 cutter, idempotent boolean);

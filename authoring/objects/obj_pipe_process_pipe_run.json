@@ -4,7 +4,7 @@
   "type": "pipe",
   "name": "process pipe run",
   "status": "authored",
-  "revision": 2,
+  "revision": 4,
   "construction": {
     "size": [
       8,
@@ -14,46 +14,82 @@
     "origin": "center-bottom",
     "parts": [
       {
-        "kind": "tube",
+        "kind": "cylinder",
         "size": [
-          8,
           0.3,
+          8,
           0.3
         ],
+        "topR": 0.15,
         "offset": [
           0,
           0,
           0
         ],
-        "mat": "painted-steel"
+        "mat": "painted-steel",
+        "rz": 1.5708
       },
       {
-        "kind": "socket-a",
+        "kind": "disc",
         "size": [
-          0.4,
-          0.4,
-          0.4
+          0.48,
+          0.06,
+          0.48
         ],
         "offset": [
-          -3.9,
+          -3.85,
           0,
           0
         ],
-        "mat": "steel-dark"
+        "mat": "steel-dark",
+        "rz": 1.5708
       },
       {
-        "kind": "socket-b",
+        "kind": "disc",
         "size": [
-          0.4,
-          0.4,
-          0.4
+          0.48,
+          0.06,
+          0.48
         ],
         "offset": [
-          3.9,
+          3.85,
           0,
           0
         ],
-        "mat": "steel-dark"
+        "mat": "steel-dark",
+        "rz": 1.5708
+      },
+      {
+        "kind": "cylinder",
+        "size": [
+          0.34,
+          0.5,
+          0.34
+        ],
+        "topR": 0.17,
+        "offset": [
+          -3.6,
+          0,
+          0
+        ],
+        "mat": "steel-dark",
+        "rz": 1.5708
+      },
+      {
+        "kind": "cylinder",
+        "size": [
+          0.34,
+          0.5,
+          0.34
+        ],
+        "topR": 0.17,
+        "offset": [
+          3.6,
+          0,
+          0
+        ],
+        "mat": "steel-dark",
+        "rz": 1.5708
       }
     ]
   },
@@ -97,97 +133,97 @@
   ],
   "evidence": {
     "mechanism": "tools/capture-object-multiview.mjs",
-    "captured": "2026-10-01",
+    "captured": "2026-10-03",
     "views": [
       {
         "view": "front",
         "dist": "near",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-front-near.png",
-        "sha256": "4a9902381c4cee64c8009c3a7760bbf7cfbab8b2444ac4971e12a90895184f94"
+        "sha256": "d5e81cdbdc7843755cd7c718d013d67e54cf9b1801213e988bb31632db9e9276"
       },
       {
         "view": "front",
         "dist": "mid",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-front-mid.png",
-        "sha256": "3e6d4660a4f7e5adfeb441b6ab8f2ece5a1ba74d42d7d3d1dfc807d9a4cb9386"
+        "sha256": "062c6db14ec3b240d015e8d1194504a8f3c524941f971b40032287380b0a19de"
       },
       {
         "view": "front",
         "dist": "far",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-front-far.png",
-        "sha256": "473725ac3c0e8d3bf8c93ff6d22b2d97bf059e33a64146eddfb58b616f32897c"
+        "sha256": "5f959ddfe212d424219e661cd845b20c8e99287bf0433c97b290eaf9adfcc582"
       },
       {
         "view": "side",
         "dist": "near",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-side-near.png",
-        "sha256": "6981e35f6b3623d2f067e1443ba9d2af42c3240c95c0e57ef6fd273d5f0f734a"
+        "sha256": "f0eb0a10667f8aa21a04a7816baa3fd998c642a1f381d318754da1246e66e11e"
       },
       {
         "view": "side",
         "dist": "mid",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-side-mid.png",
-        "sha256": "46c0c0e4bf334125016a72481489e8db312262856b9296998ced9bb30173bd61"
+        "sha256": "3d8220804b5c3df7095ef0169c4cc58aa3e6bfbda56ad3cda327163a568967ea"
       },
       {
         "view": "side",
         "dist": "far",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-side-far.png",
-        "sha256": "2b4487f4da928e1c3c1422f624cb62efcaafae314a221870d21d0c28c7c2d83f"
+        "sha256": "f89242153fed3d5003fc6df4c486ca809aa1a78c43c5d35c6d33d708054be343"
       },
       {
         "view": "rear",
         "dist": "near",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-rear-near.png",
-        "sha256": "7d42a57ac74b397dda387ef9a68434e8619a5d2cbb788fbbe202bcbe8e913578"
+        "sha256": "4bd271756324affbfd5a347b1c661a2b35524637d714aaf8802d827dc6d99fb7"
       },
       {
         "view": "rear",
         "dist": "mid",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-rear-mid.png",
-        "sha256": "7f59096e753ece561e83cdd7bd6f2a63a3159947d66d6a13328e9203191576c6"
+        "sha256": "71e068b772aa8b6821ea69012faf03ede806eb196aa831125f51650ec61be449"
       },
       {
         "view": "rear",
         "dist": "far",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-rear-far.png",
-        "sha256": "ff7bd0bc5080bac8b3eb6812be71b7189e06013228eb9b7f28cd001e10c5b1b9"
+        "sha256": "ac05db8e1f938af1d6873c4d9359486a065719ae4d40de981879bdf9f33e77e8"
       },
       {
         "view": "iso",
         "dist": "near",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-iso-near.png",
-        "sha256": "0acc6fa68a2d9a433d7a07f24b8c0043776e57b1784deeb4c4d85de34ba7323f"
+        "sha256": "ccbee98179666fa20204483c6f249c3a6f73a5e0ade57d80e845312986e8cfdf"
       },
       {
         "view": "iso",
         "dist": "mid",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-iso-mid.png",
-        "sha256": "07ae97dccb66665cd08adc4be146ce8360edff268cce3afa280dbab9b6e19081"
+        "sha256": "150f4cae71be622ae29a6307a95dc998038518c84808e2e836060e15e08c656c"
       },
       {
         "view": "iso",
         "dist": "far",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-iso-far.png",
-        "sha256": "ab52aa3c3d88f1920641f622f5a7c7e5015d0de430fd611ddcbf2a8bd4e09458"
+        "sha256": "001413f4f02e3ba90c8981af732f853f8e6509c1e9a696d2a289ba9ed26b175e"
       },
       {
         "view": "variant:clean",
         "dist": "iso",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-variant-clean.png",
-        "sha256": "07ae97dccb66665cd08adc4be146ce8360edff268cce3afa280dbab9b6e19081"
+        "sha256": "150f4cae71be622ae29a6307a95dc998038518c84808e2e836060e15e08c656c"
       },
       {
         "view": "variant:dusty",
         "dist": "iso",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-variant-dusty.png",
-        "sha256": "4bfa38b9d3590d041150b91d716253dedeb932430ff1e016c07dbc01a6a82b0c"
+        "sha256": "2a94e18f39a52762e2e5341d8184b9681fec15aa9ebb05c42e7f26b2960c68d5"
       },
       {
         "view": "variant:broken",
         "dist": "iso",
         "path": "artifacts/objects/obj_pipe_process_pipe_run-variant-broken.png",
-        "sha256": "526c13288eb072183051f49ee8e12d2c12763f725d5b7c1b340f816e56f75025"
+        "sha256": "8594d9aef70ed507e07b38081d730bd981806790fe95a93d57774daa99c941be"
       }
     ],
     "gate": "analyze-survey-png"

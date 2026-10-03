@@ -4606,12 +4606,13 @@ if (objectOverlay) {
         const px = (swapped ? (part.offset?.[2] ?? 0) : (part.offset?.[0] ?? 0));
         const pz = (swapped ? (part.offset?.[0] ?? 0) : (part.offset?.[2] ?? 0));
         let mesh;
-        if (part.kind === 'cylinder') mesh = new Mesh(new CylinderGeometry(part.topR ?? pw / 2, pw / 2, ph, 18), m);
+        if (part.kind === 'cylinder') mesh = new Mesh(new CylinderGeometry(part.topR ?? pw / 2, pw / 2, ph, 24), m);
         else if (part.kind === 'arc') mesh = new Mesh(new TorusGeometry(part.radius ?? pw / 2, part.tube ?? 0.05, 10, 22, part.arc ?? Math.PI / 2), m);
-        else if (part.kind === 'disc') mesh = new Mesh(new CylinderGeometry(pw / 2, pw / 2, ph, 20), m);
+        else if (part.kind === 'disc') mesh = new Mesh(new CylinderGeometry(pw / 2, pw / 2, ph, 24), m);
         else mesh = new Mesh(new BoxGeometry(swapped ? pd : pw, ph, swapped ? pw : pd), m);
         mesh.position.set(inst.pos[0] + px, inst.pos[1] + (part.offset?.[1] ?? 0) + ph / 2, inst.pos[2] + pz);
         mesh.rotation.y = rot;
+        if (part.rz) mesh.rotation.z = part.rz;
         if (part.kind === 'arc') mesh.scale.x = part.flipX ? -1 : 1;
         instGroup.add(mesh);
         overlayStats.meshes++;
