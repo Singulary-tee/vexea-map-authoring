@@ -1,0 +1,2341 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "brickyardcove",
+  "type": "warehouse-building",
+  "name": "B2 warehouse, 24m, open bay",
+  "status": "authored",
+  "revision": 6,
+  "construction": {
+    "size": [
+      23.4,
+      12.5,
+      12
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "extrude",
+        "name": "facade-L1",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            4.7,
+            0
+          ],
+          [
+            4.7,
+            11.4
+          ],
+          [
+            0,
+            11.4
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "facade-door1-top",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            9.2
+          ],
+          [
+            0,
+            9.2
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          4.7,
+          2.2,
+          0
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "facade-M",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            5.999999999999999,
+            0
+          ],
+          [
+            5.999999999999999,
+            11.4
+          ],
+          [
+            0,
+            11.4
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          5.7,
+          0,
+          0
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "facade-bay-lintel",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            6.9
+          ],
+          [
+            0,
+            6.9
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          11.7,
+          4.5,
+          0
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "facade-door2-zone",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1.5,
+            0
+          ],
+          [
+            1.5,
+            9.2
+          ],
+          [
+            0,
+            9.2
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          18.1,
+          2.2,
+          0
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "facade-R",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            3.799999999999997,
+            0
+          ],
+          [
+            3.799999999999997,
+            11.4
+          ],
+          [
+            0,
+            11.4
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          19.6,
+          0,
+          0
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "door1-jamb-l",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            0.08000000000000007,
+            0
+          ],
+          [
+            0.08000000000000007,
+            2.3
+          ],
+          [
+            0,
+            2.3
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          4.62,
+          0,
+          0
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "door1-sill",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0.001
+          ],
+          [
+            0,
+            0.001
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          4.7,
+          0,
+          0
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "door2-zone",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1.5,
+            0
+          ],
+          [
+            1.5,
+            2.2
+          ],
+          [
+            0,
+            2.2
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          18.1,
+          0,
+          0
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "door-leaf-1",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            0.94,
+            0
+          ],
+          [
+            0.94,
+            2.18
+          ],
+          [
+            0,
+            2.18
+          ]
+        ],
+        "depth": 0.05,
+        "bevel": 0.004,
+        "pos": [
+          4.72,
+          0,
+          -0.1
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "door-handle-1",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.02,
+            0.14
+          ],
+          [
+            0,
+            0.16
+          ]
+        ],
+        "pos": [
+          5.45,
+          1.1,
+          -0.14
+        ],
+        "rotX": 1.5708,
+        "mat": "chrome"
+      },
+      {
+        "kind": "extrude",
+        "name": "door-leaf-2",
+        "shape": [
+          [
+            0.02,
+            0
+          ],
+          [
+            1.46,
+            0
+          ],
+          [
+            1.46,
+            2.18
+          ],
+          [
+            0,
+            2.18
+          ]
+        ],
+        "depth": 0.05,
+        "bevel": 0.004,
+        "pos": [
+          18.1,
+          0,
+          -0.1
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "door-frame-1",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1.16,
+            0
+          ],
+          [
+            1.06,
+            2.3
+          ],
+          [
+            0,
+            2.3
+          ]
+        ],
+        "depth": 0.05,
+        "bevel": 0.006,
+        "pos": [
+          4.62,
+          0,
+          -0.02
+        ],
+        "mat": "trim"
+      },
+      {
+        "kind": "extrude",
+        "name": "door-frame-2",
+        "shape": [
+          [
+            0,
+            -0.06
+          ],
+          [
+            1.58,
+            -0.06
+          ],
+          [
+            1.58,
+            2.3
+          ],
+          [
+            0,
+            2.3
+          ]
+        ],
+        "depth": 0.04,
+        "bevel": 0.006,
+        "pos": [
+          18.02,
+          0,
+          -0.1
+        ],
+        "mat": "trim"
+      },
+      {
+        "kind": "extrude",
+        "name": "bay-back",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            4.6
+          ],
+          [
+            0,
+            4.6
+          ]
+        ],
+        "depth": 0.1,
+        "bevel": 0.004,
+        "pos": [
+          11.7,
+          0,
+          8.2
+        ],
+        "mat": "interior-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "bay-floor",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            0,
+            8.4
+          ]
+        ],
+        "depth": 0.1,
+        "bevel": 0.004,
+        "pos": [
+          11.7,
+          -0.1,
+          0
+        ],
+        "rotX": 1.5708,
+        "mat": "interior-floor"
+      },
+      {
+        "kind": "extrude",
+        "name": "bay-side-l",
+        "shape": [
+          [
+            0,
+            -0.05
+          ],
+          [
+            8.4,
+            -0.05
+          ],
+          [
+            8.4,
+            4.5
+          ],
+          [
+            0,
+            4.5
+          ]
+        ],
+        "depth": 0.3,
+        "bevel": 0.006,
+        "pos": [
+          11.55,
+          0,
+          0
+        ],
+        "rotX": 1.5708,
+        "mat": "interior-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "bay-side-r",
+        "shape": [
+          [
+            -0.02,
+            -0.05
+          ],
+          [
+            0.02,
+            -0.05
+          ],
+          [
+            0.02,
+            8.4
+          ],
+          [
+            -0.02,
+            8.4
+          ]
+        ],
+        "depth": 4.5,
+        "bevel": 0.006,
+        "pos": [
+          16.4,
+          0,
+          0
+        ],
+        "rotX": 1.5708,
+        "mat": "interior-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "bay-lintel",
+        "shape": [
+          [
+            11.7,
+            0
+          ],
+          [
+            16.7,
+            0
+          ],
+          [
+            16.7,
+            0.8
+          ],
+          [
+            11.7,
+            0.9
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.01,
+        "pos": [
+          11.7,
+          4.5,
+          0
+        ],
+        "mat": "concrete"
+      },
+      {
+        "kind": "extrude",
+        "name": "glyph-B",
+        "shape": [
+          [
+            -0.13,
+            -0.6
+          ],
+          [
+            0.13,
+            -0.3
+          ],
+          [
+            0.13,
+            0.05
+          ],
+          [
+            0,
+            0.32
+          ],
+          [
+            -0.13,
+            0.32
+          ],
+          [
+            -0.13,
+            -0.28
+          ],
+          [
+            -0.03,
+            -0.24
+          ],
+          [
+            0,
+            0.24
+          ],
+          [
+            -0.13,
+            0.28
+          ]
+        ],
+        "depth": 0.02,
+        "bevel": 0.003,
+        "pos": [
+          4.4,
+          5.5,
+          -0.02
+        ],
+        "mat": "sign-white"
+      },
+      {
+        "kind": "extrude",
+        "name": "glyph-2",
+        "shape": [
+          [
+            -0.13,
+            -0.3
+          ],
+          [
+            0.13,
+            -0.3
+          ],
+          [
+            0.13,
+            -0.2
+          ],
+          [
+            -0.02,
+            -0.2
+          ],
+          [
+            -0.02,
+            0.22
+          ],
+          [
+            0.13,
+            0.22
+          ],
+          [
+            0.13,
+            0.3
+          ],
+          [
+            -0.13,
+            0.32
+          ],
+          [
+            -0.13,
+            -0.22
+          ]
+        ],
+        "depth": 0.014,
+        "bevel": 0.003,
+        "pos": [
+          5.9,
+          5.5,
+          -0.02
+        ],
+        "mat": "sign-white"
+      },
+      {
+        "kind": "lathe",
+        "name": "downspout-w",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.055,
+            0
+          ],
+          [
+            0.05,
+            11
+          ],
+          [
+            0,
+            11
+          ]
+        ],
+        "pos": [
+          1.2,
+          0.6,
+          -0.06
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "downspout-e",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.055,
+            0
+          ],
+          [
+            0.05,
+            11
+          ],
+          [
+            0,
+            11.2
+          ]
+        ],
+        "pos": [
+          22.2,
+          0.6,
+          -0.06
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "facade-lamp-1",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.2,
+            0
+          ],
+          [
+            0.16,
+            0.2
+          ],
+          [
+            0,
+            0.22
+          ]
+        ],
+        "pos": [
+          9,
+          5.6,
+          -0.1
+        ],
+        "rotX": 1.2,
+        "mat": "lamp-head"
+      },
+      {
+        "kind": "lathe",
+        "name": "facade-lamp-2",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.2,
+            0
+          ],
+          [
+            0.16,
+            0.2
+          ],
+          [
+            0,
+            0.22
+          ]
+        ],
+        "pos": [
+          17,
+          5.6,
+          -0.018
+        ],
+        "rotX": 1.2,
+        "mat": "lamp-head"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-0",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          0.15,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-1",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          0.44999999999999996,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-2",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          0.75,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-3",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          1.0499999999999998,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-4",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          1.3499999999999999,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-5",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          1.65,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-6",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          1.9499999999999997,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-7",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          2.25,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-8",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          2.55,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-9",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          2.8499999999999996,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-10",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          3.15,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-11",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          3.4499999999999997,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-12",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          3.7499999999999996,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-13",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          4.05,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-14",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          4.3500000000000005,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-20",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          6.15,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-21",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          6.45,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-22",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          6.75,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-23",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          7.05,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-24",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          7.35,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-25",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          7.65,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-26",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          7.95,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-27",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          8.25,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-28",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          8.55,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-29",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          8.85,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-30",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          9.15,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-31",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          9.45,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-32",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          9.75,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-33",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          10.05,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-34",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          10.35,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-35",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          10.65,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-36",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          10.95,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-37",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          11.25,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-57",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          17.249999999999996,
+          0.6,
+          -0.02
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-58",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          17.549999999999997,
+          0.6,
+          -0.02
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-59",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          17.849999999999998,
+          0.6,
+          -0.02
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-66",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          19.95,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-67",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          20.249999999999996,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-68",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          20.549999999999997,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-69",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          20.849999999999998,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-70",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          21.15,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-71",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          21.45,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-72",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          21.749999999999996,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-73",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          22.049999999999997,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-74",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          22.349999999999998,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-75",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          22.65,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-76",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          22.95,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "lathe",
+        "name": "rib-77",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.022,
+            0
+          ],
+          [
+            0.024,
+            0.01
+          ],
+          [
+            0,
+            0.011
+          ]
+        ],
+        "pos": [
+          23.249999999999996,
+          0.6,
+          -0.028
+        ],
+        "mat": "cladding"
+      },
+      {
+        "kind": "extrude",
+        "name": "facade-M2",
+        "shape": [
+          [
+            0,
+            0
+          ],
+          [
+            1.4,
+            0
+          ],
+          [
+            1.4,
+            11.4
+          ],
+          [
+            0,
+            11.4
+          ]
+        ],
+        "depth": 0.35,
+        "bevel": 0.008,
+        "pos": [
+          16.7,
+          0,
+          0
+        ],
+        "mat": "cladding"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.45
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact"
+      ]
+    },
+    "routeClearanceM": 0,
+    "quality": {
+      "minParts": 40,
+      "minMats": 3,
+      "minTris": 4000,
+      "maxTris": 60000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow",
+    "silhouette": {
+      "maxRunM": 2.5,
+      "exempt": {
+        "facadeBand": [
+          0.5,
+          11.5
+        ],
+        "baseBand": [
+          -0.1,
+          0.7
+        ],
+        "roofBand": [
+          11.3,
+          12.5
+        ]
+      }
+    }
+  },
+  "references": [
+    "authoring/plans/warehouse-execution-plan.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/brickyardcove-front-near.png",
+        "sha256": "cac9cad88632bc32b8cdc9ee92e4432bd76b98afa85957e3eb7acec6157b25c4"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/brickyardcove-front-mid.png",
+        "sha256": "ed9607da55923bbeb4a46f2f4d57fdee6f4611188067a2cbc57d9b0db00474e8"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/brickyardcove-front-far.png",
+        "sha256": "a7cbd4234165817d7d2f9080d0a9a36b8acd835adbec0390a3013195b2a24eff"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/brickyardcove-side-near.png",
+        "sha256": "2577eb65a5c5c9311051a86854886360cb387a40223d157835d2e5b102370222"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/brickyardcove-side-mid.png",
+        "sha256": "ca0d6e4be9de936d4d9506c3428f17e204021efdbd35fe3ec66bf4ff3309d5e7"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/brickyardcove-side-far.png",
+        "sha256": "f977547dd0d8db008fe667f279af6f316b8b0ddbdb346bbed3960ff4749bc440"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/brickyardcove-rear-near.png",
+        "sha256": "bb3c361eed3e6d9e6e7c4672872a603580ca950b81e6f18ada6a214ac6c1712f"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/brickyardcove-rear-mid.png",
+        "sha256": "634aab1dd8a119977385a73d94a73e109b21ad518f52319f7357dcc44eb40bd2"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/brickyardcove-rear-far.png",
+        "sha256": "603b3a6b7a104f3905da3563fad417b1aea334bd3fb2ab351ff4657419362aa9"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/brickyardcove-iso-near.png",
+        "sha256": "8f21a3dde75165cf9d9fba21a8ba422f061bd7f1c8d714f0195649849e909457"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/brickyardcove-iso-mid.png",
+        "sha256": "e1d619970f792a5b937c041e9cda9bb2c57201fb271b2d048acb43914cd61946"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/brickyardcove-iso-far.png",
+        "sha256": "6b1bc603f6267570178c90847233c505ae44639fc64612055cf3f9f08efee0e7"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/brickyardcove-variant-clean.png",
+        "sha256": "e1d619970f792a5b937c041e9cda9bb2c57201fb271b2d048acb43914cd61946"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/brickyardcove-variant-dusty.png",
+        "sha256": "9ae898b58ab16c297d5162d9decb27c4c5f1319b6f0e6354434f1157912dd344"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/brickyardcove-variant-broken.png",
+        "sha256": "957339d8cd50913cbd0196fc8e41370281d995f6633183bf01fb2389c6b45963"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

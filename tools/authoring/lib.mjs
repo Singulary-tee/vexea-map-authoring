@@ -360,8 +360,8 @@ export function checkPlacement(state, segments, inst, object, routes, views, obj
       }
     }
   }
-  // arm orientation: toward nearest route point (editor-computed; gate re-derives)
-  if (routes?.length) {
+  // arm orientation: only for schemas that declare it (lamps aim at routes; puddles do not)
+  if (c.armTowardRoute && routes?.length) {
     let best = null;
     for (const r of routes) for (const w of (r.waypoints || [])) {
       const d = Math.hypot(w[0] - inst.pos[0], w[1] - inst.pos[2]);

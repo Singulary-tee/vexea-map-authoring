@@ -1,0 +1,320 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "pinewhisper",
+  "type": "conifer",
+  "name": "conifer, 11m",
+  "status": "authored",
+  "revision": 4,
+  "construction": {
+    "size": [
+      4,
+      11,
+      4
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "lathe",
+        "name": "canopy-0.0",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            1.045,
+            0.4
+          ],
+          [
+            1.9,
+            2.09
+          ],
+          [
+            0.475,
+            3.8
+          ],
+          [
+            0,
+            3.8
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "pine"
+      },
+      {
+        "kind": "lathe",
+        "name": "canopy-2.4",
+        "profile": [
+          [
+            0,
+            2.4
+          ],
+          [
+            0.8250000000000001,
+            2.8
+          ],
+          [
+            1.5,
+            4.05
+          ],
+          [
+            0.375,
+            5.4
+          ],
+          [
+            0,
+            5.4
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "pine"
+      },
+      {
+        "kind": "lathe",
+        "name": "canopy-4.2",
+        "profile": [
+          [
+            0,
+            4.2
+          ],
+          [
+            0.6050000000000001,
+            4.6000000000000005
+          ],
+          [
+            1.1,
+            5.74
+          ],
+          [
+            0.275,
+            7
+          ],
+          [
+            0,
+            7
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "pine"
+      },
+      {
+        "kind": "lathe",
+        "name": "canopy-7.4",
+        "profile": [
+          [
+            0,
+            7.4
+          ],
+          [
+            0.275,
+            7.800000000000001
+          ],
+          [
+            0.5,
+            8.39
+          ],
+          [
+            0.125,
+            9.200000000000001
+          ],
+          [
+            0,
+            9.200000000000001
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "pine"
+      },
+      {
+        "kind": "lathe",
+        "name": "trunk",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.16,
+            0
+          ],
+          [
+            0.13,
+            2.2
+          ],
+          [
+            0,
+            2.2
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "bark"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact"
+      ]
+    },
+    "routeClearanceM": 0,
+    "quality": {
+      "minParts": 2,
+      "minMats": 2,
+      "minTris": 16,
+      "maxTris": 3000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/plans/warehouse-execution-plan.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/pinewhisper-front-near.png",
+        "sha256": "d539e89d99f877a9508455597d46d104001582b77c8dea70be03780d95ea15a4"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/pinewhisper-front-mid.png",
+        "sha256": "98d836f0b476fd28b564ba841bfb2ddf9e8a5287f6184773a56750f157dd0f25"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/pinewhisper-front-far.png",
+        "sha256": "59c3e863e9833ae72ba78aaad58c2b190210fc5b50889ffc91d38b23f161bb5d"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/pinewhisper-side-near.png",
+        "sha256": "6b934863ff52d80bc7526e30402e590388f164e802b532d7763175d54b7c34ae"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/pinewhisper-side-mid.png",
+        "sha256": "4a9bd6dd6bedfd1ec077de7dde9abb3e307bc39222f35942d66da3f1bd0d3211"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/pinewhisper-side-far.png",
+        "sha256": "091eaa61bc5ee904e553f6561894872b7c6ad27ef0f6f179cee452fffb8df047"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/pinewhisper-rear-near.png",
+        "sha256": "66e36403fd496a3e8aef05121706e43c2ac3deb263862fbc56db00ac46af1a45"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/pinewhisper-rear-mid.png",
+        "sha256": "611a08cff94e1e706ac97fd3dc450104deed040cac6179763e124c9c24ce157a"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/pinewhisper-rear-far.png",
+        "sha256": "173e477445489e93ee418988014bba5ae8538585f481539446ae11ee99cb0748"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/pinewhisper-iso-near.png",
+        "sha256": "402ce7f6f3ee44486be4319f54366fbc9bf8334394bfdb454626ac7b63550a67"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/pinewhisper-iso-mid.png",
+        "sha256": "dde39c9882dbb93132bd8de608d3ac56387f060987b99d98eb8bfcf1f027e5bb"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/pinewhisper-iso-far.png",
+        "sha256": "186240745d3e8c579e9a9589fe5bcfd099664a82eed898b799b197503472b3f9"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/pinewhisper-variant-clean.png",
+        "sha256": "dde39c9882dbb93132bd8de608d3ac56387f060987b99d98eb8bfcf1f027e5bb"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/pinewhisper-variant-dusty.png",
+        "sha256": "90d402ccdda3c7b848e44c620f789c41f3028354fd5918639b6f8b8ed785740a"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/pinewhisper-variant-broken.png",
+        "sha256": "23d1b512ea6d472a22315e45348b726c768b745360a1bd4a1aa01bffcd6207c2"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

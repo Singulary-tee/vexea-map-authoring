@@ -4,7 +4,7 @@
   "type": "light-pole",
   "name": "industrial yard luminaire, 9m cobra arm",
   "status": "authored",
-  "revision": 10,
+  "revision": 12,
   "construction": {
     "size": [
       2.4,
@@ -548,7 +548,8 @@
           ]
         }
       }
-    }
+    },
+    "armToward": "route"
   },
   "references": [
     "authoring/schemas/streetlamp.schema.md"

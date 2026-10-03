@@ -4,7 +4,7 @@
   "type": "pallet-load",
   "name": "pallet + drum load, yard storage",
   "status": "authored",
-  "revision": 10,
+  "revision": 12,
   "construction": {
     "size": [
       1.3,
