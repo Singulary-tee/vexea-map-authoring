@@ -4,11 +4,11 @@
   "type": "prop",
   "name": "streetlight, 8m yard",
   "status": "authored",
-  "revision": 3,
+  "revision": 7,
   "construction": {
     "size": [
-      1.6,
-      8,
+      1.7,
+      8.2,
       0.7
     ],
     "origin": "center-bottom",
@@ -16,9 +16,9 @@
       {
         "kind": "cylinder",
         "size": [
+          0.6,
           0.5,
-          0.5,
-          0.5
+          0.6
         ],
         "offset": [
           0,
@@ -30,10 +30,11 @@
       {
         "kind": "cylinder",
         "size": [
-          0.18,
+          0.16,
           7.5,
-          0.18
+          0.16
         ],
+        "topR": 0.1,
         "offset": [
           0,
           0.5,
@@ -42,12 +43,31 @@
         "mat": "steel-dark"
       },
       {
-        "kind": "box",
+        "kind": "cylinder",
         "size": [
-          1.3,
+          0.2,
+          0.1,
+          0.2
+        ],
+        "topR": 0.16,
+        "offset": [
+          0,
+          7.9,
+          0
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "arc",
+        "size": [
+          1.2,
           0.14,
           0.14
         ],
+        "radius": 0.6,
+        "tube": 0.07,
+        "arc": 1.5708,
+        "flipX": true,
         "offset": [
           0.6,
           7.9,
@@ -58,13 +78,27 @@
       {
         "kind": "box",
         "size": [
-          0.78,
-          0.18,
-          0.36
+          0.8,
+          0.13,
+          0.4
         ],
         "offset": [
-          1.15,
-          7.78,
+          0.95,
+          8.42,
+          0
+        ],
+        "mat": "lamp-head"
+      },
+      {
+        "kind": "disc",
+        "size": [
+          0.5,
+          0.045,
+          0.5
+        ],
+        "offset": [
+          0.95,
+          8.33,
           0
         ],
         "mat": "lamp-head"
@@ -72,28 +106,29 @@
       {
         "kind": "box",
         "size": [
-          0.6,
-          0.05,
-          0.26
+          0.45,
+          0.06,
+          0.28
         ],
         "offset": [
-          1.15,
-          7.68,
+          0.95,
+          8.33,
           0
         ],
         "mat": "lamp-head"
       },
       {
-        "kind": "box",
+        "kind": "cylinder",
         "size": [
-          0.12,
-          0.1,
-          0.12
+          0.09,
+          0.07,
+          0.09
         ],
+        "topR": 0.07,
         "offset": [
-          -0.12,
-          7.3,
-          0.12
+          0.14,
+          7.5,
+          0.13
         ],
         "mat": "safety-yellow"
       }
@@ -132,85 +167,85 @@
         "view": "front",
         "dist": "near",
         "path": "artifacts/objects/obj_prop_streetlight_rich-front-near.png",
-        "sha256": "09fe4d6a8a78d0ce101a405a711f1c0a31c67394c34b5475e12e579707b604ce"
+        "sha256": "556c5a1ccbb0eac19807de40b6b7c03be88aa9165b9d783484101729bc1497b3"
       },
       {
         "view": "front",
         "dist": "mid",
         "path": "artifacts/objects/obj_prop_streetlight_rich-front-mid.png",
-        "sha256": "00d910b7c3339e519d627cb1cde52568f55290a2ed9a524f8e64af5015459c42"
+        "sha256": "58d609b7559e611eb7ef651d4ec8f43744f36b65411eb14d1677e5cd591de6dc"
       },
       {
         "view": "front",
         "dist": "far",
         "path": "artifacts/objects/obj_prop_streetlight_rich-front-far.png",
-        "sha256": "a6f573631189bd18abc7c2ee449a4ce09c7529fdd0b5370e72b76cf48342508f"
+        "sha256": "6b04c35d6d8a8d8a0c64d509bbb2d680d5858d01296fbb6e9612ec066b2f17de"
       },
       {
         "view": "side",
         "dist": "near",
         "path": "artifacts/objects/obj_prop_streetlight_rich-side-near.png",
-        "sha256": "ad63ed46ecbfae7e014918d7c7d1afb61807f16795546cd86482be9d84e9419c"
+        "sha256": "7d708187e38092527088e41f3681a082e95c5ecf257559d5c9653ebcbfb2ccae"
       },
       {
         "view": "side",
         "dist": "mid",
         "path": "artifacts/objects/obj_prop_streetlight_rich-side-mid.png",
-        "sha256": "d25441acd91bbc55407df921f7520dc961202f9512d3c7ef1d6bf0899ef94858"
+        "sha256": "bbcd96e917f778efadf6492a82e41afa3e1e0b34b1f4fc09dbef4338f3a76c40"
       },
       {
         "view": "side",
         "dist": "far",
         "path": "artifacts/objects/obj_prop_streetlight_rich-side-far.png",
-        "sha256": "6c33e47deaeb3bf05642864c55c915f0bff38b60152f52170117387b385d5321"
+        "sha256": "ce29d3f02654ffd230abf424c8acdfd97806c7d44a6b612f0788ce2048a9ee33"
       },
       {
         "view": "rear",
         "dist": "near",
         "path": "artifacts/objects/obj_prop_streetlight_rich-rear-near.png",
-        "sha256": "a83e691bbf5c6c9dca656afe64e6f2b9a0f5f0a5914acbb390634dc6998fc47a"
+        "sha256": "795eba59f1e921ae6b0d6ad2ea25761e7457957fa625e5f1ed113b839635241b"
       },
       {
         "view": "rear",
         "dist": "mid",
         "path": "artifacts/objects/obj_prop_streetlight_rich-rear-mid.png",
-        "sha256": "4ab54b24f5c83d15706ed5c831db6dd60da13b63dcc2864380472bddfd7171f6"
+        "sha256": "5836fd49b4034730871e0ac96ce75ad7381e0b5f92d809f205a1cf682de245d4"
       },
       {
         "view": "rear",
         "dist": "far",
         "path": "artifacts/objects/obj_prop_streetlight_rich-rear-far.png",
-        "sha256": "11c30d44e7dfba2b57f12c43cd1a5ca2286ab032cc3b62f9b31c2022e0eb1d69"
+        "sha256": "95426a5ea1660a88e20a10bc073282f8c590c1ae6633f7ffdb0408d735cacf59"
       },
       {
         "view": "iso",
         "dist": "near",
         "path": "artifacts/objects/obj_prop_streetlight_rich-iso-near.png",
-        "sha256": "bb260031a6517b32a1f1d5e405ce9aa91b6899cc0dce256c4637faf62e9957a0"
+        "sha256": "f1f269b39493a8da544302352e2f92c0676f916542a9fc47ace901b687b189f3"
       },
       {
         "view": "iso",
         "dist": "mid",
         "path": "artifacts/objects/obj_prop_streetlight_rich-iso-mid.png",
-        "sha256": "462bb5980ec00bc4496770b008a976b8d3372c92cc262f45d64da334b7d85e1a"
+        "sha256": "b8b75b94e08b848e3bcfc93a86f3eb540bee4da65a72b9cae16f99a3cb3cc533"
       },
       {
         "view": "iso",
         "dist": "far",
         "path": "artifacts/objects/obj_prop_streetlight_rich-iso-far.png",
-        "sha256": "7bdbec4f562afb08a3c57f944317839cff78377bd007eefc819488ec73a6760b"
+        "sha256": "9d4c69b26b76cef3bf7bea1b491d6701bec91ab721e88b69be6c7e4a00931115"
       },
       {
         "view": "variant:clean",
         "dist": "iso",
         "path": "artifacts/objects/obj_prop_streetlight_rich-variant-clean.png",
-        "sha256": "462bb5980ec00bc4496770b008a976b8d3372c92cc262f45d64da334b7d85e1a"
+        "sha256": "b8b75b94e08b848e3bcfc93a86f3eb540bee4da65a72b9cae16f99a3cb3cc533"
       },
       {
         "view": "variant:dusty",
         "dist": "iso",
         "path": "artifacts/objects/obj_prop_streetlight_rich-variant-dusty.png",
-        "sha256": "9113c8266bc7d9bdbb8ce7f8dc1023598a77e1055fd76c4232f0a05a06b0f13a"
+        "sha256": "9659f6f0233cb26fa497d4931f8278a37e321f2fd8c0c3695124c02ae7210635"
       }
     ],
     "gate": "analyze-survey-png"
