@@ -1,0 +1,714 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "brickstarwind",
+  "type": "pallet-load",
+  "name": "pallet + drum load, yard storage",
+  "status": "authored",
+  "revision": 10,
+  "construction": {
+    "size": [
+      1.3,
+      1.1,
+      1.1
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "extrude",
+        "name": "deck-plank-0",
+        "shape": [
+          [
+            -0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            0.055
+          ],
+          [
+            -0.6,
+            0.055
+          ]
+        ],
+        "depth": 0.115,
+        "bevel": 0.008,
+        "pos": [
+          0,
+          0.205,
+          -0.4
+        ],
+        "rotX": 1.5708,
+        "mat": "wood"
+      },
+      {
+        "kind": "extrude",
+        "name": "deck-plank-1",
+        "shape": [
+          [
+            -0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            0.055
+          ],
+          [
+            -0.6,
+            0.055
+          ]
+        ],
+        "depth": 0.115,
+        "bevel": 0.008,
+        "pos": [
+          0,
+          0.205,
+          -0.2
+        ],
+        "rotX": 1.5708,
+        "mat": "wood"
+      },
+      {
+        "kind": "extrude",
+        "name": "deck-plank-2",
+        "shape": [
+          [
+            -0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            0.055
+          ],
+          [
+            -0.6,
+            0.055
+          ]
+        ],
+        "depth": 0.115,
+        "bevel": 0.008,
+        "pos": [
+          0,
+          0.205,
+          0
+        ],
+        "rotX": 1.5708,
+        "mat": "wood"
+      },
+      {
+        "kind": "extrude",
+        "name": "deck-plank-3",
+        "shape": [
+          [
+            -0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            0.055
+          ],
+          [
+            -0.6,
+            0.055
+          ]
+        ],
+        "depth": 0.115,
+        "bevel": 0.008,
+        "pos": [
+          0,
+          0.205,
+          0.20000000000000007
+        ],
+        "rotX": 1.5708,
+        "mat": "wood"
+      },
+      {
+        "kind": "extrude",
+        "name": "deck-plank-4",
+        "shape": [
+          [
+            -0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            -0.055
+          ],
+          [
+            0.6,
+            0.055
+          ],
+          [
+            -0.6,
+            0.055
+          ]
+        ],
+        "depth": 0.115,
+        "bevel": 0.008,
+        "pos": [
+          0,
+          0.205,
+          0.4
+        ],
+        "rotX": 1.5708,
+        "mat": "wood"
+      },
+      {
+        "kind": "extrude",
+        "name": "stringer-0.52",
+        "shape": [
+          [
+            -0.47,
+            -0.05
+          ],
+          [
+            0.47,
+            -0.05
+          ],
+          [
+            0.47,
+            0.05
+          ],
+          [
+            -0.47,
+            0.05
+          ]
+        ],
+        "depth": 0.095,
+        "bevel": 0.006,
+        "pos": [
+          0.52,
+          0.055,
+          0
+        ],
+        "rotY": 1.5708,
+        "mat": "wood"
+      },
+      {
+        "kind": "extrude",
+        "name": "stringer-0.0",
+        "shape": [
+          [
+            -0.47,
+            -0.05
+          ],
+          [
+            0.47,
+            -0.05
+          ],
+          [
+            0.47,
+            0.05
+          ],
+          [
+            -0.47,
+            0.05
+          ]
+        ],
+        "depth": 0.095,
+        "bevel": 0.006,
+        "pos": [
+          0,
+          0.055,
+          0
+        ],
+        "rotY": 1.5708,
+        "mat": "wood"
+      },
+      {
+        "kind": "extrude",
+        "name": "stringer--0.52",
+        "shape": [
+          [
+            -0.47,
+            -0.05
+          ],
+          [
+            0.47,
+            -0.05
+          ],
+          [
+            0.47,
+            0.05
+          ],
+          [
+            -0.47,
+            0.05
+          ]
+        ],
+        "depth": 0.095,
+        "bevel": 0.006,
+        "pos": [
+          -0.52,
+          0.055,
+          0
+        ],
+        "rotY": 1.5708,
+        "mat": "wood"
+      },
+      {
+        "kind": "lathe",
+        "name": "drum-a",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.29,
+            0
+          ],
+          [
+            0.31,
+            0.1
+          ],
+          [
+            0.28,
+            0.14
+          ],
+          [
+            0.28,
+            0.74
+          ],
+          [
+            0.31,
+            0.78
+          ],
+          [
+            0.29,
+            0.88
+          ],
+          [
+            0,
+            0.88
+          ]
+        ],
+        "pos": [
+          -0.28,
+          0.21,
+          -0.25
+        ],
+        "mat": "drum-blue"
+      },
+      {
+        "kind": "lathe",
+        "name": "hoop-a1",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.315,
+            0
+          ],
+          [
+            0.315,
+            0.03
+          ],
+          [
+            0,
+            0.03
+          ]
+        ],
+        "pos": [
+          -0.28,
+          0.63,
+          -0.25
+        ],
+        "mat": "drum-rib"
+      },
+      {
+        "kind": "lathe",
+        "name": "hoop-a2",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.315,
+            0
+          ],
+          [
+            0.315,
+            0.03
+          ],
+          [
+            0,
+            0.03
+          ]
+        ],
+        "pos": [
+          -0.28,
+          0.84,
+          -0.25
+        ],
+        "mat": "drum-rib"
+      },
+      {
+        "kind": "lathe",
+        "name": "drum-b",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.29,
+            0
+          ],
+          [
+            0.31,
+            0.1
+          ],
+          [
+            0.28,
+            0.14
+          ],
+          [
+            0.28,
+            0.74
+          ],
+          [
+            0.31,
+            0.78
+          ],
+          [
+            0.29,
+            0.88
+          ],
+          [
+            0,
+            0.88
+          ]
+        ],
+        "pos": [
+          0.3,
+          0.21,
+          -0.2
+        ],
+        "mat": "drum-rust"
+      },
+      {
+        "kind": "lathe",
+        "name": "hoop-b1",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.315,
+            0
+          ],
+          [
+            0.315,
+            0.03
+          ],
+          [
+            0,
+            0.03
+          ]
+        ],
+        "pos": [
+          0.3,
+          0.63,
+          -0.2
+        ],
+        "mat": "drum-rib"
+      },
+      {
+        "kind": "lathe",
+        "name": "drum-c",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.29,
+            0
+          ],
+          [
+            0.31,
+            0.1
+          ],
+          [
+            0.28,
+            0.14
+          ],
+          [
+            0.28,
+            0.74
+          ],
+          [
+            0.31,
+            0.78
+          ],
+          [
+            0.29,
+            0.88
+          ],
+          [
+            0,
+            0.88
+          ]
+        ],
+        "pos": [
+          0.02,
+          0.21,
+          0.32
+        ],
+        "mat": "drum-blue"
+      },
+      {
+        "kind": "lathe",
+        "name": "hoop-c1",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.315,
+            0
+          ],
+          [
+            0.315,
+            0.03
+          ],
+          [
+            0,
+            0.03
+          ]
+        ],
+        "pos": [
+          0.02,
+          0.79,
+          0.32
+        ],
+        "mat": "drum-rib"
+      },
+      {
+        "kind": "lathe",
+        "name": "bung-a",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.035,
+            0
+          ],
+          [
+            0.03,
+            0.02
+          ],
+          [
+            0,
+            0.02
+          ]
+        ],
+        "pos": [
+          -0.28,
+          1.1,
+          -0.25
+        ],
+        "mat": "drum-rib"
+      },
+      {
+        "kind": "lathe",
+        "name": "bung-b",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.035,
+            0
+          ],
+          [
+            0.03,
+            0.02
+          ],
+          [
+            0,
+            0.02
+          ]
+        ],
+        "pos": [
+          0.3,
+          1.1,
+          -0.2
+        ],
+        "mat": "drum-rib"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1,
+        "note": "one drum toppled"
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact",
+        "puddle.submersion@footprint"
+      ]
+    },
+    "routeClearanceM": 1,
+    "quality": {
+      "minParts": 4,
+      "minMats": 2,
+      "minTris": 600,
+      "maxTris": 12000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/schemas/warehouse-family.schema.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/brickstarwind-front-near.png",
+        "sha256": "198d37212eb520dd3aa3a8eacb7c2532a8db189121e1642dfd9878ad20470d55"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/brickstarwind-front-mid.png",
+        "sha256": "fbf09193240a87b612f31d9809e8f86972079b4737c65499e9528cfeb95e378e"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/brickstarwind-front-far.png",
+        "sha256": "e99391bdab83cdc6b0c92e6703dcc67ac04c1db05061794d924bc2847eed603c"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/brickstarwind-side-near.png",
+        "sha256": "9afd7421248175c234cd2a9cb7cd8e58e58ac7623b511d83bf6d90d8a9f36d53"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/brickstarwind-side-mid.png",
+        "sha256": "a3af7f54bfee162b17b5db89c3e06b84aa3f16906005fb412473f75a7ad33c60"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/brickstarwind-side-far.png",
+        "sha256": "139ad01e35b7482dfec245c6b07f2e207edcca5d4f91be4f70206e45d5ffd1b8"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/brickstarwind-rear-near.png",
+        "sha256": "de7f29badb00b3d87bbc50fcabcf1e2d2df2fbbab3a2bea3d1c31f010d029ff4"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/brickstarwind-rear-mid.png",
+        "sha256": "57b3dd9554b95b764995f7e0767505a11ee1a084a21b037db705c548f4762c46"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/brickstarwind-rear-far.png",
+        "sha256": "5a745bd590c6153477dc1d88f75e9f111ce7e8efc31ae67df879a2e8104018b8"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/brickstarwind-iso-near.png",
+        "sha256": "ba4f01c052407f4c1331b6feb7bffa1910f68f6d64c2a2f7e3f8d1032d3f8913"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/brickstarwind-iso-mid.png",
+        "sha256": "aad76c9f13f10b97f6385425d904cf6b3b980076ec0eb0eea36f9d2287ce3fda"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/brickstarwind-iso-far.png",
+        "sha256": "531955e0462fda7a8d7c6107a35c2b7d0b252765a9e158b83d2ad1b3229d843b"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/brickstarwind-variant-clean.png",
+        "sha256": "aad76c9f13f10b97f6385425d904cf6b3b980076ec0eb0eea36f9d2287ce3fda"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/brickstarwind-variant-dusty.png",
+        "sha256": "3e8d5da7b5072e4aa33f05f35ca5fc5ddb5b93939469a2a9675cd295980b9a29"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/brickstarwind-variant-broken.png",
+        "sha256": "79e6ff1f13f221ca74e78d5674a0bc48c02a0eff23a7f6009402e8a7929da3c3"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

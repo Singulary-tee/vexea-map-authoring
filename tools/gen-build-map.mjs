@@ -4589,7 +4589,23 @@ if (objectOverlay) {
     'galvanized': () => textured(0x9aa5ad, { roughness: 0.5, metalness: 0.75 }, textures.panel, 0.25),
     'aluminum': () => textured(0xb7bdc2, { roughness: 0.35, metalness: 0.85 }, textures.metal, 0.2),
     'pmma': () => mat(0xcfd8dc, { roughness: 0.15, metalness: 0.0, transparent: true, opacity: 0.45 }),
-    'grey': () => mat(0x6e767d, { roughness: 0.7 })
+    'grey': () => mat(0x6e767d, { roughness: 0.7 }),
+    'safety-white': () => mat(0xd8dce0, { roughness: 0.5 }),
+    'wood': () => textured(0x8a6b42, { roughness: 0.9 }, textures.interior, 0.3),
+    'drum-blue': () => mat(0x2a5d8f, { roughness: 0.45, metalness: 0.5 }),
+    'drum-rust': () => textured(0x7a4a2a, { roughness: 0.8, metalness: 0.3 }, textures.rust ? textures.rust : textures.interior, 0.5),
+    'drum-rib': () => mat(0x3d6b99, { roughness: 0.5, metalness: 0.55 }),
+    'wet-asphalt': () => usePbr(mat(0x2e3236, { roughness: 0.15, metalness: 0.4 }), photoAsphalt, 0.5),
+    'wet-sheen': () => mat(0x9db4c0, { roughness: 0.06, metalness: 0.7, transparent: true, opacity: 0.55 }),
+    'wet-rim': () => mat(0x3a4148, { roughness: 0.4 }),
+    'barrier-concrete': () => usePbr(mat(0xffffff), photoConcrete, 0.45),
+    'chainlink': () => mat(0x6e767d, { roughness: 0.4, metalness: 0.8, transparent: true, opacity: 0.4, side: THREE.DoubleSide, wireframe: true }),
+    'fork-yellow': () => mat(0xc79012, { roughness: 0.45, metalness: 0.35 }),
+    'paint-dark': () => mat(0x353b41, { roughness: 0.5, metalness: 0.5 }),
+    'rubber': () => mat(0x1c1e20, { roughness: 0.95 }),
+    'chrome': () => mat(0xc8cdd2, { roughness: 0.2, metalness: 0.95 }),
+    'sign-plate': () => mat(0x39424b, { roughness: 0.55, metalness: 0.4 }),
+    'sign-white': () => mat(0xdde2e6, { roughness: 0.5 })
   };
   const loadOverlayObject = id => JSON.parse(fs.readFileSync(`authoring/objects/${id}.json`, 'utf8'));
   const overlayStats = { instances: 0, meshes: 0, issues: [], connectivity: [], connectivityIssues: [] };
@@ -4618,6 +4634,7 @@ if (objectOverlay) {
           mesh.position.set(part.pos?.[0] ?? 0, part.pos?.[1] ?? 0, part.pos?.[2] ?? 0);
           if (part.rotY) mesh.rotation.y = part.rotY;
           if (part.rotZ) mesh.rotation.z = part.rotZ;
+          if (part.rotX) mesh.rotation.x = part.rotX;
           instGroup.add(mesh);
           overlayStats.meshes++;
         }
@@ -4671,12 +4688,10 @@ if (objectOverlay) {
   overlayStats.silhouettes = [];
   for (const inst of objectOverlay.instances || []) {
     const objDoc = (() => { try { return JSON.parse(fs.readFileSync(`authoring/objects/${inst.objectId}.json`, 'utf8')); } catch { return null; } })();
-    if (!objDoc?.contract?.quality?.splineVocabulary) continue;
+    if (!objDoc?.contract?.quality?.splineVocabulary || !objDoc?.contract?.silhouette) continue; // rule applies only where the schema declares it
     const g = merged.children.find(ch => ch.name === `object-overlay:${inst.id}:${inst.objectId}`);
     if (!g) continue;
-    // intrinsic straight runs from the schema: head band + arm row (cobra-head form)
-    const headY = objDoc.construction.parts.find(p => p.name === 'head-shell')?.pos?.[1] ?? 9;
-    const runs = silhouetteRuns(g, { exempt: { headBand: [headY - 0.25, headY + 0.25], armRow: 0, baseBand: [-0.05, 0.06], armEnvelope: { x: [-0.1, 2.1], y: [8.4, 9.45] } } });
+    const runs = silhouetteRuns(g, { exempt: objDoc.contract.silhouette.exempt || {}, limit: objDoc.contract.silhouette.maxRunM || 0.6 });
     const bad = Object.entries(runs).filter(([, r]) => r.violation);
     overlayStats.silhouettes.push({ instance: inst.id, runs, violation: bad.length ? bad.map(b => b[0]) : null });
   }

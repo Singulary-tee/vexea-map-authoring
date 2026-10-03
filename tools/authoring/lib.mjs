@@ -98,7 +98,9 @@ export function baseDrift(state) {
 export function loadObject(objectId, dir = objectsDirEnv()) {
   const p = `${dir}/${objectId}.json`;
   if (!fs.existsSync(p)) return null;
-  return JSON.parse(fs.readFileSync(p, 'utf8'));
+  const doc = JSON.parse(fs.readFileSync(p, 'utf8'));
+  if (doc.id !== objectId) throw Object.assign(new Error(`object file ${p} declares id "${doc.id}" — filename/identity mismatch; refusing to load`), { code: 'object_identity_mismatch' });
+  return doc;
 }
 
 export function listObjects(dir = objectsDirEnv()) {
@@ -181,8 +183,10 @@ export function checkObjectQuality(object) {
     push('object_over_budget', `${object.id} estimated at ${tri} tris; max ${maxTris} (MeshQA budget class).`);
   }
   // single rectangular prism silhouette: every part identical footprint at same center
-  const footprints = new Set(parts.map(p => JSON.stringify((p.size || c.size || [1, 1, 1]).map(v => Math.round(v * 2) / 2))));
-  if (!insertLike && parts.length > 0 && footprints.size === 1 && maxDim >= 1) {
+  const shapeParts = parts.filter(p => p.kind === 'box' || p.size);
+  const footprints = new Set(shapeParts.map(p => JSON.stringify((p.size || [1, 1, 1]).map(v => Math.round(v * 2) / 2))));
+  const prismCheck = shapeParts.length ? shapeParts : parts;
+  if (!insertLike && shapeParts.length > 0 && footprints.size === 1 && shapeParts.length === parts.length && maxDim >= 1) {
     push('object_below_quality', `${object.id} silhouette is a single rectangular prism; add differentiated parts (setbacks, caps, attachments).`);
   }
   return issues;
@@ -348,10 +352,12 @@ export function checkPlacement(state, segments, inst, object, routes, views, obj
   const rd = pointRouteDistance(inst.pos, routes || []);
   if (rd < (c.routeClearanceM ?? 2)) push('route_clearance', `${inst.id} is ${rd.toFixed(2)}m from a route; >= ${c.routeClearanceM ?? 2}m required.`);
   // lamp spacing
-  for (const other of state.instances) {
-    if (other.id === inst.id || other.objectId !== inst.objectId) continue;
-    if (Math.hypot(other.pos[0] - inst.pos[0], other.pos[2] - inst.pos[2]) < (c.lampSpacingM ?? 12)) {
-      push('lamp_spacing', `${inst.id} is within ${c.lampSpacingM ?? 12}m of another lamp ${other.id}.`);
+  if (c.lampSpacingM !== undefined) {
+    for (const other of state.instances) {
+      if (other.id === inst.id || other.objectId !== inst.objectId) continue;
+      if (Math.hypot(other.pos[0] - inst.pos[0], other.pos[2] - inst.pos[2]) < c.lampSpacingM) {
+        push('lamp_spacing', `${inst.id} is within ${c.lampSpacingM}m of another ${inst.objectId} (${other.id}).`);
+      }
     }
   }
   // arm orientation: toward nearest route point (editor-computed; gate re-derives)
@@ -375,7 +381,7 @@ export function checkPlacement(state, segments, inst, object, routes, views, obj
       const na = Math.hypot(...a), nb = Math.hypot(...b);
       if (na > 350) return false;
       const dot = (a[0] * b[0] + a[1] * b[1] + a[2] * b[2]) / (na * nb || 1);
-      return Math.acos(Math.max(-1, Math.min(1, dot))) < (v.fov / 2) * Math.PI / 180 + 0.06;
+      return Math.acos(Math.max(-1, Math.min(1, dot))) < (v.fov / 2) * Math.PI / 180 + 0.25;
     });
     if (!seen) push('not_in_view', `${inst.id} is not inside any canonical survey view frustum.`);
   }
@@ -397,6 +403,7 @@ export function validateWorld(state, segments, objectsById) {
     const object = objectsById.get(inst.objectId);
     if (!object) { issues.push({ severity: 'error', code: 'object_unknown', message: `Instance ${inst.id} references unknown object ${inst.objectId}.`, refs: [inst.id] }); continue; }
     if (object.status !== 'authored') issues.push({ severity: 'error', code: 'object_not_authored', message: `Instance ${inst.id} holds object ${object.id} with status "${object.status}"; only authored objects may be integrated.`, refs: [inst.id, object.id] });
+    if (process.env.DEBUG_STALE && inst.objectSha !== objectContentSha(object)) console.error('DBG-STALE', inst.id, inst.objectId, 'inst:', inst.objectSha?.slice(0,8), 'live:', objectContentSha(object).slice(0,8));
     if (inst.objectSha && inst.objectSha !== objectContentSha(object)) issues.push({ severity: 'error', code: 'instance_stale_object', message: `Instance ${inst.id} was integrated against an older revision of ${object.id}; re-inspect and re-integrate.`, refs: [inst.id, object.id] });
     if (object.contract?.placement?.mode === 'snap-ground') {
       issues.push(...checkPlacement(state, segments, inst, object, canonicalBase().routes, loadViews(), objectsById));

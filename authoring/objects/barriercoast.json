@@ -1,0 +1,350 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "barriercoast",
+  "type": "barrier",
+  "name": "jersey barrier, 2m",
+  "status": "authored",
+  "revision": 8,
+  "construction": {
+    "size": [
+      2.2,
+      0.9,
+      0.7
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "extrude",
+        "name": "barrier-body",
+        "shape": [
+          [
+            -0.31,
+            0
+          ],
+          [
+            0.31,
+            0
+          ],
+          [
+            0.26,
+            0.55
+          ],
+          [
+            0.18,
+            0.62
+          ],
+          [
+            0.24,
+            0.85
+          ],
+          [
+            -0.31,
+            0.85
+          ]
+        ],
+        "depth": 2,
+        "bevel": 0.03,
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "rotY": 1.5708,
+        "mat": "barrier-concrete"
+      },
+      {
+        "kind": "extrude",
+        "name": "reflective-band",
+        "shape": [
+          [
+            -0.28,
+            0.72
+          ],
+          [
+            0.28,
+            0.72
+          ],
+          [
+            0.28,
+            0.86
+          ],
+          [
+            -0.28,
+            0.86
+          ]
+        ],
+        "depth": 1.9,
+        "bevel": 0.004,
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "safety-white"
+      },
+      {
+        "kind": "extrude",
+        "name": "end-cap-east",
+        "shape": [
+          [
+            -0.33,
+            0
+          ],
+          [
+            0.33,
+            0
+          ],
+          [
+            0.33,
+            0.88
+          ],
+          [
+            -0.33,
+            0.88
+          ]
+        ],
+        "depth": 0.05,
+        "bevel": 0.008,
+        "pos": [
+          1.975,
+          0,
+          0
+        ],
+        "mat": "barrier-concrete"
+      },
+      {
+        "kind": "extrude",
+        "name": "end-cap-west",
+        "shape": [
+          [
+            -0.33,
+            0
+          ],
+          [
+            0.33,
+            0
+          ],
+          [
+            0.33,
+            0.88
+          ],
+          [
+            -0.33,
+            0.88
+          ]
+        ],
+        "depth": 0.05,
+        "bevel": 0.008,
+        "pos": [
+          0.025,
+          0,
+          0
+        ],
+        "mat": "barrier-concrete"
+      },
+      {
+        "kind": "lathe",
+        "name": "refl-bracket",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.03,
+            0
+          ],
+          [
+            0.03,
+            0.06
+          ],
+          [
+            0,
+            0.06
+          ]
+        ],
+        "pos": [
+          0,
+          0.7,
+          0.3
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "refl-bracket-2",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.03,
+            0
+          ],
+          [
+            0.03,
+            0.06
+          ],
+          [
+            0,
+            0.06
+          ]
+        ],
+        "pos": [
+          0,
+          0.7,
+          -0.3
+        ],
+        "mat": "steel-dark"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact",
+        "puddle.submersion@footprint"
+      ]
+    },
+    "routeClearanceM": 1,
+    "quality": {
+      "minParts": 6,
+      "minMats": 2,
+      "minTris": 48,
+      "maxTris": 20000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/schemas/warehouse-family.schema.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/barriercoast-front-near.png",
+        "sha256": "197d13a7df6471bef27d417ed7da2cff59de1937da8d22b6563f52babf102a8a"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/barriercoast-front-mid.png",
+        "sha256": "6326f663904808c2102a9dba2c7dc968bc34cca9e22f58ffa37aecd38971b7ca"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/barriercoast-front-far.png",
+        "sha256": "894928e6284b85e44ec4423dcbcae88b159cfc6737eb28d1f2b65e0733a52527"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/barriercoast-side-near.png",
+        "sha256": "381ee8404a61de9f74c6e65604bba0e62af6fb5fdce3afd37b2302991eab707d"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/barriercoast-side-mid.png",
+        "sha256": "cba851f6e1be54879c045b8cfef27a9834e9bed52b27a8f70db755d7853cf137"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/barriercoast-side-far.png",
+        "sha256": "beafd5567f2de5225919ca09d40732102f637417b74464b1081c2d0c3c94ffef"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/barriercoast-rear-near.png",
+        "sha256": "661b7107325dbba3f6aa30b5f17c433f12f6f82ff05d9f6dc9a63a9b6007050a"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/barriercoast-rear-mid.png",
+        "sha256": "1ffafde41d6bbeda14f9561e96094bbed2ecae97d3ef1f1869a744cc3a5c6472"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/barriercoast-rear-far.png",
+        "sha256": "b7a2e172603030cab74d0799b95b0c138875eea8fde2b7954165ec5f0b2f9c00"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/barriercoast-iso-near.png",
+        "sha256": "561c7b00bc88ac1308606a1e6d81554ca66a9c00445f6e2502d3aca988510768"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/barriercoast-iso-mid.png",
+        "sha256": "6506dcd4aea7b50ca301bf20ba29a8268dea80f9efa8ff91455eb82e37084e7c"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/barriercoast-iso-far.png",
+        "sha256": "509e77aa36b25a16cf316e9e411438915c960c928aac21763003d9c6bfa334c7"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/barriercoast-variant-clean.png",
+        "sha256": "6506dcd4aea7b50ca301bf20ba29a8268dea80f9efa8ff91455eb82e37084e7c"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/barriercoast-variant-dusty.png",
+        "sha256": "02a7b7508cf4a094b5f1efe3523c1ef0ead90a8d93bd623a40f804266df64ce2"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/barriercoast-variant-broken.png",
+        "sha256": "05a6426b1d306c6d773be8230b5e69d017eda889d51f9e30bf5c91ef230a736b"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

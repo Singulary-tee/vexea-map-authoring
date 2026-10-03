@@ -1,0 +1,1125 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "midnightradiosea",
+  "type": "forklift",
+  "name": "counterbalance forklift, 2.5t",
+  "status": "authored",
+  "revision": 9,
+  "construction": {
+    "size": [
+      2.4,
+      2.3,
+      1.2
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "extrude",
+        "name": "chassis",
+        "shape": [
+          [
+            -1.05,
+            -0.48
+          ],
+          [
+            -0.5,
+            -0.55
+          ],
+          [
+            0.5,
+            -0.55
+          ],
+          [
+            1.05,
+            -0.48
+          ],
+          [
+            1.05,
+            0.48
+          ],
+          [
+            0.5,
+            0.55
+          ],
+          [
+            -0.5,
+            0.55
+          ],
+          [
+            -1.05,
+            0.48
+          ]
+        ],
+        "depth": 0.5,
+        "bevel": 0.06,
+        "pos": [
+          0,
+          0.3,
+          0
+        ],
+        "rotX": 1.5708,
+        "mat": "fork-yellow"
+      },
+      {
+        "kind": "lathe",
+        "name": "counterweight",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.46,
+            0
+          ],
+          [
+            0.58,
+            0.4
+          ],
+          [
+            0.38,
+            0.72
+          ],
+          [
+            0,
+            0.8
+          ]
+        ],
+        "pos": [
+          0,
+          0.42,
+          -1.05
+        ],
+        "mat": "paint-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "tire-fl",
+        "shape": [
+          [
+            0.16,
+            -0.13
+          ],
+          [
+            0.24,
+            -0.08
+          ],
+          [
+            0.26,
+            0
+          ],
+          [
+            0.24,
+            0.08
+          ],
+          [
+            0.16,
+            0.13
+          ],
+          [
+            0.13,
+            0
+          ],
+          [
+            0.16,
+            -0.13
+          ]
+        ],
+        "depth": 0.14,
+        "bevel": 0.015,
+        "pos": [
+          0.72,
+          0.36,
+          0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "rubber"
+      },
+      {
+        "kind": "lathe",
+        "name": "hub-fl",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.15,
+            0
+          ],
+          [
+            0.15,
+            0.26
+          ],
+          [
+            0,
+            0.26
+          ]
+        ],
+        "pos": [
+          0.72,
+          0.36,
+          0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "chrome"
+      },
+      {
+        "kind": "extrude",
+        "name": "tire-fr",
+        "shape": [
+          [
+            0.16,
+            -0.13
+          ],
+          [
+            0.24,
+            -0.08
+          ],
+          [
+            0.26,
+            0
+          ],
+          [
+            0.24,
+            0.08
+          ],
+          [
+            0.16,
+            0.13
+          ],
+          [
+            0.13,
+            0
+          ],
+          [
+            0.16,
+            -0.13
+          ]
+        ],
+        "depth": 0.14,
+        "bevel": 0.015,
+        "pos": [
+          0.72,
+          0.36,
+          -0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "rubber"
+      },
+      {
+        "kind": "lathe",
+        "name": "hub-fr",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.15,
+            0
+          ],
+          [
+            0.15,
+            0.26
+          ],
+          [
+            0,
+            0.26
+          ]
+        ],
+        "pos": [
+          0.72,
+          0.36,
+          -0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "chrome"
+      },
+      {
+        "kind": "extrude",
+        "name": "tire-rl",
+        "shape": [
+          [
+            0.16,
+            -0.13
+          ],
+          [
+            0.24,
+            -0.08
+          ],
+          [
+            0.26,
+            0
+          ],
+          [
+            0.24,
+            0.08
+          ],
+          [
+            0.16,
+            0.13
+          ],
+          [
+            0.13,
+            0
+          ],
+          [
+            0.16,
+            -0.13
+          ]
+        ],
+        "depth": 0.14,
+        "bevel": 0.015,
+        "pos": [
+          -0.72,
+          0.36,
+          0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "rubber"
+      },
+      {
+        "kind": "lathe",
+        "name": "hub-rl",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.15,
+            0
+          ],
+          [
+            0.15,
+            0.26
+          ],
+          [
+            0,
+            0.26
+          ]
+        ],
+        "pos": [
+          -0.72,
+          0.36,
+          0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "chrome"
+      },
+      {
+        "kind": "extrude",
+        "name": "tire-rr",
+        "shape": [
+          [
+            0.16,
+            -0.13
+          ],
+          [
+            0.24,
+            -0.08
+          ],
+          [
+            0.26,
+            0
+          ],
+          [
+            0.24,
+            0.08
+          ],
+          [
+            0.16,
+            0.13
+          ],
+          [
+            0.13,
+            0
+          ],
+          [
+            0.16,
+            -0.13
+          ]
+        ],
+        "depth": 0.14,
+        "bevel": 0.015,
+        "pos": [
+          -0.72,
+          0.36,
+          -0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "rubber"
+      },
+      {
+        "kind": "lathe",
+        "name": "hub-rr",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.15,
+            0
+          ],
+          [
+            0.15,
+            0.26
+          ],
+          [
+            0,
+            0.26
+          ]
+        ],
+        "pos": [
+          -0.72,
+          0.36,
+          -0.5
+        ],
+        "rotX": 1.5708,
+        "mat": "chrome"
+      },
+      {
+        "kind": "sweep",
+        "name": "mast-upright-1",
+        "path": [
+          [
+            0.14,
+            0.2,
+            0.42
+          ],
+          [
+            0.14,
+            1,
+            0.4
+          ],
+          [
+            0.14,
+            2.1,
+            0.38
+          ]
+        ],
+        "radius": 0.05,
+        "mat": "paint-dark",
+        "damageRotate": 0.18,
+        "damagePivot": "base"
+      },
+      {
+        "kind": "sweep",
+        "name": "mast-upright-2",
+        "path": [
+          [
+            -0.14,
+            0.2,
+            0.42
+          ],
+          [
+            -0.14,
+            1,
+            0.4
+          ],
+          [
+            -0.14,
+            2.1,
+            0.38
+          ]
+        ],
+        "radius": 0.05,
+        "mat": "paint-dark",
+        "damageRotate": 0.22
+      },
+      {
+        "kind": "sweep",
+        "name": "mast-bar",
+        "path": [
+          [
+            -0.14,
+            2,
+            0.4
+          ],
+          [
+            0,
+            2,
+            0.4
+          ],
+          [
+            0.14,
+            2,
+            0.4
+          ]
+        ],
+        "radius": 0.045,
+        "mat": "paint-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "cyl-hydr",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.045,
+            0
+          ],
+          [
+            0.045,
+            1.5
+          ],
+          [
+            0,
+            1.5
+          ]
+        ],
+        "pos": [
+          0,
+          0.6,
+          0.3
+        ],
+        "mat": "chrome"
+      },
+      {
+        "kind": "lathe",
+        "name": "carriage",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.05,
+            0
+          ],
+          [
+            0.05,
+            1.1
+          ],
+          [
+            0,
+            1.1
+          ]
+        ],
+        "pos": [
+          0.05,
+          0.3,
+          0.55
+        ],
+        "rotX": 1.5708,
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "fork-0-vert",
+        "shape": [
+          [
+            -0.05,
+            0
+          ],
+          [
+            0.05,
+            0
+          ],
+          [
+            0.05,
+            1.05
+          ],
+          [
+            -0.05,
+            1.05
+          ]
+        ],
+        "depth": 0.09,
+        "bevel": 0.008,
+        "pos": [
+          1.02,
+          0.35,
+          0.62
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "fork-0-tine",
+        "shape": [
+          [
+            -0.5,
+            0
+          ],
+          [
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            0.045
+          ],
+          [
+            -0.5,
+            0.055
+          ]
+        ],
+        "depth": 0.1,
+        "bevel": 0.008,
+        "pos": [
+          1.55,
+          0.1,
+          0.62
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "fork-1-vert",
+        "shape": [
+          [
+            -0.05,
+            0
+          ],
+          [
+            0.05,
+            0
+          ],
+          [
+            0.05,
+            1.05
+          ],
+          [
+            -0.05,
+            1.05
+          ]
+        ],
+        "depth": 0.09,
+        "bevel": 0.008,
+        "pos": [
+          1.02,
+          0.35,
+          0.33999999999999997
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "fork-1-tine",
+        "shape": [
+          [
+            -0.5,
+            0
+          ],
+          [
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            0.045
+          ],
+          [
+            -0.5,
+            0.055
+          ]
+        ],
+        "depth": 0.1,
+        "bevel": 0.008,
+        "pos": [
+          1.55,
+          0.1,
+          0.33999999999999997
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "sweep",
+        "name": "cage-post-fl",
+        "path": [
+          [
+            -0.45,
+            0.85,
+            0.42
+          ],
+          [
+            -0.45,
+            1.5,
+            0.42
+          ],
+          [
+            -0.45,
+            2.12,
+            0.42
+          ]
+        ],
+        "radius": 0.035,
+        "mat": "paint-dark"
+      },
+      {
+        "kind": "sweep",
+        "name": "cage-post-fr",
+        "path": [
+          [
+            -0.45,
+            0.85,
+            -0.42
+          ],
+          [
+            -0.45,
+            1.5,
+            -0.42
+          ],
+          [
+            -0.45,
+            2.12,
+            -0.42
+          ]
+        ],
+        "radius": 0.035,
+        "mat": "paint-dark"
+      },
+      {
+        "kind": "sweep",
+        "name": "cage-post-rl",
+        "path": [
+          [
+            0.35,
+            0.85,
+            0.42
+          ],
+          [
+            0.35,
+            1.5,
+            0.42
+          ],
+          [
+            0.35,
+            2.12,
+            0.42
+          ]
+        ],
+        "radius": 0.035,
+        "mat": "paint-dark"
+      },
+      {
+        "kind": "sweep",
+        "name": "cage-post-rr",
+        "path": [
+          [
+            0.35,
+            0.85,
+            -0.42
+          ],
+          [
+            0.35,
+            1.5,
+            -0.42
+          ],
+          [
+            0.35,
+            2.12,
+            -0.42
+          ]
+        ],
+        "radius": 0.035,
+        "mat": "paint-dark"
+      },
+      {
+        "kind": "sweep",
+        "name": "cage-roof-front",
+        "path": [
+          [
+            -0.45,
+            2.12,
+            0.42
+          ],
+          [
+            0,
+            2.12,
+            0.42
+          ],
+          [
+            0.35,
+            2.12,
+            0.42
+          ]
+        ],
+        "radius": 0.032,
+        "mat": "paint-dark"
+      },
+      {
+        "kind": "sweep",
+        "name": "cage-roof-back",
+        "path": [
+          [
+            -0.45,
+            2.12,
+            -0.42
+          ],
+          [
+            0,
+            2.12,
+            -0.42
+          ],
+          [
+            0.35,
+            2.12,
+            -0.42
+          ]
+        ],
+        "radius": 0.032,
+        "mat": "paint-dark"
+      },
+      {
+        "kind": "sweep",
+        "name": "cage-roof-side",
+        "path": [
+          [
+            -0.45,
+            2.12,
+            0.42
+          ],
+          [
+            -0.45,
+            2.12,
+            0
+          ],
+          [
+            -0.45,
+            2.12,
+            -0.42
+          ]
+        ],
+        "radius": 0.032,
+        "mat": "paint-dark"
+      },
+      {
+        "kind": "extrude",
+        "name": "roof-plate",
+        "shape": [
+          [
+            -0.55,
+            -0.5
+          ],
+          [
+            0.45,
+            -0.5
+          ],
+          [
+            0.45,
+            0.5
+          ],
+          [
+            -0.55,
+            0.5
+          ]
+        ],
+        "depth": 0.03,
+        "bevel": 0.008,
+        "pos": [
+          0,
+          2.14,
+          0
+        ],
+        "mat": "paint-dark",
+        "damageRotate": 0.12
+      },
+      {
+        "kind": "extrude",
+        "name": "seat",
+        "shape": [
+          [
+            -0.24,
+            -0.26
+          ],
+          [
+            0.24,
+            -0.26
+          ],
+          [
+            0.2,
+            0.26
+          ],
+          [
+            -0.2,
+            0.26
+          ]
+        ],
+        "depth": 0.12,
+        "bevel": 0.02,
+        "pos": [
+          -0.2,
+          0.3,
+          -0.1
+        ],
+        "mat": "rubber"
+      },
+      {
+        "kind": "lathe",
+        "name": "column",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.035,
+            0
+          ],
+          [
+            0.035,
+            0.5
+          ],
+          [
+            0,
+            0.5
+          ]
+        ],
+        "pos": [
+          0.15,
+          0.85,
+          0.3
+        ],
+        "rotX": 0.6,
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "steering-wheel",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.13,
+            0
+          ],
+          [
+            0.13,
+            0.02
+          ],
+          [
+            0,
+            0.02
+          ]
+        ],
+        "pos": [
+          0.15,
+          1.32,
+          0.3
+        ],
+        "rotX": 1.2,
+        "mat": "rubber"
+      },
+      {
+        "kind": "extrude",
+        "name": "glazing-front",
+        "shape": [
+          [
+            -0.42,
+            0
+          ],
+          [
+            0.32,
+            0
+          ],
+          [
+            0.32,
+            0.9
+          ],
+          [
+            -0.42,
+            0.9
+          ]
+        ],
+        "depth": 0.012,
+        "bevel": 0.004,
+        "pos": [
+          0,
+          1.15,
+          0.43
+        ],
+        "mat": "pmma",
+        "damageDrop": true
+      },
+      {
+        "kind": "extrude",
+        "name": "glazing-side",
+        "shape": [
+          [
+            -0.42,
+            0
+          ],
+          [
+            0.32,
+            0
+          ],
+          [
+            0.32,
+            0.9
+          ],
+          [
+            -0.42,
+            0.9
+          ]
+        ],
+        "depth": 0.012,
+        "bevel": 0.004,
+        "pos": [
+          -0.47,
+          1.15,
+          0
+        ],
+        "rotY": 1.5708,
+        "mat": "pmma",
+        "damageDrop": true
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.45
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 2,
+        "note": "mast stuck raised, fork skew"
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact",
+        "puddle.submersion@footprint"
+      ]
+    },
+    "routeClearanceM": 1,
+    "quality": {
+      "minParts": 12,
+      "minMats": 4,
+      "minTris": 8000,
+      "maxTris": 30000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/schemas/warehouse-family.schema.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/midnightradiosea-front-near.png",
+        "sha256": "48faa9036c883fd81e03b4deb83fe1deaa7a9cbbca5cde460030c4e7829eb34e"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/midnightradiosea-front-mid.png",
+        "sha256": "27d01d8ff822c76ac5b9d84ad8735a9b5f13230eb9e848646d479a0dd2b0c6f5"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/midnightradiosea-front-far.png",
+        "sha256": "ccba4c99ef30976edef259cb7764cd6f07ee74a3d985dbb7327ee9864164f79b"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/midnightradiosea-side-near.png",
+        "sha256": "dc25118450975ae57da9164927edeb7d5d6025879f35b396cb437093f25ec704"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/midnightradiosea-side-mid.png",
+        "sha256": "8b343b7c984e5199feee397e587a8d9b8c07e506671fd26e77fbd9c50719b846"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/midnightradiosea-side-far.png",
+        "sha256": "8bc851799b4320067b0063076b655d9f26fc286d291d0dd53f1a84e9aa397f8e"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/midnightradiosea-rear-near.png",
+        "sha256": "0aca0bf5f99ccd502764d5102152e9fcb45779ce9d2ea3b313bd8b002a24fad4"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/midnightradiosea-rear-mid.png",
+        "sha256": "1271c93284705d8fd5435a1d8e78fc3732e7cb20c62a704eb6094a95a901edd8"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/midnightradiosea-rear-far.png",
+        "sha256": "fb35a9b9085521281b808253f0bf72a896683907b27585c4d82840db677f9ee7"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/midnightradiosea-iso-near.png",
+        "sha256": "b6f6c0b7bfc06508d6517323d7aa1c5ce0b1c7fb0b130b56760bb6c6ad7e9874"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/midnightradiosea-iso-mid.png",
+        "sha256": "f117090ada2c908c26960ca32c2126c7bd0cac746252200240e3305366cdc6d2"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/midnightradiosea-iso-far.png",
+        "sha256": "11e6359b623b6d6935f146d9ea7503fef546466716a5925847f71814e5e76ccc"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/midnightradiosea-variant-clean.png",
+        "sha256": "f117090ada2c908c26960ca32c2126c7bd0cac746252200240e3305366cdc6d2"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/midnightradiosea-variant-dusty.png",
+        "sha256": "44fb35eabec9fc91d9b90c42c4418ec6130de8ca241a59f15d95e4f1e449165e"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/midnightradiosea-variant-broken.png",
+        "sha256": "edbcaeed1b7fbfb28956d0b7d85927c1df6c44eff8c6db63897db9acb2e15eaf"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

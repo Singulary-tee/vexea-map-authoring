@@ -86,7 +86,18 @@ export function buildObject(construction, mats, variant = { id: 'clean' }, hooks
     mesh.position.set(part.pos?.[0] ?? 0, part.pos?.[1] ?? 0, part.pos?.[2] ?? 0);
     if (part.rotY) mesh.rotation.y = eulerY(part.rotY);
     if (part.rotZ) mesh.rotation.z = part.rotZ;
-    if (broken && part.damageRotate && variant.params?.level >= 2) mesh.rotation.z = part.damageRotate;
+    if (part.rotX) mesh.rotation.x = part.rotX;
+    if (broken && part.damageRotate && (variant.params?.level ?? 1) >= 2) {
+      // rotate about the part's own base so limbs tilt, not orbit
+      const pivot = new THREE.Group();
+      pivot.position.copy(mesh.position);
+      mesh.position.set(0, 0, 0);
+      pivot.add(mesh);
+      pivot.rotation.set(part.damageRotate * 0.3, part.damageRotate, part.damageRotate * 0.25);
+      group.add(pivot);
+      hooks.part?.(part, mesh);
+      continue;
+    }
     if (weather) {
       const m = mesh.material;
       if (m.color) m.color.multiplyScalar(1 - weather * 0.4);

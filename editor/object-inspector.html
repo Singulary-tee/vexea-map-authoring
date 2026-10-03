@@ -26,19 +26,43 @@ const fill = new THREE.DirectionalLight(0xa8bdd2, 1.1); fill.position.set(-6, 3,
 scene.add(new THREE.AmbientLight(0xffffff, 0.55));
 const grid = new THREE.GridHelper(20, 20, 0x44525e, 0x36424c); grid.position.y = -0.001; scene.add(grid);
 
+const texLoader = new THREE.TextureLoader();
+const pbr = (name, rep, color, extra = {}) => {
+  const m = new THREE.MeshStandardMaterial({ color: 0xffffff, ...extra });
+  const set = (f, slot, srgb) => { const t = texLoader.load(`/assets/pbr/${name}-${f}.png`); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep, rep); if (srgb) t.colorSpace = THREE.SRGBColorSpace; m[slot] = t; };
+  set('albedo', 'map', true); set('normal', 'normalMap', false); set('roughness', 'roughnessMap', false); set('metalness', 'metalnessMap', false);
+  if (color !== undefined) { m.color = new THREE.Color(color); }
+  return m;
+};
+const flat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, ...o });
 const MATS = {
-  'painted-steel': () => new THREE.MeshStandardMaterial({ color: 0x7d8a96, roughness: 0.55, metalness: 0.6 }),
-  'steel-dark': () => new THREE.MeshStandardMaterial({ color: 0x4c565f, roughness: 0.6, metalness: 0.7 }),
-  'glass': () => new THREE.MeshStandardMaterial({ color: 0x9fc4cf, roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.42 }),
-  'concrete': () => new THREE.MeshStandardMaterial({ color: 0x847f77, roughness: 0.95 }),
-  'roof': () => new THREE.MeshStandardMaterial({ color: 0x4b5350, roughness: 0.9, metalness: 0.2 }),
-  'galvanized': () => new THREE.MeshStandardMaterial({ color: 0x9aa5ad, roughness: 0.5, metalness: 0.75 }),
-  'aluminum': () => new THREE.MeshStandardMaterial({ color: 0xb7bdc2, roughness: 0.35, metalness: 0.85 }),
-  'pmma': () => new THREE.MeshStandardMaterial({ color: 0xcfd8dc, roughness: 0.15, metalness: 0.0, transparent: true, opacity: 0.45 }),
-  'grey': () => new THREE.MeshStandardMaterial({ color: 0x6e767d, roughness: 0.7 }),
-  'safety-yellow': () => new THREE.MeshStandardMaterial({ color: 0xc79a12, roughness: 0.55 }),
-  'wood': () => new THREE.MeshStandardMaterial({ color: 0x8a6b42, roughness: 0.92 }),
-  'lamp-head': () => new THREE.MeshStandardMaterial({ color: 0xd8dee4, roughness: 0.4 }),
+  'painted-steel': () => pbr('painted-steel', 2.2, undefined),
+  'concrete': () => pbr('concrete', 2.0, undefined),
+  'steel-dark': () => flat(0x4c565f, { roughness: 0.6, metalness: 0.7 }),
+  'galvanized': () => flat(0x9aa5ad, { roughness: 0.45, metalness: 0.8 }),
+  'aluminum': () => flat(0xb7bdc2, { roughness: 0.35, metalness: 0.85 }),
+  'pmma': () => flat(0xcfd8dc, { roughness: 0.15, transparent: true, opacity: 0.45 }),
+  'grey': () => flat(0x6e767d, { roughness: 0.7 }),
+  'glass': () => flat(0x9fc4cf, { roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.42 }),
+  'roof': () => flat(0x4b5350, { roughness: 0.9, metalness: 0.2 }),
+  'lamp-head': () => flat(0xd8dee4, { roughness: 0.4 }),
+  'safety-yellow': () => flat(0xc79a12, { roughness: 0.5 }),
+  'safety-white': () => flat(0xd8dce0, { roughness: 0.5 }),
+  'wood': () => flat(0x8a6b42, { roughness: 0.9 }),
+  'drum-blue': () => flat(0x2a5d8f, { roughness: 0.45, metalness: 0.5 }),
+  'drum-rust': () => flat(0x7a4a2a, { roughness: 0.8, metalness: 0.3 }),
+  'drum-rib': () => flat(0x3d6b99, { roughness: 0.5, metalness: 0.55 }),
+  'wet-asphalt': () => pbr('asphalt', 1.4, undefined, { roughness: 0.12, metalness: 0.35 }),
+  'wet-sheen': () => flat(0x9db4c0, { roughness: 0.06, metalness: 0.7, transparent: true, opacity: 0.55 }),
+  'wet-rim': () => flat(0x3a4148, { roughness: 0.4 }),
+  'barrier-concrete': () => pbr('concrete', 1.2, undefined),
+  'chainlink': () => flat(0x6e767d, { roughness: 0.4, metalness: 0.8, transparent: true, opacity: 0.45, side: THREE.DoubleSide, wireframe: true }),
+  'fork-yellow': () => flat(0xc79012, { roughness: 0.45, metalness: 0.35 }),
+  'paint-dark': () => flat(0x353b41, { roughness: 0.5, metalness: 0.5 }),
+  'rubber': () => flat(0x1c1e20, { roughness: 0.95 }),
+  'chrome': () => flat(0xc8cdd2, { roughness: 0.2, metalness: 0.95 }),
+  'sign-plate': () => flat(0x39424b, { roughness: 0.55, metalness: 0.4 }),
+  'sign-white': () => flat(0xdde2e6, { roughness: 0.5 }),
 };
 const [W, H, D] = obj.construction.size || [1, 1, 1];
 const { buildObject } = await import('/tools/authoring/parts.mjs');

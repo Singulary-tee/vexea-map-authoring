@@ -4,7 +4,7 @@
   "type": "light-pole",
   "name": "industrial yard luminaire, 9m cobra arm",
   "status": "authored",
-  "revision": 5,
+  "revision": 10,
   "construction": {
     "size": [
       2.4,
@@ -329,7 +329,7 @@
             0
           ],
           [
-            1.0,
+            1,
             9.17,
             0
           ],
@@ -469,7 +469,7 @@
         ],
         "pos": [
           1.45,
-          9.0,
+          9,
           0
         ],
         "rotZ": 2.6,
@@ -524,7 +524,31 @@
       "maxTris": 12000,
       "splineVocabulary": true
     },
-    "overlap": "disallow"
+    "overlap": "disallow",
+    "silhouette": {
+      "maxRunM": 0.6,
+      "exempt": {
+        "headBand": [
+          8.85,
+          9.45
+        ],
+        "armRow": 0,
+        "baseBand": [
+          -0.05,
+          0.06
+        ],
+        "armEnvelope": {
+          "x": [
+            -0.1,
+            2.1
+          ],
+          "y": [
+            8.4,
+            9.45
+          ]
+        }
+      }
+    }
   },
   "references": [
     "authoring/schemas/streetlamp.schema.md"
@@ -537,91 +561,91 @@
         "view": "front",
         "dist": "near",
         "path": "artifacts/objects/obj_light_yard_cobra-front-near.png",
-        "sha256": "96ddd85e1f7c8dadabfdeac7ad670e634ae261cab4841e4486195cf6d382b437"
+        "sha256": "d17233603838bdb707ee32efcef9cc9189b18a0c809299ac247a702bf8a50339"
       },
       {
         "view": "front",
         "dist": "mid",
         "path": "artifacts/objects/obj_light_yard_cobra-front-mid.png",
-        "sha256": "1692b2cdd83bcd4cb5a261b48539cb727e3587ca3c1575de84607e60b3a249c9"
+        "sha256": "40bf5d302d93f3e5aa00ad9537edc8c754b2dc45e75e241af17b67841e27e05e"
       },
       {
         "view": "front",
         "dist": "far",
         "path": "artifacts/objects/obj_light_yard_cobra-front-far.png",
-        "sha256": "9a9fc8c2bdbdf24e713a96d048a1f408ff9d32a9c181a9847b75085395cc8f9e"
+        "sha256": "6af33dd4629b6a42153eaec1cb6ea14a71484ac4f8feec4abaac68186b65b002"
       },
       {
         "view": "side",
         "dist": "near",
         "path": "artifacts/objects/obj_light_yard_cobra-side-near.png",
-        "sha256": "f390350b4896204d45a4b230f4f89335067b583db8d097ac1405334b5a06044b"
+        "sha256": "3e0cb4ee668fc14a4b1ffc519d151d27d41cd7596eeba4789663622b2ed27c2f"
       },
       {
         "view": "side",
         "dist": "mid",
         "path": "artifacts/objects/obj_light_yard_cobra-side-mid.png",
-        "sha256": "c7d95eb7e384c87de8cdd58050fe418091590258ccd5de5f7da4fc95edf599b9"
+        "sha256": "132c81b7aeae5e40dfc307d333a8f591769e76ade9b93dd79ec9bb0e6d721660"
       },
       {
         "view": "side",
         "dist": "far",
         "path": "artifacts/objects/obj_light_yard_cobra-side-far.png",
-        "sha256": "21c2035e83c5c3f3d1f670dcdf447eff2e10d58e6315a0a04cbdcf99424dca6f"
+        "sha256": "3a77bbf8f36e90b97c870fb26b83a2a016e9c5620cdf66a0e7602eb5b3f987e0"
       },
       {
         "view": "rear",
         "dist": "near",
         "path": "artifacts/objects/obj_light_yard_cobra-rear-near.png",
-        "sha256": "190f2f015845657b2f64fb055049dd98490cdce4f680be5222f85ad71011ab73"
+        "sha256": "1163fd71bfab5bb231e9767486208fda1a029c667afc3d7f2fb852644ff22e76"
       },
       {
         "view": "rear",
         "dist": "mid",
         "path": "artifacts/objects/obj_light_yard_cobra-rear-mid.png",
-        "sha256": "15fe7a616382b7babe3e0702a49466680d865e8d8936dd8ddcd8f1a633bd18a2"
+        "sha256": "b968cc355ad41244460f7f4c1745edf672c58379bb78e75b3feb5afd9c8dcc7f"
       },
       {
         "view": "rear",
         "dist": "far",
         "path": "artifacts/objects/obj_light_yard_cobra-rear-far.png",
-        "sha256": "e0e4a349c558a06072c9591104c482e6330274343202a146d8857ab408ce72e5"
+        "sha256": "bb8afccec1cf00f180ec521967a78ceb53fa3a1ac28133c8616c72ec763d8ca6"
       },
       {
         "view": "iso",
         "dist": "near",
         "path": "artifacts/objects/obj_light_yard_cobra-iso-near.png",
-        "sha256": "1afa7b3bab0c61f7be935176548c9577e7a3cf2ed9c77a38a2d472bf1e5de66b"
+        "sha256": "62d271bb05031d0970372e331d8962e4745fec9d04476b6808f290b154324e31"
       },
       {
         "view": "iso",
         "dist": "mid",
         "path": "artifacts/objects/obj_light_yard_cobra-iso-mid.png",
-        "sha256": "66c154c2053f9f0d66d795874d47f1e3e1c11d15607a9fcee2f208bc4b2149ef"
+        "sha256": "28ae7a45e0ea2fadf4da06912c2ece0a3f88d88b860d5895e9d86e481ffaa68e"
       },
       {
         "view": "iso",
         "dist": "far",
         "path": "artifacts/objects/obj_light_yard_cobra-iso-far.png",
-        "sha256": "0eb7a7677c4a21e09205531925d4d976c6c34488e02bd61e991539c01b0dd206"
+        "sha256": "e757c312f42997132a185ce91d16912c5ff21ac2e2a72bf587b6bd332e8ebee2"
       },
       {
         "view": "variant:clean",
         "dist": "iso",
         "path": "artifacts/objects/obj_light_yard_cobra-variant-clean.png",
-        "sha256": "66c154c2053f9f0d66d795874d47f1e3e1c11d15607a9fcee2f208bc4b2149ef"
+        "sha256": "28ae7a45e0ea2fadf4da06912c2ece0a3f88d88b860d5895e9d86e481ffaa68e"
       },
       {
         "view": "variant:dusty",
         "dist": "iso",
         "path": "artifacts/objects/obj_light_yard_cobra-variant-dusty.png",
-        "sha256": "5c3e10c3ae440eddcb0f5cc5da659c7be6d5a0f2b603f788884ae97aeadad7cd"
+        "sha256": "5eb1e945ac0a56def80ddc2e6577315107671d5b0f0479a98e21f40215a55274"
       },
       {
         "view": "variant:broken",
         "dist": "iso",
         "path": "artifacts/objects/obj_light_yard_cobra-variant-broken.png",
-        "sha256": "9e9657a80928af9176dd0873cc54e660149d0757561668ca223b394d3594c751"
+        "sha256": "7de167bdf1f7dddb4a599de0c3f2991a1f8fa7a868865bf580c21b4b8624af82"
       }
     ],
     "gate": "analyze-survey-png"

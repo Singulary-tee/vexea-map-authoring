@@ -1,0 +1,667 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "fencesilent",
+  "type": "fence-run",
+  "name": "fence run, 8m, barbed",
+  "status": "authored",
+  "revision": 8,
+  "construction": {
+    "size": [
+      8.4,
+      2.9,
+      0.1
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "lathe",
+        "name": "post-0",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.035,
+            0
+          ],
+          [
+            0.028,
+            2.4
+          ],
+          [
+            0,
+            2.4
+          ]
+        ],
+        "pos": [
+          -4,
+          0,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "post-cap-0",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.038,
+            0
+          ],
+          [
+            0.03,
+            0.05
+          ],
+          [
+            0,
+            0.06
+          ]
+        ],
+        "pos": [
+          -4,
+          2.4,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "post-1",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.035,
+            0
+          ],
+          [
+            0.028,
+            2.4
+          ],
+          [
+            0,
+            2.4
+          ]
+        ],
+        "pos": [
+          -2,
+          0,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "post-cap-1",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.038,
+            0
+          ],
+          [
+            0.03,
+            0.05
+          ],
+          [
+            0,
+            0.06
+          ]
+        ],
+        "pos": [
+          -2,
+          2.4,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "post-2",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.035,
+            0
+          ],
+          [
+            0.028,
+            2.4
+          ],
+          [
+            0,
+            2.4
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "post-cap-2",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.038,
+            0
+          ],
+          [
+            0.03,
+            0.05
+          ],
+          [
+            0,
+            0.06
+          ]
+        ],
+        "pos": [
+          0,
+          2.4,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "post-3",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.035,
+            0
+          ],
+          [
+            0.028,
+            2.4
+          ],
+          [
+            0,
+            2.4
+          ]
+        ],
+        "pos": [
+          2,
+          0,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "post-cap-3",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.038,
+            0
+          ],
+          [
+            0.03,
+            0.05
+          ],
+          [
+            0,
+            0.06
+          ]
+        ],
+        "pos": [
+          2,
+          2.4,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "post-4",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.035,
+            0
+          ],
+          [
+            0.028,
+            2.4
+          ],
+          [
+            0,
+            2.4
+          ]
+        ],
+        "pos": [
+          4,
+          0,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "post-cap-4",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.038,
+            0
+          ],
+          [
+            0.03,
+            0.05
+          ],
+          [
+            0,
+            0.06
+          ]
+        ],
+        "pos": [
+          4,
+          2.4,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "sweep",
+        "name": "top-rail",
+        "path": [
+          [
+            -4.1,
+            2.4,
+            0
+          ],
+          [
+            -2,
+            2.4,
+            0
+          ],
+          [
+            0,
+            2.4,
+            0
+          ],
+          [
+            2,
+            2.4,
+            0
+          ],
+          [
+            4.1,
+            2.4,
+            0
+          ]
+        ],
+        "radius": 0.025,
+        "mat": "galvanized"
+      },
+      {
+        "kind": "sweep",
+        "name": "bottom-rail",
+        "path": [
+          [
+            -4.1,
+            0.1,
+            0
+          ],
+          [
+            0,
+            0.1,
+            0
+          ],
+          [
+            4.1,
+            0.1,
+            0
+          ]
+        ],
+        "radius": 0.02,
+        "mat": "galvanized"
+      },
+      {
+        "kind": "extrude",
+        "name": "chainlink-mesh",
+        "shape": [
+          [
+            -4,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            0.06
+          ],
+          [
+            -4,
+            0.06
+          ]
+        ],
+        "depth": 2.2,
+        "bevel": 0.002,
+        "pos": [
+          0,
+          0.08,
+          0
+        ],
+        "rotX": 1.5708,
+        "mat": "chainlink"
+      },
+      {
+        "kind": "sweep",
+        "name": "barbed-1",
+        "path": [
+          [
+            -4.1,
+            2.62,
+            0.3
+          ],
+          [
+            -2,
+            2.6,
+            0.3
+          ],
+          [
+            0,
+            2.58,
+            0.3
+          ],
+          [
+            2,
+            2.61,
+            0.3
+          ],
+          [
+            4.1,
+            2.63,
+            0.3
+          ]
+        ],
+        "radius": 0.006,
+        "mat": "galvanized"
+      },
+      {
+        "kind": "sweep",
+        "name": "barbed-2",
+        "path": [
+          [
+            -4.1,
+            2.5,
+            0.32
+          ],
+          [
+            -2,
+            2.48,
+            0.32
+          ],
+          [
+            0,
+            2.46,
+            0.32
+          ],
+          [
+            2,
+            2.49,
+            0.32
+          ],
+          [
+            4.1,
+            2.51,
+            0.32
+          ]
+        ],
+        "radius": 0.006,
+        "mat": "galvanized"
+      },
+      {
+        "kind": "sweep",
+        "name": "barbed-arm-a",
+        "path": [
+          [
+            -2,
+            2.4,
+            0
+          ],
+          [
+            -2,
+            2.51,
+            0.15
+          ],
+          [
+            -2,
+            2.62,
+            0.3
+          ]
+        ],
+        "radius": 0.008,
+        "mat": "galvanized"
+      },
+      {
+        "kind": "sweep",
+        "name": "barbed-arm-b",
+        "path": [
+          [
+            0,
+            2.4,
+            0
+          ],
+          [
+            0,
+            2.49,
+            0.15
+          ],
+          [
+            0,
+            2.58,
+            0.3
+          ]
+        ],
+        "radius": 0.008,
+        "mat": "galvanized"
+      },
+      {
+        "kind": "sweep",
+        "name": "barbed-arm-c",
+        "path": [
+          [
+            2,
+            2.4,
+            0
+          ],
+          [
+            2,
+            2.505,
+            0.15
+          ],
+          [
+            2,
+            2.61,
+            0.3
+          ]
+        ],
+        "radius": 0.008,
+        "mat": "galvanized"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact",
+        "puddle.submersion@footprint"
+      ]
+    },
+    "routeClearanceM": 1,
+    "quality": {
+      "minParts": 6,
+      "minMats": 2,
+      "minTris": 40,
+      "maxTris": 60000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/schemas/warehouse-family.schema.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/fencesilent-front-near.png",
+        "sha256": "509930a923d161d1cbf037595e0537d51bde8fde78fb166bba437a359a683aeb"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/fencesilent-front-mid.png",
+        "sha256": "4eb1b039de9a47459cbbdfc5a6aa3eb5190582f48d34743b9800c59cb71cd716"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/fencesilent-front-far.png",
+        "sha256": "53ab09e138545e7d238dfa558059e1cf9e01391b979fdb5848188e761f5c7ff6"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/fencesilent-side-near.png",
+        "sha256": "dcd5c357a313958b06155869ceb10eb77efefca39cff612c2f0e61cbc1f2576d"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/fencesilent-side-mid.png",
+        "sha256": "eacb87dadc53b731171a9cf5ceb1c52b45ce5f4eddff7dcf03c9ad3ef1ce222b"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/fencesilent-side-far.png",
+        "sha256": "c1d71f6767ef7b17584f2148abb7683e235def4f90b72af17e2669b68fac18ec"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/fencesilent-rear-near.png",
+        "sha256": "1b0871d69042b216c3692856592117b6a86897d14438ca3f2076b883a45bb2c1"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/fencesilent-rear-mid.png",
+        "sha256": "9f1abea394bb32575cf5e37ea4a89a6cb279ac9ed9cf4c8d87c5be066c73f024"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/fencesilent-rear-far.png",
+        "sha256": "251d786cf217a8b1cd9931e8eb9299ad7b751fde70a8ca5d8a53812dcda164d9"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/fencesilent-iso-near.png",
+        "sha256": "85039de97f6ea4813a120eefe3d53825580d25d9261dfeafddd02955ef403a54"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/fencesilent-iso-mid.png",
+        "sha256": "3f4d5e86dcc591a255ac9c727757849bba4c00dbbbbc315bb3ccc1727c6b90e6"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/fencesilent-iso-far.png",
+        "sha256": "e1794f7d297503cef8ff270b929837d57374707c6c85a1f5e7b3e0ff8617e3e5"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/fencesilent-variant-clean.png",
+        "sha256": "3f4d5e86dcc591a255ac9c727757849bba4c00dbbbbc315bb3ccc1727c6b90e6"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/fencesilent-variant-dusty.png",
+        "sha256": "15447a7eb4e859fc38edc4e2d46e1fe2e5b1ed674f366462b6208f9f6d07b3fe"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/fencesilent-variant-broken.png",
+        "sha256": "d5359e194c2815ef2d724ac8657858ad072d47fc968ff3cd4880b38557095a87"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

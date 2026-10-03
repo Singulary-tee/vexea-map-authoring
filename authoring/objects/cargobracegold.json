@@ -1,0 +1,361 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "cargobracegold",
+  "type": "sign",
+  "name": "wall sign plate",
+  "status": "authored",
+  "revision": 7,
+  "construction": {
+    "size": [
+      2.4,
+      1.2,
+      0.1
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "extrude",
+        "name": "B2-plate",
+        "shape": [
+          [
+            -1.2,
+            -0.6
+          ],
+          [
+            1.2,
+            -0.6
+          ],
+          [
+            1.2,
+            0.6
+          ],
+          [
+            -1.2,
+            0.6
+          ]
+        ],
+        "depth": 0.05,
+        "bevel": 0.008,
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "sign-plate"
+      },
+      {
+        "kind": "extrude",
+        "name": "B-stem",
+        "shape": [
+          [
+            -0.09,
+            -0.28
+          ],
+          [
+            0.02,
+            -0.28
+          ],
+          [
+            0.02,
+            0.28
+          ],
+          [
+            -0.09,
+            0.28
+          ]
+        ],
+        "depth": 0.012,
+        "bevel": 0.002,
+        "pos": [
+          -0.5,
+          0,
+          0.065
+        ],
+        "mat": "sign-white"
+      },
+      {
+        "kind": "extrude",
+        "name": "B-bowl",
+        "shape": [
+          [
+            0,
+            -0.28
+          ],
+          [
+            0.2,
+            -0.26
+          ],
+          [
+            0.22,
+            0
+          ],
+          [
+            0.02,
+            0.28
+          ]
+        ],
+        "depth": 0.012,
+        "bevel": 0.002,
+        "pos": [
+          -0.55,
+          0,
+          0.06
+        ],
+        "mat": "sign-white"
+      },
+      {
+        "kind": "extrude",
+        "name": "glyph-2",
+        "shape": [
+          [
+            -0.12,
+            -0.28
+          ],
+          [
+            0.14,
+            -0.28
+          ],
+          [
+            0.14,
+            -0.2
+          ],
+          [
+            -0.02,
+            -0.2
+          ],
+          [
+            -0.02,
+            0.22
+          ],
+          [
+            0.14,
+            0.22
+          ],
+          [
+            0.14,
+            0.28
+          ],
+          [
+            -0.12,
+            0.28
+          ],
+          [
+            -0.12,
+            -0.2
+          ]
+        ],
+        "depth": 0.012,
+        "bevel": 0.002,
+        "pos": [
+          0.42,
+          0,
+          0.06
+        ],
+        "mat": "sign-white"
+      },
+      {
+        "kind": "lathe",
+        "name": "standoff-a",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.02,
+            0.06
+          ],
+          [
+            0,
+            0.06
+          ]
+        ],
+        "pos": [
+          -1,
+          0,
+          0.03
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "standoff-b",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.02,
+            0.05
+          ],
+          [
+            0,
+            0.05
+          ]
+        ],
+        "pos": [
+          0.9,
+          0,
+          0.055
+        ],
+        "mat": "steel-dark"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact",
+        "puddle.submersion@footprint"
+      ]
+    },
+    "routeClearanceM": 1,
+    "quality": {
+      "minParts": 2,
+      "minMats": 2,
+      "minTris": 16,
+      "maxTris": 4000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/schemas/warehouse-family.schema.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/cargobracegold-front-near.png",
+        "sha256": "8d423aa3870ff9d2ac3192916e0ef72c72bc650719a4d2a3dff97054e7af47bf"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/cargobracegold-front-mid.png",
+        "sha256": "c3175f08818b36c4ab483d24ba7abcd4c60750beb2d64a13c9b18b11a335badb"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/cargobracegold-front-far.png",
+        "sha256": "2d0dc6d4e1973204b25b2b1c8bebf3d0a33c1eb88bf56cba8f48d907e8fd5e50"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/cargobracegold-side-near.png",
+        "sha256": "d0654c8bdf47765852fea9e6707de496e7137e045812936442986f1bd2c050ae"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/cargobracegold-side-mid.png",
+        "sha256": "9782225d192bc912eea5f3bc134daed8478b08dbed8c4e56fc526757fef29e93"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/cargobracegold-side-far.png",
+        "sha256": "b582bb9c02a53ba0501a91285416e3bdd755594b97bf602c7ee2003a1e506a41"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/cargobracegold-rear-near.png",
+        "sha256": "71bbb01e2a097f3788b7c0f91f98365e971adc39c89ed4d8445ff677a74120a9"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/cargobracegold-rear-mid.png",
+        "sha256": "3c7505cb27bad296d14f78e47f92c69abfdbed7a24bdb3a43bfc7086ebbb6ea3"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/cargobracegold-rear-far.png",
+        "sha256": "83487a9b0ee1c926ac56e95a2b837e843720c2eb6fd87d1a5e5d3a449540f186"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/cargobracegold-iso-near.png",
+        "sha256": "68fa9a62b9b2f793bb8ca2dcaed005623675a94ee828ad1b460611b6dc53005b"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/cargobracegold-iso-mid.png",
+        "sha256": "3191f5aa8084d364db935bfca8f54b9de46d16299ec58febc56bc969072220de"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/cargobracegold-iso-far.png",
+        "sha256": "8c3f62bd6a68323e1458355db942a642670be1758828bb7172481818cc51b53b"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/cargobracegold-variant-clean.png",
+        "sha256": "3191f5aa8084d364db935bfca8f54b9de46d16299ec58febc56bc969072220de"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/cargobracegold-variant-dusty.png",
+        "sha256": "edee6b302b28aab6f2df90c87c9a326ad2c500de72ccc033ee69fb520334f30b"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/cargobracegold-variant-broken.png",
+        "sha256": "e80a59d9e5182b889c7b203bfa1176dc57217bc2b93a1a456808bb63c4b312e8"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}

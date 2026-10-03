@@ -1,0 +1,324 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "poolwaveprint",
+  "type": "puddle",
+  "name": "wet puddle decal",
+  "status": "authored",
+  "revision": 7,
+  "construction": {
+    "size": [
+      2.4,
+      0.03,
+      2.4
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "extrude",
+        "name": "pool",
+        "shape": [
+          [
+            1.1529991187111857,
+            0
+          ],
+          [
+            1.1277398068943296,
+            0.467124684593611
+          ],
+          [
+            1.025484176233594,
+            1.0254828156273248
+          ],
+          [
+            0.4444341242646983,
+            1.0729558704845366
+          ],
+          [
+            0.0000015761527322514814,
+            1.1879400020281852
+          ],
+          [
+            -0.47378026101526227,
+            1.1438120972646113
+          ],
+          [
+            -0.696029287087923,
+            0.6960320575577552
+          ],
+          [
+            -1.099879782296439,
+            0.4555881147740616
+          ],
+          [
+            -1.264826113732132,
+            0.0000033563296657774012
+          ],
+          [
+            -1.263476510994191,
+            -0.5233446876114135
+          ],
+          [
+            -0.6557007215361186,
+            -0.655696371648692
+          ],
+          [
+            -0.40531997063965547,
+            -0.9785188718474567
+          ],
+          [
+            -0.000003682343191490302,
+            -0.9251224386125301
+          ],
+          [
+            0.5273613853723254,
+            -1.2731785370221407
+          ],
+          [
+            0.9226754849407309,
+            -0.922684054388399
+          ],
+          [
+            0.8263019341904517,
+            -0.3422702843950836
+          ]
+        ],
+        "depth": 0.012,
+        "bevel": 0.0015,
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "rotX": -1.5708,
+        "mat": "wet-asphalt"
+      },
+      {
+        "kind": "extrude",
+        "name": "sheen",
+        "shape": [
+          [
+            0.8070993830978299,
+            0
+          ],
+          [
+            0.7894178648260307,
+            0.35034351344520825
+          ],
+          [
+            0.7178389233635157,
+            0.7691121117204935
+          ],
+          [
+            0.3111038869852888,
+            0.8047169028634025
+          ],
+          [
+            0.000001103306912576037,
+            0.8909550015211389
+          ],
+          [
+            -0.3316461827106836,
+            0.8578590729484585
+          ],
+          [
+            -0.48722050096154607,
+            0.5220240431683164
+          ],
+          [
+            -0.7699158476075073,
+            0.3416910860805462
+          ],
+          [
+            -0.8853782796124923,
+            0.000002517247249333051
+          ],
+          [
+            -0.8844335576959337,
+            -0.39250851570856016
+          ],
+          [
+            -0.458990505075283,
+            -0.49177227873651896
+          ],
+          [
+            -0.2837239794477588,
+            -0.7338891538855925
+          ],
+          [
+            -0.000002577640234043211,
+            -0.6938418289593975
+          ],
+          [
+            0.3691529697606277,
+            -0.9548839027666055
+          ],
+          [
+            0.6458728394585116,
+            -0.6920130407912992
+          ],
+          [
+            0.5784113539333162,
+            -0.2567027132963127
+          ]
+        ],
+        "depth": 0.004,
+        "bevel": 0.0006,
+        "pos": [
+          0,
+          0.012,
+          0
+        ],
+        "rotX": -1.5708,
+        "mat": "wet-sheen"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.5
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 1
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact",
+        "puddle.submersion@footprint",
+        "route.crossing@footprint"
+      ]
+    },
+    "routeClearanceM": 0,
+    "quality": {
+      "minParts": 2,
+      "minMats": 2,
+      "minTris": 24,
+      "maxTris": 9000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/schemas/warehouse-family.schema.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/poolwaveprint-front-near.png",
+        "sha256": "fb5f03c7ad342fcbacfed21ed816d6051522d58fe923dcba966d08165c04237d"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/poolwaveprint-front-mid.png",
+        "sha256": "80ee25305e244896073c6e54423cd7e9d6a0d6be12794ecfeec69a80ef48c8e6"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/poolwaveprint-front-far.png",
+        "sha256": "6c4b8006daaaa20ade7b3e2366f452002ed64ff66f4998c39e6af6d324148fba"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/poolwaveprint-side-near.png",
+        "sha256": "0a1e871739265e403abb3beb93afa1d8603c78fbd1af8b6d52365c1b1247b153"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/poolwaveprint-side-mid.png",
+        "sha256": "05c717ba0b435a1169a530ed71bca0173b4ce4c20ad12efa7aea80698f82415c"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/poolwaveprint-side-far.png",
+        "sha256": "5c96d6a9da646ca2318169120129704eb83dcb33e5adf69f8154abca07b82a1f"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/poolwaveprint-rear-near.png",
+        "sha256": "14a791d068239a96438e8dee62209173fd69a1de6ecb8e5a18710ad71c5d227f"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/poolwaveprint-rear-mid.png",
+        "sha256": "60e368d948b3d2559012d922b0bf7250193616d0b8eeb10e3886f9fc9c3e55e5"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/poolwaveprint-rear-far.png",
+        "sha256": "a0fa0c2c27249e83d4dad99f6c8e016cb816437be483a1c5063da161cdf71abb"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/poolwaveprint-iso-near.png",
+        "sha256": "962bca5ce3f59be0b95583b23d52a07acd10f10d3ba767e767605e6f7f66b585"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/poolwaveprint-iso-mid.png",
+        "sha256": "971cc76e16dc97ff66b77348694138445471c4a36cd2b9a15f8d59c77ffb49f6"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/poolwaveprint-iso-far.png",
+        "sha256": "9444cd14ca9f84575793d04f5fd87f20d39232b3c9731614588a8b8a0654b47c"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/poolwaveprint-variant-clean.png",
+        "sha256": "971cc76e16dc97ff66b77348694138445471c4a36cd2b9a15f8d59c77ffb49f6"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/poolwaveprint-variant-dusty.png",
+        "sha256": "5a8152aa50baa2b8ac1e16bc86d26c90ef42ec5f78ba35b3c2a33a4d3e43d3fc"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/poolwaveprint-variant-broken.png",
+        "sha256": "3ffbfa087a6f953c2c499ac949d12800f7961c2abfee7859a10804dfcf1eb7e6"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}
