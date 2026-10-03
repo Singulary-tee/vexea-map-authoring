@@ -336,19 +336,26 @@ export function checkPlacement(state, segments, inst, object, routes, views, obj
   if (Math.abs(inst.pos[1] - sy) > 0.001) push('flush_contact', `${inst.id} base y=${inst.pos[1]} != host ${host.id} surface y=${sy}; snap-ground requires flush (gap 0, penetration 0).`);
   // default-deny: every non-ground segment volume is a blocker; allowlist is schema text
   const box = footprintAABB(inst.pos, sizeOf(inst, object), inst.rotY);
+  const isGroundLayer = (object.contract?.interactions?.allow || []).some(a => a.startsWith('building.contact') || a.startsWith('ground-layer'));
   for (const s of segments) {
     if (s.category === 'ground-surface-type') continue;
-    if (aabbOverlapArea(segBox(s), box) > 0.01) push('intersect_allowlist', `${inst.id} intersects ${s.id} (${s.category}); not in the schema allowlist.`);
+    if (aabbOverlapArea(segBox(s), box) > 0.01) {
+      // ground-layer objects (aprons) sit under everything by design
+      if (isGroundLayer) continue;
+      push('intersect_allowlist', `${inst.id} intersects ${s.id} (${s.category}); not in the schema allowlist.`);
+    }
   }
   // other instances (except the host contact): full footprint overlap is a violation
   // unless the schema allowlists the interaction class (e.g. building.contact@footprint)
   const allow = c.interactions?.allow || [];
+  const iAmGroundLayer = allow.some(a => a.startsWith('building.contact') || a.startsWith('ground-layer'));
   for (const other of state.instances) {
     if (other.id === inst.id) continue;
     const oo = objectsById?.get(other.objectId);
     if (!oo) continue;
     const area = aabbOverlapArea(box, footprintAABB(other.pos, sizeOf(other, oo), other.rotY));
     if (area <= 0.001) continue;
+    if (iAmGroundLayer) continue; // ground layer underlies all instances
     const otherType = oo.type || '';
     const otherAllow = oo.contract?.interactions?.allow || [];
     // pair is legal if EITHER side's allowlist permits the contact class:
@@ -468,7 +475,9 @@ export function validateWorld(state, segments, objectsById) {
       const isLayer = o => (o.contract?.interactions?.allow || []).some(a => a.startsWith('ground-layer') || a.startsWith('building.contact'));
       const isBuilding = o => o.type === 'warehouse-building' || o.type === 'apron';
       const layerAllowed = (isLayer(oa) && isBuilding(ob)) || (isBuilding(oa) && isLayer(ob));
-      if (layerAllowed) continue;
+      const eitherIsLayer = (oa.contract?.interactions?.allow || []).some(a => a.startsWith('building.contact') || a.startsWith('ground-layer'))
+        || (ob.contract?.interactions?.allow || []).some(a => a.startsWith('building.contact') || a.startsWith('ground-layer'));
+      if (eitherIsLayer) continue;
       if (area > (disallow && !isBuilding(oa) && !isBuilding(ob) ? 0.5 : 5)) issues.push({ severity: 'error', code: 'instance_overlap', message: `Instances ${a.id} and ${b.id} overlap by ${area.toFixed(1)} m^2.`, refs: [a.id, b.id] });
     }
   }
