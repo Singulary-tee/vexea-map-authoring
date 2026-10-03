@@ -14,6 +14,7 @@ export function opsCommand(command, args) {
     move_opening: () => ops.moveOpening(args),
     remove_instance: () => ops.removeInstance(args),
     walls_list: () => ops.wallsList(),
+    place_object: () => ops.placeObject(args),
     place_relative: () => ops.placeRelative(args),
     inspect_object: () => ops.inspectObject(args),
     inspect_region: () => ops.inspectRegion(args),

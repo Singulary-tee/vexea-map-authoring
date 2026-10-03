@@ -1,0 +1,26 @@
+{
+  "format": "vexea-views/0.1",
+  "source": "tools/capture-built-survey.mjs",
+  "views": [
+    { "id": "top", "position": [5, 900, 10], "target": [5, 0, 10], "fov": 50 },
+    { "id": "orbit", "position": [-760, 470, 720], "target": [5, 0, 10], "fov": 50 },
+    { "id": "zone-spawn", "position": [-310, 1.7, 214], "target": [-236, 4.5, 176], "fov": 50 },
+    { "id": "zone-courtyard", "position": [-105, 1.7, 119], "target": [-64, 5.0, 82], "fov": 50 },
+    { "id": "zone-warehouse", "position": [-164, 1.7, 34], "target": [-118, 5.0, -10], "fov": 50 },
+    { "id": "zone-plant", "position": [188, 1.7, -92], "target": [238, 6.0, -48], "fov": 50 },
+    { "id": "zone-bridge", "position": [250, 1.7, 112], "target": [292, 8.0, 62], "fov": 50 },
+    { "id": "zone-tunnels", "position": [72, -11.9, -198], "target": [160, -11.2, -201], "fov": 50 },
+    { "id": "zone-core", "position": [40, 1.7, -190], "target": [48, 7.0, -248], "fov": 50 },
+    { "id": "zone-boundary", "position": [-40, 1.7, 292], "target": [90, 6.0, 310], "fov": 50 },
+    { "id": "route-main-surface", "position": [-242, 1.7, 160], "target": [-160, 3.2, 150], "fov": 50 },
+    { "id": "route-covered", "position": [-102, 1.7, 70], "target": [-40, 3.0, 30], "fov": 50 },
+    { "id": "route-rear-alley", "position": [-180, 1.7, 125], "target": [-100, 4.0, 110], "fov": 50 },
+    { "id": "route-north-ring", "position": [100, 1.7, 105], "target": [158, 4.0, 70], "fov": 50 },
+    { "id": "route-south-retreat", "position": [100, 1.7, -120], "target": [220, 4.0, -160], "fov": 50 },
+    { "id": "route-flank-backdoor", "position": [148, 1.7, -222], "target": [148, 4.0, -245], "fov": 50 },
+    { "id": "objective-core", "position": [40, 5.7, -250], "target": [48, 5.7, -258], "fov": 50 },
+    { "id": "cover-courtyard", "position": [-82, 1.7, 16], "target": [-48, 2.0, 12], "fov": 50 },
+    { "id": "tunnel-portal", "position": [44, -11.2, -196], "target": [90, -10.7, -198], "fov": 50 },
+    { "id": "vertical-connector", "position": [302, 1.7, 82], "target": [316, 5.2, 62], "fov": 50 }
+  ]
+}

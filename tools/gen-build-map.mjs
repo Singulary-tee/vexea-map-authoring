@@ -8,6 +8,7 @@
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname } from 'node:path';
+import { buildPartDef, silhouetteRuns } from './authoring/parts.mjs';
 import { execFileSync } from 'node:child_process';
 import { deflateSync, inflateSync } from 'node:zlib';
 globalThis.FileReader = class {
@@ -4585,6 +4586,10 @@ if (objectOverlay) {
     'safety-yellow': () => mat(0xc79a12, { roughness: 0.55 }),
     'wood': () => mat(0x8a6b42, { roughness: 0.92 }),
     'lamp-head': () => mat(0xd8dee4, { roughness: 0.4, emissive: 0xfff2cc, emissiveIntensity: 1.6 }),
+    'galvanized': () => textured(0x9aa5ad, { roughness: 0.5, metalness: 0.75 }, textures.panel, 0.25),
+    'aluminum': () => textured(0xb7bdc2, { roughness: 0.35, metalness: 0.85 }, textures.metal, 0.2),
+    'pmma': () => mat(0xcfd8dc, { roughness: 0.15, metalness: 0.0, transparent: true, opacity: 0.45 }),
+    'grey': () => mat(0x6e767d, { roughness: 0.7 })
   };
   const loadOverlayObject = id => JSON.parse(fs.readFileSync(`authoring/objects/${id}.json`, 'utf8'));
   const overlayStats = { instances: 0, meshes: 0, issues: [] };
@@ -4598,7 +4603,25 @@ if (objectOverlay) {
       const swapped = ((Math.round((inst.rotY || 0) / 90) * 90) % 360 + 360) % 360 === 90 || ((Math.round((inst.rotY || 0) / 90) * 90) % 360 + 360) % 360 === 270;
       const rot = ((inst.rotY || 0) * Math.PI) / 180;
       const instGroup = new Group();
-      for (const part of obj.construction.parts || []) {
+      const SPLINE_KINDS = ['lathe', 'sweep', 'extrude'];
+      if ((obj.construction.parts || []).length && (obj.construction.parts || []).every(p => SPLINE_KINDS.includes(p.kind))) {
+        // collapse-function path: spline vocabulary, anchor-relative, group-transformed
+        instGroup.position.set(inst.pos[0], inst.pos[1], inst.pos[2]);
+        instGroup.rotation.y = rot;
+        for (const part of obj.construction.parts || []) {
+          if (broken && part.damageDrop) continue;
+          if (!broken && part.damageOnly) continue;
+          const def = buildPartDef(part);
+          const m = (OVERLAY_MATS[part.mat] || OVERLAY_MATS['painted-steel'])();
+          if (weather) { m.color.multiplyScalar(1 - weather * 0.45); m.roughness = Math.min(1, m.roughness + weather * 0.4); }
+          const mesh = new Mesh(def.geometry, m);
+          mesh.position.set(part.pos?.[0] ?? 0, part.pos?.[1] ?? 0, part.pos?.[2] ?? 0);
+          if (part.rotY) mesh.rotation.y = part.rotY;
+          if (part.rotZ) mesh.rotation.z = part.rotZ;
+          instGroup.add(mesh);
+          overlayStats.meshes++;
+        }
+      } else for (const part of obj.construction.parts || []) {
         if (broken && part.kind === 'glass' && (variant.params?.level ?? 1) >= 2) continue;
         const [pw, ph, pd] = part.size || [w, 1, d];
         const m = (OVERLAY_MATS[part.mat] || OVERLAY_MATS['painted-steel'])();
@@ -4626,6 +4649,19 @@ if (objectOverlay) {
   }
   const fills = [];
   const fillCenters = [];
+  // silhouette rule check for spline-schema objects (schema streetlamp §2/§7)
+  overlayStats.silhouettes = [];
+  for (const inst of objectOverlay.instances || []) {
+    const objDoc = (() => { try { return JSON.parse(fs.readFileSync(`authoring/objects/${inst.objectId}.json`, 'utf8')); } catch { return null; } })();
+    if (!objDoc?.contract?.quality?.splineVocabulary) continue;
+    const g = merged.children.find(ch => ch.name === `object-overlay:${inst.id}:${inst.objectId}`);
+    if (!g) continue;
+    // intrinsic straight runs from the schema: head band + arm row (cobra-head form)
+    const headY = objDoc.construction.parts.find(p => p.name === 'head-shell')?.pos?.[1] ?? 9;
+    const runs = silhouetteRuns(g, { exempt: { headBand: [headY - 0.25, headY + 0.25], armRow: 0, baseBand: [-0.05, 0.06], armEnvelope: { x: [-0.1, 2.1], y: [8.4, 9.45] } } });
+    const bad = Object.entries(runs).filter(([, r]) => r.violation);
+    overlayStats.silhouettes.push({ instance: inst.id, runs, violation: bad.length ? bad.map(b => b[0]) : null });
+  }
   // opening fills: window frames + glass centered in the cut wall thickness
   for (const opening of (objectOverlayReg?.openings || [])) {
     const wall = objectOverlayReg.walls.find(wl => wl.id === opening.wallId);
@@ -4767,6 +4803,7 @@ if (objectOverlay) {
   c('object-overlay: every integrated instance rendered from its authored object', overlayStats.instances === (objectOverlay.instances || []).length && overlayStats.issues.length === 0, overlayStats.issues.join('; '));
   c('object-overlay: instances carry object content trace', (objectOverlay.instances || []).every(inst => Boolean(inst.objectId) && Boolean(inst.objectSha)));
   c('object-overlay: every cut opening has a co-located fill', !objectOverlay || (report.objectOverlay?.cutsWithoutFill || []).length === 0, (report.objectOverlay?.cutsWithoutFill || []).join(','));
+  c('object-overlay: silhouette straight-run limits (spline objects)', !objectOverlay || (report.objectOverlay?.silhouettes || []).every(x => !x.violation), JSON.stringify((report.objectOverlay?.silhouettes || []).filter(x => x.violation)));
 }
 const segBoxes = segs.map(s => ({ id: s.id, cat: s.category, minX: s.bounds[0], minZ: s.bounds[1], maxX: s.bounds[2], maxZ: s.bounds[3] }));
 // contact: every non-ground segment with height >= 0.6 has its own ground beneath or is below-grade/elevated with support

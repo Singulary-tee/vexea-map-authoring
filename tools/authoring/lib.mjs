@@ -86,7 +86,8 @@ export function saveState(state, path = statePathEnv()) {
 
 export function canonicalBase() {
   const bytes = fs.readFileSync(CANONICAL_PATH);
-  return { path: CANONICAL_PATH, sha256: sha256(bytes), segments: JSON.parse(bytes).segments };
+  const doc = JSON.parse(bytes);
+  return { path: CANONICAL_PATH, sha256: sha256(bytes), segments: doc.segments, routes: doc.routes || [] };
 }
 
 export function baseDrift(state) {
@@ -131,7 +132,14 @@ export const objectContentSha = obj => sha256(JSON.stringify({ construction: obj
 const TRI_EST = { box: 12, cylinder: 60, wedge: 8 };
 export function estimateTriangles(construction) {
   let tri = 0;
-  for (const part of construction?.parts || []) tri += TRI_EST[part.kind || 'box'] ?? 12;
+  for (const part of construction?.parts || []) {
+    const k = part.kind || 'box';
+    if (k === 'lathe') tri += (part.profile.length - 1) * (part.segments ?? 32) * 2;
+    else if (k === 'sweep') tri += (part.tubular ?? 24) * (part.radial ?? 32) * 2;
+    else if (k === 'extrude') tri += (part.shape?.length ?? 8) * 24;
+    else if (k === 'disc') tri += 2 * (part.segments ?? 32);
+    else tri += TRI_EST[k] ?? 12;
+  }
   return tri;
 }
 
@@ -142,10 +150,22 @@ export function checkObjectQuality(object) {
   const parts = c.parts || [];
   const size = c.size || [0, 0, 0];
   const maxDim = Math.max(...size);
+  // schema-driven budgets override class defaults when the object doc declares them
+  const q = object.contract?.quality || null;
   // fixtures that fill wall openings are thin inserts, not silhouettes
   const insertLike = ['window', 'door', 'pipe'].includes(object.type);
-  const minParts = insertLike ? 3 : maxDim >= 2 ? 5 : 4;
-  const minTris = insertLike ? 24 : maxDim >= 5 ? 72 : 40;
+  const minParts = q?.minParts ?? (insertLike ? 3 : maxDim >= 2 ? 5 : 4);
+  const minTris = q?.minTris ?? (insertLike ? 24 : maxDim >= 5 ? 72 : 40);
+  const maxTris = q?.maxTris ?? (maxDim >= 5 ? 25000 : maxDim >= 2 ? 5000 : 2500);
+  // spline-schema objects ban primitive boxes from the vocabulary entirely
+  if (q?.splineVocabulary) {
+    for (const p of parts) {
+      if (p.kind === 'box') push('object_below_quality', `${object.id} part "${p.kind}" is a primitive box; spline schema bans box parts.`);
+      if (p.kind === 'lathe' && (p.profile?.length ?? 0) < 4) push('object_below_quality', `${object.id} lathe part profile needs >= 4 points.`);
+      if (p.kind === 'sweep' && (p.path?.length ?? 0) < 3) push('object_below_quality', `${object.id} sweep part path needs >= 3 points.`);
+      if ((p.segments ?? 32) < 24 && p.kind !== 'box') push('object_below_quality', `${object.id} part ring segments < 24 (anti-low-poly ring rule).`);
+    }
+  }
   if (parts.length < minParts) {
     push('object_below_quality', `${object.id} has ${parts.length} part(s); ${object.type} requires >= ${minParts} to leave placeholder territory.`);
   }
@@ -157,10 +177,8 @@ export function checkObjectQuality(object) {
   if (tri < minTris) {
     push('object_below_quality', `${object.id} estimated at ${tri} tris; >= ${minTris} required for a ${maxDim.toFixed(1)}m ${object.type}.`);
   }
-  // MeshQA-style upper budgets: per-platform classes reject runaway geometry too
-  const maxTris = maxDim >= 5 ? 25000 : maxDim >= 2 ? 5000 : 2500;
   if (tri > maxTris) {
-    push('object_over_budget', `${object.id} estimated at ${tri} tris; max ${maxTris} for a ${maxDim.toFixed(1)}m ${object.type} (MeshQA budget class).`);
+    push('object_over_budget', `${object.id} estimated at ${tri} tris; max ${maxTris} (MeshQA budget class).`);
   }
   // single rectangular prism silhouette: every part identical footprint at same center
   const footprints = new Set(parts.map(p => JSON.stringify((p.size || c.size || [1, 1, 1]).map(v => Math.round(v * 2) / 2))));
@@ -280,6 +298,90 @@ export function checkInstance(state, segments, inst, object) {
   return { issues, host, box };
 }
 
+// point -> polyline distance (routes)
+function pointRouteDistance(pt, routes) {
+  let best = Infinity;
+  for (const r of routes) {
+    const w = r.waypoints || [];
+    for (let i = 0; i < w.length - 1; i++) {
+      const dx = w[i + 1][0] - w[i][0], dz = w[i + 1][1] - w[i][1];
+      const len2 = dx * dx + dz * dz || 1;
+      const t = Math.max(0, Math.min(1, ((pt[0] - w[i][0]) * dx + (pt[2] - w[i][1]) * dz) / len2));
+      best = Math.min(best, Math.hypot(pt[0] - (w[i][0] + dx * t), pt[2] - (w[i][1] + dz * t)));
+    }
+  }
+  return best;
+}
+
+function loadViews() {
+  const p = 'authoring/canonical-views.json';
+  if (!fs.existsSync(p)) return null;
+  return JSON.parse(fs.readFileSync(p, 'utf8')).views;
+}
+
+// snap-ground placement contract (schema-driven): flush, default-deny intersections,
+// route clearance, lamp spacing, arm orientation, canonical-view visibility
+export function checkPlacement(state, segments, inst, object, routes, views, objectsById) {
+  const issues = [];
+  const push = (code, message) => issues.push({ severity: 'error', code, message, refs: [inst.id] });
+  const c = object.contract || {};
+  if (c.placement?.mode !== 'snap-ground') return issues;
+  const host = segments.find(s => s.category === 'ground-surface-type' && inst.pos[0] >= s.bounds[0] && inst.pos[0] <= s.bounds[2] && inst.pos[2] >= s.bounds[1] && inst.pos[2] <= s.bounds[3]);
+  if (!host) { push('flush_contact', `${inst.id} anchor point is not on any ground segment.`); return issues; }
+  const sy = segSurfaceY(host);
+  if (Math.abs(inst.pos[1] - sy) > 0.001) push('flush_contact', `${inst.id} base y=${inst.pos[1]} != host ${host.id} surface y=${sy}; snap-ground requires flush (gap 0, penetration 0).`);
+  // default-deny: every non-ground segment volume is a blocker; allowlist is schema text
+  const box = footprintAABB(inst.pos, sizeOf(inst, object), inst.rotY);
+  for (const s of segments) {
+    if (s.category === 'ground-surface-type') continue;
+    if (aabbOverlapArea(segBox(s), box) > 0.01) push('intersect_allowlist', `${inst.id} intersects ${s.id} (${s.category}); not in the schema allowlist.`);
+  }
+  // other instances (except the host contact): full footprint overlap is a violation
+  for (const other of state.instances) {
+    if (other.id === inst.id) continue;
+    const oo = objectsById?.get(other.objectId);
+    if (!oo) continue;
+    const area = aabbOverlapArea(box, footprintAABB(other.pos, sizeOf(other, oo), other.rotY));
+    if (area > 0.001) push('intersect_allowlist', `${inst.id} intersects instance ${other.id}; not in the schema allowlist.`);
+  }
+  // route clearance
+  const rd = pointRouteDistance(inst.pos, routes || []);
+  if (rd < (c.routeClearanceM ?? 2)) push('route_clearance', `${inst.id} is ${rd.toFixed(2)}m from a route; >= ${c.routeClearanceM ?? 2}m required.`);
+  // lamp spacing
+  for (const other of state.instances) {
+    if (other.id === inst.id || other.objectId !== inst.objectId) continue;
+    if (Math.hypot(other.pos[0] - inst.pos[0], other.pos[2] - inst.pos[2]) < (c.lampSpacingM ?? 12)) {
+      push('lamp_spacing', `${inst.id} is within ${c.lampSpacingM ?? 12}m of another lamp ${other.id}.`);
+    }
+  }
+  // arm orientation: toward nearest route point (editor-computed; gate re-derives)
+  if (routes?.length) {
+    let best = null;
+    for (const r of routes) for (const w of (r.waypoints || [])) {
+      const d = Math.hypot(w[0] - inst.pos[0], w[1] - inst.pos[2]);
+      if (!best || d < best.d) best = { d, w };
+    }
+    if (best) {
+      const az = Math.atan2(best.w[0] - inst.pos[0], best.w[1] - inst.pos[2]);
+      const diff = Math.abs(((inst.rotY - az) % (2 * Math.PI) + 3 * Math.PI) % (2 * Math.PI) - Math.PI);
+      if (diff > Math.PI / 12) push('arm_orientation', `${inst.id} arm azimuth off by ${(diff * 180 / Math.PI).toFixed(1)} deg (max 15).`);
+    }
+  }
+  // visibility: >= 1 canonical view
+  if (views) {
+    const seen = views.some(v => {
+      const a = [inst.pos[0] - v.position[0], inst.pos[1] - v.position[1], inst.pos[2] - v.position[2]];
+      const b = [v.target[0] - v.position[0], v.target[1] - v.position[1], v.target[2] - v.position[2]];
+      const na = Math.hypot(...a), nb = Math.hypot(...b);
+      if (na > 350) return false;
+      const dot = (a[0] * b[0] + a[1] * b[1] + a[2] * b[2]) / (na * nb || 1);
+      return Math.acos(Math.max(-1, Math.min(1, dot))) < (v.fov / 2) * Math.PI / 180 + 0.06;
+    });
+    if (!seen) push('not_in_view', `${inst.id} is not inside any canonical survey view frustum.`);
+  }
+  return issues;
+}
+
 export function validateWorld(state, segments, objectsById) {
   const issues = [];
   const drift = baseDrift(state);
@@ -296,6 +398,10 @@ export function validateWorld(state, segments, objectsById) {
     if (!object) { issues.push({ severity: 'error', code: 'object_unknown', message: `Instance ${inst.id} references unknown object ${inst.objectId}.`, refs: [inst.id] }); continue; }
     if (object.status !== 'authored') issues.push({ severity: 'error', code: 'object_not_authored', message: `Instance ${inst.id} holds object ${object.id} with status "${object.status}"; only authored objects may be integrated.`, refs: [inst.id, object.id] });
     if (inst.objectSha && inst.objectSha !== objectContentSha(object)) issues.push({ severity: 'error', code: 'instance_stale_object', message: `Instance ${inst.id} was integrated against an older revision of ${object.id}; re-inspect and re-integrate.`, refs: [inst.id, object.id] });
+    if (object.contract?.placement?.mode === 'snap-ground') {
+      issues.push(...checkPlacement(state, segments, inst, object, canonicalBase().routes, loadViews(), objectsById));
+      continue;
+    }
     if (inst.openingId) {
       // opening children validate through the wall registry (extent + siblings), not AABB hosts
       const r = reg();

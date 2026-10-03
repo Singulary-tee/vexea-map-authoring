@@ -239,6 +239,36 @@ export function rebindInstance(args, { statePath = statePathEnv() } = {}) {
   return res;
 }
 
+// snap-ground placement: at [x,z] + variant; the editor computes flush y and arm azimuth.
+// The authoring LLM cannot float the object: it cannot type a y.
+export function placeObject(args, { statePath = statePathEnv() } = {}) {
+  const state = requireState(statePath);
+  const object = loadObject(args.object_id);
+  if (!object) return err('object_unknown', `Unknown object ${args.object_id}.`);
+  if (object.contract?.placement?.mode !== 'snap-ground') {
+    return err('not_snappable', `${object.id} has no snap-ground placement interface; its schema does not define one.`);
+  }
+  if (!Array.isArray(args.at) || args.at.length !== 2 || !args.at.every(Number.isFinite)) {
+    return err('missing_args', 'place_object requires at:[x,z] (meters). y is computed by the editor.');
+  }
+  const segs = segments();
+  const [x, z] = args.at;
+  const host = segs.find(s => s.category === 'ground-surface-type' && x >= s.bounds[0] && x <= s.bounds[2] && z >= s.bounds[1] && z <= s.bounds[3]);
+  if (!host) return err('host_missing', `Point [${x},${z}] is not on any ground segment.`);
+  const sy = host.surfaceY ?? 0;
+  const routes = canonicalBase().routes;
+  // nearest route point drives arm azimuth (schema: toward route/yard, editor-computed)
+  let best = null;
+  for (const r of routes) for (const w of (r.waypoints || [])) {
+    const d = Math.hypot(w[0] - x, w[1] - z);
+    if (!best || d < best.d) best = { d, w };
+  }
+  const azimuth = best ? Math.atan2(best.w[0] - x, best.w[1] - z) : (args.azimuth ?? 0);
+  const res = integrateObject({ ...args, pos: [x, sy, z], rotY: +(azimuth.toFixed(4)) }, { statePath });
+  if (res.ok) res.summary = `Placed ${object.id} at [${x},${z}] flush on ${host.id} (y=${sy}, computed by editor); arm azimuth ${(azimuth * 180 / Math.PI).toFixed(1)} deg toward nearest route.`;
+  return res;
+}
+
 // remove an instance (guarded, undo-able); opening-bound removal also drops the opening
 export function removeInstance(args, { statePath = statePathEnv() } = {}) {
   const state = requireState(statePath);

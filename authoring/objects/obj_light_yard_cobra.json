@@ -1,0 +1,629 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "obj_light_yard_cobra",
+  "type": "light-pole",
+  "name": "industrial yard luminaire, 9m cobra arm",
+  "status": "authored",
+  "revision": 4,
+  "construction": {
+    "size": [
+      2.4,
+      9.3,
+      0.7
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "lathe",
+        "name": "collar",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.28,
+            0
+          ],
+          [
+            0.3,
+            0.04
+          ],
+          [
+            0.3,
+            0.38
+          ],
+          [
+            0.26,
+            0.44
+          ],
+          [
+            0,
+            0.45
+          ]
+        ],
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "mat": "concrete"
+      },
+      {
+        "kind": "lathe",
+        "name": "flange",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.15,
+            0
+          ],
+          [
+            0.15,
+            0.025
+          ],
+          [
+            0,
+            0.025
+          ]
+        ],
+        "pos": [
+          0,
+          0.45,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "bolt-cap-a",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.018,
+            0.004
+          ],
+          [
+            0.012,
+            0.012
+          ],
+          [
+            0,
+            0.013
+          ]
+        ],
+        "pos": [
+          0.078,
+          0.475,
+          0.078
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "bolt-cap-b",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.018,
+            0.004
+          ],
+          [
+            0.012,
+            0.012
+          ],
+          [
+            0,
+            0.013
+          ]
+        ],
+        "pos": [
+          -0.078,
+          0.475,
+          0.078
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "bolt-cap-c",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.018,
+            0.004
+          ],
+          [
+            0.012,
+            0.012
+          ],
+          [
+            0,
+            0.013
+          ]
+        ],
+        "pos": [
+          0.078,
+          0.475,
+          -0.078
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "bolt-cap-d",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.018,
+            0.004
+          ],
+          [
+            0.012,
+            0.012
+          ],
+          [
+            0,
+            0.013
+          ]
+        ],
+        "pos": [
+          -0.078,
+          0.475,
+          -0.078
+        ],
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "lathe",
+        "name": "pole-lower",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.095,
+            0
+          ],
+          [
+            0.082,
+            4.05
+          ],
+          [
+            0,
+            4.05
+          ]
+        ],
+        "pos": [
+          0,
+          0.475,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "weld-seam",
+        "profile": [
+          [
+            0.08,
+            0
+          ],
+          [
+            0.086,
+            0
+          ],
+          [
+            0.086,
+            0.014
+          ],
+          [
+            0.08,
+            0.014
+          ]
+        ],
+        "pos": [
+          0,
+          4.375,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "lathe",
+        "name": "pole-upper",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.082,
+            0
+          ],
+          [
+            0.068,
+            4.15
+          ],
+          [
+            0,
+            4.15
+          ]
+        ],
+        "pos": [
+          0,
+          4.525,
+          0
+        ],
+        "mat": "galvanized"
+      },
+      {
+        "kind": "extrude",
+        "name": "door",
+        "shape": [
+          [
+            -0.08,
+            0
+          ],
+          [
+            0.08,
+            0
+          ],
+          [
+            0.08,
+            0.42
+          ],
+          [
+            -0.08,
+            0.42
+          ]
+        ],
+        "depth": 0.004,
+        "bevel": 0.004,
+        "pos": [
+          0.089,
+          0.64,
+          0
+        ],
+        "rotY": 1.5708,
+        "mat": "steel-dark"
+      },
+      {
+        "kind": "sweep",
+        "name": "arm",
+        "path": [
+          [
+            0,
+            8.55,
+            0
+          ],
+          [
+            0.14,
+            8.63,
+            0
+          ],
+          [
+            0.42,
+            8.92,
+            0
+          ],
+          [
+            0.62,
+            9.17,
+            0
+          ],
+          [
+            1,
+            9.17,
+            0
+          ],
+          [
+            1.37,
+            9.17,
+            0
+          ]
+        ],
+        "radius": 0.06,
+        "mat": "galvanized"
+      },
+      {
+        "kind": "extrude",
+        "name": "head-shell",
+        "shape": [
+          [
+            0.15,
+            0.01
+          ],
+          [
+            0.105,
+            0.055
+          ],
+          [
+            0,
+            0.07
+          ],
+          [
+            -0.105,
+            0.055
+          ],
+          [
+            -0.15,
+            0.01
+          ],
+          [
+            -0.13,
+            -0.02
+          ],
+          [
+            0,
+            -0.03
+          ],
+          [
+            0.13,
+            -0.02
+          ]
+        ],
+        "depth": 0.72,
+        "bevel": 0.06,
+        "pos": [
+          1.575,
+          9.07,
+          0
+        ],
+        "rotY": 1.5708,
+        "mat": "aluminum"
+      },
+      {
+        "kind": "lathe",
+        "name": "lens",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.12,
+            0
+          ],
+          [
+            0.12,
+            0.012
+          ],
+          [
+            0,
+            0.012
+          ]
+        ],
+        "pos": [
+          1.575,
+          9.005,
+          0
+        ],
+        "mat": "pmma",
+        "damageDrop": true
+      },
+      {
+        "kind": "lathe",
+        "name": "photocell",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            0.008
+          ],
+          [
+            0.014,
+            0.018
+          ],
+          [
+            0,
+            0.02
+          ]
+        ],
+        "pos": [
+          1.25,
+          9.185,
+          0
+        ],
+        "mat": "grey"
+      },
+      {
+        "kind": "lathe",
+        "name": "conduit-stub",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.02,
+            0
+          ],
+          [
+            0.02,
+            0.3
+          ],
+          [
+            0,
+            0.3
+          ]
+        ],
+        "pos": [
+          1.2,
+          9.05,
+          0
+        ],
+        "rotZ": 2.6,
+        "mat": "steel-dark",
+        "damageOnly": true
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    },
+    {
+      "id": "dusty",
+      "modifier": "weathering",
+      "params": {
+        "wear": 0.45
+      }
+    },
+    {
+      "id": "broken",
+      "modifier": "damage",
+      "params": {
+        "level": 2
+      }
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact",
+        "vegetation.tuft@collar"
+      ]
+    },
+    "routeClearanceM": 2,
+    "lampSpacingM": 12,
+    "quality": {
+      "minParts": 8,
+      "minMats": 3,
+      "minTris": 2000,
+      "maxTris": 12000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/schemas/streetlamp.schema.md"
+  ],
+  "evidence": {
+    "mechanism": "tools/capture-object-multiview.mjs",
+    "captured": "2026-10-03",
+    "views": [
+      {
+        "view": "front",
+        "dist": "near",
+        "path": "artifacts/objects/obj_light_yard_cobra-front-near.png",
+        "sha256": "96ddd85e1f7c8dadabfdeac7ad670e634ae261cab4841e4486195cf6d382b437"
+      },
+      {
+        "view": "front",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_light_yard_cobra-front-mid.png",
+        "sha256": "1692b2cdd83bcd4cb5a261b48539cb727e3587ca3c1575de84607e60b3a249c9"
+      },
+      {
+        "view": "front",
+        "dist": "far",
+        "path": "artifacts/objects/obj_light_yard_cobra-front-far.png",
+        "sha256": "9a9fc8c2bdbdf24e713a96d048a1f408ff9d32a9c181a9847b75085395cc8f9e"
+      },
+      {
+        "view": "side",
+        "dist": "near",
+        "path": "artifacts/objects/obj_light_yard_cobra-side-near.png",
+        "sha256": "f390350b4896204d45a4b230f4f89335067b583db8d097ac1405334b5a06044b"
+      },
+      {
+        "view": "side",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_light_yard_cobra-side-mid.png",
+        "sha256": "c7d95eb7e384c87de8cdd58050fe418091590258ccd5de5f7da4fc95edf599b9"
+      },
+      {
+        "view": "side",
+        "dist": "far",
+        "path": "artifacts/objects/obj_light_yard_cobra-side-far.png",
+        "sha256": "21c2035e83c5c3f3d1f670dcdf447eff2e10d58e6315a0a04cbdcf99424dca6f"
+      },
+      {
+        "view": "rear",
+        "dist": "near",
+        "path": "artifacts/objects/obj_light_yard_cobra-rear-near.png",
+        "sha256": "190f2f015845657b2f64fb055049dd98490cdce4f680be5222f85ad71011ab73"
+      },
+      {
+        "view": "rear",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_light_yard_cobra-rear-mid.png",
+        "sha256": "15fe7a616382b7babe3e0702a49466680d865e8d8936dd8ddcd8f1a633bd18a2"
+      },
+      {
+        "view": "rear",
+        "dist": "far",
+        "path": "artifacts/objects/obj_light_yard_cobra-rear-far.png",
+        "sha256": "e0e4a349c558a06072c9591104c482e6330274343202a146d8857ab408ce72e5"
+      },
+      {
+        "view": "iso",
+        "dist": "near",
+        "path": "artifacts/objects/obj_light_yard_cobra-iso-near.png",
+        "sha256": "1afa7b3bab0c61f7be935176548c9577e7a3cf2ed9c77a38a2d472bf1e5de66b"
+      },
+      {
+        "view": "iso",
+        "dist": "mid",
+        "path": "artifacts/objects/obj_light_yard_cobra-iso-mid.png",
+        "sha256": "66c154c2053f9f0d66d795874d47f1e3e1c11d15607a9fcee2f208bc4b2149ef"
+      },
+      {
+        "view": "iso",
+        "dist": "far",
+        "path": "artifacts/objects/obj_light_yard_cobra-iso-far.png",
+        "sha256": "0eb7a7677c4a21e09205531925d4d976c6c34488e02bd61e991539c01b0dd206"
+      },
+      {
+        "view": "variant:clean",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_light_yard_cobra-variant-clean.png",
+        "sha256": "66c154c2053f9f0d66d795874d47f1e3e1c11d15607a9fcee2f208bc4b2149ef"
+      },
+      {
+        "view": "variant:dusty",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_light_yard_cobra-variant-dusty.png",
+        "sha256": "5c3e10c3ae440eddcb0f5cc5da659c7be6d5a0f2b603f788884ae97aeadad7cd"
+      },
+      {
+        "view": "variant:broken",
+        "dist": "iso",
+        "path": "artifacts/objects/obj_light_yard_cobra-variant-broken.png",
+        "sha256": "9e9657a80928af9176dd0873cc54e660149d0757561668ca223b394d3594c751"
+      }
+    ],
+    "gate": "analyze-survey-png"
+  }
+}
