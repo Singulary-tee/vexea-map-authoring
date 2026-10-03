@@ -1,0 +1,212 @@
+{
+  "format": "vexea-object/0.1",
+  "id": "stoneglidefly",
+  "type": "apron",
+  "name": "wet asphalt apron, 34x18m",
+  "status": "authored",
+  "revision": 6,
+  "construction": {
+    "size": [
+      32.4,
+      0.05,
+      16.4
+    ],
+    "origin": "base-contact",
+    "parts": [
+      {
+        "kind": "extrude",
+        "name": "apron-slab",
+        "shape": [
+          [
+            -16,
+            -8
+          ],
+          [
+            -8.5,
+            -8
+          ],
+          [
+            -8.5,
+            8
+          ],
+          [
+            -16,
+            8
+          ]
+        ],
+        "depth": 0.02,
+        "bevel": 0.002,
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "rotX": -1.5708,
+        "mat": "wet-asphalt"
+      },
+      {
+        "kind": "extrude",
+        "name": "apron-slab-b",
+        "shape": [
+          [
+            0,
+            -8
+          ],
+          [
+            8.5,
+            -8
+          ],
+          [
+            8.5,
+            8
+          ],
+          [
+            0,
+            8
+          ]
+        ],
+        "depth": 0.02,
+        "bevel": 0.002,
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "rotX": -1.5708,
+        "mat": "wet-asphalt"
+      },
+      {
+        "kind": "extrude",
+        "name": "apron-slab-c",
+        "shape": [
+          [
+            -8.5,
+            -8
+          ],
+          [
+            0,
+            -8
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            -8.5,
+            8
+          ]
+        ],
+        "depth": 0.02,
+        "bevel": 0.002,
+        "pos": [
+          0,
+          0,
+          0.004
+        ],
+        "rotX": -1.5708,
+        "mat": "wet-asphalt"
+      },
+      {
+        "kind": "extrude",
+        "name": "apron-slab-d",
+        "shape": [
+          [
+            8.5,
+            -8
+          ],
+          [
+            16,
+            -8
+          ],
+          [
+            16,
+            8
+          ],
+          [
+            8.5,
+            8
+          ]
+        ],
+        "depth": 0.02,
+        "bevel": 0.002,
+        "pos": [
+          0,
+          0,
+          0.004
+        ],
+        "rotX": -1.5708,
+        "mat": "wet-asphalt"
+      },
+      {
+        "kind": "extrude",
+        "name": "apron-edge-band",
+        "shape": [
+          [
+            -16.2,
+            -8.2
+          ],
+          [
+            16.2,
+            -8.2
+          ],
+          [
+            16.2,
+            8.2
+          ],
+          [
+            -16.2,
+            8.2
+          ]
+        ],
+        "depth": 0.006,
+        "bevel": 0.001,
+        "pos": [
+          0,
+          -0.008,
+          0
+        ],
+        "rotX": -1.5708,
+        "mat": "wet-rim"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "clean"
+    }
+  ],
+  "contract": {
+    "host": {
+      "categories": [
+        "ground-surface-type"
+      ],
+      "mode": "surface"
+    },
+    "placement": {
+      "mode": "snap-ground",
+      "anchor": "base-contact",
+      "flush": true
+    },
+    "interactions": {
+      "allow": [
+        "ground.contact@base-contact",
+        "puddle.submersion@footprint",
+        "route.crossing@footprint",
+        "building.contact@footprint"
+      ]
+    },
+    "routeClearanceM": 0,
+    "quality": {
+      "minParts": 2,
+      "minMats": 2,
+      "minTris": 200,
+      "maxTris": 6000,
+      "splineVocabulary": true
+    },
+    "overlap": "disallow"
+  },
+  "references": [
+    "authoring/plans/warehouse-execution-plan.md"
+  ],
+  "evidence": []
+}
