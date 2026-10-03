@@ -4,7 +4,7 @@
     "path": "blockout/blockout-full-v1.json",
     "sha256": "d4698d2e2e6859b31c906b380cfbf0bf300843346dee2c8ff71fe3a50e1b6e4d"
   },
-  "revision": 50,
+  "revision": 52,
   "instances": [
     {
       "id": "inst-0005-g3pm",
@@ -434,8 +434,8 @@
     {
       "id": "inst-0029-15m8",
       "objectId": "obj_light_yard_cobra",
-      "objectSha": "c4206adf03b4f9dc4d9f8056ede4bcf8582de152fc9e69ed5a7cf16995fe5e0d",
-      "objectRevision": 3,
+      "objectSha": "de81aa38f5ae191bf4899f552ae06f0292be8965dd45e96b97ebfde798e9f40c",
+      "objectRevision": 5,
       "pos": [
         -134,
         -0.6,
@@ -449,8 +449,8 @@
     {
       "id": "inst-0030-15m8",
       "objectId": "obj_light_yard_cobra",
-      "objectSha": "c4206adf03b4f9dc4d9f8056ede4bcf8582de152fc9e69ed5a7cf16995fe5e0d",
-      "objectRevision": 3,
+      "objectSha": "de81aa38f5ae191bf4899f552ae06f0292be8965dd45e96b97ebfde798e9f40c",
+      "objectRevision": 5,
       "pos": [
         -136,
         -0.6,
@@ -2517,125 +2517,86 @@
         }
       },
       "changed": true
+    },
+    {
+      "op": "rebind_instance",
+      "operation_id": null,
+      "revision": 51,
+      "inputKey": "rebind_instance:00dd31d4f77c6321b307d2b1739aa71a2c3993be320578ee4ea8ef8e218255f8",
+      "result": {
+        "ok": true,
+        "summary": "Rebound inst-0029-15m8 to current content of obj_light_yard_cobra (object rev 5); contract PASS.",
+        "revision": 51,
+        "instance": {
+          "id": "inst-0029-15m8",
+          "pos": [
+            -134,
+            -0.6,
+            -30
+          ],
+          "rotY": 0.1974,
+          "size": [
+            2.4,
+            9.3,
+            0.7
+          ],
+          "footprint": {
+            "minX": -135.2,
+            "maxX": -132.8,
+            "minZ": -30.35,
+            "maxZ": -29.65
+          },
+          "host": {
+            "id": "g-yrd-west",
+            "category": "ground-surface-type",
+            "surfaceY": -0.6
+          },
+          "objectSha": "de81aa38f5ae191bf4899f552ae06f0292be8965dd45e96b97ebfde798e9f40c"
+        }
+      },
+      "changed": true
+    },
+    {
+      "op": "rebind_instance",
+      "operation_id": null,
+      "revision": 52,
+      "inputKey": "rebind_instance:bf642065b7e1b8924d9cf5a87de2c1c304ffa58246ce9df344ad2df99122a0ad",
+      "result": {
+        "ok": true,
+        "summary": "Rebound inst-0030-15m8 to current content of obj_light_yard_cobra (object rev 5); contract PASS.",
+        "revision": 52,
+        "instance": {
+          "id": "inst-0030-15m8",
+          "pos": [
+            -136,
+            -0.6,
+            -15
+          ],
+          "rotY": 0.8761,
+          "size": [
+            2.4,
+            9.3,
+            0.7
+          ],
+          "footprint": {
+            "minX": -137.2,
+            "maxX": -134.8,
+            "minZ": -15.35,
+            "maxZ": -14.65
+          },
+          "host": {
+            "id": "g-yrd-west",
+            "category": "ground-surface-type",
+            "surfaceY": -0.6
+          },
+          "objectSha": "de81aa38f5ae191bf4899f552ae06f0292be8965dd45e96b97ebfde798e9f40c"
+        }
+      },
+      "changed": true
     }
   ],
   "checkpoints": {},
   "undoStack": [
-    {
-      "revision": 3,
-      "instances": [
-        {
-          "id": "inst-0001-377i",
-          "objectId": "obj_window_industrial_window_centered_large",
-          "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326",
-          "objectRevision": 4,
-          "pos": [
-            -196,
-            4,
-            59
-          ],
-          "rotY": 0,
-          "variant": "clean",
-          "status": "integrated",
-          "hostId": "bld-north-shed"
-        },
-        {
-          "id": "inst-0002-377i",
-          "objectId": "obj_window_industrial_window_centered_large",
-          "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326",
-          "objectRevision": 4,
-          "pos": [
-            -176,
-            4,
-            59
-          ],
-          "rotY": 0,
-          "variant": "clean",
-          "status": "integrated",
-          "hostId": "bld-north-shed"
-        },
-        {
-          "id": "inst-0003-377i",
-          "objectId": "obj_window_industrial_window_centered_large",
-          "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326",
-          "objectRevision": 4,
-          "pos": [
-            -156,
-            4,
-            59
-          ],
-          "rotY": 0,
-          "variant": "dusty",
-          "status": "integrated",
-          "hostId": "bld-north-shed"
-        }
-      ]
-    },
-    {
-      "revision": 4,
-      "instances": [
-        {
-          "id": "inst-0001-377i",
-          "objectId": "obj_window_industrial_window_centered_large",
-          "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326",
-          "objectRevision": 4,
-          "pos": [
-            -196,
-            4,
-            59
-          ],
-          "rotY": 0,
-          "variant": "clean",
-          "status": "integrated",
-          "hostId": "bld-north-shed"
-        },
-        {
-          "id": "inst-0002-377i",
-          "objectId": "obj_window_industrial_window_centered_large",
-          "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326",
-          "objectRevision": 4,
-          "pos": [
-            -176,
-            4,
-            59
-          ],
-          "rotY": 0,
-          "variant": "clean",
-          "status": "integrated",
-          "hostId": "bld-north-shed"
-        },
-        {
-          "id": "inst-0003-377i",
-          "objectId": "obj_window_industrial_window_centered_large",
-          "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326",
-          "objectRevision": 4,
-          "pos": [
-            -156,
-            4,
-            59
-          ],
-          "rotY": 0,
-          "variant": "dusty",
-          "status": "integrated",
-          "hostId": "bld-north-shed"
-        },
-        {
-          "id": "inst-0004-377i",
-          "objectId": "obj_window_industrial_window_centered_large",
-          "objectSha": "644ef3ff79a3eb1ff739010f7e0dcafc2a17a800d5fca5d3d7860d4ad80c2326",
-          "objectRevision": 4,
-          "pos": [
-            -146,
-            4,
-            59
-          ],
-          "rotY": 0,
-          "variant": "broken",
-          "status": "integrated",
-          "hostId": "bld-north-shed"
-        }
-      ]
-    },
     {
       "revision": 5,
       "instances": [
@@ -18399,6 +18360,926 @@
           "objectId": "obj_light_yard_cobra",
           "objectSha": "c4206adf03b4f9dc4d9f8056ede4bcf8582de152fc9e69ed5a7cf16995fe5e0d",
           "objectRevision": 3,
+          "pos": [
+            -134,
+            -0.6,
+            -30
+          ],
+          "rotY": 0.1974,
+          "variant": "dusty",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0030-15m8",
+          "objectId": "obj_light_yard_cobra",
+          "objectSha": "c4206adf03b4f9dc4d9f8056ede4bcf8582de152fc9e69ed5a7cf16995fe5e0d",
+          "objectRevision": 3,
+          "pos": [
+            -136,
+            -0.6,
+            -15
+          ],
+          "rotY": 0.8761,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        }
+      ]
+    },
+    {
+      "revision": 50,
+      "instances": [
+        {
+          "id": "inst-0005-g3pm",
+          "objectId": "obj_prop_service_pod",
+          "objectSha": "77281cdb38aa9d9bb338ef04e936198817a532ecec9e9deeebf311b243dc74da",
+          "objectRevision": 2,
+          "pos": [
+            -184,
+            -0.6,
+            40
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0006-g3pm",
+          "objectId": "obj_prop_service_pod",
+          "objectSha": "77281cdb38aa9d9bb338ef04e936198817a532ecec9e9deeebf311b243dc74da",
+          "objectRevision": 2,
+          "pos": [
+            -168,
+            -0.6,
+            40
+          ],
+          "rotY": 0,
+          "variant": "dusty",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0007-1tvs",
+          "objectId": "obj_pipe_process_pipe_run",
+          "objectSha": "400e164210437beca6b352fe7ae1348c3a2fc7b9263d0ee4f0f28d0a0c6699ae",
+          "objectRevision": 4,
+          "pos": [
+            -186,
+            4,
+            59
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "bld-north-shed"
+        },
+        {
+          "id": "inst-0008-1tvs",
+          "objectId": "obj_pipe_process_pipe_run",
+          "objectSha": "400e164210437beca6b352fe7ae1348c3a2fc7b9263d0ee4f0f28d0a0c6699ae",
+          "objectRevision": 4,
+          "pos": [
+            -190,
+            3.5,
+            -51
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "bld-maintenance"
+        },
+        {
+          "id": "inst-0009-il5z",
+          "objectId": "obj_prop_yard_bollard",
+          "objectSha": "5dd7fc8cb09caeed786fb41773ebb04076bc0aa0b06eca59708c141b86fdc9ff",
+          "objectRevision": 1,
+          "pos": [
+            -172,
+            -0.6,
+            -55
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0010-il5z",
+          "objectId": "obj_prop_yard_bollard",
+          "objectSha": "5dd7fc8cb09caeed786fb41773ebb04076bc0aa0b06eca59708c141b86fdc9ff",
+          "objectRevision": 1,
+          "pos": [
+            -168,
+            -0.6,
+            -56
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0011-il5z",
+          "objectId": "obj_prop_yard_bollard",
+          "objectSha": "5dd7fc8cb09caeed786fb41773ebb04076bc0aa0b06eca59708c141b86fdc9ff",
+          "objectRevision": 1,
+          "pos": [
+            -164,
+            -0.6,
+            -56
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0012-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -196,
+            -0.6,
+            -18
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0013-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -194,
+            -0.6,
+            -19
+          ],
+          "rotY": 0,
+          "variant": "dusty",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0014-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -176,
+            -0.6,
+            -30
+          ],
+          "rotY": 0,
+          "variant": "broken",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0015-13jg",
+          "objectId": "obj_util_light_pole",
+          "objectSha": "7462f4b13ac518bece0a45e6059b0b4a8973c3eb40c4be70c86199d6ac909c18",
+          "objectRevision": 1,
+          "pos": [
+            -152,
+            -0.6,
+            -6
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0016-13jg",
+          "objectId": "obj_util_light_pole",
+          "objectSha": "7462f4b13ac518bece0a45e6059b0b4a8973c3eb40c4be70c86199d6ac909c18",
+          "objectRevision": 1,
+          "pos": [
+            -116,
+            -0.6,
+            -30
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0017-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -94,
+            0,
+            -52
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0018-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -88,
+            0,
+            -52
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0019-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -82,
+            0,
+            -52
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0020-g3pm",
+          "objectId": "obj_prop_service_pod",
+          "objectSha": "77281cdb38aa9d9bb338ef04e936198817a532ecec9e9deeebf311b243dc74da",
+          "objectRevision": 2,
+          "pos": [
+            -112,
+            -0.6,
+            22
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0021-1tvs",
+          "objectId": "obj_pipe_process_pipe_run",
+          "objectSha": "400e164210437beca6b352fe7ae1348c3a2fc7b9263d0ee4f0f28d0a0c6699ae",
+          "objectRevision": 4,
+          "pos": [
+            -78,
+            3.2,
+            -70
+          ],
+          "rotY": 90,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "bld-deployment-bays"
+        },
+        {
+          "id": "inst-0022-il5z",
+          "objectId": "obj_prop_yard_bollard",
+          "objectSha": "5dd7fc8cb09caeed786fb41773ebb04076bc0aa0b06eca59708c141b86fdc9ff",
+          "objectRevision": 1,
+          "pos": [
+            -80,
+            0,
+            -60
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "bld-deployment-bays"
+        },
+        {
+          "id": "inst-0023-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -90,
+            0,
+            -40
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0024-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -98,
+            0,
+            -34
+          ],
+          "rotY": 0,
+          "variant": "dusty",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0025-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -134,
+            -0.6,
+            10
+          ],
+          "rotY": 90,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0026-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -134,
+            -0.6,
+            2
+          ],
+          "rotY": 90,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0027-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -120,
+            -0.6,
+            -14
+          ],
+          "rotY": 0,
+          "variant": "broken",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "opinst-0026-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -206.96,
+            4,
+            11
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-maintenance-n",
+          "openingId": "op-window_industrial_window_centered_large-1"
+        },
+        {
+          "id": "opinst-0027-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -199.58,
+            4,
+            11
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-maintenance-n",
+          "openingId": "op-window_industrial_window_centered_large-2"
+        },
+        {
+          "id": "opinst-0028-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -192.2,
+            4,
+            11
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-maintenance-n",
+          "openingId": "op-window_industrial_window_centered_large-3"
+        },
+        {
+          "id": "opinst-0029-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -106.6,
+            3,
+            -57
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-deployment-bays-n",
+          "openingId": "op-window_industrial_window_centered_large-4"
+        },
+        {
+          "id": "opinst-0030-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -93.4,
+            3,
+            -57
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-deployment-bays-n",
+          "openingId": "op-window_industrial_window_centered_large-5"
+        },
+        {
+          "id": "inst-0029-15m8",
+          "objectId": "obj_light_yard_cobra",
+          "objectSha": "c4206adf03b4f9dc4d9f8056ede4bcf8582de152fc9e69ed5a7cf16995fe5e0d",
+          "objectRevision": 3,
+          "pos": [
+            -134,
+            -0.6,
+            -30
+          ],
+          "rotY": 0.1974,
+          "variant": "dusty",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0030-15m8",
+          "objectId": "obj_light_yard_cobra",
+          "objectSha": "c4206adf03b4f9dc4d9f8056ede4bcf8582de152fc9e69ed5a7cf16995fe5e0d",
+          "objectRevision": 3,
+          "pos": [
+            -136,
+            -0.6,
+            -15
+          ],
+          "rotY": 0.8761,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        }
+      ]
+    },
+    {
+      "revision": 51,
+      "instances": [
+        {
+          "id": "inst-0005-g3pm",
+          "objectId": "obj_prop_service_pod",
+          "objectSha": "77281cdb38aa9d9bb338ef04e936198817a532ecec9e9deeebf311b243dc74da",
+          "objectRevision": 2,
+          "pos": [
+            -184,
+            -0.6,
+            40
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0006-g3pm",
+          "objectId": "obj_prop_service_pod",
+          "objectSha": "77281cdb38aa9d9bb338ef04e936198817a532ecec9e9deeebf311b243dc74da",
+          "objectRevision": 2,
+          "pos": [
+            -168,
+            -0.6,
+            40
+          ],
+          "rotY": 0,
+          "variant": "dusty",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0007-1tvs",
+          "objectId": "obj_pipe_process_pipe_run",
+          "objectSha": "400e164210437beca6b352fe7ae1348c3a2fc7b9263d0ee4f0f28d0a0c6699ae",
+          "objectRevision": 4,
+          "pos": [
+            -186,
+            4,
+            59
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "bld-north-shed"
+        },
+        {
+          "id": "inst-0008-1tvs",
+          "objectId": "obj_pipe_process_pipe_run",
+          "objectSha": "400e164210437beca6b352fe7ae1348c3a2fc7b9263d0ee4f0f28d0a0c6699ae",
+          "objectRevision": 4,
+          "pos": [
+            -190,
+            3.5,
+            -51
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "bld-maintenance"
+        },
+        {
+          "id": "inst-0009-il5z",
+          "objectId": "obj_prop_yard_bollard",
+          "objectSha": "5dd7fc8cb09caeed786fb41773ebb04076bc0aa0b06eca59708c141b86fdc9ff",
+          "objectRevision": 1,
+          "pos": [
+            -172,
+            -0.6,
+            -55
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0010-il5z",
+          "objectId": "obj_prop_yard_bollard",
+          "objectSha": "5dd7fc8cb09caeed786fb41773ebb04076bc0aa0b06eca59708c141b86fdc9ff",
+          "objectRevision": 1,
+          "pos": [
+            -168,
+            -0.6,
+            -56
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0011-il5z",
+          "objectId": "obj_prop_yard_bollard",
+          "objectSha": "5dd7fc8cb09caeed786fb41773ebb04076bc0aa0b06eca59708c141b86fdc9ff",
+          "objectRevision": 1,
+          "pos": [
+            -164,
+            -0.6,
+            -56
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0012-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -196,
+            -0.6,
+            -18
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0013-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -194,
+            -0.6,
+            -19
+          ],
+          "rotY": 0,
+          "variant": "dusty",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0014-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -176,
+            -0.6,
+            -30
+          ],
+          "rotY": 0,
+          "variant": "broken",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0015-13jg",
+          "objectId": "obj_util_light_pole",
+          "objectSha": "7462f4b13ac518bece0a45e6059b0b4a8973c3eb40c4be70c86199d6ac909c18",
+          "objectRevision": 1,
+          "pos": [
+            -152,
+            -0.6,
+            -6
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0016-13jg",
+          "objectId": "obj_util_light_pole",
+          "objectSha": "7462f4b13ac518bece0a45e6059b0b4a8973c3eb40c4be70c86199d6ac909c18",
+          "objectRevision": 1,
+          "pos": [
+            -116,
+            -0.6,
+            -30
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0017-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -94,
+            0,
+            -52
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0018-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -88,
+            0,
+            -52
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0019-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -82,
+            0,
+            -52
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0020-g3pm",
+          "objectId": "obj_prop_service_pod",
+          "objectSha": "77281cdb38aa9d9bb338ef04e936198817a532ecec9e9deeebf311b243dc74da",
+          "objectRevision": 2,
+          "pos": [
+            -112,
+            -0.6,
+            22
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0021-1tvs",
+          "objectId": "obj_pipe_process_pipe_run",
+          "objectSha": "400e164210437beca6b352fe7ae1348c3a2fc7b9263d0ee4f0f28d0a0c6699ae",
+          "objectRevision": 4,
+          "pos": [
+            -78,
+            3.2,
+            -70
+          ],
+          "rotY": 90,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "bld-deployment-bays"
+        },
+        {
+          "id": "inst-0022-il5z",
+          "objectId": "obj_prop_yard_bollard",
+          "objectSha": "5dd7fc8cb09caeed786fb41773ebb04076bc0aa0b06eca59708c141b86fdc9ff",
+          "objectRevision": 1,
+          "pos": [
+            -80,
+            0,
+            -60
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "bld-deployment-bays"
+        },
+        {
+          "id": "inst-0023-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -90,
+            0,
+            -40
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0024-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -98,
+            0,
+            -34
+          ],
+          "rotY": 0,
+          "variant": "dusty",
+          "status": "integrated",
+          "hostId": "g-yrd-hub"
+        },
+        {
+          "id": "inst-0025-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -134,
+            -0.6,
+            10
+          ],
+          "rotY": 90,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0026-1brc",
+          "objectId": "obj_marking_yard_stripe",
+          "objectSha": "a165cc2b8867e743d9c32e9657634c0a9c7615e5c0f1fe8ef0806153fbcf5c38",
+          "objectRevision": 1,
+          "pos": [
+            -134,
+            -0.6,
+            2
+          ],
+          "rotY": 90,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "inst-0027-1vci",
+          "objectId": "obj_prop_pallet_stack",
+          "objectSha": "19f2f51ab4812a6e2b7840da8d5d165713877959e1c40c8e33b212a976a6e1f1",
+          "objectRevision": 1,
+          "pos": [
+            -120,
+            -0.6,
+            -14
+          ],
+          "rotY": 0,
+          "variant": "broken",
+          "status": "integrated",
+          "hostId": "g-yrd-west"
+        },
+        {
+          "id": "opinst-0026-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -206.96,
+            4,
+            11
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-maintenance-n",
+          "openingId": "op-window_industrial_window_centered_large-1"
+        },
+        {
+          "id": "opinst-0027-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -199.58,
+            4,
+            11
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-maintenance-n",
+          "openingId": "op-window_industrial_window_centered_large-2"
+        },
+        {
+          "id": "opinst-0028-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -192.2,
+            4,
+            11
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-maintenance-n",
+          "openingId": "op-window_industrial_window_centered_large-3"
+        },
+        {
+          "id": "opinst-0029-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -106.6,
+            3,
+            -57
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-deployment-bays-n",
+          "openingId": "op-window_industrial_window_centered_large-4"
+        },
+        {
+          "id": "opinst-0030-377i",
+          "objectId": "obj_window_industrial_window_centered_large",
+          "objectSha": "2be34a7deceb8c74b9dd4ea04ad2d5018eab78242532180fd395c20ae4f83a2c",
+          "objectRevision": 5,
+          "pos": [
+            -93.4,
+            3,
+            -57
+          ],
+          "rotY": 0,
+          "variant": "clean",
+          "status": "integrated",
+          "hostId": "wall-bld-deployment-bays-n",
+          "openingId": "op-window_industrial_window_centered_large-5"
+        },
+        {
+          "id": "inst-0029-15m8",
+          "objectId": "obj_light_yard_cobra",
+          "objectSha": "de81aa38f5ae191bf4899f552ae06f0292be8965dd45e96b97ebfde798e9f40c",
+          "objectRevision": 5,
           "pos": [
             -134,
             -0.6,

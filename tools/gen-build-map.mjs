@@ -8,7 +8,7 @@
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname } from 'node:path';
-import { buildPartDef, silhouetteRuns } from './authoring/parts.mjs';
+import { buildPartDef, silhouetteRuns, findDisconnected } from './authoring/parts.mjs';
 import { execFileSync } from 'node:child_process';
 import { deflateSync, inflateSync } from 'node:zlib';
 globalThis.FileReader = class {
@@ -4592,7 +4592,7 @@ if (objectOverlay) {
     'grey': () => mat(0x6e767d, { roughness: 0.7 })
   };
   const loadOverlayObject = id => JSON.parse(fs.readFileSync(`authoring/objects/${id}.json`, 'utf8'));
-  const overlayStats = { instances: 0, meshes: 0, issues: [] };
+  const overlayStats = { instances: 0, meshes: 0, issues: [], connectivity: [], connectivityIssues: [] };
   for (const inst of objectOverlay.instances || []) {
     try {
       const obj = loadOverlayObject(inst.objectId);
@@ -4642,12 +4642,30 @@ if (objectOverlay) {
       }
       instGroup.name = `object-overlay:${inst.id}:${obj.id}`;
       merged.add(instGroup);
+      // part-chain connectivity: every part must reach the anchor through contact;
+      // a floating part (like the delivered head) is a build failure, not a note
+      instGroup.updateMatrixWorld(true);
+      const parts_aabb = [];
+      instGroup.children.forEach(m => {
+        if (!m.geometry) return;
+        m.geometry.computeBoundingBox();
+        const bb = m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld);
+        parts_aabb.push({ name: m.name || m.userData?.name || `part-${instGroup.children.indexOf(m)}`, min: bb.min.toArray(), max: bb.max.toArray() });
+      });
+      // connectivity gate: spline-vocabulary objects only (legacy box path retires
+      // object-by-object through schemas; its offset conventions are incompatible)
+      const isSplineInst = (obj.contract?.quality?.splineVocabulary) === true;
+      const disconnected = isSplineInst
+        ? findDisconnected(parts_aabb, { anchorName: obj.construction.parts?.[0]?.name || 'part-0' })
+        : [];
+      for (const f of disconnected) overlayStats.connectivityIssues.push(`${inst.id}/${f.name}`);
+      overlayStats.connectivity.push({ instance: inst.id, disconnected });
       overlayStats.instances++;
     } catch (e) {
       overlayStats.issues.push(`${inst.id}: ${e.message}`);
     }
   }
-  const fills = [];
+    const fills = [];
   const fillCenters = [];
   // silhouette rule check for spline-schema objects (schema streetlamp §2/§7)
   overlayStats.silhouettes = [];
@@ -4804,6 +4822,7 @@ if (objectOverlay) {
   c('object-overlay: instances carry object content trace', (objectOverlay.instances || []).every(inst => Boolean(inst.objectId) && Boolean(inst.objectSha)));
   c('object-overlay: every cut opening has a co-located fill', !objectOverlay || (report.objectOverlay?.cutsWithoutFill || []).length === 0, (report.objectOverlay?.cutsWithoutFill || []).join(','));
   c('object-overlay: silhouette straight-run limits (spline objects)', !objectOverlay || (report.objectOverlay?.silhouettes || []).every(x => !x.violation), JSON.stringify((report.objectOverlay?.silhouettes || []).filter(x => x.violation)));
+  c('object-overlay: part-chain connectivity (no floating parts)', !objectOverlay || (overlayStats.connectivityIssues || []).length === 0, (overlayStats.connectivityIssues || []).join('; '));
 }
 const segBoxes = segs.map(s => ({ id: s.id, cat: s.category, minX: s.bounds[0], minZ: s.bounds[1], maxX: s.bounds[2], maxZ: s.bounds[3] }));
 // contact: every non-ground segment with height >= 0.6 has its own ground beneath or is below-grade/elevated with support

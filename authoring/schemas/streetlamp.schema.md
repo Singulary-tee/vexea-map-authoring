@@ -183,6 +183,21 @@ concentrated at: weld seam, door edge, flange bolts, collar splash — never uni
 - [x] every §2 part present (15 entries; collapse fn renders all) — build report instances=30, issues=[]
 - [x] spline params present for every part; zero primitive-box parts — `object_below_quality` spline gate PASS at promotion
 - [x] tangent continuity pole->arm — sweep path starts inside pole top on the pole axis (path[0]=[0,8.55,0])
+- [x] **part-chain connectivity (added post-delivery, caught by user review)** — the
+      first delivered build had the head floating 85 mm clear of the arm tip; NO gate
+      existed for part-to-part continuity and the checklist had verified only
+      pole->arm. Now: `findDisconnected` (BFS over part world-AABBs, 2 cm tolerance,
+      seeded at the anchor part) runs at build time on every spline-vocabulary object;
+      proven by counterfactual — with the original gap geometry restored, the build
+      FAILS with `inst-0029/part-11,12,13` (head island); with the fix it PASSES.
+- [ ] **PART-CHAIN CONNECTIVITY (added post-delivery, FAILED first):** every part must
+  overlap or touch the part graph path from origin; the delivered build had arm tip
+  (x=1.43) 85 mm short of the head's near face (x=1.515) — an 85 mm floating gap visible
+  in every render, unflagged by every gate. The checklist item 'tangent continuity
+  pole->arm' verified only the POLE->ARM joint, not ARM->HEAD. Fixed: a connectivity
+  gate now walks the part graph from the anchor and fails any component unreachable
+  through physical contact; schema declares which joints are welds (continuous contact)
+  vs mounts (mechanical attach).
 - [x] lens inset inside shell (no z-fight) — lens lathe at y 9.005, shell bottom 9.00
 - [x] tri within [2000,12000] — est. 3.2k; ring segments 32 (24 tubular on arm)
 - [x] silhouette rule (rev 2.1, intrinsic-run exemptions) — build check PASS, violations []

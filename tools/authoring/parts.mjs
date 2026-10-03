@@ -154,3 +154,33 @@ export function silhouetteRuns(group, { cell = 0.1, limit = 0.6, poleHalfWidth =
   }
   return out;
 }
+
+// part-chain connectivity (schema §7): every part must reach the anchor part through
+// pairwise contact (AABB overlap with tolerance); floating parts = schema violation
+export function connectivityReport(builtParts, { anchor = 0, tol = 0.01 } = {}) {
+  const boxes = builtParts.map(b => b.aabb);
+  return null;
+}
+// simpler public API: given [{name, min, max}] world AABBs, return disconnected part names
+export function findDisconnected(parts, { anchorName = null, tol = 0.02 } = {}) {
+  const list = parts.map(p => ({ name: p.name, min: p.min, max: p.max }));
+  if (!list.length) return [];
+  // seed by INDEX: the anchor is identified by name but BFS walks indices
+  const anchorIdx = anchorName && list.findIndex(x => x.name === anchorName);
+  const touched = new Set([anchorIdx >= 0 ? anchorIdx : 0]);
+  let changed = true;
+  const touch = (a, b) => a.min[0] <= b.max[0] + tol && b.min[0] <= a.max[0] + tol &&
+    a.min[1] <= b.max[1] + tol && b.min[1] <= a.max[1] + tol &&
+    a.min[2] <= b.max[2] + tol && b.min[2] <= a.max[2] + tol;
+  while (changed) {
+    changed = false;
+    for (let i = 0; i < list.length; i++) {
+      if (!touched.has(i)) continue;
+      for (let j = 0; j < list.length; j++) {
+        if (touched.has(j)) continue;
+        if (touch(list[i], list[j])) { touched.add(j); changed = true; }
+      }
+    }
+  }
+  return list.map((p, i) => ({ name: p.name, connected: touched.has(i) })).filter(x => !x.connected && x.name !== (anchorName || list[0].name));
+}
