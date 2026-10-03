@@ -4,7 +4,7 @@
   "type": "warehouse-building",
   "name": "B2 warehouse, 24m, open bay",
   "status": "authored",
-  "revision": 10,
+  "revision": 11,
   "construction": {
     "size": [
       23.4,
@@ -329,7 +329,7 @@
         "pos": [
           4.5,
           5.8,
-          -0.03
+          0.06
         ],
         "mat": "sign-white"
       },
@@ -379,7 +379,7 @@
         "pos": [
           7.5,
           5.8,
-          -0.03
+          0.06
         ],
         "mat": "sign-white"
       },

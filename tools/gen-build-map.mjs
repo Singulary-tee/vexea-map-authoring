@@ -4590,6 +4590,8 @@ if (objectOverlay) {
     'aluminum': () => textured(0xb7bdc2, { roughness: 0.35, metalness: 0.85 }, textures.metal, 0.2),
     'pmma': () => mat(0xcfd8dc, { roughness: 0.15, metalness: 0.0, transparent: true, opacity: 0.45 }),
     'grey': () => mat(0x6e767d, { roughness: 0.7 }),
+    'interior-dark': () => mat(0x0a0d10, { roughness: 0.95, side: THREE.DoubleSide }),
+    'interior-floor': () => mat(0x1a1e22, { roughness: 0.7, side: THREE.DoubleSide }),
     'safety-white': () => mat(0xd8dce0, { roughness: 0.5 }),
     'wood': () => textured(0x8a6b42, { roughness: 0.9 }, textures.interior, 0.3),
     'drum-blue': () => mat(0x2a5d8f, { roughness: 0.45, metalness: 0.5 }),
