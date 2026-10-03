@@ -549,7 +549,8 @@
         }
       }
     },
-    "armToward": "route"
+    "armToward": "route",
+    "armTowardRoute": true
   },
   "references": [
     "authoring/schemas/streetlamp.schema.md"
