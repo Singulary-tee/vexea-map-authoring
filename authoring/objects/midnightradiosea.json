@@ -4,7 +4,7 @@
   "type": "forklift",
   "name": "counterbalance forklift, 2.5t",
   "status": "authored",
-  "revision": 9,
+  "revision": 10,
   "construction": {
     "size": [
       2.4,
@@ -1009,7 +1009,8 @@
     "interactions": {
       "allow": [
         "ground.contact@base-contact",
-        "puddle.submersion@footprint"
+        "puddle.submersion@footprint",
+        "apron.standing@footprint"
       ]
     },
     "routeClearanceM": 1,
